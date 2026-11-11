@@ -1,4 +1,4 @@
-[README-github.md](https://github.com/user-attachments/files/34690104/README-github.md)
+[README-github.md](https://github.com/user-attachments/files/34690553/README-github.md)
 # Sherlock (ZX Spectrum, 1984) - annotated disassembly
 
 A complete, cross-referenced, plain-English disassembly of *Sherlock*, the text adventure
@@ -13,26 +13,26 @@ worn?", "the actor's own record") rather than restating the instruction or quoti
 address. Addresses in the text are links, so you can follow the code the way you would
 follow a story.
 
-**Browse it: open [`index.html`](index.html)** (or the published site, if you are reading
+**Browse it: open [`index.html`](https://basf-c60.github.io/sherlock/index.html)** (or the published site, if you are reading
 this on GitHub Pages).
 
 ## What you will find
 
 | Page | What it is |
 |---|---|
-| [How the engine works](how-it-works.html) | The overview: actors and their scripts, the parser, the message language, the clock, trains and cabs. Start here. |
-| [The case](the-case.html) | The story as the program holds it: the evidence flags, who must be cleared, and what Lestrade needs to hear. |
-| [Walkthrough: Monday to the win](the-walkthrough.html) | One winning route, all 372 typed lines in 32 stretches, each with the clock, the room, the game's reply and whether the route still wins without that line. |
-| [Every ending, played](the-endings-played.html) | The seven endings (one win, six ways to lose) and what you type to reach each. |
-| [Map and rooms](map.html) | The room table drawn as a grid: exits, one-way exits, blocked exits and the garden maze. |
-| [Pictures](pictures.html) | The 14 room pictures, drawn by running the game's own drawing routine. |
-| [The cast and their scripts](cast.html) | Every character's plan script, decoded instruction by instruction, with where each one starts. |
-| [Characters and things](things.html) | The object and character records and what the game does with each. |
-| [Vocabulary](vocabulary.html) | The dictionary: every word the parser knows and what it means to the program. |
-| [Trains and cabs](trains-cabs.html) | The timetables, fares and the cab ride. |
-| [State bits](state-bits.html) | What "asleep", "dead" and the other bits in an actor's state mean. |
-| [Bugs](reference/bugs.html) | 14 bugs in the original program, each explained. |
-| [Trivia by theme](trivia-by-theme.html) | 59 findings, grouped by theme. |
+| [How the engine works](https://basf-c60.github.io/sherlock/how-it-works.html) | The overview: actors and their scripts, the parser, the message language, the clock, trains and cabs. Start here. |
+| [The case](https://basf-c60.github.io/sherlock/the-case.html) | The story as the program holds it: the evidence flags, who must be cleared, and what Lestrade needs to hear. |
+| [Walkthrough: Monday to the win](https://basf-c60.github.io/sherlock/the-walkthrough.html) | One winning route, all 372 typed lines in 32 stretches, each with the clock, the room, the game's reply and whether the route still wins without that line. |
+| [Every ending, played](https://basf-c60.github.io/sherlock/the-endings-played.html) | The seven endings (one win, six ways to lose) and what you type to reach each. |
+| [Map and rooms](https://basf-c60.github.io/sherlock/map.html) | The room table drawn as a grid: exits, one-way exits, blocked exits and the garden maze. |
+| [Pictures](https://basf-c60.github.io/sherlock/pictures.html) | The 14 room pictures, drawn by running the game's own drawing routine. |
+| [The cast and their scripts](https://basf-c60.github.io/sherlock/cast.html) | Every character's plan script, decoded instruction by instruction, with where each one starts. |
+| [Characters and things](https://basf-c60.github.io/sherlock/things.html) | The object and character records and what the game does with each. |
+| [Vocabulary](https://basf-c60.github.io/sherlock/vocabulary.html) | The dictionary: every word the parser knows and what it means to the program. |
+| [Trains and cabs](https://basf-c60.github.io/sherlock/trains-cabs.html) | The timetables, fares and the cab ride. |
+| [State bits](https://basf-c60.github.io/sherlock/state-bits.html) | What "asleep", "dead" and the other bits in an actor's state mean. |
+| [Bugs](https://basf-c60.github.io/sherlock/reference/bugs.html) | 14 bugs in the original program, each explained. |
+| [Trivia by theme](https://basf-c60.github.io/sherlock/trivia-by-theme.html) | 59 findings, grouped by theme. |
 | [Routines and data](asm/) | The disassembly itself: 815 titled blocks, all named and explained, with about 9,200 line comments. |
 
 ## Things worth knowing about the game
