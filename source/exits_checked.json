@@ -1,0 +1,1868 @@
+[
+{
+"room": 5,
+"dir": "NORTH",
+"door": 19,
+"dest": 6,
+"got": 6,
+"ok": true,
+"out": "NORTH. | You are on Baker | Street. To the | north there is the | front door. | You go north. | You are in an | entrance"
+},
+{
+"room": 6,
+"dir": "UP",
+"door": 20,
+"dest": 7,
+"got": 7,
+"ok": true,
+"out": "UP. | You are in an | entrance hallway. | Above there is the | stairway. To the | south there is the | front door. | You"
+},
+{
+"room": 6,
+"dir": "SOUTH",
+"door": 19,
+"dest": 5,
+"got": 5,
+"ok": true,
+"out": "SOUTH. | You are in an | entrance hallway. | Above there is the | stairway. To the | south there is the | front door. | "
+},
+{
+"room": 7,
+"dir": "EAST",
+"door": 21,
+"dest": 8,
+"got": 8,
+"ok": true,
+"out": "EAST. | You are in a hall. To the east there | is your door. Below there is the | stairway. | You go east. | The sun str"
+},
+{
+"room": 7,
+"dir": "DOWN",
+"door": 20,
+"dest": 6,
+"got": 6,
+"ok": true,
+"out": "DOWN. | You are in a hall. To the east there | is your door. Below there is the | stairway. | You go down. | You are in "
+},
+{
+"room": 8,
+"dir": "WEST",
+"door": 21,
+"dest": 7,
+"got": 7,
+"ok": true,
+"out": "WEST. | You go west. | You are in a hall. To the east there | is your door. Below there is the | stairway. | Mon 08:02am"
+},
+{
+"room": 8,
+"dir": "NORTH",
+"door": 50,
+"dest": 9,
+"got": 9,
+"ok": true,
+"out": "NORTH. | You go north. | You are in a small closet. To the | south there is a plain door. You can | see a china mans dis"
+},
+{
+"room": 9,
+"dir": "SOUTH",
+"door": 50,
+"dest": 8,
+"got": 8,
+"ok": true,
+"out": "SOUTH. | You are in a small closet. To the | south there is a plain door. You can | see a china mans disguise and an old"
+},
+{
+"room": 10,
+"dir": "EAST",
+"door": 0,
+"dest": 11,
+"got": 11,
+"ok": true,
+"out": "EAST. | You are on Parliament Street. | Visible exits are east. You can see | Inspector Lestrade. Inspector | Lestrade i"
+},
+{
+"room": 11,
+"dir": "WEST",
+"door": 0,
+"dest": 10,
+"got": 10,
+"ok": true,
+"out": "WEST. | You are in | Scotland Yard. | Visible exits are | west. | You go west. | You are on Parliament Street. | Visible"
+},
+{
+"room": 12,
+"dir": "NORTH",
+"door": 29,
+"dest": 13,
+"got": 12,
+"ok": false,
+"out": "NORTH. | You are on Slater | Street. To the | north there is a | hidden door. | YOU CANNOT GO NORTH. | >",
+"got_when_small": 13
+},
+{
+"room": 13,
+"dir": "SOUTH",
+"door": 0,
+"dest": 12,
+"got": 12,
+"ok": true,
+"out": "SOUTH. | You are in a disgusting opium den. | Visible exits are south. | You go south. | You are on Slater | Street. To "
+},
+{
+"room": 14,
+"dir": "NORTHWEST",
+"door": 0,
+"dest": 15,
+"got": 15,
+"ok": true,
+"out": "NORTHWEST. | You are in Aldergate Street. Visible | exits are northwest. | You go northwest. | You are at Aldergate Stat"
+},
+{
+"room": 15,
+"dir": "SOUTHEAST",
+"door": 0,
+"dest": 14,
+"got": 14,
+"ok": true,
+"out": "SOUTHEAST. | You are at Aldergate Station. | Visible exits are southeast | northwest. | You go southeast. | You are in A"
+},
+{
+"room": 15,
+"dir": "NORTHWEST",
+"door": 0,
+"dest": 16,
+"got": 16,
+"ok": true,
+"out": "NORTHWEST. | You are at Aldergate Station. | Visible exits are southeast | northwest. | You go northwest. | You are at p"
+},
+{
+"room": 16,
+"dir": "SOUTHEAST",
+"door": 0,
+"dest": 15,
+"got": 15,
+"ok": true,
+"out": "SOUTHEAST. | You are at platform one of Aldergate | station. Visible exits are southeast | northwest. You can see a stea"
+},
+{
+"room": 16,
+"dir": "NORTHWEST",
+"door": 0,
+"dest": 17,
+"got": 17,
+"ok": true,
+"out": "NORTHWEST. | You are at platform one of Aldergate | station. Visible exits are southeast | northwest. You can see a stea"
+},
+{
+"room": 17,
+"dir": "SOUTHEAST",
+"door": 0,
+"dest": 16,
+"got": 16,
+"ok": true,
+"out": "SOUTHEAST. | You are at platform two of Aldergate | station. Visible exits are | southeast. | You go southeast. | You ar"
+},
+{
+"room": 18,
+"dir": "NORTHEAST",
+"door": 0,
+"dest": 19,
+"got": 19,
+"ok": true,
+"out": "NORTHEAST. | You are in Kings Cross Road. Visible | exits are northeast. | You go northeast. | You are at Kings Cross St"
+},
+{
+"room": 19,
+"dir": "SOUTHWEST",
+"door": 0,
+"dest": 18,
+"got": 18,
+"ok": true,
+"out": "SOUTHWEST. | You are at Kings Cross Station. | Visible exits are southwest | northeast. | You go southwest. | You are in"
+},
+{
+"room": 19,
+"dir": "NORTHEAST",
+"door": 0,
+"dest": 20,
+"got": 20,
+"ok": true,
+"out": "NORTHEAST. | You are at Kings Cross Station. | Visible exits are southwest | northeast. | You go northeast. | You are at"
+},
+{
+"room": 20,
+"dir": "SOUTHWEST",
+"door": 0,
+"dest": 19,
+"got": 19,
+"ok": true,
+"out": "SOUTHWEST. | You are at platform one of Kings | cross station. Visible exits are | southwest northeast. | You go southwe"
+},
+{
+"room": 20,
+"dir": "NORTHEAST",
+"door": 0,
+"dest": 21,
+"got": 21,
+"ok": true,
+"out": "NORTHEAST. | You are at platform one of Kings | cross station. Visible exits are | southwest northeast. | You go northea"
+},
+{
+"room": 21,
+"dir": "SOUTHWEST",
+"door": 0,
+"dest": 20,
+"got": 20,
+"ok": true,
+"out": "SOUTHWEST. | You are at platform two of Kings | cross station. Visible exits are | southwest northeast. | You go southwe"
+},
+{
+"room": 21,
+"dir": "NORTHEAST",
+"door": 0,
+"dest": 22,
+"got": 22,
+"ok": true,
+"out": "NORTHEAST. | You are at platform two of Kings | cross station. Visible exits are | southwest northeast. | You go northea"
+},
+{
+"room": 22,
+"dir": "SOUTHWEST",
+"door": 0,
+"dest": 21,
+"got": 21,
+"ok": true,
+"out": "SOUTHWEST. | You are at platform three of Kings | cross station. Visible exits are | southwest northeast. | You go south"
+},
+{
+"room": 22,
+"dir": "NORTHEAST",
+"door": 0,
+"dest": 23,
+"got": 23,
+"ok": true,
+"out": "NORTHEAST. | You are at platform three of Kings | cross station. Visible exits are | southwest northeast. | You go north"
+},
+{
+"room": 23,
+"dir": "SOUTHWEST",
+"door": 0,
+"dest": 22,
+"got": 22,
+"ok": true,
+"out": "SOUTHWEST. | You are at platform four of Kings | cross station. Visible exits are | southwest. | You go southwest. | You"
+},
+{
+"room": 24,
+"dir": "SOUTHEAST",
+"door": 0,
+"dest": 25,
+"got": 25,
+"ok": true,
+"out": "SOUTHEAST. | You are in Bishops Road. Visible | exits are southeast. | You go southeast. | You are at Paddington Station"
+},
+{
+"room": 25,
+"dir": "NORTHWEST",
+"door": 0,
+"dest": 24,
+"got": 24,
+"ok": true,
+"out": "NORTHWEST. | You are at Paddington Station. | Visible exits are northwest | southeast. | You go northwest. | You are in "
+},
+{
+"room": 25,
+"dir": "SOUTHEAST",
+"door": 0,
+"dest": 26,
+"got": 26,
+"ok": true,
+"out": "SOUTHEAST. | You are at Paddington Station. | Visible exits are northwest | southeast. | You go southeast. | You are at "
+},
+{
+"room": 26,
+"dir": "NORTHWEST",
+"door": 0,
+"dest": 25,
+"got": 25,
+"ok": true,
+"out": "NORTHWEST. | You are at platform one of | Paddington station. Visible exits | are northwest southeast. | You go northwes"
+},
+{
+"room": 26,
+"dir": "SOUTHEAST",
+"door": 0,
+"dest": 27,
+"got": 27,
+"ok": true,
+"out": "SOUTHEAST. | You are at platform one of | Paddington station. Visible exits | are northwest southeast. | You go southeas"
+},
+{
+"room": 27,
+"dir": "NORTHWEST",
+"door": 0,
+"dest": 26,
+"got": 26,
+"ok": true,
+"out": "NORTHWEST. | You are at platform two of | Paddington station. Visible exits | are northwest. | You go northwest. | You a"
+},
+{
+"room": 28,
+"dir": "EAST",
+"door": 0,
+"dest": 29,
+"got": 29,
+"ok": true,
+"out": "EAST. | You are in Buckingham Palace Road. | Visible exits are east. | You go east. | You are at Victoria Station. Visib"
+},
+{
+"room": 29,
+"dir": "WEST",
+"door": 0,
+"dest": 28,
+"got": 28,
+"ok": true,
+"out": "WEST. | You are at Victoria Station. Visible | exits are west east. | You go west. | You are in Buckingham Palace Road. "
+},
+{
+"room": 29,
+"dir": "EAST",
+"door": 0,
+"dest": 30,
+"got": 30,
+"ok": true,
+"out": "EAST. | You are at Victoria Station. Visible | exits are west east. | You go east. | You are at platform one of Victoria"
+},
+{
+"room": 30,
+"dir": "WEST",
+"door": 0,
+"dest": 29,
+"got": 29,
+"ok": true,
+"out": "WEST. | You are at platform one of Victoria | station. Visible exits are west | east. | You go west. | You are at Victor"
+},
+{
+"room": 30,
+"dir": "EAST",
+"door": 0,
+"dest": 31,
+"got": 31,
+"ok": true,
+"out": "EAST. | You are at platform one of Victoria | station. Visible exits are west | east. | You go east. | You are at platfo"
+},
+{
+"room": 31,
+"dir": "WEST",
+"door": 0,
+"dest": 30,
+"got": 30,
+"ok": true,
+"out": "WEST. | You are at platform two of Victoria | station. Visible exits are west. | You go west. | You are at platform one "
+},
+{
+"room": 32,
+"dir": "NORTHEAST",
+"door": 91,
+"dest": 33,
+"got": 32,
+"ok": false,
+"out": "NORTHEAST. | You are in Camden Street. To the | northeast there is the front door. | Visible exits are east. | YOU CANNO",
+"got_when_small": 33
+},
+{
+"room": 32,
+"dir": "EAST",
+"door": 0,
+"dest": 102,
+"got": 102,
+"ok": true,
+"out": "EAST. | You are in Camden Street. To the | northeast there is the front door. | Visible exits are east. | You go east. |"
+},
+{
+"room": 33,
+"dir": "SOUTHWEST",
+"door": 91,
+"dest": 32,
+"got": 33,
+"ok": false,
+"out": "SOUTHWEST. | You are in an entrance hall. To the | southwest there is the front door. | To the southeast there is a larg",
+"got_when_small": 32
+},
+{
+"room": 33,
+"dir": "NORTHEAST",
+"door": 0,
+"dest": 34,
+"got": 34,
+"ok": true,
+"out": "NORTHEAST. | You are in an entrance hall. To the | southwest there is the front door. | To the southeast there is a larg"
+},
+{
+"room": 33,
+"dir": "SOUTHEAST",
+"door": 45,
+"dest": 35,
+"got": 35,
+"ok": true,
+"out": "SOUTHEAST. | You are in an entrance hall. To the | southwest there is the front door. | To the southeast there is a larg"
+},
+{
+"room": 34,
+"dir": "SOUTHWEST",
+"door": 0,
+"dest": 33,
+"got": 33,
+"ok": true,
+"out": "SOUTHWEST. | You are in a passage. To the | northeast there is a plain door. To | the northwest there is the | diningroo"
+},
+{
+"room": 34,
+"dir": "NORTHEAST",
+"door": 50,
+"dest": 36,
+"got": 36,
+"ok": true,
+"out": "NORTHEAST. | You are in a passage. To the | northeast there is a plain door. To | the northwest there is the | diningroo"
+},
+{
+"room": 34,
+"dir": "NORTHWEST",
+"door": 49,
+"dest": 37,
+"got": 37,
+"ok": true,
+"out": "NORTHWEST. | You are in a passage. To the | northeast there is a plain door. To | the northwest there is the | diningroo"
+},
+{
+"room": 34,
+"dir": "SOUTHEAST",
+"door": 55,
+"dest": 38,
+"got": 38,
+"ok": true,
+"out": "SOUTHEAST. | You are in a passage. To the | northeast there is a plain door. To | the northwest there is the | diningroo"
+},
+{
+"room": 35,
+"dir": "NORTHWEST",
+"door": 45,
+"dest": 33,
+"got": 33,
+"ok": true,
+"out": "NORTHWEST. | You are in Basils Bedroom. To the | northwest there is a large oak door. | To the southwest there is the | "
+},
+{
+"room": 35,
+"dir": "SOUTHWEST",
+"door": 79,
+"dest": 102,
+"got": 102,
+"ok": true,
+"out": "SOUTHWEST. | You are in Basils Bedroom. To the | northwest there is a large oak door. | To the southwest there is the | "
+},
+{
+"room": 36,
+"dir": "SOUTHWEST",
+"door": 50,
+"dest": 34,
+"got": 34,
+"ok": true,
+"out": "SOUTHWEST. | You are in Basils Kitchen. To the | southwest there is a plain door. To | the northeast there is the back |"
+},
+{
+"room": 36,
+"dir": "NORTHEAST",
+"door": 74,
+"dest": 39,
+"got": 39,
+"ok": true,
+"out": "NORTHEAST. | You are in Basils Kitchen. To the | southwest there is a plain door. To | the northeast there is the back |"
+},
+{
+"room": 37,
+"dir": "SOUTHEAST",
+"door": 49,
+"dest": 34,
+"got": 34,
+"ok": true,
+"out": "SOUTHEAST. | You are in Basils Dining Room. To | the southeast there is the | diningroom door. | You go southeast. | You"
+},
+{
+"room": 38,
+"dir": "NORTHWEST",
+"door": 55,
+"dest": 34,
+"got": 34,
+"ok": true,
+"out": "NORTHWEST. | You are in Basils Library. To the | northwest there is the thick heavy | door. You can see a small rubbish "
+},
+{
+"room": 39,
+"dir": "SOUTHWEST",
+"door": 74,
+"dest": 36,
+"got": 36,
+"ok": true,
+"out": "SOUTHWEST. | You are in Basils Yard. To the | southwest there is the back door. | You can see a trash pile. | You go sou"
+},
+{
+"room": 40,
+"dir": "NORTHWEST",
+"door": 48,
+"dest": 41,
+"got": 41,
+"ok": true,
+"out": "NORTHWEST. | You are in Sidmouth Street. To the | northwest there is a heavy oak door. | You go northwest. | You are in "
+},
+{
+"room": 41,
+"dir": "SOUTHEAST",
+"door": 48,
+"dest": 40,
+"got": 40,
+"ok": true,
+"out": "SOUTHEAST. | You are in the main passage. To the | southeast there is a heavy oak door. | To the northeast there is the "
+},
+{
+"room": 41,
+"dir": "NORTHEAST",
+"door": 55,
+"dest": 42,
+"got": 42,
+"ok": true,
+"out": "NORTHEAST. | You are in the main passage. To the | southeast there is a heavy oak door. | To the northeast there is the "
+},
+{
+"room": 41,
+"dir": "UP",
+"door": 20,
+"dest": 43,
+"got": 43,
+"ok": true,
+"out": "UP. | You are in the main passage. To the | southeast there is a heavy oak door. | To the northeast there is the thick |"
+},
+{
+"room": 42,
+"dir": "SOUTHWEST",
+"door": 55,
+"dest": 41,
+"got": 41,
+"ok": true,
+"out": "SOUTHWEST. | You are in the reading lounge. To | the southwest there is the thick | heavy door. | You go southwest. | Yo"
+},
+{
+"room": 43,
+"dir": "DOWN",
+"door": 20,
+"dest": 41,
+"got": 41,
+"ok": true,
+"out": "DOWN. | You are in the passage. Below there | is the stairway. To the northeast | there is a heavy oak door. | You go do"
+},
+{
+"room": 43,
+"dir": "NORTHEAST",
+"door": 48,
+"dest": 44,
+"got": 44,
+"ok": true,
+"out": "NORTHEAST. | You are in the passage. Below there | is the stairway. To the northeast | there is a heavy oak door. | You "
+},
+{
+"room": 44,
+"dir": "SOUTHWEST",
+"door": 48,
+"dest": 43,
+"got": 43,
+"ok": true,
+"out": "SOUTHWEST. | You are in Major Ffoulkes room in | the boarding house. It is small and | somewhat crowded. Indian artifact"
+},
+{
+"room": 45,
+"dir": "SOUTH",
+"door": 103,
+"dest": 46,
+"got": 46,
+"ok": true,
+"out": "SOUTH. | You are in Portman Street. To the | south there is tricias front door. | You go south. | You are in Tricias Ent"
+},
+{
+"room": 46,
+"dir": "NORTH",
+"door": 103,
+"dest": 45,
+"got": 45,
+"ok": true,
+"out": "NORTH. | You are in Tricias Entrance Hall. To | the north there is tricias front | door. To the south there is the | thi"
+},
+{
+"room": 46,
+"dir": "SOUTH",
+"door": 55,
+"dest": 47,
+"got": 47,
+"ok": true,
+"out": "SOUTH. | You are in Tricias Entrance Hall. To | the north there is tricias front | door. To the south there is the | thi"
+},
+{
+"room": 47,
+"dir": "NORTH",
+"door": 55,
+"dest": 46,
+"got": 46,
+"ok": true,
+"out": "NORTH. | You are in Tricias Lounge. To the | north there is the thick heavy door. | To the south there is a plain door. "
+},
+{
+"room": 47,
+"dir": "SOUTH",
+"door": 50,
+"dest": 48,
+"got": 48,
+"ok": true,
+"out": "SOUTH. | You are in Tricias Lounge. To the | north there is the thick heavy door. | To the south there is a plain door. "
+},
+{
+"room": 47,
+"dir": "EAST",
+"door": 51,
+"dest": 49,
+"got": 49,
+"ok": true,
+"out": "EAST. | You are in Tricias Lounge. To the | north there is the thick heavy door. | To the south there is a plain door. |"
+},
+{
+"room": 48,
+"dir": "NORTH",
+"door": 50,
+"dest": 47,
+"got": 47,
+"ok": true,
+"out": "NORTH. | You are in Tricias Kitchen. To the | north there is a plain door. | You go north. | You are in Tricias Lounge. "
+},
+{
+"room": 49,
+"dir": "WEST",
+"door": 51,
+"dest": 47,
+"got": 47,
+"ok": true,
+"out": "WEST. | You are in Tricias Bedroom. To the | west there is an ornate door. | You go west. | You are in Tricias Lounge. T"
+},
+{
+"room": 50,
+"dir": "NORTH",
+"door": 0,
+"dest": 53,
+"got": 53,
+"ok": true,
+"out": "NORTH. | You are in the main street. Visible | exits are north west east south | northeast. | You go north. | You are at"
+},
+{
+"room": 50,
+"dir": "WEST",
+"door": 0,
+"dest": 62,
+"got": 62,
+"ok": true,
+"out": "WEST. | You are in the main street. Visible | exits are north west east south | northeast. | You go west. | You are at B"
+},
+{
+"room": 50,
+"dir": "EAST",
+"door": 0,
+"dest": 92,
+"got": 92,
+"ok": true,
+"out": "EAST. | You are in the main street. Visible | exits are north west east south | northeast. | You go east. | You are at J"
+},
+{
+"room": 50,
+"dir": "SOUTH",
+"door": 0,
+"dest": 51,
+"got": 51,
+"ok": true,
+"out": "SOUTH. | You are in the main street. Visible | exits are north west east south | northeast. | You go south. | You are in"
+},
+{
+"room": 50,
+"dir": "NORTHEAST",
+"door": 0,
+"dest": 104,
+"got": 104,
+"ok": true,
+"out": "NORTHEAST. | You are in the main street. Visible | exits are north west east south | northeast. | You go northeast. | Yo"
+},
+{
+"room": 51,
+"dir": "NORTH",
+"door": 0,
+"dest": 50,
+"got": 50,
+"ok": true,
+"out": "NORTH. | You are in the cobden lane. To the | east there is the front door. | Visible exits are north south. | You go no"
+},
+{
+"room": 51,
+"dir": "SOUTH",
+"door": 0,
+"dest": 52,
+"got": 52,
+"ok": true,
+"out": "SOUTH. | You are in the cobden lane. To the | east there is the front door. | Visible exits are north south. | You go so"
+},
+{
+"room": 51,
+"dir": "EAST",
+"door": 19,
+"dest": 56,
+"got": 56,
+"ok": true,
+"out": "EAST. | You are in the cobden lane. To the | east there is the front door. | Visible exits are north south. | You go eas"
+},
+{
+"room": 52,
+"dir": "NORTH",
+"door": 0,
+"dest": 51,
+"got": 51,
+"ok": true,
+"out": "NORTH. | You are in the small lane. To the | east there is the back gate. To the | west there is a thick hedge. Visible "
+},
+{
+"room": 52,
+"dir": "EAST",
+"door": 73,
+"dest": 60,
+"got": 60,
+"ok": true,
+"out": "EAST. | You are in the small lane. To the | east there is the back gate. To the | west there is a thick hedge. Visible |"
+},
+{
+"room": 52,
+"dir": "WEST",
+"door": 75,
+"dest": 81,
+"got": 81,
+"ok": true,
+"out": "WEST. | You are in the small lane. To the | east there is the back gate. To the | west there is a thick hedge. Visible |"
+},
+{
+"room": 53,
+"dir": "SOUTH",
+"door": 0,
+"dest": 50,
+"got": 50,
+"ok": true,
+"out": "SOUTH. | You are at the leatherhead station. | Visible exits are south north. You | can see Chief Constable Straker. | Y"
+},
+{
+"room": 53,
+"dir": "NORTH",
+"door": 0,
+"dest": 54,
+"got": 54,
+"ok": true,
+"out": "NORTH. | You are at the leatherhead station. | Visible exits are south north. You | can see Chief Constable Straker. | Y"
+},
+{
+"room": 54,
+"dir": "SOUTH",
+"door": 0,
+"dest": 53,
+"got": 53,
+"ok": true,
+"out": "SOUTH. | You are at | platform one of | Leather Head | station. Visible | exits are south | north. | You go south. | You"
+},
+{
+"room": 54,
+"dir": "NORTH",
+"door": 0,
+"dest": 55,
+"got": 55,
+"ok": true,
+"out": "NORTH. | You are at | platform one of | Leather Head | station. Visible | exits are south | north. | You go north. | You"
+},
+{
+"room": 55,
+"dir": "SOUTH",
+"door": 0,
+"dest": 54,
+"got": 54,
+"ok": true,
+"out": "SOUTH. | You are at | platform two of | Leather Head | station. Visible | exits are south. | You go south. | You are at "
+},
+{
+"room": 56,
+"dir": "WEST",
+"door": 19,
+"dest": 51,
+"got": 51,
+"ok": true,
+"out": "WEST. | You are in an entrance hall. To the | west there is the front door. To the | east there is the sittingroom door."
+},
+{
+"room": 56,
+"dir": "EAST",
+"door": 69,
+"dest": 57,
+"got": 57,
+"ok": true,
+"out": "EAST. | You are in an entrance hall. To the | west there is the front door. To the | east there is the sittingroom door."
+},
+{
+"room": 56,
+"dir": "UP",
+"door": 20,
+"dest": 61,
+"got": 61,
+"ok": true,
+"out": "UP. | You are in an entrance hall. To the | west there is the front door. To the | east there is the sittingroom door. |"
+},
+{
+"room": 57,
+"dir": "WEST",
+"door": 69,
+"dest": 56,
+"got": 56,
+"ok": true,
+"out": "WEST. | You are in a lounge room. To the | west there is the sittingroom door. | To the east there is a plain door. | Vi"
+},
+{
+"room": 57,
+"dir": "EAST",
+"door": 50,
+"dest": 59,
+"got": 59,
+"ok": true,
+"out": "EAST. | You are in a lounge room. To the | west there is the sittingroom door. | To the east there is a plain door. | Vi"
+},
+{
+"room": 57,
+"dir": "SOUTH",
+"door": 0,
+"dest": 58,
+"got": 58,
+"ok": true,
+"out": "SOUTH. | You are in a lounge room. To the | west there is the sittingroom door. | To the east there is a plain door. | V"
+},
+{
+"room": 58,
+"dir": "NORTH",
+"door": 0,
+"dest": 57,
+"got": 57,
+"ok": true,
+"out": "NORTH. | You are in Basils Library. Visible | exits are north. You can see a wall | safe. | You go north. | You are in a"
+},
+{
+"room": 59,
+"dir": "WEST",
+"door": 50,
+"dest": 57,
+"got": 57,
+"ok": true,
+"out": "WEST. | You are in Basils Kitchen. To the | west there is a plain door. To the | south there is the back door. | You go "
+},
+{
+"room": 59,
+"dir": "SOUTH",
+"door": 74,
+"dest": 60,
+"got": 60,
+"ok": true,
+"out": "SOUTH. | You are in Basils Kitchen. To the | west there is a plain door. To the | south there is the back door. | You go"
+},
+{
+"room": 60,
+"dir": "NORTH",
+"door": 74,
+"dest": 59,
+"got": 59,
+"ok": true,
+"out": "NORTH. | You are in the small yard. To the | north there is the back door. To the | west there is the back gate. | You g"
+},
+{
+"room": 60,
+"dir": "WEST",
+"door": 73,
+"dest": 52,
+"got": 52,
+"ok": true,
+"out": "WEST. | You are in the small yard. To the | north there is the back door. To the | west there is the back gate. | You go"
+},
+{
+"room": 61,
+"dir": "DOWN",
+"door": 20,
+"dest": 56,
+"got": 56,
+"ok": true,
+"out": "DOWN. | You are in a large | lavishly decorated | bedroom, a broad | window overlooks a | small lane leading | north. Be"
+},
+{
+"room": 61,
+"dir": "EAST",
+"door": 102,
+"dest": 0,
+"got": 61,
+"ok": false,
+"out": "EAST. | You are in a large | lavishly decorated | bedroom, a broad | window overlooks a | small lane leading | north. Be",
+"got_when_small": 61
+},
+{
+"room": 62,
+"dir": "SOUTH",
+"door": 12,
+"dest": 76,
+"got": 62,
+"ok": false,
+"out": "SOUTH. | You are at Browns | Front Gate. To the | south there is a | local police man. | Visible exits are | east. You c",
+"got_when_small": 76
+},
+{
+"room": 62,
+"dir": "EAST",
+"door": 0,
+"dest": 50,
+"got": 50,
+"ok": true,
+"out": "EAST. | You are at Browns | Front Gate. To the | south there is a | local police man. | Visible exits are | east. You ca"
+},
+{
+"room": 63,
+"dir": "SOUTH",
+"door": 45,
+"dest": 64,
+"got": 64,
+"ok": true,
+"out": "SOUTH. | You are at Browns Front Door. To the | south there is a large oak door. | Visible exits are north. | You go sou"
+},
+{
+"room": 63,
+"dir": "NORTH",
+"door": 0,
+"dest": 76,
+"got": 76,
+"ok": true,
+"out": "NORTH. | You are at Browns Front Door. To the | south there is a large oak door. | Visible exits are north. | You go nor"
+},
+{
+"room": 64,
+"dir": "EAST",
+"door": 48,
+"dest": 67,
+"got": 67,
+"ok": true,
+"out": "EAST. | You are in an entrance hall. To the | east there is a heavy oak door. To | the north there is a large oak door. "
+},
+{
+"room": 64,
+"dir": "NORTH",
+"door": 45,
+"dest": 63,
+"got": 63,
+"ok": true,
+"out": "NORTH. | You are in an entrance hall. To the | east there is a heavy oak door. To | the north there is a large oak door."
+},
+{
+"room": 64,
+"dir": "SOUTH",
+"door": 44,
+"dest": 69,
+"got": 69,
+"ok": true,
+"out": "SOUTH. | You are in an entrance hall. To the | east there is a heavy oak door. To | the north there is a large oak door."
+},
+{
+"room": 65,
+"dir": "WEST",
+"door": 0,
+"dest": 66,
+"got": 66,
+"ok": true,
+"out": "WEST. | You are in a large kitchen. To the | east there is a plain door. Visible | exits are west. You can see the | gar"
+},
+{
+"room": 65,
+"dir": "EAST",
+"door": 50,
+"dest": 68,
+"got": 68,
+"ok": true,
+"out": "EAST. | You are in a large kitchen. To the | east there is a plain door. Visible | exits are west. You can see the | gar"
+},
+{
+"room": 66,
+"dir": "EAST",
+"door": 0,
+"dest": 65,
+"got": 65,
+"ok": true,
+"out": "EAST. | You are in a pantry. Visible exits | are east. | You go east. | You are in a large kitchen. To the | east there "
+},
+{
+"room": 67,
+"dir": "WEST",
+"door": 48,
+"dest": 64,
+"got": 64,
+"ok": true,
+"out": "WEST. | You are in the sitting room. To the | west there is a heavy oak door. To | the south there is the diningroom | d"
+},
+{
+"room": 67,
+"dir": "SOUTH",
+"door": 49,
+"dest": 68,
+"got": 68,
+"ok": true,
+"out": "SOUTH. | You are in the sitting room. To the | west there is a heavy oak door. To | the south there is the diningroom | "
+},
+{
+"room": 68,
+"dir": "WEST",
+"door": 50,
+"dest": 65,
+"got": 65,
+"ok": true,
+"out": "WEST. | You are in the dining room. To the | west there is a plain door. To the | north there is the diningroom door. | "
+},
+{
+"room": 68,
+"dir": "NORTH",
+"door": 49,
+"dest": 67,
+"got": 67,
+"ok": true,
+"out": "NORTH. | You are in the dining room. To the | west there is a plain door. To the | north there is the diningroom door. |"
+},
+{
+"room": 69,
+"dir": "DOWN",
+"door": 44,
+"dest": 64,
+"got": 64,
+"ok": true,
+"out": "DOWN. | You are in a long passage. Below | there is a wide stairway. To the | south there is daphnes door. To the | west"
+},
+{
+"room": 69,
+"dir": "SOUTH",
+"door": 52,
+"dest": 74,
+"got": 74,
+"ok": true,
+"out": "SOUTH. | You are in a long passage. Below | there is a wide stairway. To the | south there is daphnes door. To the | wes"
+},
+{
+"room": 69,
+"dir": "WEST",
+"door": 54,
+"dest": 72,
+"got": 72,
+"ok": true,
+"out": "WEST. | You are in a long passage. Below | there is a wide stairway. To the | south there is daphnes door. To the | west"
+},
+{
+"room": 69,
+"dir": "EAST",
+"door": 0,
+"dest": 70,
+"got": 70,
+"ok": true,
+"out": "EAST. | You are in a long passage. Below | there is a wide stairway. To the | south there is daphnes door. To the | west"
+},
+{
+"room": 69,
+"dir": "NORTH",
+"door": 44,
+"dest": 64,
+"got": 64,
+"ok": true,
+"out": "NORTH. | You are in a long passage. Below | there is a wide stairway. To the | south there is daphnes door. To the | wes"
+},
+{
+"room": 70,
+"dir": "WEST",
+"door": 0,
+"dest": 69,
+"got": 69,
+"ok": true,
+"out": "WEST. | You are in a long passage. To the | north there is an ornate door. To | the south there is the bedroom door. | T"
+},
+{
+"room": 70,
+"dir": "NORTH",
+"door": 51,
+"dest": 73,
+"got": 73,
+"ok": true,
+"out": "NORTH. | You are in a long passage. To the | north there is an ornate door. To | the south there is the bedroom door. | "
+},
+{
+"room": 70,
+"dir": "SOUTH",
+"door": 53,
+"dest": 75,
+"got": 75,
+"ok": true,
+"out": "SOUTH. | You are in a long passage. To the | north there is an ornate door. To | the south there is the bedroom door. | "
+},
+{
+"room": 70,
+"dir": "EAST",
+"door": 55,
+"dest": 71,
+"got": 71,
+"ok": true,
+"out": "EAST. | You are in a long passage. To the | north there is an ornate door. To | the south there is the bedroom door. | T"
+},
+{
+"room": 71,
+"dir": "WEST",
+"door": 55,
+"dest": 70,
+"got": 70,
+"ok": true,
+"out": "WEST. | You are in the | browns library. To | the west there is | the thick heavy | door. | You go west. | You are in a "
+},
+{
+"room": 72,
+"dir": "EAST",
+"door": 54,
+"dest": 69,
+"got": 69,
+"ok": true,
+"out": "EAST. | You are in the browns study. To the | east there is the wooden door. To | the northeast there is the side | door"
+},
+{
+"room": 72,
+"dir": "NORTHEAST",
+"door": 56,
+"dest": 73,
+"got": 73,
+"ok": true,
+"out": "NORTHEAST. | You are in the browns study. To the | east there is the wooden door. To | the northeast there is the side |"
+},
+{
+"room": 73,
+"dir": "WEST",
+"door": 56,
+"dest": 72,
+"got": 72,
+"ok": true,
+"out": "WEST. | You are in the master bed room. To | the west there is the side door. To | the south there is an ornate door. | "
+},
+{
+"room": 73,
+"dir": "SOUTH",
+"door": 51,
+"dest": 70,
+"got": 70,
+"ok": true,
+"out": "SOUTH. | You are in the master bed room. To | the west there is the side door. To | the south there is an ornate door. |"
+},
+{
+"room": 74,
+"dir": "NORTH",
+"door": 52,
+"dest": 69,
+"got": 69,
+"ok": true,
+"out": "NORTH. | You are in Daphnes | Room. To the north | there is daphnes | door. | You go north. | You are in a long passage."
+},
+{
+"room": 75,
+"dir": "NORTH",
+"door": 53,
+"dest": 70,
+"got": 70,
+"ok": true,
+"out": "NORTH. | You are in the guest room. To the | north there is the bedroom door. | You go north. | You are in a long passag"
+},
+{
+"room": 76,
+"dir": "NORTH",
+"door": 0,
+"dest": 62,
+"got": 62,
+"ok": true,
+"out": "NORTH. | You are on a garden path. Visible | exits are north south southwest | east. | You go north. | You are at Browns"
+},
+{
+"room": 76,
+"dir": "SOUTH",
+"door": 0,
+"dest": 63,
+"got": 63,
+"ok": true,
+"out": "SOUTH. | You are on a garden path. Visible | exits are north south southwest | east. | You go south. | You are at Browns"
+},
+{
+"room": 76,
+"dir": "SOUTHWEST",
+"door": 0,
+"dest": 77,
+"got": 77,
+"ok": true,
+"out": "SOUTHWEST. | You are on a garden path. Visible | exits are north south southwest | east. | You go southwest. | You are o"
+},
+{
+"room": 76,
+"dir": "EAST",
+"door": 0,
+"dest": 86,
+"got": 86,
+"ok": true,
+"out": "EAST. | You are on a garden path. Visible | exits are north south southwest | east. | You go east. | You are on a windin"
+},
+{
+"room": 77,
+"dir": "NORTHEAST",
+"door": 0,
+"dest": 76,
+"got": 76,
+"ok": true,
+"out": "NORTHEAST. | You are on a winding garden path. | Visible exits are northeast south. | You go northeast. | You are on a g"
+},
+{
+"room": 77,
+"dir": "SOUTH",
+"door": 0,
+"dest": 78,
+"got": 78,
+"ok": true,
+"out": "SOUTH. | You are on a winding garden path. | Visible exits are northeast south. | You go south. | You are on a winding g"
+},
+{
+"room": 78,
+"dir": "NORTH",
+"door": 0,
+"dest": 77,
+"got": 77,
+"ok": true,
+"out": "NORTH. | You are on a winding garden path. | Visible exits are north southwest | southeast. | You go north. | You are on"
+},
+{
+"room": 78,
+"dir": "SOUTHWEST",
+"door": 0,
+"dest": 89,
+"got": 89,
+"ok": true,
+"out": "SOUTHWEST. | You are on a winding garden path. | Visible exits are north southwest | southeast. | You go southwest. | Yo"
+},
+{
+"room": 78,
+"dir": "SOUTHEAST",
+"door": 0,
+"dest": 79,
+"got": 79,
+"ok": true,
+"out": "SOUTHEAST. | You are on a winding garden path. | Visible exits are north southwest | southeast. | You go southeast. | Yo"
+},
+{
+"room": 79,
+"dir": "NORTHWEST",
+"door": 0,
+"dest": 78,
+"got": 78,
+"ok": true,
+"out": "NORTHWEST. | You are on a winding garden path. To | the east there is a deep stream. | Visible exits are northwest | sou"
+},
+{
+"room": 79,
+"dir": "SOUTHEAST",
+"door": 0,
+"dest": 80,
+"got": 80,
+"ok": true,
+"out": "SOUTHEAST. | You are on a winding garden path. To | the east there is a deep stream. | Visible exits are northwest | sou"
+},
+{
+"room": 79,
+"dir": "NORTHEAST",
+"door": 0,
+"dest": 82,
+"got": 82,
+"ok": true,
+"out": "NORTHEAST. | You are on a winding garden path. To | the east there is a deep stream. | Visible exits are northwest | sou"
+},
+{
+"room": 79,
+"dir": "SOUTHWEST",
+"door": 0,
+"dest": 89,
+"got": 89,
+"ok": true,
+"out": "SOUTHWEST. | You are on a winding garden path. To | the east there is a deep stream. | Visible exits are northwest | sou"
+},
+{
+"room": 79,
+"dir": "EAST",
+"door": 59,
+"dest": 0,
+"got": 79,
+"ok": false,
+"out": "EAST. | You are on a winding garden path. To | the east there is a deep stream. | Visible exits are northwest | southeas",
+"got_when_small": 79
+},
+{
+"room": 80,
+"dir": "SOUTHEAST",
+"door": 0,
+"dest": 91,
+"got": 91,
+"ok": true,
+"out": "SOUTHEAST. | You are on a winding garden path. | Visible exits are southeast west | northeast. | You go southeast. | You"
+},
+{
+"room": 80,
+"dir": "WEST",
+"door": 0,
+"dest": 79,
+"got": 79,
+"ok": true,
+"out": "WEST. | You are on a winding garden path. | Visible exits are southeast west | northeast. | You go west. | You are on a "
+},
+{
+"room": 80,
+"dir": "NORTHEAST",
+"door": 0,
+"dest": 81,
+"got": 81,
+"ok": true,
+"out": "NORTHEAST. | You are on a winding garden path. | Visible exits are southeast west | northeast. | You go northeast. | You"
+},
+{
+"room": 81,
+"dir": "SOUTHWEST",
+"door": 0,
+"dest": 80,
+"got": 80,
+"ok": true,
+"out": "SOUTHWEST. | You are on a winding garden path. To | the west there is a thick hedge. | Visible exits are southwest north"
+},
+{
+"room": 81,
+"dir": "NORTH",
+"door": 0,
+"dest": 83,
+"got": 83,
+"ok": true,
+"out": "NORTH. | You are on a winding garden path. To | the west there is a thick hedge. | Visible exits are southwest north | s"
+},
+{
+"room": 81,
+"dir": "SOUTH",
+"door": 0,
+"dest": 91,
+"got": 91,
+"ok": true,
+"out": "SOUTH. | You are on a winding garden path. To | the west there is a thick hedge. | Visible exits are southwest north | s"
+},
+{
+"room": 81,
+"dir": "NORTHWEST",
+"door": 0,
+"dest": 82,
+"got": 82,
+"ok": true,
+"out": "NORTHWEST. | You are on a winding garden path. To | the west there is a thick hedge. | Visible exits are southwest north"
+},
+{
+"room": 81,
+"dir": "WEST",
+"door": 75,
+"dest": 52,
+"got": 52,
+"ok": true,
+"out": "WEST. | You are on a winding garden path. To | the west there is a thick hedge. | Visible exits are southwest north | so"
+},
+{
+"room": 82,
+"dir": "NORTHEAST",
+"door": 0,
+"dest": 83,
+"got": 83,
+"ok": true,
+"out": "NORTHEAST. | You are on a winding garden path. | Visible exits are northeast west | southeast. | You go northeast. | You"
+},
+{
+"room": 82,
+"dir": "WEST",
+"door": 0,
+"dest": 79,
+"got": 79,
+"ok": true,
+"out": "WEST. | You are on a winding garden path. | Visible exits are northeast west | southeast. | You go west. | You are on a "
+},
+{
+"room": 82,
+"dir": "SOUTHEAST",
+"door": 0,
+"dest": 81,
+"got": 81,
+"ok": true,
+"out": "SOUTHEAST. | You are on a winding garden path. | Visible exits are northeast west | southeast. | You go southeast. | You"
+},
+{
+"room": 83,
+"dir": "NORTH",
+"door": 0,
+"dest": 84,
+"got": 84,
+"ok": true,
+"out": "NORTH. | You are on a winding garden path. | Visible exits are north northwest | southwest southeast. | You go north. | "
+},
+{
+"room": 83,
+"dir": "NORTHWEST",
+"door": 0,
+"dest": 86,
+"got": 86,
+"ok": true,
+"out": "NORTHWEST. | You are on a winding garden path. | Visible exits are north northwest | southwest southeast. | You go north"
+},
+{
+"room": 83,
+"dir": "SOUTHWEST",
+"door": 0,
+"dest": 82,
+"got": 82,
+"ok": true,
+"out": "SOUTHWEST. | You are on a winding garden path. | Visible exits are north northwest | southwest southeast. | You go south"
+},
+{
+"room": 83,
+"dir": "SOUTHEAST",
+"door": 0,
+"dest": 81,
+"got": 81,
+"ok": true,
+"out": "SOUTHEAST. | You are on a winding garden path. | Visible exits are north northwest | southwest southeast. | You go south"
+},
+{
+"room": 84,
+"dir": "NORTHWEST",
+"door": 0,
+"dest": 85,
+"got": 85,
+"ok": true,
+"out": "NORTHWEST. | You are on a winding garden path. | Visible exits are northwest south. | You go northwest. | You are on a w"
+},
+{
+"room": 84,
+"dir": "SOUTH",
+"door": 0,
+"dest": 83,
+"got": 83,
+"ok": true,
+"out": "SOUTH. | You are on a winding garden path. | Visible exits are northwest south. | You go south. | You are on a winding g"
+},
+{
+"room": 85,
+"dir": "NORTH",
+"door": 0,
+"dest": 86,
+"got": 86,
+"ok": true,
+"out": "NORTH. | You are on a winding garden path. | Visible exits are north east. | You go north. | You are on a winding garden"
+},
+{
+"room": 85,
+"dir": "EAST",
+"door": 0,
+"dest": 84,
+"got": 84,
+"ok": true,
+"out": "EAST. | You are on a winding garden path. | Visible exits are north east. | You go east. | You are on a winding garden p"
+},
+{
+"room": 86,
+"dir": "WEST",
+"door": 0,
+"dest": 76,
+"got": 76,
+"ok": true,
+"out": "WEST. | You are on a winding garden path. | Visible exits are west southeast | east. | You go west. | You are on a garde"
+},
+{
+"room": 86,
+"dir": "SOUTHEAST",
+"door": 0,
+"dest": 83,
+"got": 83,
+"ok": true,
+"out": "SOUTHEAST. | You are on a winding garden path. | Visible exits are west southeast | east. | You go southeast. | You are "
+},
+{
+"room": 86,
+"dir": "EAST",
+"door": 0,
+"dest": 85,
+"got": 85,
+"ok": true,
+"out": "EAST. | You are on a winding garden path. | Visible exits are west southeast | east. | You go east. | You are on a windi"
+},
+{
+"room": 87,
+"dir": "WEST",
+"door": 0,
+"dest": 88,
+"got": 88,
+"ok": true,
+"out": "WEST. | You are on a winding garden path. To | the south there is a deep stream. | Visible exits are west east. | You go"
+},
+{
+"room": 87,
+"dir": "EAST",
+"door": 0,
+"dest": 90,
+"got": 90,
+"ok": true,
+"out": "EAST. | You are on a winding garden path. To | the south there is a deep stream. | Visible exits are west east. | You go"
+},
+{
+"room": 87,
+"dir": "SOUTH",
+"door": 59,
+"dest": 0,
+"got": 87,
+"ok": false,
+"out": "SOUTH. | You are on a winding garden path. To | the south there is a deep stream. | Visible exits are west east. | YOU C",
+"got_when_small": 87
+},
+{
+"room": 88,
+"dir": "WEST",
+"door": 57,
+"dest": 89,
+"got": 89,
+"ok": true,
+"out": "WEST. | You are on the | east side. To the | west there is a | sandstone bridge. | To the north there | is a deep stream"
+},
+{
+"room": 88,
+"dir": "SOUTHEAST",
+"door": 0,
+"dest": 87,
+"got": 87,
+"ok": true,
+"out": "SOUTHEAST. | You are on the | east side. To the | west there is a | sandstone bridge. | To the north there | is a deep s"
+},
+{
+"room": 88,
+"dir": "NORTH",
+"door": 59,
+"dest": 0,
+"got": 88,
+"ok": false,
+"out": "NORTH. | You are on the | east side. To the | west there is a | sandstone bridge. | To the north there | is a deep strea",
+"got_when_small": 88
+},
+{
+"room": 89,
+"dir": "EAST",
+"door": 57,
+"dest": 88,
+"got": 88,
+"ok": true,
+"out": "EAST. | You are on the | west side. To the | east there is a | sandstone bridge. | To the northwest | there is a deep | "
+},
+{
+"room": 89,
+"dir": "NORTH",
+"door": 0,
+"dest": 78,
+"got": 78,
+"ok": true,
+"out": "NORTH. | You are on the | west side. To the | east there is a | sandstone bridge. | To the northwest | there is a deep |"
+},
+{
+"room": 89,
+"dir": "NORTHEAST",
+"door": 0,
+"dest": 79,
+"got": 79,
+"ok": true,
+"out": "NORTHEAST. | You are on the | west side. To the | east there is a | sandstone bridge. | To the northwest | there is a de"
+},
+{
+"room": 89,
+"dir": "NORTHWEST",
+"door": 59,
+"dest": 0,
+"got": 89,
+"ok": false,
+"out": "NORTHWEST. | You are on the | west side. To the | east there is a | sandstone bridge. | To the northwest | there is a de",
+"got_when_small": 89
+},
+{
+"room": 90,
+"dir": "WEST",
+"door": 0,
+"dest": 87,
+"got": 87,
+"ok": true,
+"out": "WEST. | You are on the south side. To the | north there is a footbridge. To the | southeast there is a deep stream. | Vi"
+},
+{
+"room": 90,
+"dir": "NORTH",
+"door": 58,
+"dest": 91,
+"got": 91,
+"ok": true,
+"out": "NORTH. | You are on the south side. To the | north there is a footbridge. To the | southeast there is a deep stream. | V"
+},
+{
+"room": 90,
+"dir": "SOUTHEAST",
+"door": 59,
+"dest": 0,
+"got": 90,
+"ok": false,
+"out": "SOUTHEAST. | You are on the south side. To the | north there is a footbridge. To the | southeast there is a deep stream.",
+"got_when_small": 90
+},
+{
+"room": 91,
+"dir": "SOUTH",
+"door": 58,
+"dest": 90,
+"got": 90,
+"ok": true,
+"out": "SOUTH. | You are on the north side. To the | south there is a footbridge. To the | northeast there is a deep stream. | V"
+},
+{
+"room": 91,
+"dir": "NORTHWEST",
+"door": 0,
+"dest": 80,
+"got": 80,
+"ok": true,
+"out": "NORTHWEST. | You are on the north side. To the | south there is a footbridge. To the | northeast there is a deep stream."
+},
+{
+"room": 91,
+"dir": "NORTH",
+"door": 0,
+"dest": 81,
+"got": 81,
+"ok": true,
+"out": "NORTH. | You are on the north side. To the | south there is a footbridge. To the | northeast there is a deep stream. | V"
+},
+{
+"room": 91,
+"dir": "NORTHEAST",
+"door": 59,
+"dest": 0,
+"got": 91,
+"ok": false,
+"out": "NORTHEAST. | You are on the north side. To the | south there is a footbridge. To the | northeast there is a deep stream.",
+"got_when_small": 91
+},
+{
+"room": 92,
+"dir": "SOUTH",
+"door": 11,
+"dest": 93,
+"got": 92,
+"ok": false,
+"out": "SOUTH. | You are at Jones | Front Gate. To the | south there is a | local police man. | Visible exits are | west. You ca",
+"got_when_small": 93
+},
+{
+"room": 92,
+"dir": "WEST",
+"door": 0,
+"dest": 50,
+"got": 50,
+"ok": true,
+"out": "WEST. | You are at Jones | Front Gate. To the | south there is a | local police man. | Visible exits are | west. You can"
+},
+{
+"room": 93,
+"dir": "SOUTH",
+"door": 19,
+"dest": 96,
+"got": 96,
+"ok": true,
+"out": "SOUTH. | You are at Jones Front Door. To the | south there is the front door. | Visible exits are north. | You go south."
+},
+{
+"room": 93,
+"dir": "NORTH",
+"door": 0,
+"dest": 92,
+"got": 92,
+"ok": true,
+"out": "NORTH. | You are at Jones Front Door. To the | south there is the front door. | Visible exits are north. | You go north."
+},
+{
+"room": 94,
+"dir": "WEST",
+"door": 66,
+"dest": 95,
+"got": 95,
+"ok": true,
+"out": "WEST. | You are in a library. To the west | there is a bookcase. To the north | there is a solid door. You can see a | b"
+},
+{
+"room": 94,
+"dir": "NORTH",
+"door": 68,
+"dest": 97,
+"got": 97,
+"ok": true,
+"out": "NORTH. | You are in a library. To the west | there is a bookcase. To the north | there is a solid door. You can see a | "
+},
+{
+"room": 95,
+"dir": "EAST",
+"door": 66,
+"dest": 94,
+"got": 94,
+"ok": true,
+"out": "EAST. | You are in a small | room. To the east | there is a | bookcase. You can | see some | bloodstained | clothes. | Y"
+},
+{
+"room": 96,
+"dir": "NORTH",
+"door": 19,
+"dest": 93,
+"got": 93,
+"ok": true,
+"out": "NORTH. | You are in Jones Entrance Hall. To | the north there is the front door. | To the southeast there is the | dinin"
+},
+{
+"room": 96,
+"dir": "SOUTHEAST",
+"door": 49,
+"dest": 99,
+"got": 99,
+"ok": true,
+"out": "SOUTHEAST. | You are in Jones Entrance Hall. To | the north there is the front door. | To the southeast there is the | d"
+},
+{
+"room": 96,
+"dir": "WEST",
+"door": 69,
+"dest": 97,
+"got": 97,
+"ok": true,
+"out": "WEST. | You are in Jones Entrance Hall. To | the north there is the front door. | To the southeast there is the | dining"
+},
+{
+"room": 96,
+"dir": "UP",
+"door": 20,
+"dest": 100,
+"got": 100,
+"ok": true,
+"out": "UP. | You are in Jones Entrance Hall. To | the north there is the front door. | To the southeast there is the | diningro"
+},
+{
+"room": 97,
+"dir": "SOUTH",
+"door": 68,
+"dest": 94,
+"got": 94,
+"ok": true,
+"out": "SOUTH. | You are in the sitting room. To the | south there is a solid door. To the | east there is the sittingroom door."
+},
+{
+"room": 97,
+"dir": "EAST",
+"door": 69,
+"dest": 96,
+"got": 96,
+"ok": true,
+"out": "EAST. | You are in the sitting room. To the | south there is a solid door. To the | east there is the sittingroom door. "
+},
+{
+"room": 98,
+"dir": "SOUTH",
+"door": 50,
+"dest": 99,
+"got": 99,
+"ok": true,
+"out": "SOUTH. | You are in a kitchen. To the south | there is a plain door. | You go south. | You are in the dining room. To th"
+},
+{
+"room": 99,
+"dir": "NORTH",
+"door": 50,
+"dest": 98,
+"got": 98,
+"ok": true,
+"out": "NORTH. | You are in the dining room. To the | north there is a plain door. To the | northwest there is the diningroom | "
+},
+{
+"room": 99,
+"dir": "NORTHWEST",
+"door": 49,
+"dest": 96,
+"got": 96,
+"ok": true,
+"out": "NORTHWEST. | You are in the dining room. To the | north there is a plain door. To the | northwest there is the diningroo"
+},
+{
+"room": 100,
+"dir": "DOWN",
+"door": 20,
+"dest": 96,
+"got": 96,
+"ok": true,
+"out": "DOWN. | You are in a small passage. Below | there is the stairway. To the west | there is the northern door. | You go do"
+},
+{
+"room": 100,
+"dir": "WEST",
+"door": 70,
+"dest": 101,
+"got": 101,
+"ok": true,
+"out": "WEST. | You are in a small passage. Below | there is the stairway. To the west | there is the northern door. | You go we"
+},
+{
+"room": 101,
+"dir": "EAST",
+"door": 70,
+"dest": 100,
+"got": 100,
+"ok": true,
+"out": "EAST. | You are in Mrs Jones Room. To the | east there is the northern door. | You go east. | You are in a small passage"
+},
+{
+"room": 102,
+"dir": "WEST",
+"door": 0,
+"dest": 32,
+"got": 32,
+"ok": true,
+"out": "WEST. | You are in Basils Front Yard. To the | northeast there is the window. | Visible exits are west. | You go west. |"
+},
+{
+"room": 102,
+"dir": "NORTHEAST",
+"door": 79,
+"dest": 35,
+"got": 35,
+"ok": true,
+"out": "NORTHEAST. | You are in Basils Front Yard. To the | northeast there is the window. | Visible exits are west. | You go no"
+},
+{
+"room": 104,
+"dir": "SOUTHWEST",
+"door": 0,
+"dest": 50,
+"got": 50,
+"ok": true,
+"out": "SOUTHWEST. | You are in the leatherhead police | station. Visible exits are | southwest. | You go southwest. | You are i"
+}
+]

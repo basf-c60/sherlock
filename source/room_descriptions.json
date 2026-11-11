@@ -1,0 +1,102 @@
+{
+ "1": {
+  "addr": "7DE1",
+  "text": "YOU ARE TRAVELLING THE STREETS OF LONDON IN A HANSOM CAB, THE SUN SHINES THROUGH THE WINDOWS ONTO YOUR FACE.",
+  "status": "ok"
+ },
+ "2": {
+  "addr": "7E27",
+  "text": "YOU ARE TRAVELLING ALONG THE LONDON UNDERGROUND RAILWAY IN A STEAM TRAIN.",
+  "status": "ok"
+ },
+ "3": {
+  "addr": "7E45",
+  "text": "YOU ARE RIDING IN A STEAM TRAIN THROUGH THE PICTURESQUE ENGLISH COUNTRYSIDE.",
+  "status": "ok"
+ },
+ "4": {
+  "addr": "7E65",
+  "text": "YOU ARE RIDING IN A STEAM TRAIN BEING SHUNTED BETWEEN PLATFORMS.",
+  "status": "ok"
+ },
+ "8": {
+  "addr": "7D62",
+  "text": "THE SUN STREAMS IN THE TWO BROAD WINDOWS IN YOUR SITTING ROOM. THERE IS A PIPE RACK TO THE RIGHT OF THE SOFA. BULLET POCK MARKS ARE THE FEATURE OF ONE WALL, AND CHARTS AND DIAGRAMS FILL ANOTHER. AN ACID STAINED TABLE SITS IN THE CORNER.",
+  "status": "ok"
+ },
+ "16": {
+  "addr": "7EFA",
+  "text": "YOU ARE AT PLATFORM ONE OF ALDERGATE STATION.",
+  "status": "ok"
+ },
+ "17": {
+  "addr": "7F03",
+  "text": "YOU ARE AT PLATFORM TWO OF ALDERGATE STATION.",
+  "status": "ok"
+ },
+ "20": {
+  "addr": "7F09",
+  "text": "YOU ARE AT PLATFORM ONE OF KINGS CROSS STATION.",
+  "status": "ok"
+ },
+ "21": {
+  "addr": "7F14",
+  "text": "YOU ARE AT PLATFORM TWO OF KINGS CROSS STATION.",
+  "status": "ok"
+ },
+ "22": {
+  "addr": "7F1A",
+  "text": "YOU ARE AT PLATFORM THREE OF KINGS CROSS STATION.",
+  "status": "ok"
+ },
+ "23": {
+  "addr": "7F24",
+  "text": "YOU ARE AT PLATFORM FOUR OF KINGS CROSS STATION.",
+  "status": "ok"
+ },
+ "26": {
+  "addr": "7F2E",
+  "text": "YOU ARE AT PLATFORM ONE OF PADDINGTON STATION.",
+  "status": "ok"
+ },
+ "27": {
+  "addr": "7F37",
+  "text": "YOU ARE AT PLATFORM TWO OF PADDINGTON STATION.",
+  "status": "ok"
+ },
+ "30": {
+  "addr": "7F3D",
+  "text": "YOU ARE AT PLATFORM ONE OF VICTORIA STATION.",
+  "status": "ok"
+ },
+ "31": {
+  "addr": "7F46",
+  "text": "YOU ARE AT PLATFORM TWO OF VICTORIA STATION.",
+  "status": "ok"
+ },
+ "44": {
+  "addr": "7E7F",
+  "text": "YOU ARE IN MAJOR FFOULKES ROOM IN THE BOARDING HOUSE. IT IS SMALL AND SOMEWHAT CROWDED. INDIAN ARTIFACTS, MANY VERY STRANGE, LITTER THE ROOM.",
+  "status": "ok"
+ },
+ "54": {
+  "addr": "7F4C",
+  "text": "YOU ARE AT PLATFORM ONE OF LEATHER HEAD STATION.",
+  "status": "ok"
+ },
+ "55": {
+  "addr": "7F57",
+  "text": "YOU ARE AT PLATFORM TWO OF LEATHER HEAD STATION.",
+  "status": "ok"
+ },
+ "61": {
+  "addr": "7EB7",
+  "text": "YOU ARE IN A LARGE LAVISHLY DECORATED BEDROOM, A BROAD WINDOW OVERLOOKS A SMALL LANE LEADING NORTH.",
+  "status": "ok"
+ },
+ "105": {
+  "addr": "7E0B",
+  "text": "YOU ARE IN A CAB TRAVELLING MADLY ALONG ROUGH COUNTRY ROADS.",
+  "status": "ok"
+ }
+}

@@ -1,0 +1,303 @@
+  1 LOOK                                               x1  -> 0 8:02a r8 | LOOK. | The sun streams in the two broad | windows in your sitting room. There | is a pipe rack to the right o
+  2 INVENTORY                                          x1  -> 0 8:03a r8 | INVENTORY. | You are carrying your money. | Mon 08:03am >
+  3 TAKE OIL LAMP                                      x1  -> 0 8:04a r8 | TAKE OIL LAMP. | You take the oil lamp. | Mon 08:04am >
+  4 ASK WATSON FOR DAILY CHRONICLE                     x1  -> 0 8:04a r8 | ASK WATSON FOR DAILY CHRONICLE. | I DO NOT KNOW THE VERB" ASK FOR" | >
+  5 READ DAILY CHRONICLE                               x1  -> 0 8:04a r8 | READ DAILY CHRONICLE. | I SEE NO DAILY CHRONICLE THAT YOU C | AN EXAMINE | >
+  6 TAKE DAILY CHRONICLE                               x1  -> 0 8:05a r8 | TAKE DAILY CHRONICLE. | YOU CANNOT TAKE THE DAILY CHRONICLE | . | Mon 08:05am >
+  7 TAKE CHRONICLE FROM WATSON                         x1  -> 0 8:05a r8 | TAKE CHRONICLE FROM WATSON. | YOU CANNOT TAKE THE DAILY CHRONICLE | FROM WATSON. | >
+  8 GIVE CHRONICLE TO ME                               x1  -> 0 8:05a r8 | GIVE CHRONICLE TO ME. | I SEE NO CHRONICLE THAT YOU CAN GIV | E | >
+  9 WAIT                                               x1  -> 0 8:09a r8 | WAIT. | You wait. | Mon 08:06am | Mon 08:07am | Mon 08:08am | Mon 08:09am >
+ 10 WAIT                                               x1  -> 0 8:14a r8 | WAIT. | You wait. | Mon 08:10am | Mon 08:11am | Mon 08:12am | Mon 08:13am | Mon 08:14am >
+ 11 WAIT                                               x1  -> 0 8:16a r8 | WAIT. | You wait. | Mon 08:15am | Mon 08:16am With an excited look on his face | Watson says " Well here is a 
+ 12 WAIT                                               x1  -> 0 8:24a r8 | | appears that the famed detective | Inspector Giles Lestrade has taken | an interest in the case and will be 
+ 13 SAY TO WATSON "FOLLOW ME"                          x1  -> 0 8:25a r8 | SAY TO WATSON "FOLLOW ME.". | You talk to Watson. | Watson climbs out of watsons | armchair. | Mon 08:25am >
+ 14 OPEN PLAIN DOOR                                    x1  -> 0 8:26a r8 | OPEN PLAIN DOOR. | You open the plain door. | Mon 08:26am >
+ 15 NORTH                                              x1  -> 0 8:28a r9 | NORTH. | You go north. | You are in a small closet. To the | south there is a plain door. You can | see a chin
+ 16 WEAR CHINA MANS DISGUISE                           x1  -> 0 8:29a r0 | WEAR CHINA MANS DISGUISE. | You wear the china mans disguise. | Mon 08:29am >
+ 17 TAKE OFF CHINA MANS DISGUISE                       x1  -> 0 8:30a r9 | TAKE OFF CHINA MANS DISGUISE. | The china man takes off the china | mans disguise. | Mon 08:30am >
+ 18 INVENTORY                                          x1  -> 0 8:31a r9 | INVENTORY. | You are carrying a china mans | disguise, an oil lamp and your | money. | Mon 08:31am >
+ 19 SOUTH                                              x1  -> 0 8:33a r8 | SOUTH. | You go south. | The sun streams in the two broad | windows in your sitting room. There | is a pipe ra
+ 20 OPEN YOUR DOOR                                     x1  -> 0 8:34a r8 | OPEN YOUR DOOR. | You open your door. | Mon 08:34am >
+ 21 WEST                                               x1  -> 0 8:36a r7 | WEST. | You go west. | You are in a hall. To the east there | is your door. Below there is the | stairway. | W
+ 22 DOWN                                               x1  -> 0 8:38a r6 | DOWN. | You go down. | You are in an | entrance hallway. | Above there is the | stairway. To the | south there
+ 23 OPEN FRONT DOOR                                    x1  -> 0 8:39a r6 | OPEN FRONT DOOR. | You open the front door. | Mon 08:39am >
+ 24 SOUTH                                              x1  -> 0 8:41a r5 | SOUTH. | You go south. | You are on Baker | Street. To the | north there is the | front door. | Watson enters.
+ 25 HAIL CAB                                           x1  -> 0 8:42a r5 | HAIL CAB. | You hail the hansom cab. | The cabbie says to you " Hello | guv'nor. ". | Mon 08:42am >
+ 26 LOOK                                               x1  -> 0 8:43a r5 | LOOK. | You are on Baker | Street. To the | north there is the | front door. You | can see Watson and | a hans
+ 27 CLIMB INTO HANSOM CAB                              x1  -> 0 8:45a r5 | CLIMB INTO HANSOM CAB. | You climb into the hansom cab. | Watson climbs into the hansom cab. | Mon 08:44am | M
+ 28 SAY TO CABBIE "GO TO KINGS CROSS ROAD"             x1  -> 0 8:46a r1 | SAY TO CABBIE "GO TO KINGS CROSS | ROAD.". | You talk to the cabbie. | You are in a hansom cab with Watson | a
+ 29 LOOK                                               x1  -> 0 8:47a r1 | LOOK. | You are in a hansom cab with Watson | and the cabbie. Watson is carrying | the daily chronicle. You ar
+ 30 (until Kings Cross Road. To) LOOK                  x80 -> 0 10:07a r18 | LOOK. | You are in a hansom cab with Watson | and the cabbie. Watson is carrying | the daily chronicle. The ha
+ 31 PAY 10D TO CABBIE                                  x1  -> 0 10:08a r18 | PAY 10D TO CABBIE. | You pay 10d. To the cabbie. | The cabbie pays 4d. To you. | Mon 10:08am >
+ 32 CLIMB OUT                                          x1  -> 0 10:10a r18 | CLIMB OUT. | You climb out of the hansom cab. | Watson climbs out of the hansom cab. | Mon 10:09am | Mon 10:10
+ 33 NORTHEAST                                          x1  -> 0 10:12a r19 | NORTHEAST. | You go northeast. | You are at Kings Cross Station. | Visible exits are southwest | northeast. | 
+ 34 NORTHEAST                                          x1  -> 0 10:14a r20 | NORTHEAST. | You go northeast. | You are at platform one of Kings | cross station. Visible exits are | southwe
+ 35 NORTHEAST                                          x1  -> 0 10:16a r21 | NORTHEAST. | You go northeast. | You are at platform two of Kings | cross station. Visible exits are | southwe
+ 36 NORTHEAST                                          x1  -> 0 10:18a r22 | NORTHEAST. | You go northeast. | You are at platform three of Kings | cross station. Visible exits are | south
+ 37 LOOK                                               x1  -> 0 10:19a r22 | LOOK. | You are at platform three of Kings | cross station. Visible exits are | southwest northeast. You can s
+ 38 (until steam train) LOOK                           x26 -> 0 10:45a r22 | LOOK. | You are at platform three of Kings | cross station. Visible exits are | southwest northeast. You can s
+ 39 CLIMB INTO TRAIN                                   x1  -> 0 10:47a r22 | CLIMB INTO TRAIN. | You climb into the steam train. | Watson climbs into the steam train. | Mon 10:46am | Mon 
+ 40 (until Leather) LOOK                               x73 -> 0 12:00p r54 | LOOK. | You are in a steam train with | Watson. Watson is carrying the daily | chronicle. You are riding in a 
+ 41 CLIMB OUT                                          x1  -> 0 12:02p r54 | CLIMB OUT. | You climb out of the steam train. | Watson climbs out of the steam | train. | Mon 12:01pm | Mon 1
+ 42 SOUTH                                              x1  -> 0 12:04p r53 | SOUTH. | You go south. | You are at the leatherhead station. | Visible exits are south north. | Watson enters.
+ 43 SOUTH                                              x1  -> 0 12:06p r50 | SOUTH. | You go south. | You are in the main street. Visible | exits are north west east south | northeast. | 
+ 44 NORTHEAST                                          x1  -> 0 12:08p r104 | NORTHEAST. | You go northeast. | You are in the leatherhead police | station. Visible exits are | southwest. |
+ 45 LOOK                                               x1  -> 0 12:09p r104 | LOOK. | You are in the leatherhead police | station. Visible exits are | southwest. You can see Watson. | Wats
+ 46 SOUTHWEST                                          x1  -> 0 12:11p r50 | SOUTHWEST. | You go southwest. | You are in the main street. Visible | exits are north west east south | north
+ 47 WEST                                               x1  -> 0 12:11p r62 | WEST. | You go west. | You are at Browns | Front Gate. To the | south there is a | local police man. | Visible
+ 48 LOOK                                               x1  -> 0 12:14p r62 | | remarks to Watson " I am sorry sir | but I have my orders, no one is to | get by. ". | Mon 12:12pm | Mon 12:
+ 49 (until Lestrade) LOOK                              x12 -> 0 12:25p r62 | LOOK. | You are at Browns | Front Gate. To the | south there is a | local police man. | Visible exits are | ea
+ 50 LOOK                                               x1  -> 0 12:26p r62 | | Holmes fancy seeing you here. Chief | Constable Straker I would like you | to meet Mr Sherlock Holmes, Holme
+ 51 OPEN GATE                                          x1  -> 0 12:27p r62 | | Mon 12:27pm > OPEN GATE. | I SEE NO GATE THAT YOU CAN OPEN | >
+ 52 SOUTH                                              x1  -> 0 12:29p r76 | SOUTH. | You go south. | You are on a garden path. Visible | exits are north south southwest | east. | Watson 
+ 53 LOOK                                               x1  -> 0 12:30p r76 | LOOK. | You are on a garden path. Visible | exits are north south southwest | east. You can see Watson. Watson
+ 54 SOUTHWEST                                          x1  -> 0 12:32p r77 | SOUTHWEST. | You go southwest. | You are on a winding garden path. | Visible exits are northeast south. | Wats
+ 55 SOUTH                                              x1  -> 0 12:34p r78 | SOUTH. | You go south. | You are on a winding garden path. | Visible exits are north southwest | southeast. | 
+ 56 SOUTHWEST                                          x1  -> 0 12:36p r89 | SOUTHWEST. | You go southwest. | You are on the | west side. To the | east there is a | sandstone bridge. | To
+ 57 LOOK                                               x1  -> 0 12:37p r89 | LOOK. | You are on the | west side. To the | east there is a | sandstone bridge. | To the northwest | there is
+ 58 EAST                                               x1  -> 0 12:39p r88 | EAST. | You go east. | You are on the | east side. To the | west there is a | sandstone bridge. | To the north
+ 59 LOOK                                               x1  -> 0 12:39p r88 | LOOK. | You are on the | east side. To the | west there is a | sandstone bridge. | To the north there | is a d
+ 60 EXAMINE FEMALE CORPSE                              x1  -> 0 12:41p r88 | | Mon 12:40pm > EXAMINE FEMALE CORPSE. | You examine the female corpse. | You see the body of a middle aged | 
+ 61 EXAMINE CLOSELY FEMALE CORPSE                      x1  -> 0 12:46p r88 | EXAMINE CLOSELY FEMALE CORPSE. | You closely examine the female | corpse. | You see the body of a middle aged 
+ 62 EXAMINE CLOSELY SANDSTONE BRIDGE                   x1  -> 0 12:51p r88 | EXAMINE CLOSELY SANDSTONE BRIDGE. | You closely examine the sandstone | bridge. | You see a sandstone bridge. 
+ 63 TAKE CRUMPLED NOTE                                 x1  -> 0 12:52p r88 | TAKE CRUMPLED NOTE. | You take the crumpled note. | Mon 12:52pm >
+ 64 EXAMINE CLOSELY NOTE                               x1  -> 0 12:57p r88 | EXAMINE CLOSELY NOTE. | You closely examine the crumpled | note. | It reads " Meet me by the bridge at | half 
+ 65 INVENTORY                                          x1  -> 0 12:58p r88 | INVENTORY. | You are carrying a china mans | disguise, an oil lamp, your money | and a crumpled note. | Mon 12
+ 66 SOUTHEAST                                          x1  -> 0 1:00p r87 | SOUTHEAST. | You go southeast. | You are on a winding garden path. To | the south there is a deep stream. | Vi
+ 67 EAST                                               x1  -> 0 1:02p r90 | EAST. | You go east. | You are on the south side. To the | north there is a footbridge. To the | southeast the
+ 68 NORTH                                              x1  -> 0 1:04p r91 | NORTH. | You go north. | You are on the north side. To the | south there is a footbridge. To the | northeast t
+ 69 NORTH                                              x1  -> 0 1:06p r81 | NORTH. | You go north. | You are on a winding garden path. To | the west there is a thick hedge. | Visible exi
+ 70 NORTH                                              x1  -> 0 1:08p r83 | NORTH. | You go north. | You are on a winding garden path. | Visible exits are north northwest | southwest sou
+ 71 NORTHWEST                                          x1  -> 0 1:10p r86 | NORTHWEST. | You go northwest. | You are on a winding garden path. | Visible exits are west southeast | east. 
+ 72 WEST                                               x1  -> 0 1:12p r76 | WEST. | You go west. | You are on a garden path. Visible | exits are north south southwest | east. | Watson en
+ 73 NORTH                                              x1  -> 0 1:14p r62 | NORTH. | You go north. | You are at Browns Front Gate. | Visible exits are south east. You | can see a local p
+ 74 EAST                                               x1  -> 0 1:16p r50 | EAST. | You go east. | You are in the main street. Visible | exits are north west east south | northeast. | Wa
+ 75 EAST                                               x1  -> 0 1:18p r92 | EAST. | You go east. | You are at Jones | Front Gate. | Visible exits are | south west. You | can see a local 
+ 76 SOUTH                                              x1  -> 0 1:20p r93 | SOUTH. | You go south. | You are at Jones Front Door. To the | south there is the front door. | Visible exits 
+ 77 LOOK                                               x1  -> 0 1:21p r93 | LOOK. | You are at Jones Front Door. To the | south there is the front door. | Visible exits are north. You ca
+ 78 OPEN FRONT DOOR                                    x1  -> 0 1:22p r93 | OPEN FRONT DOOR. | You open the front door. | Mon 01:22pm >
+ 79 SOUTH                                              x1  -> 0 1:22p r96 | SOUTH. | You go south. | You are in Jones Entrance Hall. To | the north there is the front door. | To the sout
+ 80 LOOK                                               x1  -> 0 1:25p r96 | | Chief Constable Straker goes north. | Mon 01:23pm | Mon 01:24pm > LOOK. | You are in Jones Entrance Hall. To
+ 81 SAY TO LESTRADE "MAJOR PERCIVAL FFOULKES IS INNOCE x1  -> 0 1:25p r96 | SAY TO LESTRADE "MAJOR PERCIVAL F | FOULKES IS INNOCENT.". | I SEE NO LESTRADE THAT YOU CAN TALK | TO | >
+ 82 OPEN SITTINGROOM DOOR                              x1  -> 0 1:26p r96 | OPEN SITTINGROOM DOOR. | You open the sittingroom door. | Mon 01:26pm >
+ 83 WEST                                               x1  -> 0 1:28p r97 | WEST. | You go west. | You are in the sitting room. To the | south there is a solid door. To the | east there 
+ 84 OPEN SOLID DOOR                                    x1  -> 0 1:29p r97 | OPEN SOLID DOOR. | You open the solid door. | Mon 01:29pm >
+ 85 SOUTH                                              x1  -> 0 1:31p r94 | SOUTH. | You go south. | You are in a library. To the west | there is a bookcase. To the north | there is a so
+ 86 LOOK                                               x1  -> 0 1:32p r94 | LOOK. | You are in a library. To the west | there is a bookcase. To the north | there is a solid door. You can
+ 87 EXAMINE CLOSELY BODY                               x1  -> 0 1:37p r94 | EXAMINE CLOSELY BODY. | You closely examine the body. | You see the body of a woman who was | shot in the head
+ 88 EXAMINE CLOSELY BOOKCASE                           x1  -> 0 1:38p r94 | EXAMINE CLOSELY BOOKCASE. | You closely examine the bookcase. | You see a bookcase. As you run your | hands ov
+ 89 LOOK                                               x1  -> 0 1:43p r94 | | Chief Constable Straker says to | Watson " Good afternoon | ". | Major Percival Ffoulkes enters. | Mon 01:39
+ 90 SAY TO LESTRADE "MAJOR PERCIVAL FFOULKES IS INNOCE x1  -> 0 1:44p r94 | SAY TO LESTRADE "MAJOR PERCIVAL F | FOULKES IS INNOCENT.". | You talk to Inspector Lestrade. | Inspector Lestr
+ 91 WEST                                               x1  -> 0 1:46p r95 | WEST. | You go west. | You are in a small | room. To the east | there is a | bookcase. You can | see some | bl
+ 92 EXAMINE CLOSELY BLOODSTAINED CLOTHES               x1  -> 0 1:51p r95 | EXAMINE CLOSELY BLOODSTAINED CLOT | HES. | You closely examine some | bloodstained clothes. | They are labelle
+ 93 TAKE BLOODSTAINED CLOTHES                          x1  -> 0 1:52p r95 | TAKE BLOODSTAINED CLOTHES. | You take some bloodstained clothes. | Mon 01:52pm >
+ 94 LOOK                                               x1  -> 0 1:53p r95 | LOOK. | You are in a small | room. To the east | there is a | bookcase. You can | see Watson. Watson | is carr
+ 95 EAST                                               x1  -> 0 1:55p r94 | EAST. | You go east. | You are in a library. You can see a | bloodstained sofa. On the | bloodstained sofa the
+ 96 OPEN SOLID DOOR                                    x1  -> 0 1:56p r94 | OPEN SOLID DOOR. | You open the solid door. | Mon 01:56pm >
+ 97 NORTH                                              x1  -> 0 1:58p r97 | NORTH. | You go north. | You are in the sitting room. You can | see Major Percival Ffoulkes. | Watson enters. 
+ 98 OPEN SITTINGROOM DOOR                              x1  -> 0 1:59p r97 | OPEN SITTINGROOM DOOR. | You open the sittingroom door. | Mon 01:59pm >
+ 99 EAST                                               x1  -> 0 2:01p r96 | EAST. | You go east. | You are in Jones Entrance Hall. | Watson enters. | Mon 02:00pm | Mon 02:01pm >
+100 OPEN FRONT DOOR                                    x1  -> 0 2:02p r96 | OPEN FRONT DOOR. | You open the front door. | Mon 02:02pm >
+101 NORTH                                              x1  -> 0 2:04p r93 | NORTH. | You go north. | You are at Jones Front Door. Visible | exits are north. | Watson enters. | Mon 02:03p
+102 NORTH                                              x1  -> 0 2:06p r92 | NORTH. | You go north. | You are at Jones Front Gate. Visible | exits are south west. You can see a | local po
+103 WEST                                               x1  -> 0 2:08p r50 | WEST. | You go west. | You are in the main street. Visible | exits are north west east south | northeast. | Wa
+104 WEST                                               x1  -> 0 2:10p r62 | WEST. | You go west. | You are at Browns Front Gate. | Visible exits are south east. You | can see a local pol
+105 SOUTH                                              x1  -> 0 2:12p r76 | SOUTH. | You go south. | You are on a garden path. Visible | exits are north south southwest | east. | Watson 
+106 SOUTH                                              x1  -> 0 2:14p r63 | SOUTH. | You go south. | You are at Browns Front Door. To the | south there is a large oak door. | Visible exi
+107 OPEN LARGE OAK DOOR                                x1  -> 0 2:15p r63 | OPEN LARGE OAK DOOR. | You open the large oak door. | Mon 02:15pm >
+108 SOUTH                                              x1  -> 0 2:17p r64 | SOUTH. | You go south. | You are in an entrance hall. To the | east there is a heavy oak door. To | the north 
+109 SOUTH                                              x1  -> 0 2:19p r69 | SOUTH. | You go south. | You are in a long passage. Below | there is a wide stairway. To the | south there is 
+110 OPEN WOODEN DOOR                                   x1  -> 0 2:20p r69 | OPEN WOODEN DOOR. | You open the wooden door. | Mon 02:20pm >
+111 WEST                                               x1  -> 0 2:22p r72 | WEST. | You go west. | You are in the browns study. To the | east there is the wooden door. To | the northeast
+112 LOOK                                               x1  -> 0 2:23p r72 | LOOK. | You are in the browns study. To the | east there is the wooden door. To | the northeast there is the s
+113 OPEN WOODEN DOOR                                   x1  -> 0 2:23p r72 | OPEN WOODEN DOOR. | THE WOODEN DOOR IS OPEN | >
+114 EAST                                               x1  -> 0 2:25p r69 | EAST. | You go east. | You are in a long passage. Visible | exits are east. | Watson enters. | Mon 02:24pm | M
+115 DROP CRUMPLED NOTE                                 x1  -> 0 2:26p r69 | DROP CRUMPLED NOTE. | You drop the crumpled note. | Mon 02:26pm >
+116 OPEN WOODEN DOOR                                   x1  -> 0 2:26p r69 | OPEN WOODEN DOOR. | THE WOODEN DOOR IS OPEN | >
+117 WEST                                               x1  -> 0 2:28p r72 | WEST. | You go west. | You are in the browns study. You can | see a large desk. In the large desk | there is t
+118 EXAMINE CLOSELY DRAWER                             x1  -> 0 2:33p r72 | EXAMINE CLOSELY DRAWER. | You closely examine the drawer. | You see the drawer. Careful | examination shows th
+119 OPEN DRAWER                                        x1  -> 0 2:34p r72 | OPEN DRAWER. | You open the drawer. | Mon 02:34pm >
+120 EXAMINE CLOSELY FALSE BOTTOM                       x1  -> 0 2:39p r72 | EXAMINE CLOSELY FALSE BOTTOM. | You closely examine the false | bottom. | You see a false bottom. | Mon 02:35p
+121 OPEN FALSE BOTTOM                                  x1  -> 0 2:40p r72 | OPEN FALSE BOTTOM. | You open the false bottom. | Mon 02:40pm >
+122 TAKE BANK BOOK                                     x1  -> 0 2:41p r72 | TAKE BANK BOOK. | You take the bank account book. | Mon 02:41pm >
+123 EXAMINE CLOSELY BANK BOOK                          x1  -> 0 2:46p r72 | EXAMINE CLOSELY BANK BOOK. | You closely examine the bank account | book. | While the balance in the account i
+124 TAKE NOTE                                          x1  -> 0 2:47p r72 | TAKE NOTE. | You take the note. | Mon 02:47pm >
+125 EXAMINE CLOSELY NOTE                               x1  -> 0 2:52p r72 | EXAMINE CLOSELY NOTE. | You closely examine the note. | The note reads " I have some news of | vital importanc
+126 OPEN WOODEN DOOR                                   x1  -> 0 2:52p r72 | OPEN WOODEN DOOR. | THE WOODEN DOOR IS OPEN | >
+127 EAST                                               x1  -> 0 2:54p r69 | EAST. | You go east. | You are in a long passage. Visible | exits are east. You can see a | crumpled note. | W
+128 NORTH                                              x1  -> 0 2:56p r64 | NORTH. | You go north. | You are in an entrance hall. | Watson enters. | Mon 02:55pm | Mon 02:56pm >
+129 OPEN LARGE OAK DOOR                                x1  -> 0 2:57p r64 | OPEN LARGE OAK DOOR. | You open the large oak door. | Mon 02:57pm >
+130 NORTH                                              x1  -> 0 2:59p r63 | NORTH. | You go north. | You are at Browns Front Door. | Visible exits are north. | Watson enters. | Mon 02:58
+131 NORTH                                              x1  -> 0 3:01p r76 | NORTH. | You go north. | You are on a garden path. Visible | exits are north south southwest | east. | Watson 
+132 NORTH                                              x1  -> 0 3:03p r62 | NORTH. | You go north. | You are at Browns Front Gate. | Visible exits are south east. | Watson enters. | Mon 
+133 NORTH                                              x1  -> 0 3:03p r62 | NORTH. | YOU CANNOT GO NORTH. | >
+134 NORTH                                              x1  -> 0 3:03p r62 | NORTH. | YOU CANNOT GO NORTH. | >
+135 NORTH                                              x1  -> 0 3:04p r62 | NORTH. | YOU CANNOT GO NORTH. | Mon 03:04pm >
+136 NORTH                                              x1  -> 0 3:04p r62 | NORTH. | YOU CANNOT GO NORTH. | >
+137 LOOK                                               x1  -> 0 3:05p r62 | LOOK. | You are at Browns | Front Gate. | Visible exits are | south east. You | can see Watson. | Watson is ca
+138 EAST                                               x1  -> 0 3:07p r50 | EAST. | You go east. | You are in the main street. Visible | exits are north west east south | northeast. | Wa
+139 NORTH                                              x1  -> 0 3:09p r53 | NORTH. | You go north. | You are at the leatherhead station. | Visible exits are south north. | Watson enters.
+140 NORTH                                              x1  -> 0 3:11p r54 | NORTH. | You go north. | You are at | platform one of | Leather Head | station. Visible | exits are south | no
+141 NORTH                                              x1  -> 0 3:11p r55 | NORTH. | You go north. | You are at | platform two of | Leather Head | station. Visible | exits are south. | Y
+142 (until train enters) WAIT                          x1  -> 0 3:18p r55 | | you prove that Major Percival | Ffoulkes is innocent yet, Holmes ? " | . | Watson enters. | Watson says to I
+143 LOOK                                               x1  -> 0 3:18p r55 | LOOK. | You are at | platform two of | Leather Head | station. Visible | exits are south. | You can see Watson
+144 CLIMB INTO TRAIN                                   x1  -> 0 3:21p r55 | | Mon 03:19pm > CLIMB INTO TRAIN. | You climb into the steam train. | Watson climbs into the steam train. | Mo
+145 LOOK                                               x1  -> 0 3:22p r55 | LOOK. | You are in a steam | train with | Inspector Lestrade | and Watson. | Inspector Lestrade | is carrying 
+146 SAY TO LESTRADE "MAJOR PERCIVAL FFOULKES IS INNOCE x1  -> 0 3:23p r55 | SAY TO LESTRADE "MAJOR PERCIVAL F | FOULKES IS INNOCENT.". | You talk to Inspector Lestrade. | Inspector Lestr
+147 (until platform four) WAIT                         x14 -> 0 4:33p r23 | WAIT. | You wait. | Mon 04:29pm You are in a steam train with | Inspector Lestrade and Watson. | Inspector Les
+148 CLIMB OUT                                          x1  -> 0 4:35p r23 | CLIMB OUT. | You climb out of the steam train. | Watson climbs out of the steam | train. | Mon 04:34pm | Mon 0
+149 SOUTHWEST                                          x1  -> 0 4:37p r22 | SOUTHWEST. | You go southwest. | You are at platform three of Kings | cross station. Visible exits are | south
+150 SOUTHWEST                                          x1  -> 0 4:39p r21 | SOUTHWEST. | You go southwest. | You are at platform two of Kings | cross station. Visible exits are | southwe
+151 SOUTHWEST                                          x1  -> 0 4:41p r20 | SOUTHWEST. | You go southwest. | You are at platform one of Kings | cross station. Visible exits are | southwe
+152 SOUTHWEST                                          x1  -> 0 4:43p r19 | SOUTHWEST. | You go southwest. | You are at Kings Cross Station. | Visible exits are southwest | northeast. | 
+153 SOUTHWEST                                          x1  -> 0 4:45p r18 | SOUTHWEST. | You go southwest. | You are in Kings Cross Road. Visible | exits are northeast. You can see | Ins
+154 HAIL CAB                                           x1  -> 0 4:46p r18 | HAIL CAB. | You hail the hansom cab. | Inspector Lestrade remarks to the | cabbie " Go to Parliament Street. "
+155 CLIMB INTO HANSOM CAB                              x1  -> 0 4:48p r18 | CLIMB INTO HANSOM CAB. | You climb into the hansom cab. | Watson climbs into the hansom cab. | Mon 04:47pm | M
+156 SAY TO CABBIE "GO TO SLATER STREET"                x1  -> 0 4:49p r1 | SAY TO CABBIE "GO TO SLATER STREE | T.". | You talk to the cabbie. | You are in a hansom cab with Watson | and
+157 (until Slater Street.) WAIT                        x4  -> 0 5:09p r12 | WAIT. | You wait. | Mon 05:05pm | Mon 05:06pm | Mon 05:07pm | You are in a | hansom cab. The | hansom cab is o
+158 PAY 10D TO CABBIE                                  x1  -> 0 5:10p r12 | PAY 10D TO CABBIE. | You pay 10d. To the cabbie. | Mon 05:10pm >
+159 CLIMB OUT                                          x1  -> 0 5:12p r12 | CLIMB OUT. | You climb out of the hansom cab. | Watson climbs out of the hansom cab. | Mon 05:11pm | Mon 05:12
+160 LOOK                                               x1  -> 0 5:13p r12 | LOOK. | You are on Slater | Street. To the | north there is a | hidden door. You | can see Watson. | Watson is
+161 (until 11:5) WAIT                                  x80 -> 0 11:53p r12 | WAIT. | You wait. | Major Percival Ffoulkes climbs out | of the hansom cab. | The cabbie, who now appears to b
+162 WEAR CHINA MANS DISGUISE                           x1  -> 0 11:54p r0 | WEAR CHINA MANS DISGUISE. | You wear the china mans disguise. | Mon 11:54pm >
+163 LOOK                                               x1  -> 0 11:55p r0 | LOOK. | The china man is | on Slater Street. | To the north there | is a hidden door. | The china man can | se
+164 OPEN HIDDEN DOOR                                   x1  -> 0 11:55p r0 | OPEN HIDDEN DOOR. | I SEE NO HIDDEN DOOR THAT YOU CAN O | PEN | >
+165 NORTH                                              x1  -> 0 11:57p r0 | NORTH. | The china man goes north. | The china man is in a disgusting | opium den. Visible exits are south. | 
+166 LOOK                                               x1  -> 0 11:58p r0 | LOOK. | The china man is in a disgusting | opium den. Visible exits are south. | The china man can see Major P
+167 CLIMB OUT                                          x1  -> 0 11:58p r0 | CLIMB OUT. | I SEE NOTHING THAT YOU CAN CLIMB OU | T OF | >
+168 NORTH                                              x1  -> 0 11:58p r0 | NORTH. | YOU CANNOT GO NORTH. | >
+169 LOOK                                               x1  -> 0 11:59p r0 | LOOK. | The china man is in a disgusting | opium den. Visible exits are south. | The china man can see Major P
+170 LOOK                                               x1  -> 1 12:00a r0 | LOOK. | The china man is in a disgusting | opium den. Visible exits are south. | The china man can see Major P
+171 LOOK                                               x1  -> 1 12:01a r0 | LOOK. | The china man is in a disgusting | opium den. Visible exits are south. | The china man can see Major P
+172 LOOK                                               x1  -> 1 12:02a r0 | LOOK. | The china man is in a disgusting | opium den. Visible exits are south. | The china man can see Major P
+173 TAKE OFF CHINA MANS DISGUISE                       x1  -> 1 12:03a r13 | TAKE OFF CHINA MANS DISGUISE. | The china man takes off the china | mans disguise. | Major Percival Ffoulkes s
+174 LOOK                                               x1  -> 1 12:04a r13 | LOOK. | You are in a disgusting opium den. | Visible exits are south. You can see | Major Percival Ffoulkes. |
+175 LOOK                                               x1  -> 1 12:05a r13 | LOOK. | You are in a disgusting opium den. | Visible exits are south. You can see | Major Percival Ffoulkes. |
+176 WEAR CHINA MANS DISGUISE                           x1  -> 1 12:06a r0 | WEAR CHINA MANS DISGUISE. | You wear the china mans disguise. | Tue 12:06am >
+177 SOUTH                                              x1  -> 1 12:08a r0 | SOUTH. | The china man goes south. | The china man is on Slater Street. | The china man can see Inspector | Le
+178 LOOK                                               x1  -> 1 12:09a r0 | LOOK. | The china man is | on Slater Street. | To the north there | is a hidden door. | The china man can | se
+179 SAY TO LESTRADE "MAJOR PERCIVAL FFOULKES VISITED O x1  -> 1 12:10a r0 | SAY TO LESTRADE "MAJOR PERCIVAL F | FOULKES VISITED OPIUM DEN.". | The china man talks to Inspector | Lestrade
+180 TAKE OFF CHINA MANS DISGUISE                       x1  -> 1 12:11a r12 | TAKE OFF CHINA MANS DISGUISE. | The china man takes off the china | mans disguise. | Major Percival Ffoulkes e
+181 SOUTH                                              x1  -> 1 12:11a r12 | SOUTH. | YOU CANNOT GO SOUTH. | >
+182 (until Tue 12:5) WAIT                              x8  -> 1 12:51a r12 | WAIT. | You wait. | Tue 12:47am | Tue 12:48am | Tue 12:49am | Tue 12:50am | Tue 12:51am >
+183 HAIL CAB                                           x1  -> 1 12:52a r12 | HAIL CAB. | You hail the hansom cab. | The cabbie remarks to you " Hello | guv'nor. ". | Tue 12:52am >
+184 CLIMB INTO HANSOM CAB                              x1  -> 1 12:54a r12 | CLIMB INTO HANSOM CAB. | You climb into the hansom cab. | Watson climbs into the hansom cab. | Tue 12:53am | T
+185 SAY TO CABBIE "GO TO KINGS CROSS ROAD"             x1  -> 1 12:55a r1 | SAY TO CABBIE "GO TO KINGS CROSS | ROAD.". | You talk to the cabbie. | You are in a hansom cab with Watson | a
+186 (until Cross) WAIT                                 x4  -> 1 1:15a r18 | WAIT. | You wait. | Tue 01:11am | Tue 01:12am | Tue 01:13am | Tue 01:14am The hansom cab is in Kings Cross | R
+187 PAY 10D TO CABBIE                                  x1  -> 1 1:16a r18 | PAY 10D TO CABBIE. | You pay 10d. To the cabbie. | Tue 01:16am >
+188 CLIMB OUT                                          x1  -> 1 1:18a r18 | CLIMB OUT. | You climb out of the hansom cab. | Watson climbs out of the hansom cab. | Tue 01:17am | Tue 01:18
+189 NORTHEAST                                          x1  -> 1 1:20a r19 | NORTHEAST. | You go northeast. | You are at Kings Cross Station. | Visible exits are southwest | northeast. | 
+190 NORTHEAST                                          x1  -> 1 1:22a r20 | NORTHEAST. | You go northeast. | You are at platform one of Kings | cross station. Visible exits are | southwe
+191 NORTHEAST                                          x1  -> 1 1:24a r21 | NORTHEAST. | You go northeast. | You are at platform two of Kings | cross station. Visible exits are | southwe
+192 NORTHEAST                                          x1  -> 1 1:26a r22 | NORTHEAST. | You go northeast. | You are at platform three of Kings | cross station. Visible exits are | south
+193 NORTHEAST                                          x1  -> 1 1:28a r23 | NORTHEAST. | You go northeast. | You are at platform four of Kings | cross station. Visible exits are | southw
+194 LOOK                                               x1  -> 1 1:29a r23 | LOOK. | You are at platform four of Kings | cross station. Visible exits are | southwest. You can see Watson. 
+195 (until steam) LOOK                                 x1  -> 1 1:30a r23 | LOOK. | You are at platform four of Kings | cross station. Visible exits are | southwest. You can see Watson. 
+196 (until Tue 06:5) WAIT                              x64 -> 1 6:50a r23 | WAIT. | You wait. | Tue 06:46am | Tue 06:47am | Tue 06:48am | Tue 06:49am | Tue 06:50am >
+197 (until Tue 07:2) WAIT                              x6  -> 1 7:20a r23 | WAIT. | You wait. | Tue 07:16am | Tue 07:17am | Tue 07:18am | Tue 07:19am | Tue 07:20am >
+198 (until steam) LOOK                                 x10 -> 1 7:30a r23 | LOOK. | You are at platform four of Kings | cross station. Visible exits are | southwest. You can see Watson. 
+199 CLIMB INTO TRAIN                                   x1  -> 1 7:32a r23 | CLIMB INTO TRAIN. | You climb into the steam train. | Watson climbs into the steam train. | Tue 07:31am | Tue 
+200 LOOK                                               x1  -> 1 7:33a r23 | LOOK. | You are in a steam train with | Watson. Watson is carrying the daily | chronicle. You are at platform 
+201 (until Leather) WAIT                               x18 -> 1 9:00a r54 | WAIT. | You wait. | Tue 08:59am | You are in a steam | train with | Inspector Lestrade | and Watson. | Inspect
+202 CLIMB OUT                                          x1  -> 1 9:05a r54 | | steam train. | Tue 09:01am | Tue 09:02am Inspector Lestrade goes south. | Tue 09:03am > CLIMB OUT. | You cli
+203 SOUTH                                              x1  -> 1 9:07a r53 | SOUTH. | You go south. | You are at the leatherhead station. | Visible exits are south north. | Watson enters.
+204 SOUTH                                              x1  -> 1 9:09a r50 | SOUTH. | You go south. | You are in the main street. Visible | exits are north west east south | northeast. | 
+205 WEST                                               x1  -> 1 9:11a r62 | WEST. | You go west. | You are at Browns Front Gate. | Visible exits are south east. | Watson enters. | Tue 09
+206 OPEN GATE                                          x1  -> 1 9:11a r62 | OPEN GATE. | I SEE NO GATE THAT YOU CAN OPEN | >
+207 SOUTH                                              x1  -> 1 9:13a r76 | SOUTH. | You go south. | You are on a garden path. Visible | exits are north south southwest | east. | Watson 
+208 SOUTHWEST                                          x1  -> 1 9:15a r77 | SOUTHWEST. | You go southwest. | You are on a winding garden path. | Visible exits are northeast south. | Wats
+209 SOUTH                                              x1  -> 1 9:17a r78 | SOUTH. | You go south. | You are on a winding garden path. | Visible exits are north southwest | southeast. | 
+210 SOUTHWEST                                          x1  -> 1 9:19a r89 | SOUTHWEST. | You go southwest. | You are on the west side. Visible | exits are north northeast. | Watson enter
+211 EAST                                               x1  -> 1 9:19a r88 | EAST. | You go east. | You are on the east side. Visible | exits are southeast. You can see | Inspector Lestra
+212 LOOK                                               x1  -> 1 9:21a r88 | | Tue 09:20am Inspector Lestrade examines the deep | stream. | Tue 09:21am > LOOK. | You are on the | east sid
+213 EXAMINE CLOSELY DEEP STREAM                        x1  -> 1 9:27a r88 | | chronicle. | Inspector Lestrade examines the | sandstone bridge. | Tue 09:22am > EXAMINE CLOSELY DEEP STREAM
+214 WEST                                               x1  -> 1 9:29a r89 | WEST. | You go west. | You are on the west side. Visible | exits are north northeast. | Watson enters. | Tue 0
+215 NORTH                                              x1  -> 1 9:31a r78 | NORTH. | You go north. | You are on a winding garden path. | Visible exits are north southwest | southeast. | 
+216 NORTH                                              x1  -> 1 9:33a r77 | NORTH. | You go north. | You are on a winding garden path. | Visible exits are northeast south. | Watson enter
+217 NORTHEAST                                          x1  -> 1 9:35a r76 | NORTHEAST. | You go northeast. | You are on a garden path. Visible | exits are north south southwest | east. |
+218 NORTH                                              x1  -> 1 9:37a r62 | NORTH. | You go north. | You are at Browns Front Gate. | Visible exits are south east. | Watson enters. | Tue 
+219 EAST                                               x1  -> 1 9:39a r50 | EAST. | You go east. | You are in the main street. Visible | exits are north west east south | northeast. | Wa
+220 SOUTH                                              x1  -> 1 9:41a r51 | SOUTH. | You go south. | You are in the cobden lane. To the | east there is the front door. | Visible exits ar
+221 OPEN FRONT DOOR                                    x1  -> 1 9:41a r51 | OPEN FRONT DOOR. | THE FRONT DOOR IS OPEN | >
+222 EAST                                               x1  -> 1 9:43a r56 | EAST. | You go east. | You are in an entrance hall. To the | west there is the front door. To the | east there
+223 OPEN SITTINGROOM DOOR                              x1  -> 1 9:43a r56 | OPEN SITTINGROOM DOOR. | THE SITTINGROOM DOOR IS OPEN | >
+224 EAST                                               x1  -> 1 9:45a r57 | EAST. | You go east. | You are in a lounge room. To the | west there is the sittingroom door. | To the east th
+225 SOUTH                                              x1  -> 1 9:47a r58 | SOUTH. | You go south. | You are in Basils Library. Visible | exits are north. You can see a wall | safe. | Tu
+226 OPEN WALL SAFE                                     x1  -> 1 10:03a r58 | OPEN WALL SAFE. | You open the wall safe. | Tue 09:48am | Tue 09:49am | Tue 09:50am | Tue 09:51am | Tue 09:52a
+227 TAKE LETTERS                                       x1  -> 1 10:04a r58 | TAKE LETTERS. | You take some letters. | Tue 10:04am >
+228 EXAMINE CLOSELY LETTERS                            x1  -> 1 10:09a r58 | EXAMINE CLOSELY LETTERS. | You closely examine some letters. | They are to Mrs Brown from Tricia | and appear 
+229 INVENTORY                                          x1  -> 1 10:10a r58 | INVENTORY. | You are carrying a china mans | disguise, an oil lamp, your money, a | bank account book, a note,
+230 NORTH                                              x1  -> 1 10:12a r57 | NORTH. | You go north. | You are in a lounge room. Visible | exits are south. | Tue 10:11am | Tue 10:12am >
+231 OPEN SITTINGROOM DOOR                              x1  -> 1 10:13a r57 | OPEN SITTINGROOM DOOR. | You open the sittingroom door. | Tue 10:13am >
+232 WEST                                               x1  -> 1 10:15a r56 | WEST. | You go west. | You are in an entrance hall. | Tue 10:14am | Tue 10:15am >
+233 OPEN FRONT DOOR                                    x1  -> 1 10:16a r56 | OPEN FRONT DOOR. | You open the front door. | Watson enters. | Watson says to you " Hello ". | Tue 10:16am >
+234 WEST                                               x1  -> 1 10:18a r51 | WEST. | You go west. | You are in the cobden lane. Visible | exits are north south. | Tue 10:17am Watson enter
+235 NORTH                                              x1  -> 1 10:20a r50 | NORTH. | You go north. | You are in the main street. Visible | exits are north west east south | northeast. | 
+236 NORTH                                              x1  -> 1 10:22a r53 | NORTH. | You go north. | You are at the leatherhead station. | Visible exits are south north. | Tue 10:21am Wa
+237 NORTH                                              x1  -> 1 10:24a r54 | NORTH. | You go north. | You are on Platform One. Visible | exits are south north. | Tue 10:23am Watson enters
+238 NORTH                                              x1  -> 1 10:26a r55 | NORTH. | You go north. | You are at | platform two of | Leather Head | station. Visible | exits are south. | T
+239 LOOK                                               x1  -> 1 10:27a r55 | LOOK. | You are at | platform two of | Leather Head | station. Visible | exits are south. | You can see | Wats
+240 (until steam) LOOK                                 x19 -> 1 10:45a r55 | | A steam train enters. | Tue 10:45am > LOOK. | You are at | platform two of | Leather Head | station. Visible
+241 CLIMB INTO TRAIN                                   x1  -> 1 10:48a r55 | | daily chronicle. | Inspector Lestrade climbs into the | steam train. | Tue 10:46am > CLIMB INTO TRAIN. | You
+242 (until Kings) WAIT                                 x15 -> 1 12:03p r23 | WAIT. | You wait. | Tue 11:59am You are in a steam train with | Inspector Lestrade and Watson. | Inspector Les
+243 LOOK                                               x1  -> 1 12:04p r23 | LOOK. | You are in a steam train with | Watson. Watson is carrying the daily | chronicle. You are at platform 
+244 CLIMB OUT                                          x1  -> 1 12:06p r23 | CLIMB OUT. | You climb out of the steam train. | Watson climbs out of the steam | train. | Tue 12:05pm | Tue 1
+245 SOUTHWEST                                          x1  -> 1 12:08p r22 | SOUTHWEST. | You go southwest. | You are at platform three of Kings | cross station. Visible exits are | south
+246 SOUTHWEST                                          x1  -> 1 12:10p r21 | SOUTHWEST. | You go southwest. | You are at platform two of Kings | cross station. Visible exits are | southwe
+247 SOUTHWEST                                          x1  -> 1 12:12p r20 | SOUTHWEST. | You go southwest. | You are at platform one of Kings | cross station. Visible exits are | southwe
+248 SOUTHWEST                                          x1  -> 1 12:14p r19 | SOUTHWEST. | You go southwest. | You are at Kings Cross Station. | Visible exits are southwest | northeast. | 
+249 SOUTHWEST                                          x1  -> 1 12:16p r18 | SOUTHWEST. | You go southwest. | You are in Kings Cross Road. Visible | exits are northeast. You can see a | h
+250 LOOK                                               x1  -> 1 12:17p r18 | LOOK. | You are in Kings Cross Road. Visible | exits are northeast. You can see | Watson. Watson is carrying t
+251 (until Tue 12:3) WAIT                              x3  -> 1 12:32p r18 | WAIT. | You wait. | Tue 12:28pm | Tue 12:29pm | Tue 12:30pm | Tue 12:31pm | Tue 12:32pm >
+252 HAIL CAB                                           x1  -> 1 12:33p r18 | HAIL CAB. | You hail the hansom cab. | Tue 12:33pm >
+253 CLIMB INTO HANSOM CAB                              x1  -> 1 12:35p r18 | CLIMB INTO HANSOM CAB. | You climb into the hansom cab. | Watson climbs into the hansom cab. | The cabbie rema
+254 SAY TO CABBIE "GO TO PORTMAN STREET"               x1  -> 1 12:36p r1 | SAY TO CABBIE "GO TO PORTMAN STRE | ET.". | You talk to the cabbie. | You are in a hansom cab with Watson | an
+255 (until tricias) WAIT                               x4  -> 1 12:56p r45 | WAIT. | You wait. | Tue 12:52pm | Tue 12:53pm You are in a hansom cab. The hansom | cab is in Portman Street. 
+256 PAY 10D TO CABBIE                                  x1  -> 1 12:57p r45 | PAY 10D TO CABBIE. | You pay 10d. To the cabbie. | The cabbie pays 2d. To you. | Tue 12:57pm >
+257 CLIMB OUT                                          x1  -> 1 12:59p r45 | CLIMB OUT. | You climb out of the hansom cab. | Watson climbs out of the hansom cab. | Tue 12:58pm | Tue 12:59
+258 OPEN TRICIAS FRONT DOOR                            x1  -> 1 1:00p r45 | OPEN TRICIAS FRONT DOOR. | You open tricias front door. | Tue 01:00pm >
+259 SOUTH                                              x1  -> 1 1:02p r46 | SOUTH. | You go south. | You are in Tricias Entrance Hall. To | the north there is tricias front | door. To th
+260 OPEN THICK HEAVY DOOR                              x1  -> 1 1:03p r46 | OPEN THICK HEAVY DOOR. | You open the thick heavy door. | Tue 01:03pm >
+261 SOUTH                                              x1  -> 1 1:05p r47 | SOUTH. | You go south. | You are in Tricias Lounge. To the | north there is the thick heavy door. | To the sou
+262 LOOK                                               x1  -> 1 1:06p r47 | LOOK. | You are in Tricias Lounge. To the | north there is the thick heavy door. | To the south there is a pla
+263 SAY TO TRICIA FENDER "TELL ME ABOUT BLOODSTAINED C x1  -> 1 1:07p r47 | SAY TO TRICIA FENDER "TELL ME ABO | UT BLOODSTAINED CLOTHES.". | You talk to Tricia Fender. | Tue 01:07pm >
+264 SAY TO TRICIA FENDER "TELL ME ABOUT BLOODSTAINED C x1  -> 1 1:08p r47 | SAY TO TRICIA FENDER "TELL ME ABO | UT BLOODSTAINED CLOTHES.". | You talk to Tricia Fender. | Mrs Jones says t
+265 SAY TO TRICIA FENDER "TELL ME ABOUT BLOODSTAINED C x1  -> 1 1:08p r47 | SAY TO TRICIA FENDER "TELL ME ABO | UT BLOODSTAINED CLOTHES.". | I SEE NO TRICIA FENDER THAT YOU CAN | TALK TO
+266 SAY TO MRS JONES "TELL ME ABOUT YOUR ALIBI"        x1  -> 1 1:09p r47 | SAY TO MRS JONES "TELL ME ABOUT Y | OUR ALIBI.". | You talk to Mrs Jones. | Mrs Jones says to you " Tricia was
+267 SAY TO MRS JONES "TELL ME ABOUT YOUR ALIBI"        x1  -> 1 1:10p r47 | SAY TO MRS JONES "TELL ME ABOUT Y | OUR ALIBI.". | You talk to Mrs Jones. | Mrs Jones remarks to you " Tricia 
+268 SAY TO MRS JONES "TELL ME ABOUT YOUR ALIBI"        x1  -> 1 1:11p r47 | SAY TO MRS JONES "TELL ME ABOUT Y | OUR ALIBI.". | You talk to Mrs Jones. | Mrs Jones remarks to you " Tricia 
+269 OPEN WALL SAFE                                     x1  -> 1 1:27p r47 | OPEN WALL SAFE. | You open the wall safe. | Tue 01:12pm | Tue 01:13pm | Tue 01:14pm | Tue 01:15pm | Tue 01:16p
+270 EXAMINE CLOSELY UNFINISHED NOTE                    x1  -> 1 1:32p r47 | EXAMINE CLOSELY UNFINISHED NOTE. | You closely examine the unfinished | note. | It is addressed to Mrs Brown a
+271 EXAMINE CLOSELY FOLDER                             x1  -> 1 1:37p r47 | EXAMINE CLOSELY FOLDER. | You closely examine the folder. | The folder is empty but the label | reads " Top Se
+272 INVENTORY                                          x1  -> 1 1:38p r47 | INVENTORY. | You are carrying a china mans | disguise, an oil lamp, your money, a | bank account book, a note,
+273 NORTH                                              x1  -> 1 1:40p r46 | NORTH. | You go north. | You are in Tricias Entrance Hall. | Watson enters. | Tue 01:39pm | Tue 01:40pm >
+274 OPEN TRICIAS FRONT DOOR                            x1  -> 1 1:40p r46 | OPEN TRICIAS FRONT DOOR. | TRICIAS FRONT DOOR IS OPEN | >
+275 NORTH                                              x1  -> 1 1:42p r45 | NORTH. | You go north. | You are in Portman Street. | Watson enters. | Tue 01:41pm | Tue 01:42pm >
+276 HAIL CAB                                           x1  -> 1 1:43p r45 | HAIL CAB. | You hail the hansom cab. | The cabbie says to you " Good | afternoon | guv'nor. ". | Tue 01:43pm >
+277 CLIMB INTO HANSOM CAB                              x1  -> 1 1:45p r45 | CLIMB INTO HANSOM CAB. | You climb into the hansom cab. | Watson climbs into the hansom cab. | Tue 01:44pm | T
+278 SAY TO CABBIE "GO TO PARLIAMENT STREET"            x1  -> 1 1:46p r45 | SAY TO CABBIE "GO TO PARLIAMENT S | TREET.". | You talk to the cabbie. | Tue 01:46pm >
+279 SAY TO CABBIE "GO TO PARLIAMENT STREET"            x1  -> 1 1:47p r45 | SAY TO CABBIE "GO TO PARLIAMENT S | TREET.". | You talk to the cabbie. | Tue 01:47pm >
+280 SAY TO CABBIE "GO TO PARLIAMENT STREET"            x1  -> 1 1:48p r45 | SAY TO CABBIE "GO TO PARLIAMENT S | TREET.". | You talk to the cabbie. | Tue 01:48pm >
+281 SAY TO CABBIE "GO TO PARLIAMENT STREET"            x1  -> 1 1:49p r1 | SAY TO CABBIE "GO TO PARLIAMENT S | TREET.". | You talk to the cabbie. | You are in a hansom cab with Watson |
+282 (until parliament) WAIT                            x2  -> 1 1:59p r10 | WAIT. | You wait. | Tue 01:55pm You are in a hansom cab. The hansom | cab is on Parliament Street. Visible | e
+283 PAY 10D TO CABBIE                                  x1  -> 1 2:00p r10 | PAY 10D TO CABBIE. | You pay 10d. To the cabbie. | The cabbie pays 6d. To you. | Tue 02:00pm >
+284 CLIMB OUT                                          x1  -> 1 2:02p r10 | CLIMB OUT. | You climb out of the hansom cab. | Watson climbs out of the hansom cab. | Tue 02:01pm | Tue 02:02
+285 LOOK                                               x1  -> 1 2:03p r10 | LOOK. | You are on Parliament Street. | Visible exits are east. You can see | Watson and a hansom cab. Watson 
+286 EAST                                               x1  -> 1 2:03p r11 | EAST. | You go east. | You are in | Scotland Yard. | Visible exits are | west. You can see | Inspector | Lestr
+287 LOOK                                               x1  -> 1 2:06p r11 | | Tue 02:04pm Inspector Lestrade says to Watson " | Hello ". | Tue 02:05pm > LOOK. | You are in | Scotland Yar
+288 SAY TO LESTRADE                                    x1  -> 1 2:07p r11 | SAY TO LESTRADE. | You talk to Inspector Lestrade. | Tue 02:07pm >
+289 SAY TO LESTRADE                                    x1  -> 1 2:08p r11 | SAY TO LESTRADE. | You talk to Inspector Lestrade. | Tue 02:08pm >
+290 TALK TO LESTRADE                                   x1  -> 1 2:09p r11 | TALK TO LESTRADE. | You talk to Inspector Lestrade. | Tue 02:09pm >
+291 SAY TO LESTRADE "MRS BROWN KILLED HERSELF"         x1  -> 1 2:10p r11 | SAY TO LESTRADE "MRS BROWN KILLED | HERSELF.". | You talk to Inspector Lestrade. | Inspector Lestrade remarks 
+292 SAY TO LESTRADE "MRS JONES KILLED TRICIA FENDER"   x1  -> 1 2:11p r11 | SAY TO LESTRADE "MRS JONES KILLED | TRICIA FENDER.". | You talk to Inspector Lestrade. | Inspector Lestrade re
+293 SAY TO LESTRADE "TRICIA FENDER HAD PLANS"          x1  -> 1 2:12p r11 | SAY TO LESTRADE "TRICIA FENDER HA | D PLANS.". | You talk to Inspector Lestrade. | Inspector Lestrade remarks 
+294 (until tape) WAIT                                  x80 -> 1 8:52p r11 | WAIT. | You wait. | Tue 08:48pm | Tue 08:49pm | Tue 08:50pm | Tue 08:51pm | Tue 08:52pm >
+295 (until tape) WAIT                                  x80 -> 2 3:32a r11 | WAIT. | You wait. | Wed 03:28am | Wed 03:29am | Wed 03:30am | Wed 03:31am | Wed 03:32am >
+296 (until tape) WAIT                                  x80 -> 2 10:12a r11 | WAIT. | You wait. | Wed 10:08am | Wed 10:09am | Wed 10:10am | Wed 10:11am | Wed 10:12am >
+297 (until tape) WAIT                                  x80 -> 2 4:52p r11 | WAIT. | You wait. | Wed 04:48pm | Wed 04:49pm | Wed 04:50pm | Wed 04:51pm | Wed 04:52pm >
+298 (until tape) WAIT                                  x80 -> 2 11:32p r11 | WAIT. | You wait. | Wed 11:28pm | Wed 11:29pm | Wed 11:30pm | Wed 11:31pm | Wed 11:32pm >
+299 (until tape) WAIT                                  x80 -> 3 6:12a r11 | WAIT. | You wait. | Thu 06:08am | Thu 06:09am | Thu 06:10am | Thu 06:11am | Thu 06:12am >
+300 (until tape) WAIT                                  x47 -> 3 10:00a r11 | | seems that you and Inspector | Lestrade are disgraced for letting | this happen. Perhaps you should try | again. | PLAY SAVED GAME TAPE TO BE LOADED | .
+
+FINAL REPLY (previous reply + last reply): WAIT. | You wait. | Thu 09:58am | Thu 09:59am | Thu 10:00am | You have done extremely well to | solve the case at hand but the | morning papers carry a report of Mr | Browns lost plans being found and | sold to a foreign power. Since this | means disaster for the free world it | seems that you and Inspector | Lestrade are disgraced for letting | this happen. Perhaps you should try | again. | PLAY SAVED GAME TAPE TO BE LOADED | .
+end flag A0DA=1

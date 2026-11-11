@@ -1,0 +1,2684 @@
+{
+ "67F7": {
+  "text": "YOU SAY",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [
+   "0B 67FF",
+   "0B 6804"
+  ],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "sub-message"
+ },
+ "67FF": {
+  "text": "YOU SAY\"",
+  "status": "ok",
+  "sites": [
+   "BBE6"
+  ],
+  "script_sites": [],
+  "message_refs": [
+   "0B 681A",
+   "0B 6F54",
+   "0B 6F62",
+   "0B 6F80",
+   "0B 7126",
+   "0B 7207",
+   "0B 7224",
+   "0B 722D",
+   "0B 7243",
+   "0B 7249",
+   "0B 727E",
+   "0B 7295",
+   "0B 72A6",
+   "0B 72BD"
+  ],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "6804": {
+  "text": "YOU SAY TO THE OIL LAMP\"",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [
+   "0B 682A",
+   "0B 6830",
+   "0B 6BB7",
+   "0B 6D9A"
+  ],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "sub-message"
+ },
+ "680B": {
+  "text": "ONLY AN IDIOT WOULD TRY THAT.",
+  "status": "ok",
+  "sites": [
+   "9FCE"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "6817": {
+  "text": "THE OIL LAMP IS",
+  "status": "ok",
+  "sites": [
+   "CB9B"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "681A": {
+  "text": "YOU SAY\" SORRY, I CANNOT DO THAT NOW.\"",
+  "status": "ok",
+  "sites": [
+   "CBB2"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "682A": {
+  "text": "YOU SAY TO THE OIL LAMP\" HAIL THE HANSOM CAB.\".",
+  "status": "ok",
+  "sites": [
+   "CE10"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "6830": {
+  "text": "YOU SAY TO THE OIL LAMP\" W",
+  "status": "partial",
+  "sites": [
+   "CDB6",
+   "E1F2"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "6836": {
+  "text": "IT TOTALS",
+  "status": "ok",
+  "sites": [
+   "E32C"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "683F": {
+  "text": "YOU DO NOT HAVE ENOUGH.",
+  "status": "ok",
+  "sites": [
+   "E36A"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "6845": {
+  "text": "DON'T BE SILLY.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [
+   "0B 6855"
+  ],
+  "record_refs": [
+   "E283",
+   "E286",
+   "E289"
+  ],
+  "table_pointers": [],
+  "found_by": "record pointer"
+ },
+ "6855": {
+  "text": "DON'T BE SILLY.",
+  "status": "ok",
+  "sites": [
+   "B671"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "6859": {
+  "text": "I DO NOT KNOW THE WORD\"",
+  "status": "ok",
+  "sites": [
+   "D6EA"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "6866": {
+  "text": "WHAT ?",
+  "status": "ok",
+  "sites": [
+   "D7C3"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "686A": {
+  "text": "I DO NOT KNOW THE VERB\" \u2039word\u203a\"",
+  "status": "ok",
+  "sites": [
+   "B85C"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "687C": {
+  "text": "\u2039word\u203a THE \u2039word\u203a WHAT ?",
+  "status": "ok",
+  "sites": [
+   "B628"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "6880": {
+  "text": "\u2039word\u203a WHAT ?",
+  "status": "ok",
+  "sites": [
+   "B609"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "6888": {
+  "text": "WHICH \u2039word\u203a ?",
+  "status": "ok",
+  "sites": [
+   "B5F5"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "6894": {
+  "text": "I SEE \u2039word\u203a THAT YOU CAN \u2039word\u203a",
+  "status": "ok",
+  "sites": [
+   "B6A7"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "68A2": {
+  "text": "YOU CANNOT \u2039word\u203a THE \u2039word\u203a",
+  "status": "ok",
+  "sites": [
+   "B6E9"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "68AD": {
+  "text": "YOU ARE CARRYING",
+  "status": "ok",
+  "sites": [
+   "DE74"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "68B1": {
+  "text": "THE TRASH PILE IS CARRYING",
+  "status": "ok",
+  "sites": [
+   "D5A0"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "LD in code"
+ },
+ "68B5": {
+  "text": "WHAT",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "walk"
+ },
+ "68B7": {
+  "text": "YOU ARE CARRYING THE OIL LAMP.",
+  "status": "ok",
+  "sites": [
+   "DCBB"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "68BC": {
+  "text": "TO THE",
+  "status": "ok",
+  "sites": [
+   "D647"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "68BF": {
+  "text": "WHAT",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "walk"
+ },
+ "68C1": {
+  "text": "IT IS TOO DARK TO SEE MUCH ELSE.",
+  "status": "ok",
+  "sites": [
+   "D1BF"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "68D1": {
+  "text": "SORRY IT IS TOO DARK.",
+  "status": "ok",
+  "sites": [
+   "A312",
+   "CBBB"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "68D9": {
+  "text": "THERE \u2039word\u203a",
+  "status": "ok",
+  "sites": [
+   "D5BE"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "68DD": {
+  "text": "YOU ARE IN",
+  "status": "ok",
+  "sites": [
+   "D0FD",
+   "D135"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "68E1": {
+  "text": "YOU SEE",
+  "status": "ok",
+  "sites": [
+   "DF70"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "68E4": {
+  "text": "YOU CAN SEE",
+  "status": "ok",
+  "sites": [
+   "D0E5",
+   "D4B3"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "68E9": {
+  "text": "THERE IS",
+  "status": "ok",
+  "sites": [
+   "D650"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "68ED": {
+  "text": "THE ENTERS.",
+  "status": "ok",
+  "sites": [
+   "CACA",
+   "CB22"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "LD in code"
+ },
+ "68F1": {
+  "text": "VISIBLE EXITS ARE",
+  "status": "ok",
+  "sites": [
+   "D69A"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "6900": {
+  "text": "NOTHING",
+  "status": "ok",
+  "sites": [
+   "DE81"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "6902": {
+  "text": "GOOD MORNING",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [
+   "0B 691C"
+  ],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "sub-message"
+ },
+ "6915": {
+  "text": "HI.",
+  "status": "ok",
+  "sites": [
+   "9A87"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "LD in code"
+ },
+ "6918": {
+  "text": "HELLO",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [
+   "E7EC"
+  ],
+  "message_refs": [
+   "0B 6924",
+   "0B 6BAC"
+  ],
+  "record_refs": [
+   "E7EE"
+  ],
+  "table_pointers": [],
+  "found_by": "plan script"
+ },
+ "6920": {
+  "text": "YOU SAY\" GOOD MORNING \".",
+  "status": "ok",
+  "sites": [
+   "9A8D"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "6929": {
+  "text": "YOU SAY TO THE OIL LAMP\" GOOD MORNING \".",
+  "status": "ok",
+  "sites": [
+   "9CEC"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "6931": {
+  "text": "",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [
+   "0B 693A",
+   "0B 6975",
+   "0B 69BF",
+   "0B 6A26",
+   "0B 6A33",
+   "0B 6ABD",
+   "0B 6ADB"
+  ],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "sub-message"
+ },
+ "693A": {
+  "text": "I DO NOT THINK YOU ARE DOING TOO WELL, SURELY SHERLOCK HOLMES COULD DO A BETTER JOB THAN YOU HAVE DONE SO FAR. PERHAPS YOU SHOULD TRY AGAIN.",
+  "status": "ok",
+  "sites": [
+   "9E71"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "6975": {
+  "text": "AS THE MAJOR ENTERS LESTRADE ATTEMPTS TO ARREST HIM. THE MAJOR DRAWS A GUN AND FIRES WILDLY AT LESTRADE, WHO PULLS HIS REVOLVER AND KILLS MAJOR FFOULKES WITH A SINGLE SHOT.",
+  "status": "ok",
+  "sites": [
+   "9E8B"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "69BF": {
+  "text": "INSPECTOR LESTRADE SAYS TO YOU\" WELL HOLMES THAT WRAPS UP THIS CASE, SORRY YOU WERE NOT OF MORE HELP BUT YOU CANNOT SOLVE THEM ALL YOU KNOW.\". DESPITE HIS ASSURANCES YOU CANNOT HELP FEELING THERE SHOULD BE MORE TO THIS CASE. PERHAPS YOU SHOULD TRY AGAIN.",
+  "status": "ok",
+  "sites": [
+   "9E98"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "LD in code"
+ },
+ "6A26": {
+  "text": "INSPECTOR LESTRADE ENTERS AND SAYS TO YOU\" WELL HOLMES THAT WRAPS UP THIS CASE, SORRY YOU WERE NOT OF MORE HELP BUT YOU CANNOT SOLVE THEM ALL YOU KNOW.\". DESPITE HIS ASSURANCES YOU CANNOT HELP FEELING THERE SHOULD BE MORE TO THIS CASE. PERHAPS YOU SHOULD TRY AGAIN.",
+  "status": "ok",
+  "sites": [
+   "9E9D"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "LD in code"
+ },
+ "6A33": {
+  "text": "NOT ONLY HAVE YOU FAILED TO SOLVE THE CRIMES AT HAND BUT THE MORNING PAPERS CARRY A REPORT OF MR BROWNS LOST PLANS BEING FOUND AND SOLD TO A FOREIGN POWER. SINCE THIS MEANS DISASTER FOR THE FREE WORLD IT SEEMS THAT YOU AND INSPECTOR LESTRADE ARE DISGRACED FOR LETTING THIS HAPPEN. PERHAPS YOU SHOULD TRY AGAIN.",
+  "status": "ok",
+  "sites": [
+   "9EA4"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "LD in code"
+ },
+ "6ABD": {
+  "text": "YOU HAVE DONE EXTREMELY WELL TO SOLVE THE CASE AT HAND BUT THE MORNING PAPERS CARRY A REPORT OF MR BROWNS LOST PLANS BEING FOUND AND SOLD TO A FOREIGN POWER. SINCE THIS MEANS DISASTER FOR THE FREE WORLD IT SEEMS THAT YOU AND INSPECTOR LESTRADE ARE DISGRACED FOR LETTING THIS HAPPEN. PERHAPS YOU SHOULD TRY AGAIN.",
+  "status": "ok",
+  "sites": [
+   "9EBB"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "LD in code"
+ },
+ "6ADB": {
+  "text": "AS BASIL ENTERS HE SEES YOU AND PULLS A GUN.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [
+   "0B 6AF3",
+   "0B 6B79"
+  ],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "sub-message"
+ },
+ "6AF3": {
+  "text": "AS BASIL ENTERS HE SEES YOU AND PULLS A GUN. WITH SUPRISING AGILITY WATSON PUSHES YOU OUT OF THE WAY OF BASILS FIRST SHOT ALLOWING LESTRADE TIME TO PULL HIS GUN AND CAPTURE THE CULPRITS. AS INCREDIBLE AS IT MAY SEEM YOU HAVE SOLVED THIS CASE. YOU TRULY DESERVE THE TITLE OF WORLDS GREATEST DETECTIVE.",
+  "status": "ok",
+  "sites": [
+   "9E5B"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "LD in code"
+ },
+ "6B79": {
+  "text": "AS BASIL ENTERS HE SEES YOU AND PULLS A GUN. WITH HIS USUAL SKILL HIS FIRST SHOT DISPOSES OF YOU. PERHAPS YOU SHOULD TRY AGAIN.",
+  "status": "ok",
+  "sites": [
+   "9E4A"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "LD in code"
+ },
+ "6B9E": {
+  "text": "YOU HAVE TO GET INTO THE CAB FIRST.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [
+   "E096"
+  ],
+  "message_refs": [],
+  "record_refs": [
+   "E098"
+  ],
+  "table_pointers": [],
+  "found_by": "plan script"
+ },
+ "6BAC": {
+  "text": "GOOD MORNING  GUV'NOR.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [
+   "F2B6"
+  ],
+  "message_refs": [],
+  "record_refs": [
+   "F2B8"
+  ],
+  "table_pointers": [],
+  "found_by": "plan script"
+ },
+ "6BB7": {
+  "text": "YOU SAY TO THE OIL LAMP\" RIGHT GUV'NOR THAT WILL BE",
+  "status": "ok",
+  "sites": [
+   "E6CC"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "6BC7": {
+  "text": "YOU, WHO NOW APPEARS TO BE GETTING QUITE AGITATED, SAYS\" WHAT ABOUT ME MONEY GUV'NOR?\".",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [
+   "F331"
+  ],
+  "message_refs": [],
+  "record_refs": [
+   "F332"
+  ],
+  "table_pointers": [],
+  "found_by": "plan script"
+ },
+ "6BF6": {
+  "text": "WITH A PRACTISED FLICK OF THE REINS, YOU MOVES ON DOWN THE STREET IN SEARCH OF OTHER FARES.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [
+   "F2CB"
+  ],
+  "message_refs": [],
+  "record_refs": [
+   "F2CC"
+  ],
+  "table_pointers": [],
+  "found_by": "plan script"
+ },
+ "6C1B": {
+  "text": "WELL ARE WE GOIN' ANYWHERE GUV'NOR?",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [
+   "F2E5"
+  ],
+  "message_refs": [],
+  "record_refs": [
+   "F2E7"
+  ],
+  "table_pointers": [],
+  "found_by": "plan script"
+ },
+ "6C34": {
+  "text": "YOU REPLIES\" SORRY GUV'NOR I CANNOT GET THERE FROM'ERE\".",
+  "status": "ok",
+  "sites": [
+   "9B76"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "6C54": {
+  "text": "YOU SHOUTS\" YOU BLOODY SNOB, WATCH OUT IF WE EVER MEET AGAIN\".",
+  "status": "ok",
+  "sites": [
+   "E71B"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "6C76": {
+  "text": "WHAT",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "walk"
+ },
+ "6C78": {
+  "text": "WELL HOLMES YOU HAVE FOUND OUT MY SHAMEFUL SECRET, I AM ADDICTED TO THIS VILE OPIUM AND I CONFESS, THIS IS WHERE I WAS LAST NIGHT.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [
+   "F0E2"
+  ],
+  "message_refs": [],
+  "record_refs": [
+   "F0E4"
+  ],
+  "table_pointers": [],
+  "found_by": "plan script"
+ },
+ "6CB9": {
+  "text": "UPON SEEING THE BODY MAJOR FFOULKES TURNS DEATHLY PALE, THEN, RECOVERING, TURNS AND SAYS\" INSPECTOR LESTRADE, DO YOU KNOW WHO DID THIS YET?\".",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [
+   "F07D"
+  ],
+  "message_refs": [],
+  "record_refs": [
+   "F07E"
+  ],
+  "table_pointers": [],
+  "found_by": "plan script"
+ },
+ "6CF5": {
+  "text": "PLEASE LET ME PAST OFFICER, I MUST SEE",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [
+   "0B 6D22"
+  ],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "sub-message"
+ },
+ "6D06": {
+  "text": "YOU CANNOT BLOCK MY WAY OFFICER, I AM A CLOSE FRIEND OF",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [
+   "0B 6D25"
+  ],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "sub-message"
+ },
+ "6D20": {
+  "text": "PLEASE LET ME PAST OFFICER, I MUST SEE MRS JONES.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [
+   "F06A"
+  ],
+  "message_refs": [],
+  "record_refs": [
+   "F06C"
+  ],
+  "table_pointers": [],
+  "found_by": "plan script"
+ },
+ "6D2E": {
+  "text": "INSPECTOR I AM YOU A VERY CLOSE AQUAINTANCE OF MRS JONES AND I DEMAND TO SEE HER AT ONCE.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [
+   "F073"
+  ],
+  "message_refs": [],
+  "record_refs": [
+   "F075"
+  ],
+  "table_pointers": [],
+  "found_by": "plan script"
+ },
+ "6D5B": {
+  "text": "WHAT",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "walk"
+ },
+ "6D5D": {
+  "text": "YOU KNOCKS THE POLICE MAN UNCONSCIOUS FROM BEHIND.",
+  "status": "ok",
+  "sites": [
+   "F1AA"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "LD in code"
+ },
+ "6D6A": {
+  "text": "SEEING THE UNCONSCIOUS POLICE MAN, YOU ATTEMPTS TO REVIVE HIM. AS HE COMES TO HE SAYS\" IT WAS THE MAJOR, HE CAME FROM BEHIND.\".",
+  "status": "ok",
+  "sites": [
+   "ED3E"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "LD in code"
+ },
+ "6D9A": {
+  "text": "YOU SAY TO THE OIL LAMP\" I AM SORRY SIR BUT I HAVE MY ORDERS, NO ONE IS TO GET BY.\".",
+  "status": "ok",
+  "sites": [
+   "9D6A"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "6DBF": {
+  "text": "INSPECTOR, THIS GENTLEMAN INSISTS HE KNOWS MRS JONES AND WISHES TO ENTER THE HOUSE.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [
+   "F114"
+  ],
+  "message_refs": [],
+  "record_refs": [
+   "F116"
+  ],
+  "table_pointers": [],
+  "found_by": "plan script"
+ },
+ "6DE9": {
+  "text": "WHAT",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "walk"
+ },
+ "6DEB": {
+  "text": "WATSON LOOKS UP FROM THE PAPER AND SAYS\" GOOD MORNING HOLMES.\"",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [
+   "E72F"
+  ],
+  "message_refs": [],
+  "record_refs": [
+   "E730"
+  ],
+  "table_pointers": [],
+  "found_by": "plan script"
+ },
+ "6E02": {
+  "text": "WITH AN EXCITED LOOK ON HIS FACE YOU SAYS\" WELL HERE IS A CASE THAT MAY INTEREST YOU, IT SEEMS THAT TWO CLOSE FRIENDS, A MRS BROWN AND A MRS JONES, WERE MURDERED LAST NIGHT IN SEPARATE INCIDENTS ALTHOUGH APPARENTLY WITH THE SAME WEAPON. THE CRIMES OCCURRED AT THEIR RESPECTIVE HOMES IN THE TOWNSHIP OF LEATHER HEAD AND, BECAUSE OF THE LACK OF MURDER WEAPON AND APPARENT MOTIVE, THE LOCAL POLICE ARE COMPLETELY BAFFLED. THEY HAVE CALLED UPON SCOTLAND YARD FOR ASSISTANCE AND IT APPEARS THAT THE FAMED DETECTIVE INSPECTOR GILES LESTRADE HAS TAKEN AN INTEREST IN THE CASE AND WILL BE GOING TO THE SCENE THIS MORNING.\"",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [
+   "E742"
+  ],
+  "message_refs": [],
+  "record_refs": [
+   "E743"
+  ],
+  "table_pointers": [],
+  "found_by": "plan script"
+ },
+ "6EFC": {
+  "text": "YOU LOOKS UP AS YOU ENTER SAYING\" HELLO THERE HOLMES, JUST A MINUTE NOW- HERE IS A CASE THAT MAY INTEREST YOU, IT SEEMS THAT TWO CLOSE FRIENDS, A MRS BROWN AND A MRS JONES, WERE MURDERED LAST NIGHT IN SEPARATE INCIDENTS ALTHOUGH APPARENTLY WITH THE SAME WEAPON. THE CRIMES OCCURRED AT THEIR RESPECTIVE HOMES IN THE TOWNSHIP OF LEATHER HEAD AND, BECAUSE OF THE LACK OF MURDER WEAPON AND APPARENT MOTIVE, THE LOCAL POLICE ARE COMPLETELY BAFFLED. THEY HAVE CALLED UPON SCOTLAND YARD FOR ASSISTANCE AND IT APPEARS THAT THE FAMED DETECTIVE INSPECTOR GILES LESTRADE HAS TAKEN AN INTEREST IN THE CASE AND WILL BE GOING TO THE SCENE THIS MORNING.\"",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [
+   "E773"
+  ],
+  "message_refs": [],
+  "record_refs": [
+   "E774"
+  ],
+  "table_pointers": [],
+  "found_by": "plan script"
+ },
+ "6F22": {
+  "text": "THAT IS BRILLIANT HOLMES",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [
+   "0B 6F29",
+   "0B 6F59"
+  ],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "sub-message"
+ },
+ "6F29": {
+  "text": "THAT IS BRILLIANT HOLMES, I DO NOT KNOW HOW YOU DO IT",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [
+   "0B 6F5C"
+  ],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "sub-message"
+ },
+ "6F2C": {
+  "text": ", I DO NOT KNOW HOW YOU DO IT",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [
+   "0B 6FCE"
+  ],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "sub-message"
+ },
+ "6F39": {
+  "text": "WHY DO YOU THINK THAT YOU AND YOU",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [
+   "0B 6F85"
+  ],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "sub-message"
+ },
+ "6F44": {
+  "text": "HOW DID YOU EVER DEDUCE THAT YOU AND YOU",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [
+   "0B 6F88"
+  ],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "sub-message"
+ },
+ "6F54": {
+  "text": "YOU SAY\" THAT IS BRILLIANT HOLMES.\".",
+  "status": "ok",
+  "sites": [
+   "BB3F"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "6F62": {
+  "text": "YOU SAY\" WELL DO YOU THINK THERE IS SOME CONNECTION BETWEEN THE AND W",
+  "status": "partial",
+  "sites": [
+   "BB38"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "6F80": {
+  "text": "YOU SAY\" WHY DO YOU THINK THAT YOU AND YOU?\".",
+  "status": "ok",
+  "sites": [
+   "E6B3"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "6F8E": {
+  "text": "WHAT",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "walk"
+ },
+ "6F90": {
+  "text": "KEEP ME POSTED ON ANY NEW EVENTS.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [
+   "EA06"
+  ],
+  "message_refs": [],
+  "record_refs": [
+   "EA08"
+  ],
+  "table_pointers": [],
+  "found_by": "plan script"
+ },
+ "6FAB": {
+  "text": "SO MRS BROWN KILLED HERSELF, EXCELLENT HOLMES, ANOTHER BRILLIANT CONCLUSION.",
+  "status": "ok",
+  "sites": [
+   "9A53"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "6FCA": {
+  "text": "BRILLIANT HOLMES, I DO NOT KNOW HOW YOU DO IT.\". HE CALLS FOR A CONSTABLE WHO LEADS THE VERY DISTRESSED MRS JONES OUT OF THE ROOM INTO THE DEPTHS OF SCOTLAND YARD.",
+  "status": "ok",
+  "sites": [
+   "9A6E"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "7008": {
+  "text": "WELL IT LOOKS AS THOUGH THE MAJOR IS OUR MAN.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [
+   "E922"
+  ],
+  "message_refs": [
+   "0B 7020"
+  ],
+  "record_refs": [
+   "E924"
+  ],
+  "table_pointers": [],
+  "found_by": "plan script"
+ },
+ "7020": {
+  "text": "WELL IT LOOKS AS THOUGH THE MAJOR IS OUR MAN. MY MEN ARE OUT LOOKING FOR HIM NOW.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [
+   "E949"
+  ],
+  "message_refs": [],
+  "record_refs": [
+   "E94B"
+  ],
+  "table_pointers": [],
+  "found_by": "plan script"
+ },
+ "7034": {
+  "text": "WELL THEN CONSTABLE I SHALL RETURN TO THE YARD AND APPREHEND THIS MAJOR FFOULKES. YOU MAY REMOVE THE BODIES NOW AND TELL THE OTHERS THEY ARE FREE TO GO.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [
+   "E92C"
+  ],
+  "message_refs": [],
+  "record_refs": [
+   "E92E"
+  ],
+  "table_pointers": [],
+  "found_by": "plan script"
+ },
+ "7075": {
+  "text": "YOU ARE FREE TO GO.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [
+   "E96E"
+  ],
+  "message_refs": [],
+  "record_refs": [
+   "E970"
+  ],
+  "table_pointers": [],
+  "found_by": "plan script"
+ },
+ "7079": {
+  "text": "RIGHT THEN HOLMES WE MUST HURRY IF WE ARE TO CATCH THEM.",
+  "status": "ok",
+  "sites": [
+   "99FF"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "7099": {
+  "text": "VERY GOOD HOLMES, BASIL WILL LIKELY TRY TO SELL THEM, WE MUST FIND WHERE THE SALE LOCATION IS.",
+  "status": "ok",
+  "sites": [
+   "9A29"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "70C0": {
+  "text": "HAVE YOU FOUND WHERE THE SALE LOCATION IS.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [
+   "EA55"
+  ],
+  "message_refs": [],
+  "record_refs": [
+   "EA57"
+  ],
+  "table_pointers": [],
+  "found_by": "plan script"
+ },
+ "70C7": {
+  "text": "I AM AFRAID THAT BASIL HAS ELUDED US HOLMES.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [
+   "EAA5",
+   "EACC"
+  ],
+  "message_refs": [],
+  "record_refs": [
+   "EAA7",
+   "EACE"
+  ],
+  "table_pointers": [],
+  "found_by": "plan script"
+ },
+ "70E3": {
+  "text": "I DO NOT SEE THE IMPORTANCE OF THAT HOLMES.",
+  "status": "ok",
+  "sites": [
+   "9A0D"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "70F0": {
+  "text": "VERY GOOD HOLMES, I SHALL RETURN TO LEATHER HEAD TOMORROW TO HAVE ANOTHER LOOK AROUND.",
+  "status": "ok",
+  "sites": [
+   "9A45"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "7112": {
+  "text": "WHAT IS GOING ON HERE CONSTABLE?",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [
+   "E8B9"
+  ],
+  "message_refs": [],
+  "record_refs": [
+   "E8BB"
+  ],
+  "table_pointers": [],
+  "found_by": "plan script"
+ },
+ "711D": {
+  "text": "COME WITH ME PLEASE.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [
+   "E8C5"
+  ],
+  "message_refs": [],
+  "record_refs": [
+   "E8C7"
+  ],
+  "table_pointers": [],
+  "found_by": "plan script"
+ },
+ "7126": {
+  "text": "YOU SAY\" I WOULD LIKE YOU TO REMAIN HERE PLEASE.\"",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [
+   "E868",
+   "E888",
+   "E8EA"
+  ],
+  "message_refs": [],
+  "record_refs": [
+   "E869",
+   "E889",
+   "E8EB"
+  ],
+  "table_pointers": [],
+  "found_by": "plan script"
+ },
+ "7139": {
+  "text": "MAKE SURE THE MAJOR DOES NOT LEAVE CONSTABLE.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [
+   "E8F7"
+  ],
+  "message_refs": [],
+  "record_refs": [
+   "E8F9"
+  ],
+  "table_pointers": [],
+  "found_by": "plan script"
+ },
+ "7150": {
+  "text": "HAVE YOUR MEN SEARCHED THE RIVER FOR THE GUN YET?",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [
+   "E81E"
+  ],
+  "message_refs": [],
+  "record_refs": [
+   "E820"
+  ],
+  "table_pointers": [],
+  "found_by": "plan script"
+ },
+ "7163": {
+  "text": "NOW WHAT SEEMS TO BE THE PROBLEM HERE?",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [
+   "E7F6"
+  ],
+  "message_refs": [],
+  "record_refs": [
+   "E7F8"
+  ],
+  "table_pointers": [],
+  "found_by": "plan script"
+ },
+ "7175": {
+  "text": "WELL THEN SHOW ME TO THE BROWN'S ESTATE PLEASE.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [
+   "E800"
+  ],
+  "message_refs": [],
+  "record_refs": [
+   "E802"
+  ],
+  "table_pointers": [],
+  "found_by": "plan script"
+ },
+ "7189": {
+  "text": "RIGHT THEN CONSTABLE WILL YOU SHOW ME TO MISS STRACHAN AND MR PHIPPS PLEASE.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [
+   "E850",
+   "E911"
+  ],
+  "message_refs": [],
+  "record_refs": [
+   "E852",
+   "E913"
+  ],
+  "table_pointers": [],
+  "found_by": "plan script"
+ },
+ "71A4": {
+  "text": "CHIEF CONSTABLE I WILL SEE THE STAFF NOW.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [
+   "E86B",
+   "E8FB"
+  ],
+  "message_refs": [],
+  "record_refs": [
+   "E86D",
+   "E8FD"
+  ],
+  "table_pointers": [],
+  "found_by": "plan script"
+ },
+ "71B7": {
+  "text": "WELL I MUST SAY THIS IS ALL VERY CONFUSING, PERHAPS I SHOULD VISIT THE ESTATE OF MRS JONES NOW.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [
+   "E88B"
+  ],
+  "message_refs": [],
+  "record_refs": [
+   "E88D"
+  ],
+  "table_pointers": [],
+  "found_by": "plan script"
+ },
+ "71E0": {
+  "text": "WELL, HOLMES FANCY SEEING YOU HERE.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [
+   "0B 7202",
+   "0B 7227"
+  ],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "sub-message"
+ },
+ "71ED": {
+  "text": "YOU WITH A SURPRISED LOOK ON HIS FACE, SAYS\" WELL, HOLMES FANCY SEEING YOU HERE.\".",
+  "status": "ok",
+  "sites": [
+   "9DD2"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "7207": {
+  "text": "YOU SAY\" THE OIL LAMP I WOULD LIKE YOU TO MEET MR SHERLOCK HOLMES, HOLMES THIS IS THE OIL LAMP\".",
+  "status": "ok",
+  "sites": [
+   "9E38"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "LD in code"
+ },
+ "7224": {
+  "text": "YOU SAY\" WELL, HOLMES FANCY SEEING YOU HERE. THE OIL LAMP I WOULD LIKE YOU TO MEET MR SHERLOCK HOLMES, HOLMES THIS IS THE OIL LAMP\".",
+  "status": "ok",
+  "sites": [
+   "9E41"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "722D": {
+  "text": "YOU SAY\" WELL CAN YOU PROVE THAT YOU AND YOU YET, HOLMES ?\".",
+  "status": "ok",
+  "sites": [
+   "9DEE"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "7243": {
+  "text": "YOU SAY\" WHAT\".",
+  "status": "ok",
+  "sites": [
+   "BBBE"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [
+   "E7E9",
+   "E98F",
+   "EA64",
+   "EF21"
+  ],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "7249": {
+  "text": "YOU SAY\" THAT MAY WELL BE, HOLMES, I WILL THINK ABOUT IT",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [
+   "0B 725F",
+   "0B 7265"
+  ],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "sub-message"
+ },
+ "725F": {
+  "text": "YOU SAY\" THAT MAY WELL BE, HOLMES, I WILL THINK ABOUT IT.\"",
+  "status": "ok",
+  "sites": [
+   "BB87"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "7265": {
+  "text": "YOU SAY\" THAT MAY WELL BE, HOLMES, I WILL THINK ABOUT IT, BUT I HAVE OTHER CASES TO SOLVE RIGHT NOW.\"",
+  "status": "ok",
+  "sites": [
+   "9A37"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "727E": {
+  "text": "YOU SAY\" THATS FINE HOLMES BUT WHAT DOES IT PROVE\".",
+  "status": "ok",
+  "sites": [
+   "BBDE"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "7295": {
+  "text": "YOU SAY\" WHAT PROOF DO YOU HAVE THAT YOU AND YOU\".",
+  "status": "ok",
+  "sites": [
+   "BBB5"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "72A6": {
+  "text": "YOU SAY\" I DO NOT BELIEVE THAT YOU HAVE THE EVIDENCE TO PROVE THAT YOU AND YOU\".",
+  "status": "ok",
+  "sites": [
+   "BBC4"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "LD in code"
+ },
+ "72BD": {
+  "text": "YOU SAY\" THAT IS WELL AND GOOD, BUT I DO NOT SEE HOW IT PROVES THAT YOU AND YOU\".",
+  "status": "ok",
+  "sites": [
+   "BBD9"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "LD in code"
+ },
+ "72D6": {
+  "text": "ONE THING AT A TIME HOLMES",
+  "status": "ok",
+  "sites": [
+   "BBEF"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "72E1": {
+  "text": "I CANNOT ACCEPT THAT YOU AND YOU.",
+  "status": "ok",
+  "sites": [
+   "BC01"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "72EE": {
+  "text": "WHAT",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "walk"
+ },
+ "72F0": {
+  "text": "INSPECTOR I WOULD LIKE YOU TO MEET BASIL PHIPPS AND DAPHNE STRACHAN. BASIL, DAPHNE THIS IS INSPECTOR LESTRADE FROM SCOTLAND YARD.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [
+   "EC38"
+  ],
+  "message_refs": [],
+  "record_refs": [
+   "EC3A"
+  ],
+  "table_pointers": [],
+  "found_by": "plan script"
+ },
+ "7319": {
+  "text": "YES INSPECTOR, UNFORTUNATELY NOTHING WAS FOUND.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [
+   "EC1F"
+  ],
+  "message_refs": [],
+  "record_refs": [
+   "EC21"
+  ],
+  "table_pointers": [],
+  "found_by": "plan script"
+ },
+ "7329": {
+  "text": "HELLO INSPECTOR, GOOD OF YOU TO COME SO QUICKLY.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [
+   "EBFE"
+  ],
+  "message_refs": [],
+  "record_refs": [
+   "EC00"
+  ],
+  "table_pointers": [],
+  "found_by": "plan script"
+ },
+ "733B": {
+  "text": "\" MEET ME BY THE BRIDGE AT",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [
+   "0B 7347",
+   "0B 7FD1"
+  ],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "sub-message"
+ },
+ "7347": {
+  "text": "\" MEET ME BY THE BRIDGE AT HALF PAST TWELVE. I HAVE SOME VERY IMPORTANT NEWS.  SIGNED. P. F.\".",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [
+   "0B 744C",
+   "02 8224"
+  ],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "sub-message"
+ },
+ "7371": {
+  "text": "DAMNED STICKY BUSINESS THIS, WE RECIEVED A REPORT EARLY THIS MORNING FROM THE GARDENER UP AT THE BROWN'S ESTATE THAT MRS BROWN HAD BEEN MURDERED. WELL I'LL TELL YOU I HAVE BEEN POLICE CHIEF HERE FOR MANY A YEAR NOW AND I HAVE NEVER SEEN AS NASTY A PIECE OF WORK AS THIS. CLEARLY SHE WAS SHOT FROM CLOSE RANGE, THE BULLET ENTERING THE RIGHT TEMPLE AND EXITING FROM THE LEFT SIDE. I WOULD SAY THAT SHE WAS DEAD BEFORE HER BODY HIT THE GROUND. THE ONLY CLUE SO FAR IS A NOTE READING\" MEET ME BY THE BRIDGE AT HALF PAST TWELVE. I HAVE SOME VERY IMPORTANT NEWS.  SIGNED. P. F.\". AS IF ALL THIS WAS NOT BAD ENOUGH, WHEN I WENT ROUND TO MRS JONES HOUSE TO BREAK THE NEWS TO HER, THEY WERE VERY CLOSE FRIENDS YOU KNOW, I WAS FORCED TO BREAK INTO THE HOUSE, NOT BEING ABLE TO ROUSE ANYONE. IMAGINE MY SHOCK WHEN I ENTERED THE LIBRARY TO FIND MRS JONES LYING DEAD ON THE COUCH, HER FACE ALL BUT BLOWN AWAY BY WHAT APPEARS TO BE THE SAME GUN THAT KILLED MRS BROWN. AT THE PRESENT THE ONLY PEOPLE WHO SEEM TO BE INVOLVED ARE THE GARDENER AND HIS WIFE, THE COOK, AND THE MAID ALONG WITH MRS BROWN'S NIECE DAPHNE STRACHAN AND HER FIANCEE BASIL PHIPPS. I HAVE ASKED THEM ALL TO REMAIN AT THE HOUSE FOR THE PRESENT.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [
+   "EC08"
+  ],
+  "message_refs": [],
+  "record_refs": [
+   "E263",
+   "EC0A"
+  ],
+  "table_pointers": [],
+  "found_by": "plan script"
+ },
+ "7552": {
+  "text": "YOU SEEMS AT A LOSS, LOOKING FORLORN AND CRYING QUIETLY TO HERSELF.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [
+   "F023",
+   "F031"
+  ],
+  "message_refs": [],
+  "record_refs": [
+   "F024",
+   "F032"
+  ],
+  "table_pointers": [],
+  "found_by": "plan script"
+ },
+ "7571": {
+  "text": "WHAT",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "walk"
+ },
+ "7573": {
+  "text": "AS YOU ENTER YOU WHIPS HIS HORSES INTO ACTION AND SPEEDS OFF DOWN THE ROAD.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [
+   "EF47"
+  ],
+  "message_refs": [],
+  "record_refs": [
+   "EF48"
+  ],
+  "table_pointers": [],
+  "found_by": "plan script"
+ },
+ "759C": {
+  "text": "BASIL ENTERS AND SAYS\" HOLMES, YOUR INTERFERENCE IS BECOMING ANNOYING.\". PULLING A GUN HE SHOOTS YOU. PERHAPS YOU SHOULD TRY AGAIN.",
+  "status": "ok",
+  "sites": [
+   "DFCC"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "LD in code"
+ },
+ "75D2": {
+  "text": "BASIL SAYS\" HOLMES, YOUR INTERFERENCE IS BECOMING ANNOYING.\". PULLING A GUN HE SHOOTS YOU. PERHAPS YOU SHOULD TRY AGAIN.",
+  "status": "ok",
+  "sites": [
+   "DFDD"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "LD in code"
+ },
+ "75D7": {
+  "text": "A MESSENGER ARRIVES AT THE DOOR,",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [
+   "0B 75E8",
+   "0B 7603"
+  ],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "sub-message"
+ },
+ "75E8": {
+  "text": "A MESSENGER ARRIVES AT THE DOOR, TAKES A NOTE FROM BASIL AND DISSAPEARS DOWN THE STREET.",
+  "status": "ok",
+  "sites": [
+   "EF9E"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "7603": {
+  "text": "A MESSENGER ARRIVES AT THE DOOR, GIVES A NOTE TO BASIL AND DISSAPEARS DOWN THE STREET.",
+  "status": "ok",
+  "sites": [
+   "EFAE"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "LD in code"
+ },
+ "7611": {
+  "text": "THE TRAIN PULLS OUT OF THE STATION.",
+  "status": "ok",
+  "sites": [
+   "E4DE"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "761B": {
+  "text": "WHAT",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "walk"
+ },
+ "761D": {
+  "text": "I AM SORRY I CANNOT HELP YOU WITH THAT.",
+  "status": "ok",
+  "sites": [
+   "E1FC"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "LD in code"
+ },
+ "762D": {
+  "text": "TRICIA WAS BLACKMAILING MRS BROWN ABOUT SOMETHING.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [
+   "0B 7644"
+  ],
+  "record_refs": [
+   "E27E"
+  ],
+  "table_pointers": [],
+  "found_by": "record pointer"
+ },
+ "7644": {
+  "text": "TRICIA WAS BLACKMAILING MRS BROWN ABOUT SOMETHING. I JUST COULD NOT LET HER HURT MY FRIEND LIKE THAT SO I PLANNED TO GET RID OF HER. I HAD NO IDEA THAT SHE HAD ALREADY KILLED POOR SARAH.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [
+   "02 76A1"
+  ],
+  "record_refs": [
+   "E278",
+   "E27B"
+  ],
+  "table_pointers": [],
+  "found_by": "record pointer"
+ },
+ "7687": {
+  "text": "OH MY GOD, YOU FOUND OUT, I AM REALLY MRS JONES. TRICIA WAS BLACKMAILING MRS BROWN ABOUT SOMETHING. I JUST COULD NOT LET HER HURT MY FRIEND LIKE THAT SO I PLANNED TO GET RID OF HER. I HAD NO IDEA THAT SHE HAD ALREADY KILLED POOR SARAH.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [
+   "E270",
+   "E275"
+  ],
+  "table_pointers": [],
+  "found_by": "record pointer"
+ },
+ "7722": {
+  "text": "I LIVE IN SIDMOUTH STREET.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [
+   "E26B"
+  ],
+  "table_pointers": [],
+  "found_by": "record pointer"
+ },
+ "772C": {
+  "text": "IN LONDON I LIVE IN CAMDEN STREET. AT LEATHER HEAD I STAY AT A RENTED HOUSE IN COBDEN LANE.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [
+   "E250"
+  ],
+  "table_pointers": [],
+  "found_by": "record pointer"
+ },
+ "774F": {
+  "text": "MRS BROWN'S HUSBAND WAS KILLED ABOUT FIVE YEARS AGO, HE WAS A TOP SCIENTIST WORKING ON SOME SECRET PROJECT. APPARENTLY THERE WAS SOME MYSTERY INVOLVED IN HIS DEATH BUT NOTHING WAS EVER DISCOVERED AND I HEAR THE PLANS FOR HIS PROJECT WERE NEVER SEEN AGAIN. SHE WAS VERY WELL LIKED BY THE PEOPLE AROUND HERE.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [
+   "EC17"
+  ],
+  "message_refs": [],
+  "record_refs": [
+   "EC19"
+  ],
+  "table_pointers": [],
+  "found_by": "plan script"
+ },
+ "77C9": {
+  "text": "MRS JONES WAS A WIDOW, HER HUSBAND HAVING DIED ABOUT EIGHT YEARS AGO. AT THE TIME SHE CAME HERE TO LIVE NEAR HER LIFELONG FRIEND MRS BROWN.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [
+   "EC69"
+  ],
+  "message_refs": [],
+  "record_refs": [
+   "EC6B"
+  ],
+  "table_pointers": [],
+  "found_by": "plan script"
+ },
+ "780C": {
+  "text": "I AM SORRY BUT I AM NOT AT LIBERTY TO SAY WHAT I WAS DOING AT THE TIME OF THE MURDER BUT I CAN TELL YOU THAT I WAS IN LONDON ALL THAT NIGHT.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [
+   "E268"
+  ],
+  "table_pointers": [],
+  "found_by": "record pointer"
+ },
+ "7846": {
+  "text": "I WAS ASLEEP LAST NIGHT WHEN THE SOUND OF A GUN SHOT WOKE ME, WHEN I WENT OUT TO THE GARDEN I FOUND HER LYING THERE. MY WIFE HERE HAD RISEN WHEN I CAME BACK INTO THE HOUSE AND THE COMMOTION HAD WOKEN THE MAID. WHEN THINGS HAD CALMED DOWN A BIT WE SENT THE MAID AROUND TO THE POLICE STATION AND THE CONSTABLE KNOWS THE REST.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [
+   "E22C",
+   "E22F"
+  ],
+  "table_pointers": [],
+  "found_by": "record pointer"
+ },
+ "78D4": {
+  "text": "HE WAS A GOOD FRIEND OF POOR MRS JONES, AN EX INDIAN ARMY MAN I BELIEVE.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [
+   "E25E"
+  ],
+  "table_pointers": [],
+  "found_by": "record pointer"
+ },
+ "78F8": {
+  "text": "I ALWAYS THOUGHT THAT HE WAS SUCH A NICE FELLOW, BUT LAST WEEK I WAS DOING SOME WORK OVER AT MRS JONES AND I COULD NOT HELP OVERHEAR HER AND THE MAJOR FIGHTING. I DO NOT KNOW WHAT IT WAS ALL ABOUT BUT IT SOUNDED VERY NASTY.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [
+   "E232"
+  ],
+  "table_pointers": [],
+  "found_by": "record pointer"
+ },
+ "794F": {
+  "text": "I WAS WOKEN LAST NIGHT AS MY HUSBAND AROSE AND LEFT THE ROOM, BEING A VERY HEAVY SLEEPER I DID NOT HEAR THE GUN. WHEN HE RETURNED AND TOLD ME WHAT HAD HAPPENED WELL I JUST COULD NOT BELIEVE IT, I JUST CANNOT IMAGINE WHO WOULD WANT TO HURT SUCH A SWEET LADY LIKE MRS BROWN.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [
+   "E237",
+   "E23A"
+  ],
+  "table_pointers": [],
+  "found_by": "record pointer"
+ },
+ "79C4": {
+  "text": "WELL I DO NOT LIKE TO SPEAK ILL OF ANYONE BUT I DID OVERHEAR BASIL AND DAPHNE ARGUING VERY STRONGLY ABOUT MRS BROWNS WILL. IT SEEMS THAT BECAUSE OF DAPHNE'S ALLIANCE WITH BASIL MRS BROWN HAD CUT HER OUT OF THE WILL, I DO NOT THINK SHE THOUGHT VERY WELL OF HIM.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [
+   "E23D"
+  ],
+  "table_pointers": [],
+  "found_by": "record pointer"
+ },
+ "7A35": {
+  "text": "I GOT WOKEN BY A LOT OF NOISE OUT IN THE HALL AND WHEN I WENT OUT TO SEE THE GARDENER TOLD ME ABOUT MRS BROWN. I JUST BET THAT BASIL'S GOT SOMETHING TO DO WITH THIS, I NEVER DID LIKE HIM.\" AT THIS OUTBURST THE COOK TURNS TO HER AND SAYS\" HUSH CHILD, YOU SHOULD NOT SAY THINGS LIKE THAT.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [
+   "E242",
+   "E245"
+  ],
+  "table_pointers": [],
+  "found_by": "record pointer"
+ },
+ "7AB9": {
+  "text": "WELL I WAS IN MY BEDROOM AT THE HOUSE I AM RENTING DOWN THE ROAD. I STAYED UP QUITE LATE PLAYING CHOPIN ON THE PIANO, THEN WENT TO BED.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [
+   "E24A",
+   "E24D"
+  ],
+  "table_pointers": [],
+  "found_by": "record pointer"
+ },
+ "7AF6": {
+  "text": "UNFORTUNATELY I DO NOT KNOW VERY MUCH SINCE THE FIRST I KNEW OF THIS HORRIBLE DEED WAS WHEN THE POLICE ARRIVED AND CONSTABLE STRAKER KNOCKED ON MY BEDROOM DOOR.\" AT THIS DAPHNE BREAKS DOWN AND STARTS TO CRY SOBBING\" IT IS TERRIBLE JUST TERRIBLE.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [
+   "E255",
+   "E258"
+  ],
+  "table_pointers": [],
+  "found_by": "record pointer"
+ },
+ "7B58": {
+  "text": "WHAT",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "walk"
+ },
+ "7B5A": {
+  "text": "AS YOU SEARCH THE RIVER LESTRADE COMES OVER TO HELP. HE STUMBLES AND SLIDES DOWN THE BANK AND NOTICES A GLEAM IN THE WATER. REACHING IN HE PULLS OUT A GUN TIED TO A LARGE ROCK AND EXCLAIMS\" EXCELLENT HOLMES, EXCELLENT.\".",
+  "status": "ok",
+  "sites": [
+   "E0D7"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "7BC2": {
+  "text": "IN ONE CORNER OF THE SHEET IS A VERY SMALL TEAR.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [
+   "E16C"
+  ],
+  "table_pointers": [],
+  "found_by": "record pointer"
+ },
+ "7BD7": {
+  "text": "A VERY SMALL PIECE OF CLOTH IS CAUGHT ON THE WINDOW FRAME.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [
+   "E16F"
+  ],
+  "table_pointers": [],
+  "found_by": "record pointer"
+ },
+ "7BF7": {
+  "text": "IT HAS BEEN SWUNG AWAY FROM THE WALL REVEALING A SMALL ROOM BEHIND.",
+  "status": "ok",
+  "sites": [
+   "E120"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "LD in code"
+ },
+ "7C13": {
+  "text": "AS YOU RUN YOUR HANDS OVER THE BOOKS YOU TOUCH A HIDDEN SPRING AND WITH A LOT OF CREAKING THE BOOKCASE SWINGS AWAY FROM THE WALL REVEALING A SMALL ROOM BEHIND.",
+  "status": "ok",
+  "sites": [
+   "E129"
+  ],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "printer call"
+ },
+ "7C77": {
+  "text": "STRANGELY THERE ARE NO SIGNS OF RINGS OR JEWELLERY ON EITHER HAND.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "walk"
+ },
+ "7C9E": {
+  "text": "CLOSE INSPECTION REVEALS A SMALL CHIP IN THE STONE WORK THAT IS EVIDENTLY QUITE NEW. IT LOOKS LIKE A HEAVY METALLIC OBJECT HAS STRUCK IT.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [
+   "E172"
+  ],
+  "table_pointers": [],
+  "found_by": "record pointer"
+ },
+ "7CE7": {
+  "text": "CAREFUL EXAMINATION SHOWS THAT THE DRAWER HAS A FALSE BOTTOM.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [
+   "E175"
+  ],
+  "table_pointers": [],
+  "found_by": "record pointer"
+ },
+ "7CFA": {
+  "text": "WHAT",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "walk"
+ },
+ "7CFC": {
+  "text": "THE TWO BROAD WINDOWS IN",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [
+   "02 7D1C",
+   "0B 7D27",
+   "02 7D4B",
+   "02 7D5F"
+  ],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "sub-message"
+ },
+ "7D05": {
+  "text": "THE FIRST RAYS OF LIGHT FILTER THEIR WAY THROUGH THE TWO BROAD WINDOWS IN",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [
+   "0B 7D63"
+  ],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "sub-message"
+ },
+ "7D1F": {
+  "text": "THE SUN STREAMS IN THE TWO BROAD WINDOWS IN",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [
+   "0B 7D67"
+  ],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "sub-message"
+ },
+ "7D2B": {
+  "text": "TWO BROAD WINDOWS ILLUMINATE",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [
+   "0B 7D6B"
+  ],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "sub-message"
+ },
+ "7D3B": {
+  "text": "THE SUNLIGHT FADES THROUGH THE TWO BROAD WINDOWS IN",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [
+   "0B 7D6F"
+  ],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "sub-message"
+ },
+ "7D4E": {
+  "text": "YOU CAN SEE THE LIGHT OF A FLICKERING GAS LAMP THROUGH THE TWO BROAD WINDOWS IN",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [
+   "0B 7D73"
+  ],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "sub-message"
+ },
+ "7D62": {
+  "text": "THE SUN STREAMS IN THE TWO BROAD WINDOWS IN YOUR SITTING ROOM. THERE IS A PIPE RACK TO THE RIGHT OF THE SOFA. BULLET POCK MARKS ARE THE FEATURE OF ONE WALL, AND CHARTS AND DIAGRAMS FILL ANOTHER. AN ACID STAINED TABLE SITS IN THE CORNER.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [
+   "8547"
+  ],
+  "found_by": "pointer in a record"
+ },
+ "7DC1": {
+  "text": "FLICKERING GAS LAMPS PROVIDE ENOUGH LIGHT TO CAST SHADOWS.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [
+   "02 7DF2"
+  ],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "walk"
+ },
+ "7DE1": {
+  "text": "YOU ARE TRAVELLING THE STREETS OF LONDON IN A HANSOM CAB, THE SUN SHINES THROUGH THE WINDOWS ONTO YOUR FACE.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [
+   "84F2"
+  ],
+  "found_by": "pointer in a record"
+ },
+ "7E0B": {
+  "text": "YOU ARE IN A CAB TRAVELLING MADLY ALONG ROUGH COUNTRY ROADS.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [
+   "8B6C"
+  ],
+  "found_by": "pointer in a record"
+ },
+ "7E27": {
+  "text": "YOU ARE TRAVELLING ALONG THE LONDON UNDERGROUND RAILWAY IN A STEAM TRAIN.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [
+   "84FC"
+  ],
+  "found_by": "pointer in a record"
+ },
+ "7E45": {
+  "text": "YOU ARE RIDING IN A STEAM TRAIN THROUGH THE PICTURESQUE ENGLISH COUNTRYSIDE.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [
+   "8506"
+  ],
+  "found_by": "pointer in a record"
+ },
+ "7E65": {
+  "text": "YOU ARE RIDING IN A STEAM TRAIN BEING SHUNTED BETWEEN PLATFORMS.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [
+   "8510"
+  ],
+  "found_by": "pointer in a record"
+ },
+ "7E7F": {
+  "text": "YOU ARE IN MAJOR FFOULKES ROOM IN THE BOARDING HOUSE. IT IS SMALL AND SOMEWHAT CROWDED. INDIAN ARTIFACTS, MANY VERY STRANGE, LITTER THE ROOM.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [
+   "875D"
+  ],
+  "found_by": "pointer in a record"
+ },
+ "7EB7": {
+  "text": "YOU ARE IN A LARGE LAVISHLY DECORATED BEDROOM, A BROAD WINDOW OVERLOOKS A SMALL LANE LEADING NORTH.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [
+   "8873"
+  ],
+  "found_by": "pointer in a record"
+ },
+ "7EEA": {
+  "text": "YOU ARE AT PLATFORM ONE OF",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [
+   "0B 7EFA",
+   "0B 7F09",
+   "0B 7F2E",
+   "0B 7F3D",
+   "0B 7F4C"
+  ],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "sub-message"
+ },
+ "7EF2": {
+  "text": "YOU ARE AT PLATFORM TWO OF",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [
+   "0B 7F03",
+   "0B 7F14",
+   "0B 7F37",
+   "0B 7F46",
+   "0B 7F57"
+  ],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "sub-message"
+ },
+ "7EFA": {
+  "text": "YOU ARE AT PLATFORM ONE OF ALDERGATE STATION.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [
+   "85B5"
+  ],
+  "found_by": "pointer in a record"
+ },
+ "7F03": {
+  "text": "YOU ARE AT PLATFORM TWO OF ALDERGATE STATION.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [
+   "85C5"
+  ],
+  "found_by": "pointer in a record"
+ },
+ "7F09": {
+  "text": "YOU ARE AT PLATFORM ONE OF KINGS CROSS STATION.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [
+   "85EF"
+  ],
+  "found_by": "pointer in a record"
+ },
+ "7F14": {
+  "text": "YOU ARE AT PLATFORM TWO OF KINGS CROSS STATION.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [
+   "85FF"
+  ],
+  "found_by": "pointer in a record"
+ },
+ "7F1A": {
+  "text": "YOU ARE AT PLATFORM THREE OF KINGS CROSS STATION.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [
+   "860F"
+  ],
+  "found_by": "pointer in a record"
+ },
+ "7F24": {
+  "text": "YOU ARE AT PLATFORM FOUR OF KINGS CROSS STATION.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [
+   "861F"
+  ],
+  "found_by": "pointer in a record"
+ },
+ "7F2E": {
+  "text": "YOU ARE AT PLATFORM ONE OF PADDINGTON STATION.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [
+   "8649"
+  ],
+  "found_by": "pointer in a record"
+ },
+ "7F37": {
+  "text": "YOU ARE AT PLATFORM TWO OF PADDINGTON STATION.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [
+   "8659"
+  ],
+  "found_by": "pointer in a record"
+ },
+ "7F3D": {
+  "text": "YOU ARE AT PLATFORM ONE OF VICTORIA STATION.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [
+   "8683"
+  ],
+  "found_by": "pointer in a record"
+ },
+ "7F46": {
+  "text": "YOU ARE AT PLATFORM TWO OF VICTORIA STATION.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [
+   "8693"
+  ],
+  "found_by": "pointer in a record"
+ },
+ "7F4C": {
+  "text": "YOU ARE AT PLATFORM ONE OF LEATHER HEAD STATION.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [
+   "8803"
+  ],
+  "found_by": "pointer in a record"
+ },
+ "7F57": {
+  "text": "YOU ARE AT PLATFORM TWO OF LEATHER HEAD STATION.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [
+   "8813"
+  ],
+  "found_by": "pointer in a record"
+ },
+ "7F5F": {
+  "text": "WHAT",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [],
+  "table_pointers": [],
+  "found_by": "walk"
+ },
+ "7F61": {
+  "text": "THEY ARE TO MRS BROWN FROM TRICIA AND APPEAR TO BE BLACKMAIL LETTERS.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [
+   "9407"
+  ],
+  "table_pointers": [],
+  "found_by": "record pointer"
+ },
+ "7F77": {
+  "text": "THEY ARE LABELLED\" TRICIA. FENDER.\".",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [
+   "924D"
+  ],
+  "table_pointers": [],
+  "found_by": "record pointer"
+ },
+ "7F89": {
+  "text": "THE BED IS UNMADE AND ONE SHEET IS CRUMPLED UP ON TOP.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [
+   "9304"
+  ],
+  "table_pointers": [],
+  "found_by": "record pointer"
+ },
+ "7FA2": {
+  "text": "THE MUSIC ON THE PIANO IS BAROQUE.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [
+   "9315"
+  ],
+  "table_pointers": [],
+  "found_by": "record pointer"
+ },
+ "7FB2": {
+  "text": "ON THE GRAMAPHONE IS A RECORD OF CHOPIN NOCTURNES.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [
+   "9326"
+  ],
+  "table_pointers": [],
+  "found_by": "record pointer"
+ },
+ "7FC5": {
+  "text": "IT IS ADDRESSED TO MRS BROWN AND READS\" MEET ME BY THE BRIDGE AT...\".",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [
+   "93D0"
+  ],
+  "table_pointers": [],
+  "found_by": "record pointer"
+ },
+ "7FDA": {
+  "text": "THE FOLDER IS EMPTY BUT THE LABEL READS\" TOP SECRET. MILITARY PLANS.\".",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [
+   "93E1"
+  ],
+  "table_pointers": [],
+  "found_by": "record pointer"
+ },
+ "7FF9": {
+  "text": "APART FROM A FAIRLY NEW AND UNUSED BLOTTING PAD THE DESK TOP IS EMPTY.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [
+   "91DA"
+  ],
+  "table_pointers": [],
+  "found_by": "record pointer"
+ },
+ "801D": {
+  "text": "WHILE THE BALANCE IN THE ACCOUNT IS VERY HIGH THE ENTRIES IN THE BOOK INDICATE THAT SUBSTANTIAL AND REGULAR WITHDRAWALS HAVE BEEN MADE RECENTLY. THE ACCOUNT NAME IS MRS BROWN.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [
+   "9217"
+  ],
+  "table_pointers": [],
+  "found_by": "record pointer"
+ },
+ "807A": {
+  "text": "DEAR SHERLOCK, I HAVE GONE BACK TO THE PRACTICE TO SEE A FEW PATIENTS. WILL BE BACK LATER.      WATSON.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [
+   "8EBA"
+  ],
+  "table_pointers": [],
+  "found_by": "record pointer"
+ },
+ "80AB": {
+  "text": "S. V.\n A BLV SNIH USH YWNBK. XLET YTAQH AK NQQHYUNRWH. WHU FH MBLV VSHTH XLE",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [
+   "9382"
+  ],
+  "table_pointers": [],
+  "found_by": "record pointer"
+ },
+ "80F8": {
+  "text": "VAKS USH KNWH UL UNMH YWNQH. UNMH QNTH FTK RTLVBK GHNUS SNK KUNTUHG USH YLWAQH BLKABP NTLEBG.       RNKAW.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [
+   "9360"
+  ],
+  "table_pointers": [],
+  "found_by": "record pointer"
+ },
+ "8158": {
+  "text": "DSWYP.\n GSUV CUVKSUP CSUX GSIC PPYA GPI UVK KS ZKCYVK ILK KS WXSPO UVK ZRD PPYL Y.      V. L.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [
+   "93A4"
+  ],
+  "table_pointers": [],
+  "found_by": "record pointer"
+ },
+ "81B7": {
+  "text": "THE NOTE READS\" I HAVE SOME NEWS OF VITAL IMPORTANCE THAT I WOULD LIKE TO DISCUSS WITH YOU AT YOUR CONVENIENCE. SIGNED. TRICIA FENDER.\"",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [
+   "9228"
+  ],
+  "table_pointers": [],
+  "found_by": "record pointer"
+ },
+ "81F5": {
+  "text": "YOU SEE THE BODY OF A MIDDLE AGED WOMAN. HER FACE IS STREAKED WITH DRIED BLOOD.",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [
+   "9083"
+  ],
+  "table_pointers": [],
+  "found_by": "record pointer"
+ },
+ "8220": {
+  "text": "IT READS\" MEET ME BY THE BRIDGE AT HALF PAST TWELVE. I HAVE SOME VERY IMPORTANT NEWS.  SIGNED. P. F.\".",
+  "status": "ok",
+  "sites": [],
+  "script_sites": [],
+  "message_refs": [],
+  "record_refs": [
+   "9094"
+  ],
+  "table_pointers": [],
+  "found_by": "record pointer"
+ }
+}

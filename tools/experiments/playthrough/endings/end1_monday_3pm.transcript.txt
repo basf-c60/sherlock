@@ -1,0 +1,6 @@
+  1 LOOK                                               x1  -> 0 8:02a r8 | LOOK. | The sun streams in the two broad | windows in your sitting room. There | is a pipe rack to the right of the | sofa. Bullet pock marks are the | feature of one wall, and charts and | diagrams fill another. An acid | stained table sits in the corner. To | the west there is your door. To the | north there is a plain door. You can | see an oil lamp, your armchair and | watsons armchair. In watsons | armchair there is Watson. Watson is | carrying the daily chronicle. | Mon 08:02am >
+  2 (until tape) WAIT                                  x80 -> 0 2:41p r8 | WAIT. | You wait. | Mon 02:37pm | Mon 02:38pm | Mon 02:39pm | Mon 02:40pm | Mon 02:41pm >
+  3 (until tape) WAIT                                  x5  -> 0 2:59p r8 | | PLAY SAVED GAME TAPE TO BE LOADED | .
+
+FINAL REPLY (previous reply + last reply): WAIT. | You wait. | Mon 02:57pm | Mon 02:58pm | Mon 02:59pm | I do not think you are doing too | well, surely Sherlock Holmes could | do a better job than you have done | so far. Perhaps you should try | again. | | PLAY SAVED GAME TAPE TO BE LOADED | .
+end flag A0DA=1

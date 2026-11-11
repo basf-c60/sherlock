@@ -1,0 +1,53 @@
+  1 LOOK                                               x1  -> 0 8:02a r8 | LOOK. | The sun streams in the two broad | windows in your sitting room. There | is a pipe rack to the right o
+  2 INVENTORY                                          x1  -> 0 8:03a r8 | INVENTORY. | You are carrying your money. | Mon 08:03am >
+  3 TAKE OIL LAMP                                      x1  -> 0 8:04a r8 | TAKE OIL LAMP. | You take the oil lamp. | Mon 08:04am >
+  4 ASK WATSON FOR DAILY CHRONICLE                     x1  -> 0 8:04a r8 | ASK WATSON FOR DAILY CHRONICLE. | I DO NOT KNOW THE VERB" ASK FOR" | >
+  5 READ DAILY CHRONICLE                               x1  -> 0 8:04a r8 | READ DAILY CHRONICLE. | I SEE NO DAILY CHRONICLE THAT YOU C | AN EXAMINE | >
+  6 TAKE DAILY CHRONICLE                               x1  -> 0 8:05a r8 | TAKE DAILY CHRONICLE. | YOU CANNOT TAKE THE DAILY CHRONICLE | . | Mon 08:05am >
+  7 TAKE CHRONICLE FROM WATSON                         x1  -> 0 8:05a r8 | TAKE CHRONICLE FROM WATSON. | YOU CANNOT TAKE THE DAILY CHRONICLE | FROM WATSON. | >
+  8 GIVE CHRONICLE TO ME                               x1  -> 0 8:05a r8 | GIVE CHRONICLE TO ME. | I SEE NO CHRONICLE THAT YOU CAN GIV | E | >
+  9 WAIT                                               x1  -> 0 8:09a r8 | WAIT. | You wait. | Mon 08:06am | Mon 08:07am | Mon 08:08am | Mon 08:09am >
+ 10 WAIT                                               x1  -> 0 8:14a r8 | WAIT. | You wait. | Mon 08:10am | Mon 08:11am | Mon 08:12am | Mon 08:13am | Mon 08:14am >
+ 11 WAIT                                               x1  -> 0 8:16a r8 | WAIT. | You wait. | Mon 08:15am | Mon 08:16am With an excited look on his face | Watson says " Well here is a 
+ 12 WAIT                                               x1  -> 0 8:24a r8 | | appears that the famed detective | Inspector Giles Lestrade has taken | an interest in the case and will be 
+ 13 SAY TO WATSON "FOLLOW ME"                          x1  -> 0 8:25a r8 | SAY TO WATSON "FOLLOW ME.". | You talk to Watson. | Watson climbs out of watsons | armchair. | Mon 08:25am >
+ 14 OPEN PLAIN DOOR                                    x1  -> 0 8:26a r8 | OPEN PLAIN DOOR. | You open the plain door. | Mon 08:26am >
+ 15 NORTH                                              x1  -> 0 8:28a r9 | NORTH. | You go north. | You are in a small closet. To the | south there is a plain door. You can | see a chin
+ 16 WEAR CHINA MANS DISGUISE                           x1  -> 0 8:29a r0 | WEAR CHINA MANS DISGUISE. | You wear the china mans disguise. | Mon 08:29am >
+ 17 TAKE OFF CHINA MANS DISGUISE                       x1  -> 0 8:30a r9 | TAKE OFF CHINA MANS DISGUISE. | The china man takes off the china | mans disguise. | Mon 08:30am >
+ 18 INVENTORY                                          x1  -> 0 8:31a r9 | INVENTORY. | You are carrying a china mans | disguise, an oil lamp and your | money. | Mon 08:31am >
+ 19 SOUTH                                              x1  -> 0 8:33a r8 | SOUTH. | You go south. | The sun streams in the two broad | windows in your sitting room. There | is a pipe ra
+ 20 OPEN YOUR DOOR                                     x1  -> 0 8:34a r8 | OPEN YOUR DOOR. | You open your door. | Mon 08:34am >
+ 21 WEST                                               x1  -> 0 8:36a r7 | WEST. | You go west. | You are in a hall. To the east there | is your door. Below there is the | stairway. | W
+ 22 DOWN                                               x1  -> 0 8:38a r6 | DOWN. | You go down. | You are in an | entrance hallway. | Above there is the | stairway. To the | south there
+ 23 OPEN FRONT DOOR                                    x1  -> 0 8:39a r6 | OPEN FRONT DOOR. | You open the front door. | Mon 08:39am >
+ 24 SOUTH                                              x1  -> 0 8:41a r5 | SOUTH. | You go south. | You are on Baker | Street. To the | north there is the | front door. | Watson enters.
+ 25 HAIL CAB                                           x1  -> 0 8:42a r5 | HAIL CAB. | You hail the hansom cab. | The cabbie says to you " Hello | guv'nor. ". | Mon 08:42am >
+ 26 LOOK                                               x1  -> 0 8:43a r5 | LOOK. | You are on Baker | Street. To the | north there is the | front door. You | can see Watson and | a hans
+ 27 CLIMB INTO HANSOM CAB                              x1  -> 0 8:45a r5 | CLIMB INTO HANSOM CAB. | You climb into the hansom cab. | Watson climbs into the hansom cab. | Mon 08:44am | M
+ 28 SAY TO CABBIE "GO TO KINGS CROSS ROAD"             x1  -> 0 8:46a r1 | SAY TO CABBIE "GO TO KINGS CROSS | ROAD.". | You talk to the cabbie. | You are in a hansom cab with Watson | a
+ 29 LOOK                                               x1  -> 0 8:47a r1 | LOOK. | You are in a hansom cab with Watson | and the cabbie. Watson is carrying | the daily chronicle. You ar
+ 30 (until Kings Cross Road. To) LOOK                  x80 -> 0 10:07a r18 | LOOK. | You are in a hansom cab with Watson | and the cabbie. Watson is carrying | the daily chronicle. The ha
+ 31 PAY 10D TO CABBIE                                  x1  -> 0 10:08a r18 | PAY 10D TO CABBIE. | You pay 10d. To the cabbie. | The cabbie pays 4d. To you. | Mon 10:08am >
+ 32 CLIMB OUT                                          x1  -> 0 10:10a r18 | CLIMB OUT. | You climb out of the hansom cab. | Watson climbs out of the hansom cab. | Mon 10:09am | Mon 10:10
+ 33 NORTHEAST                                          x1  -> 0 10:12a r19 | NORTHEAST. | You go northeast. | You are at Kings Cross Station. | Visible exits are southwest | northeast. | 
+ 34 NORTHEAST                                          x1  -> 0 10:14a r20 | NORTHEAST. | You go northeast. | You are at platform one of Kings | cross station. Visible exits are | southwe
+ 35 NORTHEAST                                          x1  -> 0 10:16a r21 | NORTHEAST. | You go northeast. | You are at platform two of Kings | cross station. Visible exits are | southwe
+ 36 NORTHEAST                                          x1  -> 0 10:18a r22 | NORTHEAST. | You go northeast. | You are at platform three of Kings | cross station. Visible exits are | south
+ 37 LOOK                                               x1  -> 0 10:19a r22 | LOOK. | You are at platform three of Kings | cross station. Visible exits are | southwest northeast. You can s
+ 38 (until steam train) LOOK                           x26 -> 0 10:45a r22 | LOOK. | You are at platform three of Kings | cross station. Visible exits are | southwest northeast. You can s
+ 39 CLIMB INTO TRAIN                                   x1  -> 0 10:47a r22 | CLIMB INTO TRAIN. | You climb into the steam train. | Watson climbs into the steam train. | Mon 10:46am | Mon 
+ 40 (until Leather) LOOK                               x73 -> 0 12:00p r54 | LOOK. | You are in a steam train with | Watson. Watson is carrying the daily | chronicle. You are riding in a 
+ 41 CLIMB OUT                                          x1  -> 0 12:02p r54 | CLIMB OUT. | You climb out of the steam train. | Watson climbs out of the steam | train. | Mon 12:01pm | Mon 1
+ 42 SOUTH                                              x1  -> 0 12:04p r53 | SOUTH. | You go south. | You are at the leatherhead station. | Visible exits are south north. | Watson enters.
+ 43 SOUTH                                              x1  -> 0 12:06p r50 | SOUTH. | You go south. | You are in the main street. Visible | exits are north west east south | northeast. | 
+ 44 SOUTH                                              x1  -> 0 12:08p r51 | SOUTH. | You go south. | You are in the cobden lane. To the | east there is the front door. | Visible exits ar
+ 45 OPEN FRONT DOOR                                    x1  -> 0 12:08p r51 | OPEN FRONT DOOR. | THE FRONT DOOR IS OPEN | >
+ 46 EAST                                               x1  -> 0 12:10p r56 | EAST. | You go east. | You are in an entrance hall. To the | west there is the front door. To the | east there
+ 47 OPEN SITTINGROOM DOOR                              x1  -> 0 12:11p r56 | OPEN SITTINGROOM DOOR. | You open the sittingroom door. | Mon 12:11pm >
+ 48 EAST                                               x1  -> 0 12:13p r57 | EAST. | You go east. | You are in a lounge room. To the | west there is the sittingroom door. | To the east there is a plain door. | Visible exits are south. | Watson enters. | Mon 12:12pm | Mon 12:13pm >
+ 49 SOUTH                                              x1  -> 0 12:15p r58 | SOUTH. | You go south. | You are in Basils Library. Visible | exits are north. You can see a wall | safe. | Watson enters. | Mon 12:14pm | Mon 12:15pm >
+ 50 OPEN WALL SAFE                                     x1  -> 0 12:15p r58 | OPEN WALL SAFE. | You open the wall safe. | Basil enters and says " Holmes, your | interference is becoming annoying. " | . Pulling a gun he shoots you. | Perhaps you should try again. |
+
+FINAL REPLY: OPEN WALL SAFE. | You open the wall safe. | Basil enters and says " Holmes, your | interference is becoming annoying. " | . Pulling a gun he shoots you. | Perhaps you should try again. |
+end flag A0DA=0

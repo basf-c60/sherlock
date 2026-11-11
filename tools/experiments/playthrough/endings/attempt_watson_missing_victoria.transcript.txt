@@ -1,0 +1,10 @@
+Three attempts to arrive at Victoria with Lestrade but without Watson (all from the
+Wed 4:55pm state after 357 lines of v12_clean_win.cmds, or the 6:21pm KCR state):
+ 1. SAY TO WATSON "WAIT" in the cab or on the Victoria train: "Watson waits", but he
+    still climbs out with you (he goes with the cab/train). Result: the winning ending.
+ 2. SAY TO WATSON "WAIT" at Kings Cross Road before CLIMB OUT: Watson is left in the cab
+    (good), but the order costs a minute, Lestrade (who lags one turn) misses the 6:29
+    train and you reach Victoria alone: "With his usual skill his first shot disposes of you."
+ 3. SAY TO WATSON "WAIT" on platform two at Leatherhead before FOLLOW ME: same - Watson is
+    stranded, Lestrade misses the train, same death.
+So "Watson missing, Lestrade present" was NOT reproduced; there is no spare minute for it.

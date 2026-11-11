@@ -1,0 +1,13 @@
+Replay of the first 357 lines of v12_clean_win.cmds (Wed 4:55pm, you and Lestrade on
+platform two at Leatherhead after the chase), then WAIT until the game ends.
+Lestrade says "...has eluded us Holmes." at 4:56, leaves the platform (by 11:38pm only
+Watson is left), a steam train enters at 6:14am Thursday. At Thu 10:00am:
+
+  You have done extremely well to solve the case at hand but the morning papers carry a
+  report of Mr Browns lost plans being found and sold to a foreign power. Since this
+  means disaster for the free world it seems that you and Inspector Lestrade are
+  disgraced for letting this happen. Perhaps you should try again.
+  PLAY SAVED GAME TAPE TO BE LOADED
+
+This is the same papers ending as end3b. We did not see Lestrade reach Scotland Yard
+or say anything there ($EAB3 was not observed).

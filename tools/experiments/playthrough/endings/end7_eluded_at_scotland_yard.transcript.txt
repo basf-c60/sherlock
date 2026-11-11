@@ -1,0 +1,16 @@
+From Wed 4:55pm on platform two (357 lines of v12_clean_win.cmds), do not say FOLLOW ME.
+Lestrade climbs into the 6:15pm steam train; you follow (climb in with him and Watson), get out at
+Kings Cross platform four (7:31), SOUTHWEST x5 to Kings Cross Road, climb into the hansom cab
+Lestrade has hailed (the LOOK at 7:43 shows him hailing it), ride to Parliament Street, CLIMB OUT,
+EAST into Scotland Yard (8:02pm). Then WAIT:
+
+  Wed 08:04pm  Inspector Lestrade remarks to you "I am afraid that Basil has eluded us Holmes."
+               Inspector Lestrade goes west.
+  Thu 10:00am  You have done extremely well to solve the case at hand but the morning papers carry a
+               report of Mr Browns lost plans being found and sold to a foreign power. ... disgraced
+               for letting this happen. Perhaps you should try again.
+
+Script positions logged on the same route with you elsewhere (nobody to hear it): Lestrade reaches
+Scotland Yard at 8:06pm (script $EA99), leaves the stage at 10:01pm ($EAAD), and at Thu 10:00am the
+script is at $EAB3 when the papers ending fires. So the $EAB3 ending is observed, and the speech
+only appears if you are in the room with him.

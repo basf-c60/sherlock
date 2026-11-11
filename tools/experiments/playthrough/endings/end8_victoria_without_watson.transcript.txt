@@ -1,0 +1,11 @@
+The winning route to the cab ride back (349 lines of v12_clean_win.cmds), then the same lines as the win except that the
+idle LOOK on platform two (4:54pm, the minute Lestrade needs before he takes orders) is replaced by
+SAY TO WATSON "WAIT". Watson stays on platform two ("Watson waits"), Lestrade follows you as before, and everything
+keeps its timing: Kings Cross Road 6:20, the 6:29 train with Lestrade, Victoria 6:41. At 6:43pm:
+
+  As Basil enters he sees you and pulls a gun. With his usual skill his first shot disposes of you.
+  Perhaps you should try again.   PLAY SAVED GAME TAPE TO BE LOADED
+
+So the win needs Watson as well as Lestrade (the win text has Watson pushing you out of the way of the first shot).
+Tried earlier and failed: telling him to WAIT in the cab, on the Victoria train or fifteen minutes before leaving does not
+leave him behind (the order lapses and he follows), and telling him at Kings Cross Road costs the minute Lestrade needs.
