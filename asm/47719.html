@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at BA67 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="47712.html">BA60</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#47719">Map</a></td>
+<td class="next">
+Next: <a href="47942.html">BB46</a>
+</td>
+</tr>
+</table>
+<div class="description">BA67: Watson's reply to something the player says</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Parses the remark into a statement (<a href="48465.html#48510">BD7E</a>: subject <a href="47635.html">$BA19</a>, relation <a href="47635.html">$BA1A</a> from the verb's place in <a href="39245.html">994D</a>, object <a href="47635.html#47643">BA1B</a>), then looks for it in Watson's own list at <a href="39549.html">9A7D</a> (empty: $FF at once) and in the case table (<a href="48465.html">BD51</a>). A statement about the case is remembered: added to the list at <a href="40918.html#40946">$9FF4</a> (5-byte heap nodes holding the three bytes) unless already there. Watson then answers 'THAT IS BRILLIANT HOLMES.' (<a href="28500.html">6F54</a>) or, by chance, asks whether there is 'SOME CONNECTION BETWEEN THE ... AND ...' two things (<a href="28514.html">6F62</a>, using <a href="48329.html#48390">BD06</a>); a statement with flags bit 5 set (the four 'Tricia Fender / Phipps KILLED ...' ones) gets a different answer.
+</div>
+<div class="paragraph">
+SAY TO WATSON "MRS BROWN KILLED HERSELF" at the start gets a reply and the list at <a href="40918.html#40946">$9FF4</a> gains a node 5E 05 60 (Mrs Brown / KILLED / herself); "PHIPPS HAS PLANS" gets a reply and a node 06 03 61. "' and 'Watson says " That is brilliant Holmes. "THE LAMP IS ON", which is not about the case, gets 'Watson says " What "'; "THE LAMP IS OPEN" gets no reply at all.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IY</td>
+<td class="register-desc">The remark's sentence node</td>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">0</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">From the reply</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="47719"></span>BA67</td>
+<td class="instruction">LD ($BA60),A</td>
+<td class="comment-1" rowspan="1">Store A in "More variables for <a href="47719.html">BA67</a>-<a href="47964.html">BB5C</a>" (<a href="47712.html">BA60</a>) - A = 0 on entry: clear the two flags <a href="47712.html">BA60</a> (how the statement was matched) and <a href="47712.html">$BA61</a> (remember Parse the next statement out of the remark into Carry: nothing usable, jump to the reply code at Z: try the next one</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47722"></span>BA6A</td>
+<td class="instruction">LD ($BA61),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="47712.html">$BA61</a> in "More variables for <a href="47719.html">BA67</a>-<a href="47964.html">BB5C</a>"</td>
+</tr>
+<tr>
+<td class="address-2"><span id="47725"></span>BA6D</td>
+<td class="instruction">CALL <a href="48465.html#48510">$BD7E</a></td>
+<td class="comment-1" rowspan="1">Call <a href="48465.html#48510">BD7E</a> (inside "Find the statement <a href="47635.html">$BA19</a>-<a href="47635.html#47643">BA1B</a> in the case...")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47728"></span>BA70</td>
+<td class="instruction">JP C,<a href="47975.html#48062">$BBBE</a></td>
+<td class="comment-1" rowspan="1">If the carry flag is set, jump on to <a href="47975.html#48062">BBBE</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47731"></span>BA73</td>
+<td class="instruction">JR Z,$BAA6</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, jump on to <a href="47719.html#47782">BAA6</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47733"></span>BA75</td>
+<td class="instruction">CALL <a href="48329.html#48459">$BD4B</a></td>
+<td class="comment-1" rowspan="1">Call <a href="48329.html#48459">BD4B</a> (inside "Try to prove statement IX") - Is it in Watson's own list (<a href="48329.html#48459">BD4B</a>)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47736"></span>BA78</td>
+<td class="instruction">JR NZ,$BA85</td>
+<td class="comment-1" rowspan="1">If the zero flag is clear, skip ahead to <a href="47719.html#47749">BA85</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47738"></span>BA7A</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="1">Yes: match kind 1</td>
+</tr>
+<tr>
+<td class="address-2"><span id="47740"></span>BA7C</td>
+<td class="instruction">CALL <a href="47942.html">$BB46</a></td>
+<td class="comment-1" rowspan="1">Record the kind in <a href="47712.html">BA60</a> and set <a href="47712.html">$BA61</a> (<a href="47942.html">BB46</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47743"></span>BA7F</td>
+<td class="instruction">LD ($BA65),IX</td>
+<td class="comment-1" rowspan="1">Store IX in <a href="47712.html">$BA65</a> in "More variables for <a href="47719.html">BA67</a>-<a href="47964.html">BB5C</a>" - Remember the record found, for the handler at <a href="47964.html">BB5C</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47747"></span>BA83</td>
+<td class="instruction">JR $BAAB</td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="47719.html#47787">BAAB</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="47749"></span>BA85</td>
+<td class="instruction">CALL <a href="48465.html">$BD51</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Find the statement <a href="47635.html">$BA19</a>-<a href="47635.html#47643">BA1B</a> in the case table" (<a href="48465.html">BD51</a>) - Is it in the case table (<a href="48465.html">BD51</a>)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47752"></span>BA88</td>
+<td class="instruction">JR NZ,$BA9D</td>
+<td class="comment-1" rowspan="1">If the zero flag is clear, skip ahead to <a href="47719.html#47773">BA9D</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47754"></span>BA8A</td>
+<td class="instruction">LD A,$02</td>
+<td class="comment-1" rowspan="1">Yes: kind 2</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47756"></span>BA8C</td>
+<td class="instruction">BIT 5,(IX+$03)</td>
+<td class="comment-1" rowspan="1">Test bit 5 of byte +3 of the record at IX - Statement flag bit 5 (the 'Tricia Fender / Phipps KILLED' ones)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47760"></span>BA90</td>
+<td class="instruction">JR NZ,$BA7C</td>
+<td class="comment-1" rowspan="1">If bit 5 of byte +3 of the record at IX is set, go back to <a href="47719.html#47740">BA7C</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47762"></span>BA92</td>
+<td class="instruction">CALL <a href="53917.html">$D29D</a></td>
+<td class="comment-1" rowspan="1">Otherwise roll 1-100 (<a href="53917.html">D29D</a>)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47765"></span>BA95</td>
+<td class="instruction">CP $32</td>
+<td class="comment-1" rowspan="1">...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47767"></span>BA97</td>
+<td class="instruction">LD A,$03</td>
+<td class="comment-1" rowspan="1">Load A with $03 - ...kind 3 if under 50</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47769"></span>BA99</td>
+<td class="instruction">JR C,$BA7C</td>
+<td class="comment-1" rowspan="1">If A is below $32, go back to <a href="47719.html#47740">BA7C</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47771"></span>BA9B</td>
+<td class="instruction">JR $BAA6</td>
+<td class="comment-1" rowspan="1">Else give up on this one</td>
+</tr>
+<tr>
+<td class="address-2"><span id="47773"></span>BA9D</td>
+<td class="instruction">CALL <a href="53917.html">$D29D</a></td>
+<td class="comment-1" rowspan="1">Not in either table: roll 1-100...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47776"></span>BAA0</td>
+<td class="instruction">CP $46</td>
+<td class="comment-1" rowspan="1">...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47778"></span>BAA2</td>
+<td class="instruction">LD A,$04</td>
+<td class="comment-1" rowspan="1">Load A with $04 - ...kind 4 if under 70</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47780"></span>BAA4</td>
+<td class="instruction">JR C,$BA7C</td>
+<td class="comment-1" rowspan="1">If A is below $46, go back to <a href="47719.html#47740">BA7C</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="47782"></span>BAA6</td>
+<td class="instruction">CALL <a href="44713.html">$AEA9</a></td>
+<td class="comment-1" rowspan="1">Call the routine "IY = the next node in the list (Z at the end)" (<a href="44713.html">AEA9</a>) - Next word group of the remark (<a href="44713.html">AEA9</a>); more: loop to <a href="47719.html#47725">BA6D</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47785"></span>BAA9</td>
+<td class="instruction">JR NZ,$BA6D</td>
+<td class="comment-1" rowspan="1">If the zero flag is clear, go back to <a href="47719.html#47725">BA6D</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="47787"></span>BAAB</td>
+<td class="instruction">LD A,($BA60)</td>
+<td class="comment-1" rowspan="1">Read "More variables for <a href="47719.html">BA67</a>-<a href="47964.html">BB5C</a>" (<a href="47712.html">BA60</a>) into A - Was anything matched?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47790"></span>BAAE</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47791"></span>BAAF</td>
+<td class="instruction">JP Z,$BB3F</td>
+<td class="comment-1" rowspan="1">No: the stock reply at <a href="47719.html#47935">BB3F</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47794"></span>BAB2</td>
+<td class="instruction">LD A,($BA61)</td>
+<td class="comment-1" rowspan="1">Read <a href="47712.html">$BA61</a> in "More variables for <a href="47719.html">BA67</a>-<a href="47964.html">BB5C</a>" into A - Is the statement to be remembered?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47797"></span>BAB5</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47798"></span>BAB6</td>
+<td class="instruction">JR Z,$BB16</td>
+<td class="comment-1" rowspan="1">No: skip to <a href="47719.html#47894">BB16</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47800"></span>BAB8</td>
+<td class="instruction">LD IX,$9FF6</td>
+<td class="comment-1" rowspan="1">Point IX at <a href="40918.html#40946">$9FF6</a> in "Game variables" - Walk the list of remembered statements at <a href="40918.html#40946">$9FF6</a> (<a href="41207.html">A0F7</a>)...</td>
+</tr>
+<tr>
+<td class="address-2"><span id="47804"></span>BABC</td>
+<td class="instruction">CALL <a href="41207.html">$A0F7</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Move IX to the next node of a list" (<a href="41207.html">A0F7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47807"></span>BABF</td>
+<td class="instruction">JR Z,$BAF5</td>
+<td class="comment-1" rowspan="1">...end of list: not there, make a node</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47809"></span>BAC1</td>
+<td class="instruction">LD A,($BA62)</td>
+<td class="comment-1" rowspan="1">Read <a href="47712.html">$BA62</a> in "More variables for <a href="47719.html">BA67</a>-<a href="47964.html">BB5C</a>" into A - ...comparing the three bytes <a href="47712.html">$BA62</a>-<a href="47712.html">$BA64</a> with each node</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47812"></span>BAC4</td>
+<td class="instruction">CP (IX+$00)</td>
+<td class="comment-1" rowspan="1">Compare A with the first byte of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47815"></span>BAC7</td>
+<td class="instruction">JR NZ,$BABC</td>
+<td class="comment-1" rowspan="1">If A differs from the first byte of the record at IX, go back to <a href="47719.html#47804">BABC</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47817"></span>BAC9</td>
+<td class="instruction">LD A,($BA63)</td>
+<td class="comment-1" rowspan="1">Read <a href="47712.html">$BA63</a> in "More variables for <a href="47719.html">BA67</a>-<a href="47964.html">BB5C</a>" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47820"></span>BACC</td>
+<td class="instruction">CP (IX+$01)</td>
+<td class="comment-1" rowspan="1">Compare A with byte +1 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47823"></span>BACF</td>
+<td class="instruction">JR NZ,$BABC</td>
+<td class="comment-1" rowspan="1">If A differs from byte +1 of the record at IX, go back to <a href="47719.html#47804">BABC</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47825"></span>BAD1</td>
+<td class="instruction">LD A,($BA64)</td>
+<td class="comment-1" rowspan="1">Read <a href="47712.html">$BA64</a> in "More variables for <a href="47719.html">BA67</a>-<a href="47964.html">BB5C</a>" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47828"></span>BAD4</td>
+<td class="instruction">CP (IX+$02)</td>
+<td class="comment-1" rowspan="1">Compare A with byte +2 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47831"></span>BAD7</td>
+<td class="instruction">JR NZ,$BABC</td>
+<td class="comment-1" rowspan="1">If A differs from byte +2 of the record at IX, go back to <a href="47719.html#47804">BABC</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47833"></span>BAD9</td>
+<td class="instruction">PUSH IY</td>
+<td class="comment-1" rowspan="1">Save IY on the stack - Found it already: unlink the node from the list (<a href="41220.html">A104</a>)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47835"></span>BADB</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47837"></span>BADD</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47838"></span>BADE</td>
+<td class="instruction">LD IY,$9FF4</td>
+<td class="comment-1" rowspan="1">Point IY at <a href="40918.html#40946">$9FF4</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47842"></span>BAE2</td>
+<td class="instruction">CALL <a href="41220.html">$A104</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Find the node before node DE in the list at IY" (<a href="41220.html">A104</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47845"></span>BAE5</td>
+<td class="instruction">LD A,(IX-$02)</td>
+<td class="comment-1" rowspan="1">Read byte -2 of the record at IX into A - ...closing the gap</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47848"></span>BAE8</td>
+<td class="instruction">LD (IY-$02),A</td>
+<td class="comment-1" rowspan="1">Store A in byte -2 of the record at IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47851"></span>BAEB</td>
+<td class="instruction">LD A,(IX-$01)</td>
+<td class="comment-1" rowspan="1">Read byte -1 of the record at IX into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47854"></span>BAEE</td>
+<td class="instruction">LD (IY-$01),A</td>
+<td class="comment-1" rowspan="1">Store A in byte -1 of the record at IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47857"></span>BAF1</td>
+<td class="instruction">POP IY</td>
+<td class="comment-1" rowspan="1">Restore IY from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47859"></span>BAF3</td>
+<td class="instruction">JR $BAFA</td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="47719.html#47866">BAFA</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="47861"></span>BAF5</td>
+<td class="instruction">LD A,$05</td>
+<td class="comment-1" rowspan="1">Load A with $05 - Not there: get a 5-byte heap node (<a href="41244.html">A11C</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47863"></span>BAF7</td>
+<td class="instruction">CALL <a href="41244.html">$A11C</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Allocate A + 3 bytes from the free list, cleared" (<a href="41244.html">A11C</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="47866"></span>BAFA</td>
+<td class="instruction">LD A,($BA62)</td>
+<td class="comment-1" rowspan="1">Read <a href="47712.html">$BA62</a> in "More variables for <a href="47719.html">BA67</a>-<a href="47964.html">BB5C</a>" into A - Fill in the node with the three bytes...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47869"></span>BAFD</td>
+<td class="instruction">LD HL,($BA63)</td>
+<td class="comment-1" rowspan="1">Read <a href="47712.html">$BA63</a> in "More variables for <a href="47719.html">BA67</a>-<a href="47964.html">BB5C</a>" into HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47872"></span>BB00</td>
+<td class="instruction">LD (IX+$00),A</td>
+<td class="comment-1" rowspan="1">Store A in the first byte of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47875"></span>BB03</td>
+<td class="instruction">LD (IX+$01),L</td>
+<td class="comment-1" rowspan="1">Store L in byte +1 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47878"></span>BB06</td>
+<td class="instruction">LD (IX+$02),H</td>
+<td class="comment-1" rowspan="1">Store H in byte +2 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47881"></span>BB09</td>
+<td class="instruction">LD HL,($9FF4)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40946">$9FF4</a> in "Game variables" into HL - ...and put it at the head of the list <a href="40918.html#40946">$9FF4</a> (most recent first)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47884"></span>BB0C</td>
+<td class="instruction">LD ($9FF4),IX</td>
+<td class="comment-1" rowspan="1">Store IX in <a href="40918.html#40946">$9FF4</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47888"></span>BB10</td>
+<td class="instruction">LD (IX-$02),L</td>
+<td class="comment-1" rowspan="1">Store L in byte -2 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47891"></span>BB13</td>
+<td class="instruction">LD (IX-$01),H</td>
+<td class="comment-1" rowspan="1">Store H in byte -1 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-2"><span id="47894"></span>BB16</td>
+<td class="instruction">LD A,($BA60)</td>
+<td class="comment-1" rowspan="1">Read "More variables for <a href="47719.html">BA67</a>-<a href="47964.html">BB5C</a>" (<a href="47712.html">BA60</a>) into A - Kind 1 (already in Watson's list)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47897"></span>BB19</td>
+<td class="instruction">CP $01</td>
+<td class="comment-1" rowspan="1">Compare A with $01</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47899"></span>BB1B</td>
+<td class="instruction">JR Z,<a href="47964.html">$BB5C</a></td>
+<td class="comment-1" rowspan="1">Yes: jump to its handler (<a href="47964.html">BB5C</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47901"></span>BB1D</td>
+<td class="instruction">CALL <a href="53917.html">$D29D</a></td>
+<td class="comment-1" rowspan="1">Otherwise roll 1-100</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47904"></span>BB20</td>
+<td class="instruction">CP $19</td>
+<td class="comment-1" rowspan="1">Compare A with $19 - 25 or more: the stock reply</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47906"></span>BB22</td>
+<td class="instruction">JR C,$BB3F</td>
+<td class="comment-1" rowspan="1">If A is below $19, skip ahead to <a href="47719.html#47935">BB3F</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47908"></span>BB24</td>
+<td class="instruction">LD IX,$BA62</td>
+<td class="comment-1" rowspan="1">Point IX at <a href="47712.html">$BA62</a> in "More variables for <a href="47719.html">BA67</a>-<a href="47964.html">BB5C</a>" - Under 25: try to make the 'SOME CONNECTION BETWEEN' remark from the statement (<a href="48329.html#48390">BD06</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47912"></span>BB28</td>
+<td class="instruction">CALL <a href="48329.html#48390">$BD06</a></td>
+<td class="comment-1" rowspan="1">Call <a href="48329.html#48390">BD06</a> (inside "Try to prove statement IX")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47915"></span>BB2B</td>
+<td class="instruction">JR NZ,$BB3F</td>
+<td class="comment-1" rowspan="1">Nothing to connect: the stock reply</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47917"></span>BB2D</td>
+<td class="instruction">LD A,C</td>
+<td class="comment-1" rowspan="1">Copy C into A - Print the two things' names (<a href="42172.html">A4BC</a>) as message parameters...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47918"></span>BB2E</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Save BC on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47919"></span>BB2F</td>
+<td class="instruction">CALL <a href="42172.html">$A4BC</a></td>
+<td class="comment-1" rowspan="1">Call the routine "HL = thing A's record + 7" (<a href="42172.html">A4BC</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47922"></span>BB32</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47923"></span>BB33</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47924"></span>BB34</td>
+<td class="instruction">CALL <a href="42172.html">$A4BC</a></td>
+<td class="comment-1" rowspan="1">Call the routine "HL = thing A's record + 7" (<a href="42172.html">A4BC</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47927"></span>BB37</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47928"></span>BB38</td>
+<td class="instruction">LD HL,$6F62</td>
+<td class="comment-1" rowspan="1">Point HL at the message "YOU SAY" WELL DO YOU THINK THERE IS SOME... (<a href="28514.html">6F62</a>) - ...'SOME CONNECTION BETWEEN THE ... AND ...' (<a href="28514.html">6F62</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47931"></span>BB3B</td>
+<td class="instruction">CALL <a href="42399.html">$A59F</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print the message at HL" (<a href="42399.html">A59F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47934"></span>BB3E</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="47935"></span>BB3F</td>
+<td class="instruction">LD HL,$6F54</td>
+<td class="comment-1" rowspan="1">Point HL at the message "YOU SAY" THAT IS BRILLIANT HOLMES."." (<a href="28500.html">6F54</a>) - Stock reply: 'THAT IS BRILLIANT HOLMES.' (<a href="28500.html">6F54</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47938"></span>BB42</td>
+<td class="instruction">CALL <a href="42399.html">$A59F</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print the message at HL" (<a href="42399.html">A59F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47941"></span>BB45</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="47712.html">BA60</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#47719">Map</a></td>
+<td class="next">
+Next: <a href="47942.html">BB46</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

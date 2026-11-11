@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at DB67 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="56164.html">DB64</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#56167">Map</a></td>
+<td class="next">
+Next: <a href="56311.html">DBF7</a>
+</td>
+</tr>
+</table>
+<div class="description">DB67: Read an amount of pre-decimal money</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+'£n' gives pounds; then 'nS' is shillings, 'nD' pence, and 'n/m' shillings and pence ('n/-' for none). The total is worked out in pence - (pounds x 20 + shillings) x 12 + pence - and packed into BC seven bits per byte with bit 7 of both bytes set, which is what tells a sum of money from a time (requirement code 6, PAY TO, wants bit 7 set in the low byte; code 5, WAIT UNTIL, wants it clear).
+</div>
+<div class="paragraph">
+'£1' reads as <a href="33207.html#33263">$81F0</a> (240 pence), '2/6' as <a href="32890.html#32922">$809E</a> (30), '3S' as <a href="32890.html#32930">$80A4</a> (36), '1/-' as <a href="32890.html#32906">$808C</a> (12), and '9:30AM' as <a href="51439.html#51484">$C91E</a>; the game echoes them back as 'You pay £1 to Watson.', '2/6', '3/-' and '1/-'.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">The text at the pound sign</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">$F0 (an amount) or $D0 (not understood)</td>
+</tr>
+<tr>
+<td class="register">BC</td>
+<td class="register-desc">The sum in the packed form</td>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Past the amount</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56167"></span>DB67</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">After the '£'</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56168"></span>DB68</td>
+<td class="instruction">CALL <a href="56311.html">$DBF7</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Read a decimal number at HL into A" (<a href="56311.html">DBF7</a>) - Pounds</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56171"></span>DB6B</td>
+<td class="instruction">LD ($DB64),A</td>
+<td class="comment-1" rowspan="1">Store A in "Pounds, shillings and pence" (<a href="56164.html">DB64</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56174"></span>DB6E</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56175"></span>DB6F</td>
+<td class="instruction">LD ($DB65),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="56164.html#56165">DB65</a> in "Pounds, shillings and pence"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56178"></span>DB72</td>
+<td class="instruction">LD ($DB66),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="56164.html#56166">DB66</a> in "Pounds, shillings and pence"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56181"></span>DB75</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56182"></span>DB76</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56183"></span>DB77</td>
+<td class="instruction">CALL <a href="56040.html">$DAE8</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Is A a digit? (carry if not)" (<a href="56040.html">DAE8</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56186"></span>DB7A</td>
+<td class="instruction">DEC HL</td>
+<td class="comment-1" rowspan="1">Step HL back one byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56187"></span>DB7B</td>
+<td class="instruction">JR C,$DBC0</td>
+<td class="comment-1" rowspan="1">If the carry flag is set, jump on to <a href="56167.html#56256">DBC0</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="56189"></span>DB7D</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56190"></span>DB7E</td>
+<td class="instruction">CALL <a href="56311.html">$DBF7</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Read a decimal number at HL into A" (<a href="56311.html">DBF7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56193"></span>DB81</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">Copy A into B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56194"></span>DB82</td>
+<td class="instruction">JR $DB88</td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="56167.html#56200">DB88</a></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="56196"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="56047.html">DAEF</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56196"></span>DB84</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag) - No pounds</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56197"></span>DB85</td>
+<td class="instruction">LD ($DB64),A</td>
+<td class="comment-1" rowspan="1">Store A in "Pounds, shillings and pence" (<a href="56164.html">DB64</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56200"></span>DB88</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56201"></span>DB89</td>
+<td class="instruction">LD ($DB65),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="56164.html#56165">DB65</a> in "Pounds, shillings and pence"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56204"></span>DB8C</td>
+<td class="instruction">LD ($DB66),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="56164.html#56166">DB66</a> in "Pounds, shillings and pence"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56207"></span>DB8F</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into A - S: shillings</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56208"></span>DB90</td>
+<td class="instruction">CP $53</td>
+<td class="comment-1" rowspan="1">Compare A with $53</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56210"></span>DB92</td>
+<td class="instruction">JR NZ,$DB9A</td>
+<td class="comment-1" rowspan="1">If A differs from $53, skip ahead to <a href="56167.html#56218">DB9A</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="56212"></span>DB94</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">Copy B into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56213"></span>DB95</td>
+<td class="instruction">LD ($DB65),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="56164.html#56165">DB65</a> in "Pounds, shillings and pence"</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56216"></span>DB98</td>
+<td class="instruction">JR $DBBF</td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="56167.html#56255">DBBF</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="56218"></span>DB9A</td>
+<td class="instruction">CP $44</td>
+<td class="comment-1" rowspan="1">Compare A with $44 - D: pence</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56220"></span>DB9C</td>
+<td class="instruction">JR NZ,$DBA4</td>
+<td class="comment-1" rowspan="1">If A differs from $44, skip ahead to <a href="56167.html#56228">DBA4</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="56222"></span>DB9E</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">Copy B into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56223"></span>DB9F</td>
+<td class="instruction">LD ($DB66),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="56164.html#56166">DB66</a> in "Pounds, shillings and pence"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56226"></span>DBA2</td>
+<td class="instruction">JR $DB98</td>
+<td class="comment-1" rowspan="1">Go back to <a href="56167.html#56216">DB98</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="56228"></span>DBA4</td>
+<td class="instruction">CP $2F</td>
+<td class="comment-1" rowspan="1">Compare A with $2F - /: shillings, then pence or -</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56230"></span>DBA6</td>
+<td class="instruction">JR NZ,<a href="56047.html#56143">$DB4F</a></td>
+<td class="comment-1" rowspan="1">If A differs from $2F, go back to <a href="56047.html#56143">DB4F</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="56232"></span>DBA8</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">Copy B into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56233"></span>DBA9</td>
+<td class="instruction">LD ($DB65),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="56164.html#56165">DB65</a> in "Pounds, shillings and pence"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56236"></span>DBAC</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56237"></span>DBAD</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56238"></span>DBAE</td>
+<td class="instruction">CP $2D</td>
+<td class="comment-1" rowspan="1">Compare A with $2D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56240"></span>DBB0</td>
+<td class="instruction">JR Z,$DBBF</td>
+<td class="comment-1" rowspan="1">If A equals $2D, skip ahead to <a href="56167.html#56255">DBBF</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="56242"></span>DBB2</td>
+<td class="instruction">CALL <a href="56040.html">$DAE8</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Is A a digit? (carry if not)" (<a href="56040.html">DAE8</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56245"></span>DBB5</td>
+<td class="instruction">JR C,<a href="56047.html#56143">$DB4F</a></td>
+<td class="comment-1" rowspan="1">If the carry flag is set, go back to <a href="56047.html#56143">DB4F</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="56247"></span>DBB7</td>
+<td class="instruction">CALL <a href="56311.html">$DBF7</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Read a decimal number at HL into A" (<a href="56311.html">DBF7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56250"></span>DBBA</td>
+<td class="instruction">LD ($DB66),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="56164.html#56166">DB66</a> in "Pounds, shillings and pence"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56253"></span>DBBD</td>
+<td class="instruction">JR $DBC0</td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="56167.html#56256">DBC0</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="56255"></span>DBBF</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56256"></span>DBC0</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack - Total in pence: pounds x 20...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56257"></span>DBC1</td>
+<td class="instruction">LD A,($DB64)</td>
+<td class="comment-1" rowspan="1">Read "Pounds, shillings and pence" (<a href="56164.html">DB64</a>) into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56260"></span>DBC4</td>
+<td class="instruction">LD L,A</td>
+<td class="comment-1" rowspan="1">Copy A into L</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56261"></span>DBC5</td>
+<td class="instruction">LD H,$00</td>
+<td class="comment-1" rowspan="1">Load H with $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56263"></span>DBC7</td>
+<td class="instruction">ADD HL,HL</td>
+<td class="comment-1" rowspan="1">Double HL (shift it left one bit)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56264"></span>DBC8</td>
+<td class="instruction">ADD HL,HL</td>
+<td class="comment-1" rowspan="1">Double HL (shift it left one bit)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56265"></span>DBC9</td>
+<td class="instruction">LD E,L</td>
+<td class="comment-1" rowspan="1">Copy L into E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56266"></span>DBCA</td>
+<td class="instruction">LD D,H</td>
+<td class="comment-1" rowspan="1">Copy H into D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56267"></span>DBCB</td>
+<td class="instruction">ADD HL,HL</td>
+<td class="comment-1" rowspan="1">Double HL (shift it left one bit)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56268"></span>DBCC</td>
+<td class="instruction">ADD HL,HL</td>
+<td class="comment-1" rowspan="1">Double HL (shift it left one bit)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56269"></span>DBCD</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1">Add DE to HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56270"></span>DBCE</td>
+<td class="instruction">LD A,($DB65)</td>
+<td class="comment-1" rowspan="1">Read <a href="56164.html#56165">DB65</a> in "Pounds, shillings and pence" into A - ...plus shillings...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56273"></span>DBD1</td>
+<td class="instruction">LD E,A</td>
+<td class="comment-1" rowspan="1">Copy A into E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56274"></span>DBD2</td>
+<td class="instruction">LD D,$00</td>
+<td class="comment-1" rowspan="1">Load D with $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56276"></span>DBD4</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1">Add DE to HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56277"></span>DBD5</td>
+<td class="instruction">ADD HL,HL</td>
+<td class="comment-1" rowspan="1">Double HL (shift it left one bit) - ...times 12...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56278"></span>DBD6</td>
+<td class="instruction">ADD HL,HL</td>
+<td class="comment-1" rowspan="1">Double HL (shift it left one bit)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56279"></span>DBD7</td>
+<td class="instruction">LD E,L</td>
+<td class="comment-1" rowspan="1">Copy L into E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56280"></span>DBD8</td>
+<td class="instruction">LD D,H</td>
+<td class="comment-1" rowspan="1">Copy H into D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56281"></span>DBD9</td>
+<td class="instruction">ADD HL,HL</td>
+<td class="comment-1" rowspan="1">Double HL (shift it left one bit)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56282"></span>DBDA</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1">Add DE to HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56283"></span>DBDB</td>
+<td class="instruction">LD A,($DB66)</td>
+<td class="comment-1" rowspan="1">Read <a href="56164.html#56166">DB66</a> in "Pounds, shillings and pence" into A - ...plus pence</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56286"></span>DBDE</td>
+<td class="instruction">LD E,A</td>
+<td class="comment-1" rowspan="1">Copy A into E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56287"></span>DBDF</td>
+<td class="instruction">LD D,$00</td>
+<td class="comment-1" rowspan="1">Load D with $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56289"></span>DBE1</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1">Add DE to HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56290"></span>DBE2</td>
+<td class="instruction">EX (SP),HL</td>
+<td class="comment-1" rowspan="1">Swap HL with the word on top of the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56291"></span>DBE3</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore BC from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56292"></span>DBE4</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">Copy B into A - Too much?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56293"></span>DBE5</td>
+<td class="instruction">CP $40</td>
+<td class="comment-1" rowspan="1">Compare A with $40</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56295"></span>DBE7</td>
+<td class="instruction">JP NC,<a href="56047.html#56143">$DB4F</a></td>
+<td class="comment-1" rowspan="1">If A is $40 or more, go back to <a href="56047.html#56143">DB4F</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="56298"></span>DBEA</td>
+<td class="instruction">SLA C</td>
+<td class="comment-1" rowspan="1">Shift C left (double it) - Pack it: 7 bits a byte, bit 7 set in both</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56300"></span>DBEC</td>
+<td class="instruction">RL B</td>
+<td class="comment-1" rowspan="1">Rotate B left through the carry</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56302"></span>DBEE</td>
+<td class="instruction">SRL C</td>
+<td class="comment-1" rowspan="1">Shift C right (halve it)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56304"></span>DBF0</td>
+<td class="instruction">SET 7,C</td>
+<td class="comment-1" rowspan="1">Set bit 7 of C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56306"></span>DBF2</td>
+<td class="instruction">SET 7,B</td>
+<td class="comment-1" rowspan="1">Set bit 7 of B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56308"></span>DBF4</td>
+<td class="instruction">JP <a href="56047.html#56125">$DB3D</a></td>
+<td class="comment-1" rowspan="1">Go back to <a href="56047.html#56125">DB3D</a></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="56164.html">DB64</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#56167">Map</a></td>
+<td class="next">
+Next: <a href="56311.html">DBF7</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

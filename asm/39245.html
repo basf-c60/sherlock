@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Data at 994D - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-b">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Data</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="39201.html">9921</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#39245">Map</a></td>
+<td class="next">
+Next: <a href="39269.html">9965</a>
+</td>
+</tr>
+</table>
+<div class="description">994D: The case's relation words</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Word references for the verbs a statement about the case can use; a statement's relation number is a position here (1-based). <a href="48578.html#48593">BDD1</a> finds the verb of what the player said in this list; <a href="48965.html">BF45</a> looks a relation up to print it (<a href="48924.html">BF1C</a> prints a statement, with AND, word $005D, for relation 0).
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39245"></span>994D</td>
+<td class="instruction">DEFW $00FE</td>
+<td class="comment-1" rowspan="1">Relation 1: BLACKMAILED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39247"></span>994F</td>
+<td class="instruction">DEFW $03BA</td>
+<td class="comment-1" rowspan="1">Relation 2: HAD</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39249"></span>9951</td>
+<td class="instruction">DEFW $03D8</td>
+<td class="comment-1" rowspan="1">Relation 3: HAS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39251"></span>9953</td>
+<td class="instruction">DEFW $0485</td>
+<td class="comment-1" rowspan="1">Relation 4: IS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39253"></span>9955</td>
+<td class="instruction">DEFW $0498</td>
+<td class="comment-1" rowspan="1">Relation 5: KILLED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39255"></span>9957</td>
+<td class="instruction">DEFW $0956</td>
+<td class="comment-1" rowspan="1">Relation 6: VISITED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39257"></span>9959</td>
+<td class="instruction">DEFW $03DB</td>
+<td class="comment-1" rowspan="1">Relation 7: HATED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39259"></span>995B</td>
+<td class="instruction">DEFW $02CD</td>
+<td class="comment-1" rowspan="1">Relation 8: EXAMINED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39261"></span>995D</td>
+<td class="instruction">DEFW $040A</td>
+<td class="comment-1" rowspan="1">Relation 9: HID</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39263"></span>995F</td>
+<td class="instruction">DEFW $0632</td>
+<td class="comment-1" rowspan="1">Relation 10: OWNS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39265"></span>9961</td>
+<td class="instruction">DEFW $0538</td>
+<td class="comment-1" rowspan="1">Relation 11: MADE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39267"></span>9963</td>
+<td class="instruction">DEFW $0000</td>
+<td class="comment-1" rowspan="1">End marker</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="39201.html">9921</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#39245">Map</a></td>
+<td class="next">
+Next: <a href="39269.html">9965</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

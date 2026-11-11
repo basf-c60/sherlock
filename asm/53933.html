@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at D2AD - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="53924.html">D2A4</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#53933">Map</a></td>
+<td class="next">
+Next: <a href="53997.html">D2ED</a>
+</td>
+</tr>
+</table>
+<div class="description">D2AD: The random number generator</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Steps a pointer (<a href="40918.html#41010">$A039</a>) through memory and mixes the byte it finds with <a href="40918.html#41010">$A037</a>. Used for chances, countdowns and greeting delays.
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. Set the limit C to A and work out B, twice the limit (255 if that overflows).
+</div>
+<div class="paragraph">
+2. Step the pointer at <a href="40918.html#41010">$A039</a> on through memory and fetch the byte it points at.
+</div>
+<div class="paragraph">
+3. Mix that byte, and the byte after it, into the last result at <a href="40918.html#41010">$A037</a>. If the answer equals the last result, step on and try again, so the same number never comes up twice running.
+</div>
+<div class="paragraph">
+4. Halve the answer until it is no larger than B, then subtract C. The result is a signed number from -C to +C.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">The limit</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">A pseudo-random number from -limit to +limit (as a signed byte)</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="53933"></span>D2AD</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53935"></span>D2AF</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Save BC on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53936"></span>D2B0</td>
+<td class="instruction">LD C,A</td>
+<td class="comment-1" rowspan="1">Copy A into C - C = the limit; B = twice it (255 if that overflows)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53937"></span>D2B1</td>
+<td class="instruction">SLA A</td>
+<td class="comment-1" rowspan="1">Shift A left (double it)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53939"></span>D2B3</td>
+<td class="instruction">JR NC,$D2B7</td>
+<td class="comment-1" rowspan="1">If the carry flag is clear, skip ahead to <a href="53933.html#53943">D2B7</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="53941"></span>D2B5</td>
+<td class="instruction">LD A,$FF</td>
+<td class="comment-1" rowspan="1">Load A with $FF</td>
+</tr>
+<tr>
+<td class="address-2"><span id="53943"></span>D2B7</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">Copy A into B</td>
+</tr>
+<tr>
+<td class="address-2"><span id="53944"></span>D2B8</td>
+<td class="instruction">LD IX,$A039</td>
+<td class="comment-1" rowspan="1">Point IX at <a href="40918.html#41010">$A039</a> in "Game variables" - Step the pointer at <a href="40918.html#41010">$A039</a> on through memory</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53948"></span>D2BC</td>
+<td class="instruction">INC (IX+$01)</td>
+<td class="comment-1" rowspan="1">Add one to byte +1 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53951"></span>D2BF</td>
+<td class="instruction">JR NZ,$D2C4</td>
+<td class="comment-1" rowspan="1">If byte +1 of the record at IX is not zero, skip ahead to <a href="53933.html#53956">D2C4</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="53953"></span>D2C1</td>
+<td class="instruction">INC (IX+$00)</td>
+<td class="comment-1" rowspan="1">Add one to the first byte of the record at IX</td>
+</tr>
+<tr>
+<td class="address-2"><span id="53956"></span>D2C4</td>
+<td class="instruction">LD IX,($A039)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A039</a> in "Game variables" into IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53960"></span>D2C8</td>
+<td class="instruction">LD A,($A037)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A037</a> in "Game variables" into A - Mix the bytes it points at into the last result (<a href="40918.html#41010">$A037</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53963"></span>D2CB</td>
+<td class="instruction">ADC A,(IX+$00)</td>
+<td class="comment-1" rowspan="1">Add (IX+$00) and the carry to A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53966"></span>D2CE</td>
+<td class="instruction">ADD IX,DE</td>
+<td class="comment-1" rowspan="1">Add DE to IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53968"></span>D2D0</td>
+<td class="instruction">XOR (IX+$01)</td>
+<td class="comment-1" rowspan="1">Flip in A the bits that are set in byte +1 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53971"></span>D2D3</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53972"></span>D2D4</td>
+<td class="instruction">LD HL,$A037</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="40918.html#41010">$A037</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53975"></span>D2D7</td>
+<td class="instruction">CP (HL)</td>
+<td class="comment-1" rowspan="1">Compare A with the byte at <a href="40918.html#41010">$A037</a> in "Game variables" - Never the same number twice running</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53976"></span>D2D8</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53977"></span>D2D9</td>
+<td class="instruction">JR Z,$D2B8</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, go back to <a href="53933.html#53944">D2B8</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="53979"></span>D2DB</td>
+<td class="instruction">LD ($A037),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41010">$A037</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-2"><span id="53982"></span>D2DE</td>
+<td class="instruction">CP B</td>
+<td class="comment-1" rowspan="1">Compare A with B - Halve it until it is no more than B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53983"></span>D2DF</td>
+<td class="instruction">JR C,$D2E8</td>
+<td class="comment-1" rowspan="1">If A is below B, skip ahead to <a href="53933.html#53992">D2E8</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="53985"></span>D2E1</td>
+<td class="instruction">JR Z,$D2E8</td>
+<td class="comment-1" rowspan="1">If A equals B, skip ahead to <a href="53933.html#53992">D2E8</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="53987"></span>D2E3</td>
+<td class="instruction">SRL A</td>
+<td class="comment-1" rowspan="1">Shift A right (halve it)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53989"></span>D2E5</td>
+<td class="instruction">JP $D2DE</td>
+<td class="comment-1" rowspan="1">Go back to <a href="53933.html#53982">D2DE</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="53992"></span>D2E8</td>
+<td class="instruction">SUB C</td>
+<td class="comment-1" rowspan="1">Subtract C from A - minus C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53993"></span>D2E9</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore BC from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53994"></span>D2EA</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53996"></span>D2EC</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="53924.html">D2A4</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#53933">Map</a></td>
+<td class="next">
+Next: <a href="53997.html">D2ED</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at B5D3 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="46518.html">B5B6</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#46547">Map</a></td>
+<td class="next">
+Next: <a href="46766.html">B6AE</a>
+</td>
+</tr>
+</table>
+<div class="description">B5D3: Ask the player which object, or what</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Self-modifying: <a href="46547.html#46639">B62F</a> loads $28 (the opcode of JR Z) and <a href="46547.html#46643">B633</a> $20 (JR NZ); <a href="46547.html#46645">B635</a> writes it over the jumps at <a href="46547.html#46665">B649</a> and <a href="46547.html#46680">B658</a>, which decide whether the words in the saved verb pattern (<a href="45421.html#45453">$B18E</a>, +2/+3 and +4/+5, with +7 bit 7 and bit 5 of the first word as flags) are included.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$B16D,</td>
+<td class="register-desc">$B16E Flags telling which slots hold words</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">question printed ($A59F); the player's own words are the message parameters</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="46547"></span>B5D3</td>
+<td class="instruction">LD A,($B16E)</td>
+<td class="comment-1" rowspan="1">Read <a href="45421.html">$B16E</a> in "Parser variables" into A - Indirect-object slot holds words (bit 0 of <a href="45421.html">$B16E</a>)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46550"></span>B5D6</td>
+<td class="instruction">BIT 0,A</td>
+<td class="comment-1" rowspan="1">Test bit 0 of A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46552"></span>B5D8</td>
+<td class="instruction">JR Z,$B610</td>
+<td class="comment-1" rowspan="1">No: the 'THE ... WHAT ?' form at <a href="46547.html#46608">B610</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46554"></span>B5DA</td>
+<td class="instruction">LD A,($B183)</td>
+<td class="comment-1" rowspan="1">Read <a href="45421.html#45437">$B183</a> in "Parser variables" into A - Yes: A = the slot's count byte (<a href="45421.html#45437">$B183</a>), HL = the slot (<a href="45421.html#45429">$B178</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46557"></span>B5DD</td>
+<td class="instruction">LD HL,$B178</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="45421.html#45429">$B178</a> in "Parser variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46560"></span>B5E0</td>
+<td class="instruction">JR $B5EF</td>
+<td class="comment-1" rowspan="1">Join the 'WHICH' question</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46562"></span>B5E2</td>
+<td class="instruction">LD A,($B16D)</td>
+<td class="comment-1" rowspan="1">Read "Parser variables" (<a href="45421.html">B16D</a>) into A - (Entry for the direct object) same test on <a href="45421.html">B16D</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46565"></span>B5E5</td>
+<td class="instruction">BIT 0,A</td>
+<td class="comment-1" rowspan="1">Test bit 0 of A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46567"></span>B5E7</td>
+<td class="instruction">JR Z,$B5FC</td>
+<td class="comment-1" rowspan="1">If bit 0 of A is clear, skip ahead to <a href="46547.html#46588">B5FC</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46569"></span>B5E9</td>
+<td class="instruction">LD A,($B182)</td>
+<td class="comment-1" rowspan="1">Read <a href="45421.html#45437">$B182</a> in "Parser variables" into A - A = its count byte (<a href="45421.html#45437">$B182</a>), HL = <a href="45421.html">$B172</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46572"></span>B5EC</td>
+<td class="instruction">LD HL,$B172</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="45421.html">$B172</a> in "Parser variables"</td>
+</tr>
+<tr>
+<td class="address-2"><span id="46575"></span>B5EF</td>
+<td class="instruction">CALL <a href="47164.html">$B83C</a></td>
+<td class="comment-1" rowspan="1">Push the slot's three words as message parameters (<a href="47164.html">B83C</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46578"></span>B5F2</td>
+<td class="instruction">CALL <a href="46518.html">$B5B6</a></td>
+<td class="comment-1" rowspan="1">Move on to the next sentence of the typed line (<a href="46518.html">B5B6</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46581"></span>B5F5</td>
+<td class="instruction">LD HL,$6888</td>
+<td class="comment-1" rowspan="1">Point HL at the message "WHICH ‹word› ?" (<a href="26760.html">6888</a>) - Print 'WHICH ... ?' (<a href="26760.html">6888</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46584"></span>B5F8</td>
+<td class="instruction">CALL <a href="42399.html">$A59F</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print the message at HL" (<a href="42399.html">A59F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46587"></span>B5FB</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="46588"></span>B5FC</td>
+<td class="instruction">CALL $B633</td>
+<td class="comment-1" rowspan="1">Direct object with no words: push the verb's words (<a href="46547.html#46643">B633</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46591"></span>B5FF</td>
+<td class="instruction">LD HL,($B186)</td>
+<td class="comment-1" rowspan="1">Read <a href="45421.html#45445">$B186</a> in "Parser variables" into HL - ...and the saved (<a href="45421.html#45445">$B186</a>) word</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46594"></span>B602</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46595"></span>B603</td>
+<td class="instruction">LD A,($B182)</td>
+<td class="comment-1" rowspan="1">Read <a href="45421.html#45437">$B182</a> in "Parser variables" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46598"></span>B606</td>
+<td class="instruction">CALL <a href="46518.html">$B5B6</a></td>
+<td class="comment-1" rowspan="1">Next sentence</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46601"></span>B609</td>
+<td class="instruction">LD HL,$6880</td>
+<td class="comment-1" rowspan="1">Point HL at the message "‹word› WHAT ?" (<a href="26752.html">6880</a>) - Print '&lt;word&gt; WHAT ?' (<a href="26752.html">6880</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46604"></span>B60C</td>
+<td class="instruction">CALL <a href="42399.html">$A59F</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print the message at HL" (<a href="42399.html">A59F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46607"></span>B60F</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="46608"></span>B610</td>
+<td class="instruction">CALL $B62F</td>
+<td class="comment-1" rowspan="1">Call <a href="46547.html#46639">B62F</a> (inside "Ask the player which object, or what") - Neither slot: the full question: verb words (<a href="46547.html#46639">B62F</a>)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46611"></span>B613</td>
+<td class="instruction">LD HL,$0000</td>
+<td class="comment-1" rowspan="1">Load HL with $0000</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46614"></span>B616</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46615"></span>B617</td>
+<td class="instruction">LD HL,$B172</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="45421.html">$B172</a> in "Parser variables" - ...the direct object's words (<a href="45421.html">$B172</a>)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46618"></span>B61A</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46619"></span>B61B</td>
+<td class="instruction">CALL $B633</td>
+<td class="comment-1" rowspan="1">Call <a href="46547.html#46643">B633</a> (inside "Ask the player which object, or what") - ...and (<a href="46547.html#46643">B633</a>) the verb again</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46622"></span>B61E</td>
+<td class="instruction">LD HL,($B186)</td>
+<td class="comment-1" rowspan="1">Read <a href="45421.html#45445">$B186</a> in "Parser variables" into HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46625"></span>B621</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46626"></span>B622</td>
+<td class="instruction">LD A,($B183)</td>
+<td class="comment-1" rowspan="1">Read <a href="45421.html#45437">$B183</a> in "Parser variables" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46629"></span>B625</td>
+<td class="instruction">CALL <a href="46518.html">$B5B6</a></td>
+<td class="comment-1" rowspan="1">Next sentence</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46632"></span>B628</td>
+<td class="instruction">LD HL,$687C</td>
+<td class="comment-1" rowspan="1">Point HL at the message "‹word› THE ‹word› WHAT ?" (<a href="26748.html">687C</a>) - Print '&lt;word&gt; THE &lt;word&gt; WHAT ?' (<a href="26748.html">687C</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46635"></span>B62B</td>
+<td class="instruction">CALL <a href="42399.html">$A59F</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print the message at HL" (<a href="42399.html">A59F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46638"></span>B62E</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="46639"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routines at <a href="46766.html">B6AE</a> and <a href="46810.html">B6DA</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="46639"></span>B62F</td>
+<td class="instruction">LD A,$28</td>
+<td class="comment-1" rowspan="1">Load A with $28 - JR Z opcode...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46641"></span>B631</td>
+<td class="instruction">JR $B635</td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="46547.html#46645">B635</a></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="46643"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="46810.html">B6DA</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="46643"></span>B633</td>
+<td class="instruction">LD A,$20</td>
+<td class="comment-1" rowspan="1">JR NZ opcode...</td>
+</tr>
+<tr>
+<td class="address-2"><span id="46645"></span>B635</td>
+<td class="instruction">LD ($B649),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="46547.html#46665">B649</a> in "Ask the player which object, or what" - ...written into the jumps below (self-modifying)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46648"></span>B638</td>
+<td class="instruction">LD ($B658),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="46547.html#46680">B658</a> in "Ask the player which object, or what"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46651"></span>B63B</td>
+<td class="instruction">LD IX,($B18E)</td>
+<td class="comment-1" rowspan="1">Read <a href="45421.html#45453">$B18E</a> in "Parser variables" into IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46655"></span>B63F</td>
+<td class="instruction">LD L,(IX+$04)</td>
+<td class="comment-1" rowspan="1">Read byte +4 of the record at IX into L</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46658"></span>B642</td>
+<td class="instruction">LD H,(IX+$05)</td>
+<td class="comment-1" rowspan="1">Read byte +5 of the record at IX into H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46661"></span>B645</td>
+<td class="instruction">BIT 7,(IX+$07)</td>
+<td class="comment-1" rowspan="1">Test bit 7 of byte +7 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46665"></span>B649</td>
+<td class="instruction">JR NZ,$B64E</td>
+<td class="comment-1" rowspan="1">If bit 7 of byte +7 of the record at IX is set, skip ahead to <a href="46547.html#46670">B64E</a> - Modified by <a href="46547.html#46645">B635</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46667"></span>B64B</td>
+<td class="instruction">LD HL,$0000</td>
+<td class="comment-1" rowspan="1">Load HL with $0000</td>
+</tr>
+<tr>
+<td class="address-2"><span id="46670"></span>B64E</td>
+<td class="instruction">EX (SP),HL</td>
+<td class="comment-1" rowspan="1">Swap HL with the word on top of the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46671"></span>B64F</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46672"></span>B650</td>
+<td class="instruction">LD L,(IX+$02)</td>
+<td class="comment-1" rowspan="1">Read byte +2 of the record at IX into L</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46675"></span>B653</td>
+<td class="instruction">LD H,(IX+$03)</td>
+<td class="comment-1" rowspan="1">Read byte +3 of the record at IX into H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46678"></span>B656</td>
+<td class="instruction">BIT 5,H</td>
+<td class="comment-1" rowspan="1">Test bit 5 of H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46680"></span>B658</td>
+<td class="instruction">JR NZ,$B65D</td>
+<td class="comment-1" rowspan="1">If bit 5 of H is set, skip ahead to <a href="46547.html#46685">B65D</a> - Modified by <a href="46547.html#46645">B635</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46682"></span>B65A</td>
+<td class="instruction">LD HL,$0000</td>
+<td class="comment-1" rowspan="1">Load HL with $0000</td>
+</tr>
+<tr>
+<td class="address-2"><span id="46685"></span>B65D</td>
+<td class="instruction">EX (SP),HL</td>
+<td class="comment-1" rowspan="1">Swap HL with the word on top of the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46686"></span>B65E</td>
+<td class="instruction">JP (HL)</td>
+<td class="comment-1" rowspan="1">Jump to the address in HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46687"></span>B65F</td>
+<td class="instruction">LD A,($A00F)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40970">$A00F</a> in "Game variables" into A - (Entry <a href="46547.html#46687">B65F</a>) requirement code 5 or 6 (a number) wants...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46690"></span>B662</td>
+<td class="instruction">CP $05</td>
+<td class="comment-1" rowspan="1">Compare A with $05</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46692"></span>B664</td>
+<td class="instruction">JR Z,$B671</td>
+<td class="comment-1" rowspan="1">If A equals $05, skip ahead to <a href="46547.html#46705">B671</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46694"></span>B666</td>
+<td class="instruction">CP $06</td>
+<td class="comment-1" rowspan="1">Compare A with $06</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46696"></span>B668</td>
+<td class="instruction">JR Z,$B671</td>
+<td class="comment-1" rowspan="1">If A equals $06, skip ahead to <a href="46547.html#46705">B671</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46698"></span>B66A</td>
+<td class="instruction">LD A,($B173)</td>
+<td class="comment-1" rowspan="1">Read <a href="45421.html">$B173</a> in "Parser variables" into A - ...or the first word of the direct-object slot has bit 7 set</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46701"></span>B66D</td>
+<td class="instruction">BIT 7,A</td>
+<td class="comment-1" rowspan="1">Test bit 7 of A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46703"></span>B66F</td>
+<td class="instruction">JR Z,$B678</td>
+<td class="comment-1" rowspan="1">If bit 7 of A is clear, skip ahead to <a href="46547.html#46712">B678</a></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="46705"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="46766.html">B6AE</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="46705"></span>B671</td>
+<td class="instruction">LD HL,$6855</td>
+<td class="comment-1" rowspan="1">Point HL at the message "DON'T BE SILLY." (<a href="26709.html">6855</a>) - Print <a href="26709.html">6855</a> ('DON'T BE SILLY.')</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46708"></span>B674</td>
+<td class="instruction">CALL <a href="42399.html">$A59F</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print the message at HL" (<a href="42399.html">A59F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46711"></span>B677</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="46712"></span>B678</td>
+<td class="instruction">LD HL,$B16D</td>
+<td class="comment-1" rowspan="1">Point HL at "Parser variables" (<a href="45421.html">B16D</a>) - Otherwise: direct-object slot holds words?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46715"></span>B67B</td>
+<td class="instruction">BIT 0,(HL)</td>
+<td class="comment-1" rowspan="1">Test bit 0 of the byte at "Parser variables" (<a href="45421.html">B16D</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46717"></span>B67D</td>
+<td class="instruction">LD HL,$B172</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="45421.html">$B172</a> in "Parser variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46720"></span>B680</td>
+<td class="instruction">CALL NZ,<a href="46810.html">$B6DA</a></td>
+<td class="comment-1" rowspan="1">Yes: count them (<a href="46810.html">B6DA</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46723"></span>B683</td>
+<td class="instruction">CALL $B633</td>
+<td class="comment-1" rowspan="1">Call <a href="46547.html#46643">B633</a> (inside "Ask the player which object, or what") - Push the verb's words (<a href="46547.html#46643">B633</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46726"></span>B686</td>
+<td class="instruction">LD A,($B16D)</td>
+<td class="comment-1" rowspan="1">Read "Parser variables" (<a href="45421.html">B16D</a>) into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46729"></span>B689</td>
+<td class="instruction">LD HL,$B172</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="45421.html">$B172</a> in "Parser variables"</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="46732"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="46766.html">B6AE</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="46732"></span>B68C</td>
+<td class="instruction">LD DE,($B186)</td>
+<td class="comment-1" rowspan="1">Read <a href="45421.html#45445">$B186</a> in "Parser variables" into DE - Push the saved word (<a href="45421.html#45445">$B186</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46736"></span>B690</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46737"></span>B691</td>
+<td class="instruction">BIT 0,A</td>
+<td class="comment-1" rowspan="1">Test bit 0 of A - Slot has words (bit 0)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46739"></span>B693</td>
+<td class="instruction">JR Z,$B69D</td>
+<td class="comment-1" rowspan="1">If bit 0 of A is clear, skip ahead to <a href="46547.html#46749">B69D</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46741"></span>B695</td>
+<td class="instruction">CALL <a href="47164.html">$B83C</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Push the three words at HL as message parameters" (<a href="47164.html">B83C</a>) - Yes: push them (<a href="47164.html">B83C</a>) and use the message at $05B3</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46744"></span>B698</td>
+<td class="instruction">LD HL,$05B3</td>
+<td class="comment-1" rowspan="1">Load HL with $05B3</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46747"></span>B69B</td>
+<td class="instruction">JR $B6A6</td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="46547.html#46758">B6A6</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="46749"></span>B69D</td>
+<td class="instruction">LD HL,$0000</td>
+<td class="comment-1" rowspan="1">Load HL with $0000 - No: three zero parameters and the message at $05DB</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46752"></span>B6A0</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46753"></span>B6A1</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46754"></span>B6A2</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46755"></span>B6A3</td>
+<td class="instruction">LD HL,$05DB</td>
+<td class="comment-1" rowspan="1">Load HL with $05DB</td>
+</tr>
+<tr>
+<td class="address-2"><span id="46758"></span>B6A6</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46759"></span>B6A7</td>
+<td class="instruction">LD HL,$6894</td>
+<td class="comment-1" rowspan="1">Point HL at the message "I SEE ‹word› THAT YOU CAN ‹word›" (<a href="26772.html">6894</a>) - Print <a href="26772.html">6894</a> with those parameters</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46762"></span>B6AA</td>
+<td class="instruction">CALL <a href="42399.html">$A59F</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print the message at HL" (<a href="42399.html">A59F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46765"></span>B6AD</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="46518.html">B5B6</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#46547">Map</a></td>
+<td class="next">
+Next: <a href="46766.html">B6AE</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

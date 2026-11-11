@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Data at EB72 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-b">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Data</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="60231.html">EB47</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#60274">Map</a></td>
+<td class="next">
+Next: <a href="60299.html">EB8B</a>
+</td>
+</tr>
+</table>
+<div class="description">EB72: Sub-script: Inspector Lestrade's journey to Leatherhead</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Sub-script: RUN at <a href="59367.html#59369">E7E9</a>; RUN at <a href="59367.html#59791">E98F</a>; RUN at <a href="59367.html#60004">EA64</a>; RUN at <a href="60971.html#61217">EF21</a>.
+</div>
+<div class="paragraph">
+A cab to Kings Cross Road (room 18), four steps north-east, a train to platform one (room 54), then verb <a href="58519.html">128</a> puts him in Leatherhead station (room 53).
+</div>
+<div class="paragraph">
+Entry points: <a href="60274.html#60276">EB74</a> = body of record <a href="60274.html">EB72</a>.
+</div>
+<div class="paragraph">
+Each sub-block is one instruction. Room and object numbers are as the game uses them (the reference pages list both).
+</div>
+<div class="paragraph">
+In an instruction, 'plan dobj' and 'plan iobj' are not fixed objects: they mean the direct and indirect object currently held in the actor's plan registers (bytes +4 and +5 of its actor record), so the same step works on whatever the actor is dealing with - for the player, the objects of the command just typed. 'plan verb' is the verb register (+3), 'self' is the acting character, and '-' means none.
+</div>
+<div class="paragraph">
+This journey collides with the player's own cab ride if the player is in the same hansom cab when Lestrade hails it (Tuesday about 12:20am and 7:05am, Wednesday after the sale statement): in the first trials Lestrade stayed in cab 33's off-stage room (pc <a href="60324.html#60357">EBC5</a>) for the rest of the game. Hail the other cab, or take the train.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60274"></span>EB72</td>
+<td class="instruction">DEFB $80,$00</td>
+<td class="comment-1" rowspan="1">Action record header: flags $80; bit 7: checks only; byte 1 $00 - checks-only: the script follows</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60276"></span>EB74</td>
+<td class="instruction">DEFB $47,$A4,$EB,$FF,$12</td>
+<td class="comment-1" rowspan="1">RUN <a href="60324.html">EBA4</a> (-, 18 your address) [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60281"></span>EB79</td>
+<td class="instruction">DEFB $41,$05</td>
+<td class="comment-1" rowspan="1">DO 5 <a href="56579.html">NORTHEAST</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60283"></span>EB7B</td>
+<td class="instruction">DEFB $41,$05</td>
+<td class="comment-1" rowspan="1">DO 5 <a href="56579.html">NORTHEAST</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60285"></span>EB7D</td>
+<td class="instruction">DEFB $41,$05</td>
+<td class="comment-1" rowspan="1">DO 5 <a href="56579.html">NORTHEAST</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60287"></span>EB7F</td>
+<td class="instruction">DEFB $41,$05</td>
+<td class="comment-1" rowspan="1">DO 5 <a href="56579.html">NORTHEAST</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60289"></span>EB81</td>
+<td class="instruction">DEFB $47,$E1,$EB,$36,$FF</td>
+<td class="comment-1" rowspan="1">RUN <a href="60385.html">EBE1</a> (54 wooden door, -) [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60294"></span>EB86</td>
+<td class="instruction">DEFB $42,$80,$FB,$35</td>
+<td class="comment-1" rowspan="1">DO 128 <a href="58519.html">PUT</a>: self, room 53 (leatherhead station) [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60298"></span>EB8A</td>
+<td class="instruction">DEFB $0B</td>
+<td class="comment-1" rowspan="1">RETURN OK</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="60231.html">EB47</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#60274">Map</a></td>
+<td class="next">
+Next: <a href="60299.html">EB8B</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

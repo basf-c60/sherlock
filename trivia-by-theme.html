@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Trivia by theme - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="sherlock.css" />
+</head>
+<body class="trivia-by-theme">
+<header class="site"><div class="bar"><a class="brand" href="index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Trivia by theme</h1>
+<p>All 59 trivia entries, grouped by what they are about. Each link goes to the full entry on the <a href="reference/facts.html">Trivia</a> page, which lists them in this same order.</p>
+<ul><li><a href="#winning">Winning the game</a></li><li><a href="#case">The case, the evidence and the endings</a></li><li><a href="#world">The world: people, places and things</a></li><li><a href="#parser">The parser and the keyboard</a></li><li><a href="#engine">Engine internals</a></li></ul>
+<h2 id="winning">Winning the game</h2><p>The route that wins, why each step is where it is, and the timings that make or break it.</p><ul>
+<li><a href="reference/facts.html#the_last_scene">How the game is won</a><small>The only winning text in the game is at <a href="asm/27379.html">6AF3</a>, and it is printed in one place: Phipps&#x27;s script, when he walks onto platform one at Victoria and finds you...</small></li>
+<li><a href="reference/facts.html#the_win_typed">The winning line from Wednesday 10:53am, typed</a><small>SAY TO LESTRADE &quot;THE SALE LOCATION IS OLD MILL ROAD&quot; in Scotland Yard at 10:53am (the singed note examined, PHIPPS HAS PLANS already proven) and Lestrade...</small></li>
+<li><a href="reference/facts.html#second_winning_route">A second winning route: shadow Lestrade from Scotland Yard</a><small>It matches the cleaned route up to the sale-location statement to Lestrade (Wednesday 10:53am), then, instead of taking a hansom cab of your own and the...</small></li>
+
+<li><a href="reference/facts.html#tuesday_ordering">Tuesday&#x27;s order of work that fits the clock</a><small>12:55am cab to Kings Cross Road; 7:30am train; 9:00 Leatherhead; 9:20 rock with Lestrade; letters from Basil&#x27;s library safe by 10:05 (OPEN WALL SAFE takes...</small></li>
+<li><a href="reference/facts.html#burning_note_typed">The burning note: TAKE NOTE FROM FIREPLACE, then drop and plain TAKE it</a><small>The note appears in the bedroom fireplace (room 35) at about 10:05am and burns away over the next 15 turns.</small></li>
+<li><a href="reference/facts.html#followers_lag_one_turn">Lestrade and Watson follow one turn behind you, so a train can leave without them</a><small>The underground train entered at 6:26 and pulled out at 6:29.</small></li>
+<li><a href="reference/facts.html#train_goes_on_to_platform_two">Riding the Leatherhead train past your stop costs the police cab</a><small>The steam train from Kings Cross platform four reaches Leather Head platform one at 1:30pm (if it left at noon), and then is &#x27;shunted between platforms&#x27; to...</small></li>
+<li><a href="reference/facts.html#police_cab_seats">The police cab fits four: you, Watson, Lestrade and the constable - not Chief Constable Straker</a><small>In the main street at Leather Head on Wednesday: if you climb in the minute before Lestrade, the cab holds you, Watson and the local police man and drives...</small></li>
+<li><a href="reference/facts.html#ordering_the_cab_strands_lestrade">Giving the police cab your own orders leaves Lestrade behind</a><small>At 4:47pm, back in the main street with Lestrade, Watson and the constable aboard, SAY TO POLICE MAN &quot;GO FURIOUSLY TO KINGS CROSS ROAD&quot; made the cab leave...</small></li>
+<li><a href="reference/facts.html#phipps_shoots_the_bedroom">Basil&#x27;s bedroom is deadly at 9:50am on Wednesday, even in disguise</a><small>Waiting in the bedroom (room 35) in the china man&#x27;s disguise through 9:50am on Wednesday gets you shot: the game ends.</small></li>
+<li><a href="reference/facts.html#window_exit_bedroom">The bedroom window works both ways: SOUTHWEST to the front yard, WEST to Camden Street</a><small>The same window you enter by on Tuesday evening (NORTHEAST from the front yard, room 102) lets you leave on Wednesday morning without passing through the...</small></li>
+<li><a href="reference/facts.html#messenger_note_watched">The messenger who delivers a note to Basil is shown only if you are watching</a><small>On Wednesday morning, at about 9:50, Phipps&#x27;s script (<a href="asm/60971.html#61161">EEE9</a>) checks whether you are in Camden Street or Basil&#x27;s front yard (or the china man is).</small></li>
+<li><a href="reference/facts.html#train_circle_timings">The underground train: Kings Cross platform one at 6:29, Victoria platform one at 6:41, Paddington at 6:43</a><small>The steam trains on the underground circle run on a fixed timetable.</small></li>
+<li><a href="reference/facts.html#lestrade_orders_tried">Which orders Lestrade takes on platform two (and when)</a><small>55pm on Leatherhead platform two, after the chase.</small></li>
+<li><a href="reference/facts.html#lestrade_cab_clash">Lestrade rides the same cab: keep out of cabs at 12:20-12:45am and 7:05-7:20am</a><small>Lestrade hails a cab twice in the night: Scotland Yard side at about 12:20am (Slater Street to Parliament Street) and from Parliament Street at 7:05am (to...</small></li>
+<li><a href="reference/facts.html#cab_change_and_fares">Fares seen in the run: 2d from Camden Street to Parliament Street, 6d from Parliament Street to Kings Cross Road</a><small>Paying with PAY 10D TO CABBIE, the cabbie gave change each time (&#x27;You pay 10d.</small></li>
+<li><a href="reference/facts.html#cab_fares">Cab fares</a><small>A hansom cab ride costs 2d for every five minutes of the journey, plus 2d: the journey times are in the table at <a href="asm/39807.html">9B7F</a> and the fare is worked out at <a href="asm/39717.html">9B25</a>.</small></li>
+<li><a href="reference/facts.html#stale_quotes_cabbie">Quoted speech is queued: a cabbie can ignore a destination until old quotes are flushed</a><small>Every quotation typed in a SAY TO is added to a list at <a href="asm/40918.html#40940">9FEC</a> (<a href="asm/45084.html#45129">B049</a>); the SAY that runs takes the FIRST node off it (<a href="asm/47210.html">B86A</a>).</small></li>
+<li><a href="reference/facts.html#pay_not_give_money">Pay a cabbie with PAY 10D TO CABBIE, not GIVE MONEY TO CABBIE</a><small>GIVE MONEY hands over the whole purse (thing 27) to the cabbie, who keeps it; after that INVENTORY shows no money, PAY says DON&#x27;T BE SILLY, and the cabbie...</small></li>
+</ul>
+<h2 id="case">The case, the evidence and the endings</h2><p>What the game counts as proof, what ends it early, and how it can end.</p><ul>
+<li><a href="reference/facts.html#three_endings">How the case can end</a><small>The game ends through records the characters&#x27; scripts run, all finishing at <a href="asm/40564.html">9E74</a>.</small></li>
+<li><a href="reference/facts.html#meet_lestrade_by_3pm">Be introduced to Lestrade by 3pm on Monday, or the game ends</a><small>Perhaps you should try again.&#x27; and the game restarts.</small></li>
+<li><a href="reference/facts.html#the_case_table">The solution is a table of statements and evidence</a><small>The evidence is pairs of things the player must have seen or examined.</small></li>
+<li><a href="reference/facts.html#watson_remembers">Watson remembers what you tell him about the case</a><small>Telling Watson a statement about the case (SAY TO WATSON &quot;MRS BROWN KILLED HERSELF&quot;) adds it to a list of three-byte statements at <a href="asm/40918.html#40946">$9FF4</a>, and he...</small></li>
+<li><a href="reference/facts.html#watson_connections">Watson&#x27;s connections</a><small>Tell Watson something about the case and he either praises you or, by chance, wonders aloud about &#x27;some connection between&#x27; two things, picked from the...</small></li>
+<li><a href="reference/facts.html#catch_the_major">To clear the Major, catch him at the opium den</a><small>MAJOR PERCIVAL FFOULKES IS INNOCENT can only be proven through a second statement, MAJOR PERCIVAL FFOULKES VISITED OPIUM DEN, whose only evidence is an...</small></li>
+<li><a href="reference/facts.html#tricia_is_mrs_jones">Tricia Fender is Mrs Jones in disguise - and that is how the last marker is earned</a><small>Shared action 3 (<a href="asm/57763.html">E1A3</a>, in Tricia Fender&#x27;s own action list) is not just a question.</small></li>
+<li><a href="reference/facts.html#blackmail_statement">TRICIA FENDER BLACKMAILED MRS BROWN does nothing but get a shrug</a><small>It is not needed to win.</small></li>
+<li><a href="reference/facts.html#early_sale_statement_unneeded">Saying THE SALE LOCATION IS OLD MILL ROAD on Tuesday afternoon is not needed</a><small>Replacing it with another statement, or removing it, still wins; the one that counts is said again on Wednesday at 10:53am after the singed note is examined.</small></li>
+<li><a href="reference/facts.html#wall_safe_trap">Opening Basil&#x27;s wall safe on Monday gets you shot</a><small>The wall safe in Basil&#x27;s library at Cobden Lane in Leatherhead (thing 89, room 58) holds the letters.</small></li>
+<li><a href="reference/facts.html#large_rock_tuesday">The large rock: EXAMINE CLOSELY DEEP STREAM, on Tuesday, east of the bridge</a><small>Then it marks the large rock seen and visible, moves it into the player&#x27;s room and prints &#x27;AS YOU SEARCH THE RIVER LESTRADE COMES OVER TO HELP.</small></li>
+<li><a href="reference/facts.html#large_rock_needs_lestrade">The rock needs Lestrade in the room: Tuesday morning, east side of the bridge</a><small>Shared action 16&#x27;s script runs <a href="asm/57517.html">E0AD</a> with Lestrade (actor 2) as direct object, and nothing happens unless he is in the room with the player.</small></li>
+<li><a href="reference/facts.html#disguise_needs_a_trick">The disguise cannot be picked up with the lamp - but WEAR then TAKE OFF carries it</a><small>In Holmes&#x27;s closet at the start, TAKE CHINA MANS DISGUISE answers &#x27;I SEE NO CHINA MANS DISGUISE THAT YOU CAN TAKE&#x27; while the player carries the oil lamp and...</small></li>
+<li><a href="reference/facts.html#basils_london_house">Basil&#x27;s Camden Street house: what was observed, and the wall in the way</a><small>Observed with nobody interfering and in the playthrough: the front door (thing 91) and the bedroom window (thing 79) start locked.</small></li>
+<li><a href="reference/facts.html#the_game_goes_on">The game does not wait for you</a><small>The player&#x27;s script reads each line with a time limit (<a href="asm/55448.html">D898</a>, <a href="asm/42294.html">A536</a>: 3,000 keyboard polls).</small></li>
+<li><a href="reference/facts.html#bedtime">The household goes to bed at 9pm</a><small>At 9pm Daphne Strachan goes to her room and the cook and the gardener leave the game for the night, each marked SLEEPING and no longer counted as a person...</small></li>
+<li><a href="reference/facts.html#bring_a_lamp">It gets dark at 8pm</a><small>Outdoors between 8pm and 6am the player cannot see without a light: LOOK on Baker Street at 9pm says &#x27;SORRY IT IS TOO DARK.&#x27; unless the oil lamp from...</small></li>
+</ul>
+<h2 id="world">The world: people, places and things</h2><p>The cast, the map, and the odd ways the world is built.</p><ul>
+<li><a href="reference/facts.html#cast_list">The cast and objects, read from the game&#x27;s own records</a><small>110 entities, named from their own word slots: you, Watson, Inspector Lestrade, Chief Constable Straker, Strachan, Phipps, Major Percival Ffoulkes, Tricia...</small></li>
+<li><a href="reference/facts.html#map_decoded_and_walked">The map: 106 rooms, 206 exits, every one tried</a><small>The other 12 are the ones the code says must refuse - 7 &#x27;scenery&#x27; exits to room 0 (a deep stream, a window) that the room description mentions but the exit...</small></li>
+<li><a href="reference/facts.html#police_men_are_doors">The police men are doors</a><small>The two local police men at Browns and Jones front gates are listed in the room table as the &#x27;door&#x27; of the exit they guard.</small></li>
+
+<li><a href="reference/facts.html#plan_scripts">Every character, the player included, runs a script</a><small>Sherlock&#x27;s characters are not driven by code but by scripts in a small language of fifteen opcodes (one unused): do a command, run an action record, order...</small></li>
+<li><a href="reference/facts.html#waiting_for_the_hour">Characters keep appointments by failing until the time is right</a><small>Verb <a href="asm/61910.html">136</a> succeeds only when the clock&#x27;s hour equals its argument, counted 1-24: <a href="asm/61910.html">F1D6</a> turns 13-24 into 1-12 with &#x27;p&#x27;, and 1-12 into 1-12 with...</small></li>
+<li><a href="reference/facts.html#busy_characters">Characters can be too busy to do what you ask</a><small>Bit 6 of a plan-script instruction marks it as busy: a character on such an instruction answers a request with &#x27;Sorry, I cannot do that now.&#x27; (<a href="asm/52135.html">CBA7</a>).</small></li>
+<li><a href="reference/facts.html#thirteen_pictures">Only fourteen rooms have a picture</a><small>The picture table at <a href="asm/62988.html">F60C</a> lists 14 of the game&#x27;s rooms, and two of them (platforms one and two) share a picture, so there are 13 pictures in all, stored...</small></li>
+<li><a href="reference/facts.html#scenery_words">Scenery</a><small>Rooms can mention things that are not objects - the &#x27;two broad windows&#x27; of Holmes&#x27;s sitting room, say.</small></li>
+<li><a href="reference/facts.html#examine_closely">EXAMINE CLOSELY finds hidden things that EXAMINE does not</a><small>Verb <a href="asm/57653.html">20</a> is EXAMINE CLOSELY (in that word order: EXAMINE CLOSELY TRASH PILE; &#x27;EXAMINE TRASH PILE CLOSELY&#x27; gets &#x27;WHAT ?&#x27;).</small></li>
+<li><a href="reference/facts.html#follow_climbs_in">FOLLOW WATSON puts you in Watson&#x27;s armchair</a><small>FOLLOW WATSON at the start answers &#x27;You climb into watsons armchair.&#x27;, the player&#x27;s container changes from 255 (none) to 24, and LOOK then says &#x27;You are in...</small></li>
+<li><a href="reference/facts.html#go_furiously">GO FURIOUSLY TO</a><small>The verb table has two GO TOs: verb <a href="asm/39577.html">29</a>, GO TO, and verb <a href="asm/39627.html">30</a>, GO FURIOUSLY TO (MADLY and QUICKLY are synonyms of FURIOUSLY).</small></li>
+</ul>
+<h2 id="parser">The parser and the keyboard</h2><p></p><ul>
+<li><a href="reference/facts.html#verb_system_decoded">The whole verb system, decoded from the game&#x27;s own tables</a><small>Each verb has an optional default action record (table at <a href="asm/40760.html">9F38</a>), and any object can override a verb through its own action list, pointing into a library...</small></li>
+<li><a href="reference/facts.html#dictionary_front_coded">The dictionary stores each word as an edit of the previous one</a><small>Each of the 592 words keeps some letters from the word before it and adds a few new 5-bit letters, with common endings (S, ES, ING, ED, LY...) taken from a...</small></li>
+<li><a href="reference/facts.html#synonyms">Synonyms in the dictionary</a><small>Twenty-nine dictionary records stand for another word: their count byte has bit 7 set and two more bytes give the record to use instead, which the tokenizer...</small></li>
+<li><a href="reference/facts.html#abbreviations">Short words</a><small>Commands can be abbreviated: the tokenizer (<a href="asm/55749.html">D9C5</a>, <a href="asm/55933.html">DA7D</a>) matches what you type against the start of each dictionary word.</small></li>
+<li><a href="reference/facts.html#object_flag_words">The game&#x27;s own error words name the object flags</a><small>When an action needs an object&#x27;s flag to be set or clear and it is not, <a href="asm/52091.html">CB7B</a> prints &#x27;THE IS&#x27; and a word from one of two tables, one per flag bit:...</small></li>
+<li><a href="reference/facts.html#quit_means_load">QUIT does not quit</a><small>QUIT and LOAD share one handler in the parser&#x27;s table of special words (<a href="asm/44907.html">AF6B</a>): both end the game the way a game-over message does and ask for a...</small></li>
+<li><a href="reference/facts.html#pounds_shillings_pence">The parser understands pounds, shillings and pence</a><small>Typed sums of money are pre-decimal: £1, 3S, 6D, 2/6 or 1/- all work, and are converted to pence ((pounds x 20 + shillings) x 12 + pence, <a href="asm/56167.html">DB67</a>).</small></li>
+<li><a href="reference/facts.html#cursor_keys">One-key moves</a><small>On an empty command line the cursor keys are compass moves: the line editor (<a href="asm/55672.html">D978</a>) turns the codes for left, right, down and up into W, E, S and N and...</small></li>
+<li><a href="reference/facts.html#repeat_key">&#x27;@&#x27; repeats the last command</a><small>Typing &#x27;@&#x27; (SYMBOL SHIFT and 2) on an empty command line does the last command again: the line editor (<a href="asm/55710.html">D99E</a>) sets a flag that makes the word-list builder...</small></li>
+</ul>
+<h2 id="engine">Engine internals</h2><p>How the program itself works: actor table, scripts, dispatch and printing.</p><ul>
+
+
+
+
+
+
+
+
+
+<li><a href="reference/facts.html#messages_rendered">Every fixed message, rendered by the game itself</a><small>The message printer at <a href="asm/42399.html">A59F</a> is a bytecode interpreter: dictionary word references, packed 5-bit letters, literal punctuation and 29 control codes.</small></li>
+<li><a href="reference/facts.html#unused_hang_opcode">Plan opcode 12 would hang the game</a><small>The interpreter&#x27;s test for opcode 12 is CP $0C / JR Z,<a href="asm/52344.html#52488">CD08</a> - and <a href="asm/52344.html#52488">CD08</a> is that JR Z itself, so with Z set it jumps to itself for ever.</small></li>
+<li><a href="reference/facts.html#saved_game_on_the_tape">A saved game on the original tape</a><small>Besides the loading screen and the game, the tape carries a third block, a CODE file called &#x27;SHD V2.0&#x27; for <a href="asm/33803.html">840B</a>-<a href="asm/40918.html#40986">$A01F</a>.</small></li>
+</ul>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

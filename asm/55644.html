@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at D95C - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="55469.html">D8AD</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#55644">Map</a></td>
+<td class="next">
+Next: <a href="55656.html">D968</a>
+</td>
+</tr>
+</table>
+<div class="description">D95C: Close a quotation: a full stop if needed, then the closing quote mark</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Puts '.' (<a href="55656.html">D968</a>) and then '"' into the line buffer at HL, printing each.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">The end of the line buffer</td>
+</tr>
+<tr>
+<td class="register">B</td>
+<td class="register-desc">The count</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Past the closing quote</td>
+</tr>
+<tr>
+<td class="register">B</td>
+<td class="register-desc">One fewer</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="55644"></span>D95C</td>
+<td class="instruction">CALL <a href="55656.html">$D968</a></td>
+<td class="comment-1" rowspan="1">(<a href="55656.html">D968</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55647"></span>D95F</td>
+<td class="instruction">LD A,$22</td>
+<td class="comment-1" rowspan="1">A closing quote mark...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55649"></span>D961</td>
+<td class="instruction">LD (HL),A</td>
+<td class="comment-1" rowspan="1">...stored at HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55650"></span>D962</td>
+<td class="instruction">CALL <a href="43447.html">$A9B7</a></td>
+<td class="comment-1" rowspan="1">...and printed</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55653"></span>D965</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte - HL on, B down</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55654"></span>D966</td>
+<td class="instruction">DEC B</td>
+<td class="comment-1" rowspan="1">Subtract one from B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55655"></span>D967</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="55469.html">D8AD</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#55644">Map</a></td>
+<td class="next">
+Next: <a href="55656.html">D968</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

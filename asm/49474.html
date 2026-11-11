@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at C142 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="49449.html">C129</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#49474">Map</a></td>
+<td class="next">
+Next: <a href="49482.html">C14A</a>
+</td>
+</tr>
+</table>
+<div class="description">C142: Text lines full width again (36 characters)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Clears <a href="49448.html">C128</a> and sets the characters-left count (<a href="49652.html#49653">C1F5</a>) to 36, the print position to $5020 (the start of screen row 17, where every line of text is printed before the window scrolls up) and the pixel shift to 2, by joining the end of <a href="49449.html">C129</a>. It does not clear anything. Called by the page-wait at <a href="49926.html">C306</a>, by the boot set-up at <a href="49482.html">C14A</a>, and at <a href="55061.html#55069">D71D</a> each time the player is asked for a command - which is why a picture stays up only until the text that follows the next command scrolls it away.
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">$C1F5</td>
+<td class="register-desc">36 characters to a line</td>
+</tr>
+<tr>
+<td class="register">$C128</td>
+<td class="register-desc">0</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="49474"></span>C142</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Not in narrow mode</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49475"></span>C143</td>
+<td class="instruction">LD ($C128),A</td>
+<td class="comment-1" rowspan="1">Store A in "Flag: text lines are narrow (a picture is showing)" (<a href="49448.html">C128</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49478"></span>C146</td>
+<td class="instruction">LD A,$24</td>
+<td class="comment-1" rowspan="1">36 characters to a line</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49480"></span>C148</td>
+<td class="instruction">JR <a href="49449.html#49459">$C133</a></td>
+<td class="comment-1" rowspan="1">Set the rest up as <a href="49449.html">C129</a> does</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="49449.html">C129</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#49474">Map</a></td>
+<td class="next">
+Next: <a href="49482.html">C14A</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at D349 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="54076.html">D33C</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#54089">Map</a></td>
+<td class="next">
+Next: <a href="54094.html">D34E</a>
+</td>
+</tr>
+</table>
+<div class="description">D349: Search a table of two-byte entries for A</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+As <a href="54094.html">D34E</a> (three-byte entries) with an entry size of 2.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">A table of two-byte entries</td>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">The id</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">The entry found</td>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Z if found; NZ if the $FF end marker was reached</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="54089"></span>D349</td>
+<td class="instruction">EXX</td>
+<td class="comment-1" rowspan="1">Swap BC, DE and HL with their shadow copies</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54090"></span>D34A</td>
+<td class="instruction">LD E,$02</td>
+<td class="comment-1" rowspan="1">Load E with $02</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54092"></span>D34C</td>
+<td class="instruction">JR <a href="54094.html#54097">$D351</a></td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="54094.html#54097">D351</a></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="54076.html">D33C</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#54089">Map</a></td>
+<td class="next">
+Next: <a href="54094.html">D34E</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

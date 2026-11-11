@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at E2EE - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="58055.html">E2C7</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#58094">Map</a></td>
+<td class="next">
+Next: <a href="58140.html">E31C</a>
+</td>
+</tr>
+</table>
+<div class="description">E2EE: Start actor A on the script at DE, with objects B and C</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+<a href="40918.html#41010">$A034</a> = B and <a href="40918.html#41010">$A035</a> = C; with A as the current actor (<a href="52238.html">CC0E</a>) the script is pushed as its plan (<a href="53120.html">CF80</a>, B = 2) and its script position (+1/+2 of its actor-table entry) set to DE. The HAIL action (<a href="58055.html">E2C7</a>) uses it with DE = <a href="62130.html#62134">F2B6</a> to set the cab and cabbie off.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">The actor</td>
+</tr>
+<tr>
+<td class="register">DE</td>
+<td class="register-desc">The script</td>
+</tr>
+<tr>
+<td class="register">B,</td>
+<td class="register-desc">C The two objects</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ; the actor's old script is kept as a sub-script and the new one started</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="58094"></span>E2EE</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack - A = the actor, DE = the script, B and C = the objects</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58095"></span>E2EF</td>
+<td class="instruction">LD D,A</td>
+<td class="comment-1" rowspan="1">Copy A into D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58096"></span>E2F0</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">Copy B into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58097"></span>E2F1</td>
+<td class="instruction">LD ($A034),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41010">$A034</a> in "Game variables" - Direct and indirect objects (<a href="40918.html#41010">$A034</a>, <a href="40918.html#41010">$A035</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58100"></span>E2F4</td>
+<td class="instruction">LD A,C</td>
+<td class="comment-1" rowspan="1">Copy C into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58101"></span>E2F5</td>
+<td class="instruction">LD ($A035),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41010">$A035</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58104"></span>E2F8</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A036</a> in "Game variables" into A - Keep the current actor and make A the actor</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58107"></span>E2FB</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58108"></span>E2FC</td>
+<td class="instruction">LD A,D</td>
+<td class="comment-1" rowspan="1">Copy D into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58109"></span>E2FD</td>
+<td class="instruction">LD ($A036),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41010">$A036</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58112"></span>E300</td>
+<td class="instruction">CALL <a href="52238.html">$CC0E</a></td>
+<td class="comment-1" rowspan="1">Find its record (<a href="52238.html">CC0E</a>, IY)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58115"></span>E303</td>
+<td class="instruction">LD L,(IY+$01)</td>
+<td class="comment-1" rowspan="1">Read byte +1 of the record at IY into L - HL = its current script address (+1/+2)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58118"></span>E306</td>
+<td class="instruction">LD H,(IY+$02)</td>
+<td class="comment-1" rowspan="1">Read byte +2 of the record at IY into H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58121"></span>E309</td>
+<td class="instruction">LD B,$02</td>
+<td class="comment-1" rowspan="1">Load B with $02 - Push it as a sub-script call frame (<a href="53120.html">CF80</a>), so the actor returns to it afterwards</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58123"></span>E30B</td>
+<td class="instruction">CALL <a href="53120.html">$CF80</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Save a sub-script call frame" (<a href="53120.html">CF80</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58126"></span>E30E</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack - Actor back as it was</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58127"></span>E30F</td>
+<td class="instruction">LD ($A036),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41010">$A036</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58130"></span>E312</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58131"></span>E313</td>
+<td class="instruction">LD (IY+$01),E</td>
+<td class="comment-1" rowspan="1">Store E in byte +1 of the record at IY - Point the actor's record at DE: its new script</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58134"></span>E316</td>
+<td class="instruction">LD (IY+$02),D</td>
+<td class="comment-1" rowspan="1">Store D in byte +2 of the record at IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58137"></span>E319</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - Succeed</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58139"></span>E31B</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="58055.html">E2C7</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#58094">Map</a></td>
+<td class="next">
+Next: <a href="58140.html">E31C</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

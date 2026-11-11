@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at DC57 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="56345.html">DC19</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#56407">Map</a></td>
+<td class="next">
+Next: <a href="56443.html">DC7B</a>
+</td>
+</tr>
+</table>
+<div class="description">DC57: Action record: default for verb 28 (GO THROUGH)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+GO THROUGH &lt;door&gt;. The characters use it constantly - Chief Constable Straker, the cook, the gardener, Lestrade, the local policeman, Phipps and others walk through doors with it - and the player can too. The verb becomes a GO in the door's direction. In the runs sampled the actor's room (+15) changed to the room on the other side of the door (Lestrade through the solid door, room 94 to 97; Straker through the large oak door, 63 to 64).
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">The exit through the door</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">The</td>
+<td class="register-desc">command turned into a movement; F From $DD07</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56407"></span>DC57</td>
+<td class="instruction">DEFB $4B,$20,$4E,$DC</td>
+<td class="comment-1" rowspan="1">Action record header: flags $4B; bit 6: pre-check at <a href="56345.html#56398">DC4E</a>; byte 1 $20</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56411"></span>DC5B</td>
+<td class="instruction">LD A,(IX+$00)</td>
+<td class="comment-1" rowspan="1">IX = the exit through the door (pre-check <a href="56461.html#56487">$DCA8</a>): its direction (+0)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56414"></span>DC5E</td>
+<td class="instruction">LD ($A033),A</td>
+<td class="comment-1" rowspan="1">...becomes the verb (<a href="40918.html#41010">$A033</a>): the command turns into GO &lt;direction&gt;</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56417"></span>DC61</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag) - No direct object (<a href="40918.html#40970">$A00F</a> = 0, <a href="40918.html#41010">$A034</a> = $FF)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56418"></span>DC62</td>
+<td class="instruction">LD ($A00F),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#40970">$A00F</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56421"></span>DC65</td>
+<td class="instruction">DEC A</td>
+<td class="comment-1" rowspan="1">Subtract one from A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56422"></span>DC66</td>
+<td class="instruction">LD ($A034),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41010">$A034</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56425"></span>DC69</td>
+<td class="instruction">JP <a href="56579.html#56583">$DD07</a></td>
+<td class="comment-1" rowspan="1">Jump on to <a href="56579.html#56583">DD07</a> - Carry on as the movement action does (<a href="56579.html#56583">DD07</a>)</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="56428"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routines at <a href="41700.html">A2E4</a>, <a href="51887.html">CAAF</a>, <a href="52035.html">CB43</a>, <a href="56345.html">DC19</a>, <a href="56443.html">DC7B</a> and <a href="57152.html">DF40</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56428"></span>DC6C</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A036</a> in "Game variables" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56431"></span>DC6F</td>
+<td class="instruction">CP $00</td>
+<td class="comment-1" rowspan="1">Compare A with $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56433"></span>DC71</td>
+<td class="instruction">RET Z</td>
+<td class="comment-1" rowspan="1">If A equals $00, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56434"></span>DC72</td>
+<td class="instruction">CP $01</td>
+<td class="comment-1" rowspan="1">Compare A with $01</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56436"></span>DC74</td>
+<td class="instruction">RET Z</td>
+<td class="comment-1" rowspan="1">If A equals $01, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56437"></span>DC75</td>
+<td class="instruction">CP $64</td>
+<td class="comment-1" rowspan="1">Compare A with $64</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56439"></span>DC77</td>
+<td class="instruction">RET Z</td>
+<td class="comment-1" rowspan="1">If A equals $64, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56440"></span>DC78</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56442"></span>DC7A</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="56345.html">DC19</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#56407">Map</a></td>
+<td class="next">
+Next: <a href="56443.html">DC7B</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

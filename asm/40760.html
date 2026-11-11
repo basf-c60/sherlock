@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Data at 9F38 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-b">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Data</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="40734.html">9F1E</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#40760">Map</a></td>
+<td class="next">
+Next: <a href="40875.html">9FAB</a>
+</td>
+</tr>
+</table>
+<div class="description">9F38: Each verb's default action record</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Three-byte records (verb number, address of an action record), ended by $FF, searched by <a href="54094.html">D34E</a> from <a href="51552.html#51570">C972</a>. 38 of the 54 verbs have a default here; several verbs share one record (all ten directions use <a href="56579.html">DD03</a>; TAKE, GET, CARRY, TAKE FROM and TAKE OUT OF all use <a href="56513.html">DCC1</a>; PUT IN, PUT ON and DROP IN use <a href="57025.html">DEC1</a>).
+</div>
+<div class="paragraph">
+Verbs with no entry here (CLIMB INTO, CLIMB OUT OF, CLOSE, COUNT, GET INTO, GET OUT OF, GO TO, HAIL, OPEN, SIT IN, TAKE OFF, TAKE TO, WEAR, LOCK, UNLOCK) do nothing unless the object itself lists the verb in its own action list - which is why OPEN only ever reached a door's own entry.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40760"></span>9F38</td>
+<td class="instruction">DEFB $01,$03,$DD</td>
+<td class="comment-1" rowspan="1">Verb <a href="56579.html">1</a> (NORTH) -&gt; <a href="56579.html">DD03</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40763"></span>9F3B</td>
+<td class="instruction">DEFB $02,$03,$DD</td>
+<td class="comment-1" rowspan="1">Verb <a href="56579.html">2</a> (SOUTH) -&gt; <a href="56579.html">DD03</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40766"></span>9F3E</td>
+<td class="instruction">DEFB $03,$03,$DD</td>
+<td class="comment-1" rowspan="1">Verb <a href="56579.html">3</a> (EAST) -&gt; <a href="56579.html">DD03</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40769"></span>9F41</td>
+<td class="instruction">DEFB $04,$03,$DD</td>
+<td class="comment-1" rowspan="1">Verb <a href="56579.html">4</a> (WEST) -&gt; <a href="56579.html">DD03</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40772"></span>9F44</td>
+<td class="instruction">DEFB $05,$03,$DD</td>
+<td class="comment-1" rowspan="1">Verb <a href="56579.html">5</a> (NORTHEAST) -&gt; <a href="56579.html">DD03</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40775"></span>9F47</td>
+<td class="instruction">DEFB $06,$03,$DD</td>
+<td class="comment-1" rowspan="1">Verb <a href="56579.html">6</a> (NORTHWEST) -&gt; <a href="56579.html">DD03</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40778"></span>9F4A</td>
+<td class="instruction">DEFB $07,$03,$DD</td>
+<td class="comment-1" rowspan="1">Verb <a href="56579.html">7</a> (SOUTHEAST) -&gt; <a href="56579.html">DD03</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40781"></span>9F4D</td>
+<td class="instruction">DEFB $08,$03,$DD</td>
+<td class="comment-1" rowspan="1">Verb <a href="56579.html">8</a> (SOUTHWEST) -&gt; <a href="56579.html">DD03</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40784"></span>9F50</td>
+<td class="instruction">DEFB $09,$03,$DD</td>
+<td class="comment-1" rowspan="1">Verb <a href="56579.html">9</a> (UP) -&gt; <a href="56579.html">DD03</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40787"></span>9F53</td>
+<td class="instruction">DEFB $0A,$03,$DD</td>
+<td class="comment-1" rowspan="1">Verb <a href="56579.html">10</a> (DOWN) -&gt; <a href="56579.html">DD03</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40790"></span>9F56</td>
+<td class="instruction">DEFB $29,$C1,$DC</td>
+<td class="comment-1" rowspan="1">Verb <a href="56513.html">41</a> (TAKE) -&gt; <a href="56513.html">DCC1</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40793"></span>9F59</td>
+<td class="instruction">DEFB $17,$C1,$DC</td>
+<td class="comment-1" rowspan="1">Verb <a href="56513.html">23</a> (GET) -&gt; <a href="56513.html">DCC1</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40796"></span>9F5C</td>
+<td class="instruction">DEFB $2C,$C1,$DC</td>
+<td class="comment-1" rowspan="1">Verb <a href="56513.html">44</a> (TAKE OUT OF) -&gt; <a href="56513.html">DCC1</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40799"></span>9F5F</td>
+<td class="instruction">DEFB $2A,$C1,$DC</td>
+<td class="comment-1" rowspan="1">Verb <a href="56513.html">42</a> (TAKE FROM) -&gt; <a href="56513.html">DCC1</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40802"></span>9F62</td>
+<td class="instruction">DEFB $10,$8D,$DC</td>
+<td class="comment-1" rowspan="1">Verb <a href="56461.html">16</a> (DROP) -&gt; <a href="56461.html">DC8D</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40805"></span>9F65</td>
+<td class="instruction">DEFB $22,$7B,$DC</td>
+<td class="comment-1" rowspan="1">Verb <a href="56443.html">34</a> (LOOK) -&gt; <a href="56443.html">DC7B</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40808"></span>9F68</td>
+<td class="instruction">DEFB $21,$6F,$DE</td>
+<td class="comment-1" rowspan="1">Verb <a href="56943.html">33</a> (INVENTORY) -&gt; <a href="56943.html">DE6F</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40811"></span>9F6B</td>
+<td class="instruction">DEFB $13,$40,$DF</td>
+<td class="comment-1" rowspan="1">Verb <a href="57152.html">19</a> (EXAMINE) -&gt; <a href="57152.html">DF40</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40814"></span>9F6E</td>
+<td class="instruction">DEFB $14,$35,$E1</td>
+<td class="comment-1" rowspan="1">Verb <a href="57653.html">20</a> (EXAMINE CLOSELY) -&gt; <a href="57653.html">E135</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40817"></span>9F71</td>
+<td class="instruction">DEFB $1A,$02,$DF</td>
+<td class="comment-1" rowspan="1">Verb <a href="57090.html">26</a> (GIVE TO) -&gt; <a href="57090.html">DF02</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40820"></span>9F74</td>
+<td class="instruction">DEFB $12,$52,$DD</td>
+<td class="comment-1" rowspan="1">Verb <a href="56658.html">18</a> (ENTER) -&gt; <a href="56658.html">DD52</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40823"></span>9F77</td>
+<td class="instruction">DEFB $1B,$52,$DD</td>
+<td class="comment-1" rowspan="1">Verb <a href="56658.html">27</a> (GO INTO) -&gt; <a href="56658.html">DD52</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40826"></span>9F7A</td>
+<td class="instruction">DEFB $2E,$9E,$DD</td>
+<td class="comment-1" rowspan="1">Verb <a href="56734.html">46</a> (TALK TO) -&gt; <a href="56734.html">DD9E</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40829"></span>9F7D</td>
+<td class="instruction">DEFB $0B,$C1,$DC</td>
+<td class="comment-1" rowspan="1">Verb <a href="56513.html">11</a> (CARRY) -&gt; <a href="56513.html">DCC1</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40832"></span>9F80</td>
+<td class="instruction">DEFB $11,$C1,$DE</td>
+<td class="comment-1" rowspan="1">Verb <a href="57025.html">17</a> (DROP IN) -&gt; <a href="57025.html">DEC1</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40835"></span>9F83</td>
+<td class="instruction">DEFB $26,$C1,$DE</td>
+<td class="comment-1" rowspan="1">Verb <a href="57025.html">38</a> (PUT IN) -&gt; <a href="57025.html">DEC1</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40838"></span>9F86</td>
+<td class="instruction">DEFB $27,$C1,$DE</td>
+<td class="comment-1" rowspan="1">Verb <a href="57025.html">39</a> (PUT ON) -&gt; <a href="57025.html">DEC1</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40841"></span>9F89</td>
+<td class="instruction">DEFB $15,$52,$E4</td>
+<td class="comment-1" rowspan="1">Verb <a href="58450.html">21</a> (FOLLOW) -&gt; <a href="58450.html">E452</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40844"></span>9F8C</td>
+<td class="instruction">DEFB $16,$52,$E4</td>
+<td class="comment-1" rowspan="1">Verb <a href="58450.html">22</a> (COME WITH) -&gt; <a href="58450.html">E452</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40847"></span>9F8F</td>
+<td class="instruction">DEFB $32,$D0,$DD</td>
+<td class="comment-1" rowspan="1">Verb <a href="56784.html">50</a> (WAIT UNTIL) -&gt; <a href="56784.html">DDD0</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40850"></span>9F92</td>
+<td class="instruction">DEFB $31,$B4,$DD</td>
+<td class="comment-1" rowspan="1">Verb <a href="56756.html">49</a> (WAIT HERE) -&gt; <a href="56756.html">DDB4</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40853"></span>9F95</td>
+<td class="instruction">DEFB $25,$70,$E3</td>
+<td class="comment-1" rowspan="1">Verb <a href="58224.html">37</a> (PAY TO) -&gt; <a href="58224.html">E370</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40856"></span>9F98</td>
+<td class="instruction">DEFB $1C,$57,$DC</td>
+<td class="comment-1" rowspan="1">Verb <a href="56407.html">28</a> (GO THROUGH) -&gt; <a href="56407.html">DC57</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40859"></span>9F9B</td>
+<td class="instruction">DEFB $23,$19,$DC</td>
+<td class="comment-1" rowspan="1">Verb <a href="56345.html">35</a> (LOOK THROUGH) -&gt; <a href="56345.html">DC19</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40862"></span>9F9E</td>
+<td class="instruction">DEFB $30,$D6,$E1</td>
+<td class="comment-1" rowspan="1">Verb <a href="57814.html">48</a> (TELL ABOUT) -&gt; <a href="57814.html">E1D6</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40865"></span>9FA1</td>
+<td class="instruction">DEFB $2F,$D6,$E1</td>
+<td class="comment-1" rowspan="1">Verb <a href="57814.html">47</a> (TELL) -&gt; <a href="57814.html">E1D6</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40868"></span>9FA4</td>
+<td class="instruction">DEFB $20,$7E,$9A</td>
+<td class="comment-1" rowspan="1">Verb <a href="39550.html">32</a> (HELLO) -&gt; <a href="39550.html">9A7E</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40871"></span>9FA7</td>
+<td class="instruction">DEFB $34,$C5,$9F</td>
+<td class="comment-1" rowspan="1">Verb <a href="40901.html">52</a> (KILL) -&gt; <a href="40901.html">9FC5</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40874"></span>9FAA</td>
+<td class="instruction">DEFB $FF</td>
+<td class="comment-1" rowspan="1">End marker</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="40734.html">9F1E</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#40760">Map</a></td>
+<td class="next">
+Next: <a href="40875.html">9FAB</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

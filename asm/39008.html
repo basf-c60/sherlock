@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Data at 9860 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-b">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Data</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="38256.html">9570</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#39008">Map</a></td>
+<td class="next">
+Next: <a href="39201.html">9921</a>
+</td>
+</tr>
+</table>
+<div class="description">9860: The actor table: who acts, and where each is in its plan script</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+24 eight-byte records, ended by $FF, walked once per turn. +0 the actor's thing id; +1/+2 its position in its plan script (see <a href="52344.html">CC78</a>); +3 the plan's verb, +4/+5 the plan's direct and indirect objects ($FF = none; loaded by <a href="53256.html">D008</a>, saved by <a href="53256.html#53286">D026</a>); +6/+7 the minute (counted like <a href="40918.html#40925">9FDD</a> from the start) at which the actor next acts, set by the main loop (<a href="41060.html">A064</a>); 0 at the start, so everyone acts in the first minute. <a href="52238.html">CC0E</a> finds a record by id. The seven steam trains and two cabbies are actors too.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39008"></span>9860</td>
+<td class="instruction">DEFB $00,$21,$99,$FF,$FF,$FF,$00,$00</td>
+<td class="comment-1" rowspan="1">Actor 0 you: script <a href="39201.html">9921</a>, plan verb/dobj/iobj $FF $FF $FF, next turn at $00 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39016"></span>9868</td>
+<td class="instruction">DEFB $02,$E7,$E7,$FF,$FF,$FF,$00,$00</td>
+<td class="comment-1" rowspan="1">Actor 2 inspector lestrade: script <a href="59367.html">E7E7</a>, plan verb/dobj/iobj $FF $FF $FF, next turn at $00 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39024"></span>9870</td>
+<td class="instruction">DEFB $03,$2F,$E7,$FF,$FF,$FF,$00,$00</td>
+<td class="comment-1" rowspan="1">Actor 3 watson: script <a href="59183.html">E72F</a>, plan verb/dobj/iobj $FF $FF $FF, next turn at $00 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39032"></span>9878</td>
+<td class="instruction">DEFB $04,$FA,$EB,$FF,$FF,$FF,$00,$00</td>
+<td class="comment-1" rowspan="1">Actor 4 chief constable straker: script <a href="60410.html">EBFA</a>, plan verb/dobj/iobj $FF $FF $FF, next turn at $00 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39040"></span>9880</td>
+<td class="instruction">DEFB $05,$17,$F0,$FF,$FF,$FF,$00,$00</td>
+<td class="comment-1" rowspan="1">Actor 5 strachan: script <a href="61463.html">F017</a>, plan verb/dobj/iobj $FF $FF $FF, next turn at $00 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39048"></span>9888</td>
+<td class="instruction">DEFB $06,$2B,$EE,$FF,$FF,$FF,$00,$00</td>
+<td class="comment-1" rowspan="1">Actor 6 phipps: script <a href="60971.html">EE2B</a>, plan verb/dobj/iobj $FF $FF $FF, next turn at $00 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39056"></span>9890</td>
+<td class="instruction">DEFB $68,$F6,$EF,$FF,$FF,$FF,$00,$00</td>
+<td class="comment-1" rowspan="1">Actor 104 german agent: script <a href="61430.html">EFF6</a>, plan verb/dobj/iobj $FF $FF $FF, next turn at $00 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39064"></span>9898</td>
+<td class="instruction">DEFB $07,$62,$F0,$FF,$FF,$FF,$00,$00</td>
+<td class="comment-1" rowspan="1">Actor 7 major percival ffoulkes: script <a href="61538.html">F062</a>, plan verb/dobj/iobj $FF $FF $FF, next turn at $00 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39072"></span>98A0</td>
+<td class="instruction">DEFB $08,$4B,$ED,$FF,$FF,$FF,$00,$00</td>
+<td class="comment-1" rowspan="1">Actor 8 gardener: script <a href="60747.html">ED4B</a>, plan verb/dobj/iobj $FF $FF $FF, next turn at $00 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39080"></span>98A8</td>
+<td class="instruction">DEFB $09,$F8,$ED,$FF,$FF,$FF,$00,$00</td>
+<td class="comment-1" rowspan="1">Actor 9 cook: script <a href="60920.html">EDF8</a>, plan verb/dobj/iobj $FF $FF $FF, next turn at $00 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39088"></span>98B0</td>
+<td class="instruction">DEFB $0A,$1F,$EE,$FF,$FF,$FF,$00,$00</td>
+<td class="comment-1" rowspan="1">Actor 10 maid: script <a href="60959.html">EE1F</a>, plan verb/dobj/iobj $FF $FF $FF, next turn at $00 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39096"></span>98B8</td>
+<td class="instruction">DEFB $0B,$10,$F1,$FF,$FF,$FF,$00,$00</td>
+<td class="comment-1" rowspan="1">Actor 11 local police man: script <a href="61712.html">F110</a>, plan verb/dobj/iobj $FF $FF $FF, next turn at $00 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39104"></span>98C0</td>
+<td class="instruction">DEFB $0C,$45,$F1,$FF,$FF,$FF,$00,$00</td>
+<td class="comment-1" rowspan="1">Actor 12 local police man: script <a href="61765.html">F145</a>, plan verb/dobj/iobj $FF $FF $FF, next turn at $00 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39112"></span>98C8</td>
+<td class="instruction">DEFB $0D,$5A,$F1,$FF,$FF,$FF,$00,$00</td>
+<td class="comment-1" rowspan="1">Actor 13 tricia fender: script <a href="61786.html">F15A</a>, plan verb/dobj/iobj $FF $FF $FF, next turn at $00 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39120"></span>98D0</td>
+<td class="instruction">DEFB $1F,$B2,$F2,$FF,$FF,$FF,$00,$00</td>
+<td class="comment-1" rowspan="1">Actor 31 cabbie: script <a href="62130.html">F2B2</a>, plan verb/dobj/iobj $FF $FF $FF, next turn at $00 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39128"></span>98D8</td>
+<td class="instruction">DEFB $22,$B2,$F2,$FF,$FF,$FF,$00,$00</td>
+<td class="comment-1" rowspan="1">Actor 34 cabbie: script <a href="62130.html">F2B2</a>, plan verb/dobj/iobj $FF $FF $FF, next turn at $00 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39136"></span>98E0</td>
+<td class="instruction">DEFB $24,$1D,$F2,$FF,$FF,$FF,$00,$00</td>
+<td class="comment-1" rowspan="1">Actor 36 steam train: script <a href="61981.html">F21D</a>, plan verb/dobj/iobj $FF $FF $FF, next turn at $00 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39144"></span>98E8</td>
+<td class="instruction">DEFB $25,$3A,$F2,$FF,$FF,$FF,$00,$00</td>
+<td class="comment-1" rowspan="1">Actor 37 steam train: script <a href="62010.html">F23A</a>, plan verb/dobj/iobj $FF $FF $FF, next turn at $00 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39152"></span>98F0</td>
+<td class="instruction">DEFB $26,$2D,$F2,$FF,$FF,$FF,$00,$00</td>
+<td class="comment-1" rowspan="1">Actor 38 steam train: script <a href="61997.html">F22D</a>, plan verb/dobj/iobj $FF $FF $FF, next turn at $00 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39160"></span>98F8</td>
+<td class="instruction">DEFB $27,$46,$F2,$FF,$FF,$FF,$00,$00</td>
+<td class="comment-1" rowspan="1">Actor 39 steam train: script <a href="62022.html">F246</a>, plan verb/dobj/iobj $FF $FF $FF, next turn at $00 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39168"></span>9900</td>
+<td class="instruction">DEFB $28,$68,$F2,$FF,$FF,$FF,$00,$00</td>
+<td class="comment-1" rowspan="1">Actor 40 steam train: script <a href="62056.html">F268</a>, plan verb/dobj/iobj $FF $FF $FF, next turn at $00 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39176"></span>9908</td>
+<td class="instruction">DEFB $29,$5B,$F2,$FF,$FF,$FF,$00,$00</td>
+<td class="comment-1" rowspan="1">Actor 41 steam train: script <a href="62043.html">F25B</a>, plan verb/dobj/iobj $FF $FF $FF, next turn at $00 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39184"></span>9910</td>
+<td class="instruction">DEFB $2A,$78,$F2,$FF,$FF,$FF,$00,$00</td>
+<td class="comment-1" rowspan="1">Actor 42 steam train: script <a href="62072.html">F278</a>, plan verb/dobj/iobj $FF $FF $FF, next turn at $00 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39192"></span>9918</td>
+<td class="instruction">DEFB $2B,$8D,$F2,$FF,$FF,$FF,$00,$00</td>
+<td class="comment-1" rowspan="1">Actor 43 steam train: script <a href="62093.html">F28D</a>, plan verb/dobj/iobj $FF $FF $FF, next turn at $00 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39200"></span>9920</td>
+<td class="instruction">DEFB $FF</td>
+<td class="comment-1" rowspan="1">End marker</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="38256.html">9570</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#39008">Map</a></td>
+<td class="next">
+Next: <a href="39201.html">9921</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

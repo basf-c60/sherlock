@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at E2C7 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="58054.html">E2C6</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#58055">Map</a></td>
+<td class="next">
+Next: <a href="58094.html">E2EE</a>
+</td>
+</tr>
+</table>
+<div class="description">E2C7: Shared HAIL action ($AA71 entry #11)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="43633.html">AA71</a>.
+</div>
+<div class="paragraph">
+The player's INVENTORY/WAIT/STAND UP never reach it. It is reached through object action lists that map HAIL (and, for the same object, GET) to shared action 11 - see <a href="36026.html#36614">8F06</a>.
+</div>
+<div class="paragraph">
+Record header: flags $47 (bit 6: pre-check routine at <a href="58008.html">E298</a>), byte 1 $10; body at <a href="58055.html#58059">E2CB</a>. The body remembers the player's room (<a href="40918.html#40970">A00A</a>) and the hailed cab's id + 1 (the cabbie) in <a href="58054.html">E2C6</a>, calls <a href="56579.html#56590">DD0E</a> to move the cab into the player's room, then calls <a href="58094.html">E2EE</a> to start the cabbie on the script at <a href="62130.html#62134">F2B6</a> with the hailer and the cab as objects. HAIL CAB in Baker Street prints 'You hail the hansom cab.', the cabbie says 'Hello guv'nor.' and the next LOOK shows the cab with the cabbie in the street.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$A034</td>
+<td class="register-desc">The cab hailed</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ; the cab moved to the player and the cabbie started on its fare script</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="58055"></span>E2C7</td>
+<td class="instruction">DEFB $47,$10,$98,$E2</td>
+<td class="comment-1" rowspan="1">Action record header: flags $47; bit 6: pre-check at <a href="58008.html">E298</a>; byte 1 $10</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58059"></span>E2CB</td>
+<td class="instruction">LD A,($A00A)</td>
+<td class="comment-1" rowspan="1">Read the current actor's room (<a href="40918.html#40970">A00A</a>) into A - Remember the player's room...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58062"></span>E2CE</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">Copy A into B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58063"></span>E2CF</td>
+<td class="instruction">LD A,($A034)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A034</a> in "Game variables" into A - ...and the target's id + 1, in the variable at <a href="58054.html">E2C6</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="58066"></span>E2D2</td>
+<td class="instruction">INC A</td>
+<td class="comment-1" rowspan="1">Add one to A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58067"></span>E2D3</td>
+<td class="instruction">LD ($E2C6),A</td>
+<td class="comment-1" rowspan="1">Store A in "HAIL: the cab hailed, plus one" (<a href="58054.html">E2C6</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58070"></span>E2D6</td>
+<td class="instruction">DEC A</td>
+<td class="comment-1" rowspan="1">Subtract one from A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58071"></span>E2D7</td>
+<td class="instruction">CALL <a href="56579.html#56590">$DD0E</a></td>
+<td class="comment-1" rowspan="1">Move the cab (thing A = the hailed cab, id in <a href="40918.html#41010">$A034</a>) into the player's room (B): <a href="56579.html#56590">DD0E</a> sets its +15</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58074"></span>E2DA</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A036</a> in "Game variables" into A - B = the actor doing the hailing</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58077"></span>E2DD</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">Copy A into B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58078"></span>E2DE</td>
+<td class="instruction">LD A,($A034)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A034</a> in "Game variables" into A - C = the thing being hailed</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58081"></span>E2E1</td>
+<td class="instruction">LD C,A</td>
+<td class="comment-1" rowspan="1">Copy A into C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58082"></span>E2E2</td>
+<td class="instruction">LD DE,$F2B6</td>
+<td class="comment-1" rowspan="1">DE = <a href="62130.html#62134">F2B6</a>, the cabbie's fare script</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58085"></span>E2E5</td>
+<td class="instruction">LD A,($E2C6)</td>
+<td class="comment-1" rowspan="1">Read "HAIL: the cab hailed, plus one" (<a href="58054.html">E2C6</a>) into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58088"></span>E2E8</td>
+<td class="instruction">CALL <a href="58094.html">$E2EE</a></td>
+<td class="comment-1" rowspan="1">Start the cabbie (the cab's id + 1) on that script, with the hailer and the cab as its objects (<a href="58094.html">E2EE</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58091"></span>E2EB</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - Succeed</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58093"></span>E2ED</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="58054.html">E2C6</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#58055">Map</a></td>
+<td class="next">
+Next: <a href="58094.html">E2EE</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

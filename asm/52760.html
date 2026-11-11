@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at CE18 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="52671.html">CDBF</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#52760">Map</a></td>
+<td class="next">
+Next: <a href="52867.html">CE83</a>
+</td>
+</tr>
+</table>
+<div class="description">CE18: Plan opcodes 1, 2, 3 and 7: DO a command or RUN a record</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+<a href="52760.html">CE18</a> (opcode 2): verb, direct and indirect object from the instruction, through <a href="52958.html">CEDE</a>, then <a href="50385.html">C4D1</a> runs the command. <a href="52760.html#52795">CE3B</a> (7) and <a href="52760.html#52815">CE4F</a> (3): run the action record named in the instruction directly (<a href="50563.html#50577">C591</a>), with or without objects. <a href="52760.html#52842">CE6A</a> (1): a verb alone. In each case carry back from the command means a sub-script was called (the script position has already moved), Z means it failed and NZ means it succeeded.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">The instruction</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">The</td>
+<td class="register-desc">command or record run; the step succeeds, fails or starts a sub-script</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="52760"></span>CE18</td>
+<td class="instruction">LD A,(IX+$01)</td>
+<td class="comment-1" rowspan="1">Read byte +1 of the record at IX into A - The verb</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52763"></span>CE1B</td>
+<td class="instruction">CALL <a href="52958.html">$CEDE</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Resolve a plan argument byte" (<a href="52958.html">CEDE</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52766"></span>CE1E</td>
+<td class="instruction">LD ($A033),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41010">$A033</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52769"></span>CE21</td>
+<td class="instruction">LD A,(IX+$02)</td>
+<td class="comment-1" rowspan="1">Read byte +2 of the record at IX into A - The direct object</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52772"></span>CE24</td>
+<td class="instruction">CALL <a href="52958.html">$CEDE</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Resolve a plan argument byte" (<a href="52958.html">CEDE</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52775"></span>CE27</td>
+<td class="instruction">LD ($A034),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41010">$A034</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52778"></span>CE2A</td>
+<td class="instruction">LD A,(IX+$03)</td>
+<td class="comment-1" rowspan="1">Read byte +3 of the record at IX into A - The indirect object</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52781"></span>CE2D</td>
+<td class="instruction">CALL <a href="52958.html">$CEDE</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Resolve a plan argument byte" (<a href="52958.html">CEDE</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52784"></span>CE30</td>
+<td class="instruction">LD ($A035),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41010">$A035</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52787"></span>CE33</td>
+<td class="instruction">CALL <a href="50385.html">$C4D1</a></td>
+<td class="comment-1" rowspan="1">Carry out the command</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52790"></span>CE36</td>
+<td class="instruction">RET C</td>
+<td class="comment-1" rowspan="1">A sub-script was entered: done</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52791"></span>CE37</td>
+<td class="instruction">JR Z,<a href="52920.html">$CEB8</a></td>
+<td class="comment-1" rowspan="1">Refused: the instruction fails</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52793"></span>CE39</td>
+<td class="instruction">JR <a href="52879.html">$CE8F</a></td>
+<td class="comment-1" rowspan="1">Done: it succeeds</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="52795"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="52344.html">CC78</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="52795"></span>CE3B</td>
+<td class="instruction">LD A,(IX+$03)</td>
+<td class="comment-1" rowspan="1">Read byte +3 of the record at IX into A - RUN with objects: the direct object...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52798"></span>CE3E</td>
+<td class="instruction">CALL <a href="52958.html">$CEDE</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Resolve a plan argument byte" (<a href="52958.html">CEDE</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52801"></span>CE41</td>
+<td class="instruction">LD ($A034),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41010">$A034</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52804"></span>CE44</td>
+<td class="instruction">LD A,(IX+$04)</td>
+<td class="comment-1" rowspan="1">Read byte +4 of the record at IX into A - ...and the indirect object</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52807"></span>CE47</td>
+<td class="instruction">CALL <a href="52958.html">$CEDE</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Resolve a plan argument byte" (<a href="52958.html">CEDE</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52810"></span>CE4A</td>
+<td class="instruction">LD ($A035),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41010">$A035</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52813"></span>CE4D</td>
+<td class="instruction">JR $CE57</td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="52760.html#52823">CE57</a></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="52815"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="52344.html">CC78</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="52815"></span>CE4F</td>
+<td class="instruction">LD A,$FF</td>
+<td class="comment-1" rowspan="1">Load A with $FF - RUN without objects</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52817"></span>CE51</td>
+<td class="instruction">LD ($A034),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41010">$A034</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52820"></span>CE54</td>
+<td class="instruction">LD ($A035),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41010">$A035</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-2"><span id="52823"></span>CE57</td>
+<td class="instruction">LD A,$FF</td>
+<td class="comment-1" rowspan="1">Load A with $FF - No verb</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52825"></span>CE59</td>
+<td class="instruction">LD ($A033),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41010">$A033</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52828"></span>CE5C</td>
+<td class="instruction">LD L,(IX+$01)</td>
+<td class="comment-1" rowspan="1">Read byte +1 of the record at IX into L - HL = the action record</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52831"></span>CE5F</td>
+<td class="instruction">LD H,(IX+$02)</td>
+<td class="comment-1" rowspan="1">Read byte +2 of the record at IX into H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52834"></span>CE62</td>
+<td class="instruction">CALL <a href="50563.html#50577">$C591</a></td>
+<td class="comment-1" rowspan="1">Run it</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52837"></span>CE65</td>
+<td class="instruction">RET C</td>
+<td class="comment-1" rowspan="1">A sub-script was entered: done</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52838"></span>CE66</td>
+<td class="instruction">JR Z,<a href="52920.html">$CEB8</a></td>
+<td class="comment-1" rowspan="1">Refused: fail</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52840"></span>CE68</td>
+<td class="instruction">JR <a href="52879.html">$CE8F</a></td>
+<td class="comment-1" rowspan="1">Done: succeed</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="52842"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="52344.html">CC78</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="52842"></span>CE6A</td>
+<td class="instruction">LD A,(IX+$01)</td>
+<td class="comment-1" rowspan="1">Read byte +1 of the record at IX into A - DO verb: the verb</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52845"></span>CE6D</td>
+<td class="instruction">CALL <a href="52958.html">$CEDE</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Resolve a plan argument byte" (<a href="52958.html">CEDE</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52848"></span>CE70</td>
+<td class="instruction">LD ($A033),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41010">$A033</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52851"></span>CE73</td>
+<td class="instruction">LD A,$FF</td>
+<td class="comment-1" rowspan="1">Load A with $FF - No objects</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52853"></span>CE75</td>
+<td class="instruction">LD ($A034),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41010">$A034</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52856"></span>CE78</td>
+<td class="instruction">LD ($A035),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41010">$A035</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52859"></span>CE7B</td>
+<td class="instruction">CALL <a href="50385.html">$C4D1</a></td>
+<td class="comment-1" rowspan="1">Carry out the command</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52862"></span>CE7E</td>
+<td class="instruction">RET C</td>
+<td class="comment-1" rowspan="1">If the carry flag is set, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52863"></span>CE7F</td>
+<td class="instruction">JR Z,<a href="52920.html">$CEB8</a></td>
+<td class="comment-1" rowspan="1">If the zero flag is set, jump on to the routine "A plan instruction failed: move on and try again..." (<a href="52920.html">CEB8</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52865"></span>CE81</td>
+<td class="instruction">JR <a href="52879.html">$CE8F</a></td>
+<td class="comment-1" rowspan="1">Skip ahead to the routine "A plan instruction succeeded: move on" (<a href="52879.html">CE8F</a>)</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="52671.html">CDBF</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#52760">Map</a></td>
+<td class="next">
+Next: <a href="52867.html">CE83</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

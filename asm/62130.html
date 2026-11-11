@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Data at F2B2 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-b">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Data</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="62117.html">F2A5</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#62130">Map</a></td>
+<td class="next">
+Next: <a href="62336.html">F380</a>
+</td>
+</tr>
+</table>
+<div class="description">F2B2: Plan script: cabbie (actor 31); cabbie (actor 34)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Entry point: <a href="62130.html">F2B2</a> = cabbie (actor 31); cabbie (actor 34).
+</div>
+<div class="paragraph">
+Each sub-block is one instruction. Split off from the block before, which it merely follows in memory.
+</div>
+<div class="paragraph">
+In an instruction, 'plan dobj' and 'plan iobj' are not fixed objects: they mean the direct and indirect object currently held in the actor's plan registers (bytes +4 and +5 of its actor record), so the same step works on whatever the actor is dealing with - for the player, the objects of the command just typed. 'plan verb' is the verb register (+3), 'self' is the acting character, and '-' means none.
+</div>
+<div class="paragraph">
+The cabbie takes the quotation at the head of the list (<a href="40918.html#40940">9FEC</a>), not necessarily the one just typed (see <a href="45084.html">B01C</a>: a failed SAY leaves its quotation behind), starts the journey, and waits for his fare at the end of it; the fare is 2d plus 2d for each full five minutes, change is given. Two cabs may stand in Parliament Street; if the player boards the one Lestrade is in at the same time, Lestrade's own cab script (<a href="60324.html">EBA4</a>) and the player's ride collide and he stays in the cab for good.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62130"></span>F2B2</td>
+<td class="instruction">DEFB $0F</td>
+<td class="comment-1" rowspan="1">PASS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62131"></span>F2B3</td>
+<td class="instruction">DEFB $0E,$B2,$F2</td>
+<td class="comment-1" rowspan="1">GOTO <a href="62130.html">F2B2</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="62134"></span>F2B6</td>
+<td class="instruction">DEFB $05,$FD,$AC,$6B</td>
+<td class="comment-1" rowspan="1">Entry (given to a hailed cabbie by <a href="58055.html#58082">E2E2</a>): SAY TO plan dobj message <a href="27564.html">6BAC</a>: "GOOD MORNING GUV'NOR."</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62138"></span>F2BA</td>
+<td class="instruction">DEFB $07,$2F,$E5,$04,$04</td>
+<td class="comment-1" rowspan="1">RUN <a href="58671.html">E52F</a> START COUNTDOWN of (dobj) plus a random number up to (iobj) (4, 4)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62143"></span>F2BF</td>
+<td class="instruction">DEFB $03,$A8,$E5</td>
+<td class="comment-1" rowspan="1">RUN <a href="58792.html">E5A8</a> IDLE (no checks; takes a minute)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62146"></span>F2C2</td>
+<td class="instruction">DEFB $81,$82,$D0,$F2</td>
+<td class="comment-1" rowspan="1">DO 130 <a href="58877.html">IS HERE</a> [ok <a href="62130.html#62160">F2D0</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62150"></span>F2C6</td>
+<td class="instruction">DEFB $83,$7A,$E5,$BF,$F2</td>
+<td class="comment-1" rowspan="1">RUN <a href="58746.html">E57A</a> TICK the countdown (fails, and deletes it, when it runs out) [ok <a href="62130.html#62143">F2BF</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62155"></span>F2CB</td>
+<td class="instruction">DEFB $86,$F6,$6B,$76,$F3</td>
+<td class="comment-1" rowspan="1">PRINT message <a href="27638.html">6BF6</a>: "WITH A PRACTISED FLICK OF THE REINS, YOU MOVES ON DOWN THE STREET I..." [ok <a href="62130.html#62326">F376</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62160"></span>F2D0</td>
+<td class="instruction">DEFB $03,$88,$E5</td>
+<td class="comment-1" rowspan="1">RUN <a href="58760.html">E588</a> CANCEL the countdown</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62163"></span>F2D3</td>
+<td class="instruction">DEFB $07,$2F,$E5,$05,$03</td>
+<td class="comment-1" rowspan="1">RUN <a href="58671.html">E52F</a> START COUNTDOWN of (dobj) plus a random number up to (iobj) (5, 3)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62168"></span>F2D8</td>
+<td class="instruction">DEFB $83,$3E,$E6,$EB,$F2</td>
+<td class="comment-1" rowspan="1">RUN <a href="58942.html">E63E</a> [ok <a href="62130.html#62187">F2EB</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62173"></span>F2DD</td>
+<td class="instruction">DEFB $03,$A8,$E5</td>
+<td class="comment-1" rowspan="1">RUN <a href="58792.html">E5A8</a> IDLE (no checks; takes a minute)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62176"></span>F2E0</td>
+<td class="instruction">DEFB $83,$7A,$E5,$D8,$F2</td>
+<td class="comment-1" rowspan="1">RUN <a href="58746.html">E57A</a> TICK the countdown (fails, and deletes it, when it runs out) [ok <a href="62130.html#62168">F2D8</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62181"></span>F2E5</td>
+<td class="instruction">DEFB $85,$FD,$1B,$6C,$BA,$F2</td>
+<td class="comment-1" rowspan="1">SAY TO plan dobj message <a href="27675.html">6C1B</a>: "WELL ARE WE GOIN' ANYWHERE GUV'NOR?" [ok <a href="62130.html#62138">F2BA</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62187"></span>F2EB</td>
+<td class="instruction">DEFB $82,$82,$FD,$FF,$FC,$F2</td>
+<td class="comment-1" rowspan="1">DO 130 <a href="58877.html">IS HERE</a>: plan dobj, - [ok <a href="62130.html#62204">F2FC</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62193"></span>F2F1</td>
+<td class="instruction">DEFB $82,$81,$FD,$FB,$2E,$F3</td>
+<td class="comment-1" rowspan="1">DO 129 <a href="58840.html">IS WITH</a>: plan dobj, self [ok <a href="62130.html#62254">F32E</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62199"></span>F2F7</td>
+<td class="instruction">DEFB $13,$E6,$E6,$59,$F3</td>
+<td class="comment-1" rowspan="1">RUN <a href="59110.html">E6E6</a> [fail <a href="62130.html#62297">F359</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62204"></span>F2FC</td>
+<td class="instruction">DEFB $03,$88,$E5</td>
+<td class="comment-1" rowspan="1">RUN <a href="58760.html">E588</a> CANCEL the countdown</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62207"></span>F2FF</td>
+<td class="instruction">DEFB $07,$2F,$E5,$05,$02</td>
+<td class="comment-1" rowspan="1">RUN <a href="58671.html">E52F</a> START COUNTDOWN of (dobj) plus a random number up to (iobj) (5, 2)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62212"></span>F304</td>
+<td class="instruction">DEFB $83,$54,$E6,$A2,$F3</td>
+<td class="comment-1" rowspan="1">RUN <a href="58964.html">E654</a> [ok <a href="62370.html">F3A2</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62217"></span>F309</td>
+<td class="instruction">DEFB $83,$6F,$E6,$66,$F3</td>
+<td class="comment-1" rowspan="1">RUN <a href="58991.html">E66F</a> [ok <a href="62130.html#62310">F366</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62222"></span>F30E</td>
+<td class="instruction">DEFB $12,$82,$FD,$FF,$2E,$F3</td>
+<td class="comment-1" rowspan="1">DO 130 <a href="58877.html">IS HERE</a>: plan dobj, - [fail <a href="62130.html#62254">F32E</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62228"></span>F314</td>
+<td class="instruction">DEFB $03,$A8,$E5</td>
+<td class="comment-1" rowspan="1">RUN <a href="58792.html">E5A8</a> IDLE (no checks; takes a minute)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62231"></span>F317</td>
+<td class="instruction">DEFB $83,$7A,$E5,$04,$F3</td>
+<td class="comment-1" rowspan="1">RUN <a href="58746.html">E57A</a> TICK the countdown (fails, and deletes it, when it runs out) [ok <a href="62130.html#62212">F304</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62236"></span>F31C</td>
+<td class="instruction">DEFB $83,$54,$E6,$A2,$F3</td>
+<td class="comment-1" rowspan="1">RUN <a href="58964.html">E654</a> [ok <a href="62370.html">F3A2</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62241"></span>F321</td>
+<td class="instruction">DEFB $83,$6F,$E6,$69,$F3</td>
+<td class="comment-1" rowspan="1">RUN <a href="58991.html">E66F</a> [ok <a href="62130.html#62313">F369</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62246"></span>F326</td>
+<td class="instruction">DEFB $07,$BC,$E6,$FD,$FB</td>
+<td class="comment-1" rowspan="1">RUN <a href="59068.html">E6BC</a> (plan dobj, self)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62251"></span>F32B</td>
+<td class="instruction">DEFB $0E,$FF,$F2</td>
+<td class="comment-1" rowspan="1">GOTO <a href="62130.html#62207">F2FF</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="62254"></span>F32E</td>
+<td class="instruction">DEFB $03,$88,$E5</td>
+<td class="comment-1" rowspan="1">RUN <a href="58760.html">E588</a> CANCEL the countdown</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62257"></span>F331</td>
+<td class="instruction">DEFB $06,$C7,$6B</td>
+<td class="comment-1" rowspan="1">PRINT message <a href="27591.html">6BC7</a>: "YOU, WHO NOW APPEARS TO BE GETTING QUITE AGITATED, SAYS' WHAT ABOUT..."</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62260"></span>F334</td>
+<td class="instruction">DEFB $07,$2F,$E5,$05,$02</td>
+<td class="comment-1" rowspan="1">RUN <a href="58671.html">E52F</a> START COUNTDOWN of (dobj) plus a random number up to (iobj) (5, 2)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62265"></span>F339</td>
+<td class="instruction">DEFB $83,$54,$E6,$A2,$F3</td>
+<td class="comment-1" rowspan="1">RUN <a href="58964.html">E654</a> [ok <a href="62370.html">F3A2</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62270"></span>F33E</td>
+<td class="instruction">DEFB $83,$6F,$E6,$66,$F3</td>
+<td class="comment-1" rowspan="1">RUN <a href="58991.html">E66F</a> [ok <a href="62130.html#62310">F366</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62275"></span>F343</td>
+<td class="instruction">DEFB $82,$82,$FD,$FF,$FC,$F2</td>
+<td class="comment-1" rowspan="1">DO 130 <a href="58877.html">IS HERE</a>: plan dobj, - [ok <a href="62130.html#62204">F2FC</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62281"></span>F349</td>
+<td class="instruction">DEFB $12,$81,$FD,$FB,$59,$F3</td>
+<td class="comment-1" rowspan="1">DO 129 <a href="58840.html">IS WITH</a>: plan dobj, self [fail <a href="62130.html#62297">F359</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62287"></span>F34F</td>
+<td class="instruction">DEFB $03,$A8,$E5</td>
+<td class="comment-1" rowspan="1">RUN <a href="58792.html">E5A8</a> IDLE (no checks; takes a minute)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62290"></span>F352</td>
+<td class="instruction">DEFB $93,$7A,$E5,$39,$F3,$31,$F3</td>
+<td class="comment-1" rowspan="1">RUN <a href="58746.html">E57A</a> TICK the countdown (fails, and deletes it, when it runs out) [ok <a href="62130.html#62265">F339</a>; fail <a href="62130.html#62257">F331</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62297"></span>F359</td>
+<td class="instruction">DEFB $03,$88,$E5</td>
+<td class="comment-1" rowspan="1">RUN <a href="58760.html">E588</a> CANCEL the countdown</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62300"></span>F35C</td>
+<td class="instruction">DEFB $03,$0E,$E7</td>
+<td class="comment-1" rowspan="1">RUN <a href="59150.html">E70E</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="62303"></span>F35F</td>
+<td class="instruction">DEFB $93,$E6,$E6,$FC,$F2,$76,$F3</td>
+<td class="comment-1" rowspan="1">RUN <a href="59110.html">E6E6</a> [ok <a href="62130.html#62204">F2FC</a>; fail <a href="62130.html#62326">F376</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62310"></span>F366</td>
+<td class="instruction">DEFB $03,$88,$E5</td>
+<td class="comment-1" rowspan="1">RUN <a href="58760.html">E588</a> CANCEL the countdown</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62313"></span>F369</td>
+<td class="instruction">DEFB $0F</td>
+<td class="comment-1" rowspan="1">PASS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62314"></span>F36A</td>
+<td class="instruction">DEFB $0F</td>
+<td class="comment-1" rowspan="1">PASS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62315"></span>F36B</td>
+<td class="instruction">DEFB $82,$82,$FD,$FF,$D0,$F2</td>
+<td class="comment-1" rowspan="1">DO 130 <a href="58877.html">IS HERE</a>: plan dobj, - [ok <a href="62130.html#62160">F2D0</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62321"></span>F371</td>
+<td class="instruction">DEFB $83,$E6,$E6,$E5,$F2</td>
+<td class="comment-1" rowspan="1">RUN <a href="59110.html">E6E6</a> [ok <a href="62130.html#62181">F2E5</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62326"></span>F376</td>
+<td class="instruction">DEFB $02,$80,$FC,$00</td>
+<td class="comment-1" rowspan="1">DO 128 <a href="58519.html">PUT</a>: plan iobj, room 0 (off stage)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62330"></span>F37A</td>
+<td class="instruction">DEFB $83,$80,$F3,$7A,$F3</td>
+<td class="comment-1" rowspan="1">RUN <a href="62336.html">F380</a> [ok <a href="62130.html#62330">F37A</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62335"></span>F37F</td>
+<td class="instruction">DEFB $0B</td>
+<td class="comment-1" rowspan="1">RETURN OK</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="62117.html">F2A5</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#62130">Map</a></td>
+<td class="next">
+Next: <a href="62336.html">F380</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

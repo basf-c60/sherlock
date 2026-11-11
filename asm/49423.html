@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at C10F - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="49406.html">C0FE</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#49423">Map</a></td>
+<td class="next">
+Next: <a href="49448.html">C128</a>
+</td>
+</tr>
+</table>
+<div class="description">C10F: Set the border, then clear the screen and attributes</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Sets the border to white, then fills the whole display file (6,144 bytes at <a href="../rom_symbols.html#a4000">$4000</a>) with zero and the whole attribute file (768 bytes at <a href="../rom_symbols.html#a5800">$5800</a>) with $38 (INK 0 / PAPER 7: black on white, no bright, no flash) - i.e. a standard CLS.
+</div>
+<div class="paragraph">
+Hooking every write to screen memory during boot shows exactly 6,144 writes at this routine's first LDIR and 767-768 at its second, matching the display and attribute file sizes exactly.
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">The</td>
+<td class="register-desc">screen cleared, the attributes black on white and the border white</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="49423"></span>C10F</td>
+<td class="instruction">LD A,$07</td>
+<td class="comment-1" rowspan="1">White border while we clear the screen</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49425"></span>C111</td>
+<td class="instruction">OUT ($FE),A</td>
+<td class="comment-1" rowspan="1">Write A to port ($FE)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49427"></span>C113</td>
+<td class="instruction">LD HL,$4000</td>
+<td class="comment-1" rowspan="1">HL, DE = display file, one byte apart (for the LDIR fill)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49430"></span>C116</td>
+<td class="instruction">LD DE,$4001</td>
+<td class="comment-1" rowspan="1">Load DE with $4001</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49433"></span>C119</td>
+<td class="instruction">LD BC,$1800</td>
+<td class="comment-1" rowspan="1">BC = 6144, the whole display file</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49436"></span>C11C</td>
+<td class="instruction">LD (HL),$00</td>
+<td class="comment-1" rowspan="1">Seed the first byte with 0...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49438"></span>C11E</td>
+<td class="instruction">LDIR</td>
+<td class="comment-1" rowspan="1">...then copy it across the rest</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49440"></span>C120</td>
+<td class="instruction">LD BC,$02FF</td>
+<td class="comment-1" rowspan="1">BC = 767, the rest of the attribute file</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49443"></span>C123</td>
+<td class="instruction">LD (HL),$38</td>
+<td class="comment-1" rowspan="1">Seed the first attribute byte (black on white)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49445"></span>C125</td>
+<td class="instruction">LDIR</td>
+<td class="comment-1" rowspan="1">...then copy it across the rest</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49447"></span>C127</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="49406.html">C0FE</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#49423">Map</a></td>
+<td class="next">
+Next: <a href="49448.html">C128</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

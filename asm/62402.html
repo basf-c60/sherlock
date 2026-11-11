@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at F3C2 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="62370.html">F3A2</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#62402">Map</a></td>
+<td class="next">
+Next: <a href="62606.html">F48E</a>
+</td>
+</tr>
+</table>
+<div class="description">F3C2: Draw a picture (the picture interpreter)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+HL = the picture's bytecode (from the table at <a href="62988.html">F60C</a> via <a href="41591.html">A277</a>). The pen starts at (127, 63).
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. The pen starts at (127, 63). Take the next command; 0 ends the picture.
+</div>
+<div class="paragraph">
+2. $08 moves the pen to the (x, y) in the next two bytes (x always has bit 7 set, so the pen stays in the right half of the screen).
+</div>
+<div class="paragraph">
+3. A command with bit 7 set draws a line (<a href="62830.html">F56E</a>): its low three bits give the direction, and the rest the number of steps and run lengths.
+</div>
+<div class="paragraph">
+4. Other commands set the colour, fill an area (<a href="62608.html">F490</a>) or draw other shapes; each is followed by its operands.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">The picture's bytecode</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">The</td>
+<td class="register-desc">picture drawn; registers kept</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="62402"></span>F3C2</td>
+<td class="instruction">PUSH IY</td>
+<td class="comment-1" rowspan="1">Save IY on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62404"></span>F3C4</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62405"></span>F3C5</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack - IY = the bytecode</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62406"></span>F3C6</td>
+<td class="instruction">POP IY</td>
+<td class="comment-1" rowspan="1">Restore IY from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62408"></span>F3C8</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62409"></span>F3C9</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Save BC on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62410"></span>F3CA</td>
+<td class="instruction">LD D,$7F</td>
+<td class="comment-1" rowspan="1">Load D with $7F - The pen starts at (127, 63)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62412"></span>F3CC</td>
+<td class="instruction">LD E,$3F</td>
+<td class="comment-1" rowspan="1">Load E with $3F</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62414"></span>F3CE</td>
+<td class="instruction">LD B,$01</td>
+<td class="comment-1" rowspan="1">Load B with $01</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62416"></span>F3D0</td>
+<td class="instruction">LD C,$01</td>
+<td class="comment-1" rowspan="1">Load C with $01</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62418"></span>F3D2</td>
+<td class="instruction">LD L,$01</td>
+<td class="comment-1" rowspan="1">Load L with $01</td>
+</tr>
+<tr>
+<td class="address-2"><span id="62420"></span>F3D4</td>
+<td class="instruction">LD A,(IY+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IY into A - Next command; 0 ends the picture</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62423"></span>F3D7</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62424"></span>F3D8</td>
+<td class="instruction">JP Z,$F488</td>
+<td class="comment-1" rowspan="1">If A is zero, jump on to <a href="62402.html#62600">F488</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="62427"></span>F3DB</td>
+<td class="instruction">INC IY</td>
+<td class="comment-1" rowspan="1">Step IY on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62429"></span>F3DD</td>
+<td class="instruction">CP $08</td>
+<td class="comment-1" rowspan="1">Compare A with $08 - $08: move the pen to (x, y) from the next two bytes</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62431"></span>F3DF</td>
+<td class="instruction">JR NZ,$F3EF</td>
+<td class="comment-1" rowspan="1">If A differs from $08, skip ahead to <a href="62402.html#62447">F3EF</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="62433"></span>F3E1</td>
+<td class="instruction">LD D,(IY+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IY into D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62436"></span>F3E4</td>
+<td class="instruction">SET 7,D</td>
+<td class="comment-1" rowspan="1">Set bit 7 of D - x always has bit 7 set: the pen stays in the right half of the screen</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62438"></span>F3E6</td>
+<td class="instruction">INC IY</td>
+<td class="comment-1" rowspan="1">Step IY on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62440"></span>F3E8</td>
+<td class="instruction">LD E,(IY+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IY into E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62443"></span>F3EB</td>
+<td class="instruction">INC IY</td>
+<td class="comment-1" rowspan="1">Step IY on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62445"></span>F3ED</td>
+<td class="instruction">JR $F3D4</td>
+<td class="comment-1" rowspan="1">Go back to <a href="62402.html#62420">F3D4</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="62447"></span>F3EF</td>
+<td class="instruction">BIT 7,A</td>
+<td class="comment-1" rowspan="1">Test bit 7 of A - Bit 7: a line</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62449"></span>F3F1</td>
+<td class="instruction">JR Z,$F414</td>
+<td class="comment-1" rowspan="1">If bit 7 of A is clear, skip ahead to <a href="62402.html#62484">F414</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="62451"></span>F3F3</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">Copy A into B - C = bits 2-0: which way it goes</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62452"></span>F3F4</td>
+<td class="instruction">AND $07</td>
+<td class="comment-1" rowspan="1">Keep only bits 0, 1, 2 of A (mask $07)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62454"></span>F3F6</td>
+<td class="instruction">LD C,A</td>
+<td class="comment-1" rowspan="1">Copy A into C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62455"></span>F3F7</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">Copy B into A - B = bits 6-3 of this byte and bits 7-6 of the next: one length, plus 1</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62456"></span>F3F8</td>
+<td class="instruction">RRCA</td>
+<td class="comment-1" rowspan="1">Rotate A right one place (bit 0 goes to carry and bit 7)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62457"></span>F3F9</td>
+<td class="instruction">AND $3C</td>
+<td class="comment-1" rowspan="1">Keep only bits 2, 3, 4, 5 of A (mask $3C)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62459"></span>F3FB</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">Copy A into B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62460"></span>F3FC</td>
+<td class="instruction">LD A,(IY+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IY into A - L = bits 5-0 of the next byte: the other length, plus 1</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62463"></span>F3FF</td>
+<td class="instruction">AND $3F</td>
+<td class="comment-1" rowspan="1">Keep only bits 0, 1, 2, 3, 4, 5 of A (mask $3F)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62465"></span>F401</td>
+<td class="instruction">LD L,A</td>
+<td class="comment-1" rowspan="1">Copy A into L</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62466"></span>F402</td>
+<td class="instruction">INC L</td>
+<td class="comment-1" rowspan="1">Add one to L</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62467"></span>F403</td>
+<td class="instruction">LD A,(IY+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IY into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62470"></span>F406</td>
+<td class="instruction">INC IY</td>
+<td class="comment-1" rowspan="1">Step IY on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62472"></span>F408</td>
+<td class="instruction">RLCA</td>
+<td class="comment-1" rowspan="1">Rotate A left one place (bit 7 goes to carry and bit 0)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62473"></span>F409</td>
+<td class="instruction">RLCA</td>
+<td class="comment-1" rowspan="1">Rotate A left one place (bit 7 goes to carry and bit 0)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62474"></span>F40A</td>
+<td class="instruction">AND $03</td>
+<td class="comment-1" rowspan="1">Keep only bits 0, 1 of A (mask $03)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62476"></span>F40C</td>
+<td class="instruction">OR B</td>
+<td class="comment-1" rowspan="1">Set in A the bits that are set in B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62477"></span>F40D</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">Copy A into B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62478"></span>F40E</td>
+<td class="instruction">INC B</td>
+<td class="comment-1" rowspan="1">Add one to B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62479"></span>F40F</td>
+<td class="instruction">CALL <a href="62830.html">$F56E</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Draw a line from the pen" (<a href="62830.html">F56E</a>) - Draw it (<a href="62830.html">F56E</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62482"></span>F412</td>
+<td class="instruction">JR $F3D4</td>
+<td class="comment-1" rowspan="1">Go back to <a href="62402.html#62420">F3D4</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="62484"></span>F414</td>
+<td class="instruction">BIT 6,A</td>
+<td class="comment-1" rowspan="1">Test bit 6 of A - Bit 6: fill in colour bits 2-0 from the point in the next two bytes (<a href="62608.html">F490</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62486"></span>F416</td>
+<td class="instruction">JR Z,$F42E</td>
+<td class="comment-1" rowspan="1">If bit 6 of A is clear, skip ahead to <a href="62402.html#62510">F42E</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="62488"></span>F418</td>
+<td class="instruction">AND $07</td>
+<td class="comment-1" rowspan="1">Keep only bits 0, 1, 2 of A (mask $07)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62490"></span>F41A</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62491"></span>F41B</td>
+<td class="instruction">LD D,(IY+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IY into D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62494"></span>F41E</td>
+<td class="instruction">SET 7,D</td>
+<td class="comment-1" rowspan="1">Set bit 7 of D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62496"></span>F420</td>
+<td class="instruction">INC IY</td>
+<td class="comment-1" rowspan="1">Step IY on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62498"></span>F422</td>
+<td class="instruction">LD E,(IY+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IY into E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62501"></span>F425</td>
+<td class="instruction">INC IY</td>
+<td class="comment-1" rowspan="1">Step IY on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62503"></span>F427</td>
+<td class="instruction">CALL <a href="62608.html">$F490</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Fill the area around the pen in colour A" (<a href="62608.html">F490</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62506"></span>F42A</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62507"></span>F42B</td>
+<td class="instruction">JP $F3D4</td>
+<td class="comment-1" rowspan="1">Go back to <a href="62402.html#62420">F3D4</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="62510"></span>F42E</td>
+<td class="instruction">BIT 5,A</td>
+<td class="comment-1" rowspan="1">Test bit 5 of A - Bit 5: runs of attribute cells in paper colour bits 2-0 (any other byte is ignored)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62512"></span>F430</td>
+<td class="instruction">JP Z,$F3D4</td>
+<td class="comment-1" rowspan="1">If bit 5 of A is clear, go back to <a href="62402.html#62420">F3D4</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="62515"></span>F433</td>
+<td class="instruction">AND $07</td>
+<td class="comment-1" rowspan="1">Keep only bits 0, 1, 2 of A (mask $07)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62517"></span>F435</td>
+<td class="instruction">RLCA</td>
+<td class="comment-1" rowspan="1">Rotate A left one place (bit 7 goes to carry and bit 0)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62518"></span>F436</td>
+<td class="instruction">RLCA</td>
+<td class="comment-1" rowspan="1">Rotate A left one place (bit 7 goes to carry and bit 0)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62519"></span>F437</td>
+<td class="instruction">RLCA</td>
+<td class="comment-1" rowspan="1">Rotate A left one place (bit 7 goes to carry and bit 0)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62520"></span>F438</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62521"></span>F439</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62522"></span>F43A</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Save BC on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62523"></span>F43B</td>
+<td class="instruction">LD C,A</td>
+<td class="comment-1" rowspan="1">Copy A into C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62524"></span>F43C</td>
+<td class="instruction">LD H,(IY+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IY into H - HL = the attribute address: high byte, then low byte + $10</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62527"></span>F43F</td>
+<td class="instruction">INC IY</td>
+<td class="comment-1" rowspan="1">Step IY on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62529"></span>F441</td>
+<td class="instruction">LD A,(IY+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IY into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62532"></span>F444</td>
+<td class="instruction">ADD A,$10</td>
+<td class="comment-1" rowspan="1">Add $10 to A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62534"></span>F446</td>
+<td class="instruction">LD L,A</td>
+<td class="comment-1" rowspan="1">Copy A into L</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62535"></span>F447</td>
+<td class="instruction">INC IY</td>
+<td class="comment-1" rowspan="1">Step IY on to the next byte</td>
+</tr>
+<tr>
+<td class="address-2"><span id="62537"></span>F449</td>
+<td class="instruction">LD A,(IY+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IY into A - Next run; $FF ends them</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62540"></span>F44C</td>
+<td class="instruction">INC IY</td>
+<td class="comment-1" rowspan="1">Step IY on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62542"></span>F44E</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1">Compare A with $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62544"></span>F450</td>
+<td class="instruction">JR Z,$F482</td>
+<td class="comment-1" rowspan="1">If A equals $FF, jump on to <a href="62402.html#62594">F482</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="62546"></span>F452</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">Copy A into B - E = bits 1-0: the direction (0 up, 1 right, 2 down, 3 left)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62547"></span>F453</td>
+<td class="instruction">AND $03</td>
+<td class="comment-1" rowspan="1">Keep only bits 0, 1 of A (mask $03)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62549"></span>F455</td>
+<td class="instruction">LD E,A</td>
+<td class="comment-1" rowspan="1">Copy A into E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62550"></span>F456</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">Copy B into A - B = bits 7-2, plus 1: how many cells</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62551"></span>F457</td>
+<td class="instruction">RRCA</td>
+<td class="comment-1" rowspan="1">Rotate A right one place (bit 0 goes to carry and bit 7)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62552"></span>F458</td>
+<td class="instruction">RRCA</td>
+<td class="comment-1" rowspan="1">Rotate A right one place (bit 0 goes to carry and bit 7)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62553"></span>F459</td>
+<td class="instruction">AND $3F</td>
+<td class="comment-1" rowspan="1">Keep only bits 0, 1, 2, 3, 4, 5 of A (mask $3F)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62555"></span>F45B</td>
+<td class="instruction">INC A</td>
+<td class="comment-1" rowspan="1">Add one to A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62556"></span>F45C</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">Copy A into B</td>
+</tr>
+<tr>
+<td class="address-2"><span id="62557"></span>F45D</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into A - Give the cell the new paper; if its ink is that colour too, flip the ink</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62558"></span>F45E</td>
+<td class="instruction">AND $07</td>
+<td class="comment-1" rowspan="1">Keep only bits 0, 1, 2 of A (mask $07)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62560"></span>F460</td>
+<td class="instruction">RLCA</td>
+<td class="comment-1" rowspan="1">Rotate A left one place (bit 7 goes to carry and bit 0)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62561"></span>F461</td>
+<td class="instruction">RLCA</td>
+<td class="comment-1" rowspan="1">Rotate A left one place (bit 7 goes to carry and bit 0)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62562"></span>F462</td>
+<td class="instruction">RLCA</td>
+<td class="comment-1" rowspan="1">Rotate A left one place (bit 7 goes to carry and bit 0)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62563"></span>F463</td>
+<td class="instruction">CP C</td>
+<td class="comment-1" rowspan="1">Compare A with C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62564"></span>F464</td>
+<td class="instruction">JR NZ,$F468</td>
+<td class="comment-1" rowspan="1">If A differs from C, skip ahead to <a href="62402.html#62568">F468</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="62566"></span>F466</td>
+<td class="instruction">XOR $38</td>
+<td class="comment-1" rowspan="1">Flip in A the bits that are set in $38</td>
+</tr>
+<tr>
+<td class="address-2"><span id="62568"></span>F468</td>
+<td class="instruction">RRCA</td>
+<td class="comment-1" rowspan="1">Rotate A right one place (bit 0 goes to carry and bit 7)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62569"></span>F469</td>
+<td class="instruction">RRCA</td>
+<td class="comment-1" rowspan="1">Rotate A right one place (bit 0 goes to carry and bit 7)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62570"></span>F46A</td>
+<td class="instruction">RRCA</td>
+<td class="comment-1" rowspan="1">Rotate A right one place (bit 0 goes to carry and bit 7)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62571"></span>F46B</td>
+<td class="instruction">OR C</td>
+<td class="comment-1" rowspan="1">Set in A the bits that are set in C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62572"></span>F46C</td>
+<td class="instruction">LD (HL),A</td>
+<td class="comment-1" rowspan="1">Store A at the address HL points to</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62573"></span>F46D</td>
+<td class="instruction">LD A,E</td>
+<td class="comment-1" rowspan="1">Copy E into A - Step to the next cell: up (<a href="62740.html">F514</a>), right (<a href="62740.html#62784">F540</a>), down (<a href="62740.html#62757">F525</a>) or left (<a href="62740.html#62774">F536</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62574"></span>F46E</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62575"></span>F46F</td>
+<td class="instruction">CALL Z,<a href="62740.html">$F514</a></td>
+<td class="comment-1" rowspan="1">If A is zero, call the routine "Move attribute address HL up a row (not past the top)" (<a href="62740.html">F514</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62578"></span>F472</td>
+<td class="instruction">DEC A</td>
+<td class="comment-1" rowspan="1">Subtract one from A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62579"></span>F473</td>
+<td class="instruction">CALL Z,<a href="62740.html#62784">$F540</a></td>
+<td class="comment-1" rowspan="1">If A has become zero, call <a href="62740.html#62784">F540</a> (inside "Move attribute address HL up a row (not...")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62582"></span>F476</td>
+<td class="instruction">DEC A</td>
+<td class="comment-1" rowspan="1">Subtract one from A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62583"></span>F477</td>
+<td class="instruction">CALL Z,<a href="62740.html#62757">$F525</a></td>
+<td class="comment-1" rowspan="1">If A has become zero, call <a href="62740.html#62757">F525</a> (inside "Move attribute address HL up a row (not...")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62586"></span>F47A</td>
+<td class="instruction">DEC A</td>
+<td class="comment-1" rowspan="1">Subtract one from A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62587"></span>F47B</td>
+<td class="instruction">CALL Z,<a href="62740.html#62774">$F536</a></td>
+<td class="comment-1" rowspan="1">If A has become zero, call <a href="62740.html#62774">F536</a> (inside "Move attribute address HL up a row (not...")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62590"></span>F47E</td>
+<td class="instruction">DJNZ $F45D</td>
+<td class="comment-1" rowspan="1">Count B down and, while it is not zero, go back to <a href="62402.html#62557">F45D</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="62592"></span>F480</td>
+<td class="instruction">JR $F449</td>
+<td class="comment-1" rowspan="1">Go back to <a href="62402.html#62537">F449</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="62594"></span>F482</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore BC from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62595"></span>F483</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62596"></span>F484</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62597"></span>F485</td>
+<td class="instruction">JP $F3D4</td>
+<td class="comment-1" rowspan="1">Go back to <a href="62402.html#62420">F3D4</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="62600"></span>F488</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore BC from the stack - End of the picture</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62601"></span>F489</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62602"></span>F48A</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62603"></span>F48B</td>
+<td class="instruction">POP IY</td>
+<td class="comment-1" rowspan="1">Restore IY from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62605"></span>F48D</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="62370.html">F3A2</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#62402">Map</a></td>
+<td class="next">
+Next: <a href="62606.html">F48E</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

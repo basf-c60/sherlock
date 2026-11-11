@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Trains and cabs - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="sherlock.css" />
+</head>
+<body class="trains-cabs">
+<header class="site"><div class="bar"><a class="brand" href="index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Trains and cabs</h1>
+
+<p>Sherlock has two kinds of public transport. <b>Trains</b> run to a timetable whether or not you are there: eight steam trains circle the underground stations and run the Leatherhead line. <b>Hansom cabs</b> are the opposite: they stand off stage until somebody hails one, and they go nowhere unless they are told to. Both are ordinary things that hold other things, so a passenger is simply something inside the vehicle, and when the vehicle moves everything in it moves too.</p>
+
+<h3>The short answers</h3>
+<ul>
+<li><b>How does a timetable work?</b> Each train is an actor (<a href="asm/39008.html">9860</a>) running a short plan script that says "put the train in room X, then wait N minutes", over and over. The timetable <i>is</i> that script: the waits add up to a 30-minute circuit for the underground and a 3-hour circuit for the Leatherhead line. Where each train starts in the cycle is just which instruction its actor-table entry points at.</li>
+<li><b>How does a train get from station to station?</b> One action record (<a href="asm/58569.html">E4C9</a>) puts the train in the next room with the move routine at <a href="asm/56579.html#56590">DD0E</a>, and makes the train visible at a platform and invisible between stations. There is no track and no distance: a journey is a number of minutes spent in a "between stations" room.</li>
+<li><b>Do cabs move when they are not hailed?</b> No. An unhailed cab is in room 0, off stage, and its cabbie only runs a do-nothing loop (<a href="asm/62130.html">F2B2</a>). A cab moves only when somebody hails it. In the first minutes of the game Lestrade hails cab 30 in Parliament Street and rides it to Kings Cross Road; until 3pm that is the only cab movement in a game where the player does nothing. After that Phipps, the Major and the German agent take cabs as part of their flights.</li>
+</ul>
+
+<h3>The things and rooms involved</h3>
+<table class="sherlock">
+<tr><th style="min-width:9em">What</th><th>Thing or room numbers</th><th>Notes</th></tr>
+<tr><td>Underground trains</td><td>things 36 to 41 (actors 36 to 41)</td><td>Three run one way round the platform-one stations and three the other way round the platform-two stations.</td></tr>
+<tr><td>Leatherhead trains</td><td>things 42 and 43 (actors 42 and 43)</td><td>Two trains on the same three-hour circuit, half a circuit apart.</td></tr>
+<tr><td>Hansom cabs and cabbies</td><td>cab 30 with cabbie 31; cab 33 with cabbie 34</td><td>The cabbie is always the next number after his cab (<a href="asm/39760.html">9B50</a> relies on it). Both cabbies are actors (<a href="asm/39008.html">9860</a>).</td></tr>
+<tr><td>Police cab</td><td>thing 109, room 105 (<a href="asm/34017.html#35685">8B65</a>)</td><td>Driven by the local police man. It has only three routes (<a href="asm/39577.html#39587">9AA3</a>).</td></tr>
+<tr><td>Rooms for a train in motion</td><td>room 2 (<a href="asm/34017.html#34037">84F5</a>) for the underground; rooms 3 (<a href="asm/34017.html#34047">84FF</a>) and 4 (<a href="asm/34017.html#34057">8509</a>) for the Leatherhead line</td><td>These are the "between stations" rooms. A passenger's own room number becomes the room the train is in.</td></tr>
+<tr><td>Room for a cab in motion</td><td>room 1 (<a href="asm/34017.html#34027">84EB</a>)</td><td>The hansom cab: the cab is put here for the length of the ride, then moved to the destination.</td></tr>
+<tr><td>Station rooms</td><td>Aldergate 15 (platforms 16, 17); Kings Cross 19 (platforms 20, 21 underground and 22, 23 Leatherhead); Paddington 25 (26, 27); Victoria 29 (30, 31); Leatherhead 53 (54, 55)</td><td>A station room has no description of its own; the trains stop only in the platform rooms.</td></tr>
+</table>
+
+<h3>How a timetable is written</h3>
+<p>Every actor has an eight-byte record in the actor table (<a href="asm/39008.html">9860</a>): its thing number, the position in its plan script (+1/+2), the plan registers, and the minute at which it next acts (+6/+7). Once per turn the main loop (<a href="asm/41060.html">A064</a>) walks the table; an actor whose minute has come runs one step of its script (<a href="asm/52344.html">CC78</a>), and the step's duration decides when it next acts. A train's script is built from two instructions only:</p>
+<ul>
+<li><b>DO 140 room, minutes</b>, four bytes such as <code>$02,$8C,$10,$03</code>, is "put the train in room $10 and wait 3 minutes". It is a call of the sub-script at <a href="asm/62117.html">F2A5</a>, which runs the move record (<a href="asm/58569.html">E4C9</a>) and then the wait record (<a href="asm/56766.html">DDBE</a>).</li>
+<li><b>RUN <a href="asm/56766.html">DDBE</a> minutes</b>, five bytes such as <code>$07,$BE,$DD,$3C,$FF</code>, is a plain wait (here 60 minutes) with the train left where it is.</li>
+</ul>
+<p>A <code>GOTO</code> (<code>$0E</code>) at the end sends the script back to its start, and a <code>PASS</code> (<code>$0F</code>) is a one-minute pause. Because the waits are the only thing that spends time, adding up the minutes gives the timetable exactly.</p>
+
+<h4>The underground: two circuits of 30 minutes</h4>
+<p>Six trains share two scripts. The first circuit (<a href="asm/61981.html">F21D</a> to <a href="asm/62010.html#62019">F243</a>) calls at the platform-one stations in the order Aldergate, Kings Cross, Paddington, Victoria; the second (<a href="asm/62022.html">F246</a> to <a href="asm/62056.html#62069">F275</a>) goes the other way round the platform-two stations: Kings Cross, Aldergate, Victoria, Paddington. Each train is a different distance round the same script because its actor-table entry points at a different instruction, so the three trains on a circuit are spread round it: ten minutes apart on the platform-one circuit, and nine, nine and twelve minutes apart on the platform-two circuit.</p>
+<table class="sherlock">
+<tr><th>Step</th><th>Platform-one circuit: where the train is</th><th>Minutes</th><th>Start of the day</th></tr>
+<tr><td>1</td><td>Aldergate platform one (<a href="asm/34017.html#34222">85AE</a>)</td><td>3</td><td>actor 36 starts here</td></tr>
+<tr><td>2</td><td>between stations (room 2, <a href="asm/34017.html#34037">84F5</a>)</td><td>3</td><td></td></tr>
+<tr><td>3</td><td>Kings Cross platform one (<a href="asm/34017.html#34280">85E8</a>)</td><td>3</td><td></td></tr>
+<tr><td>4</td><td>between stations (room 2, <a href="asm/34017.html#34037">84F5</a>)</td><td>1</td><td></td></tr>
+<tr><td>5</td><td>waits where it is (in the same room as before)</td><td>2</td><td>actor 38 starts here</td></tr>
+<tr><td>6</td><td>Paddington platform one (<a href="asm/34017.html#34370">8642</a>)</td><td>4</td><td></td></tr>
+<tr><td>7</td><td>between stations (room 2, <a href="asm/34017.html#34037">84F5</a>)</td><td>4</td><td></td></tr>
+<tr><td>8</td><td>waits where it is (in the same room as before)</td><td>1</td><td>actor 37 starts here</td></tr>
+<tr><td>9</td><td>Victoria platform one (<a href="asm/34017.html#34428">867C</a>)</td><td>4</td><td></td></tr>
+<tr><td>10</td><td>between stations (room 2, <a href="asm/34017.html#34037">84F5</a>)</td><td>5</td><td></td></tr>
+<tr><td></td><td><b>Whole circuit</b></td><td><b>30</b></td><td></td></tr>
+</table>
+<table class="sherlock">
+<tr><th>Step</th><th>Platform-two circuit: where the train is</th><th>Minutes</th><th>Start of the day</th></tr>
+<tr><td>1</td><td>waits where it is (in the same room as before)</td><td>2</td><td>actor 39 starts here</td></tr>
+<tr><td>2</td><td>Kings Cross platform two (<a href="asm/34017.html#34296">85F8</a>)</td><td>3</td><td></td></tr>
+<tr><td>3</td><td>between stations (room 2, <a href="asm/34017.html#34037">84F5</a>)</td><td>3</td><td></td></tr>
+<tr><td>4</td><td>Aldergate platform two (<a href="asm/34017.html#34238">85BE</a>)</td><td>3</td><td></td></tr>
+<tr><td>5</td><td>between stations (room 2, <a href="asm/34017.html#34037">84F5</a>)</td><td>1</td><td></td></tr>
+<tr><td>6</td><td>waits where it is (in the same room as before)</td><td>4</td><td>actor 41 starts here</td></tr>
+<tr><td>7</td><td>Victoria platform two (<a href="asm/34017.html#34444">868C</a>)</td><td>4</td><td></td></tr>
+<tr><td>8</td><td>between stations (room 2, <a href="asm/34017.html#34037">84F5</a>)</td><td>1</td><td></td></tr>
+<tr><td>9</td><td>waits where it is (in the same room as before)</td><td>4</td><td>actor 40 starts here</td></tr>
+<tr><td>10</td><td>Paddington platform two (<a href="asm/34017.html#34386">8652</a>)</td><td>4</td><td></td></tr>
+<tr><td>11</td><td>between stations (room 2, <a href="asm/34017.html#34037">84F5</a>)</td><td>1</td><td></td></tr>
+<tr><td></td><td><b>Whole circuit</b></td><td><b>30</b></td><td></td></tr>
+</table>
+<p>From the start of the game (8:00am) a train reaches each platform-one platform every ten minutes. Each platform-two platform gets three trains in every 30 minutes, nine, nine and twelve minutes apart. A train stays three or four minutes. The first arrivals:</p>
+<table class="sherlock">
+<tr><th>Platform</th><th>Trains arrive at</th></tr>
+<tr><td>Aldergate platform one (<a href="asm/34017.html#34222">85AE</a>)</td><td>8:00am, 8:10am, 8:20am, 8:30am, 8:40am, 8:50am ...</td></tr>
+<tr><td>Kings Cross platform one (<a href="asm/34017.html#34280">85E8</a>)</td><td>8:06am, 8:16am, 8:26am, 8:36am, 8:46am, 8:56am ...</td></tr>
+<tr><td>Paddington platform one (<a href="asm/34017.html#34370">8642</a>)</td><td>8:02am, 8:12am, 8:22am, 8:32am, 8:42am, 8:52am ...</td></tr>
+<tr><td>Victoria platform one (<a href="asm/34017.html#34428">867C</a>)</td><td>8:01am, 8:11am, 8:21am, 8:31am, 8:41am, 8:51am ...</td></tr>
+<tr><td>Kings Cross platform two (<a href="asm/34017.html#34296">85F8</a>)</td><td>8:02am, 8:11am, 8:20am, 8:32am, 8:41am, 8:50am ...</td></tr>
+<tr><td>Aldergate platform two (<a href="asm/34017.html#34238">85BE</a>)</td><td>8:08am, 8:17am, 8:26am, 8:38am, 8:47am, 8:56am ...</td></tr>
+<tr><td>Victoria platform two (<a href="asm/34017.html#34444">868C</a>)</td><td>8:04am, 8:16am, 8:25am, 8:34am, 8:46am, 8:55am ...</td></tr>
+<tr><td>Paddington platform two (<a href="asm/34017.html#34386">8652</a>)</td><td>8:04am, 8:13am, 8:25am, 8:34am, 8:43am, 8:55am ...</td></tr>
+</table>
+<p>The ride from one platform to the next is three or five minutes, depending on the stretch (the platform-one train takes 3 from Aldergate to Kings Cross, 3 on to Paddington, 5 on to Victoria and 5 back to Aldergate).</p>
+
+<h4>The Leatherhead line: one circuit of three hours</h4>
+<p>The two Leatherhead trains run the same script (<a href="asm/62072.html">F278</a> to <a href="asm/62093.html#62114">F2A2</a>) from different starting points. A train stops at Kings Cross platform four, shunts to platform three, then spends 65 minutes on the line in room 3, and does the same at Leatherhead (platforms one and two) before the long run back.</p>
+<table class="sherlock">
+<tr><th>Step</th><th>Where the train is</th><th>Minutes</th><th>Start of the day</th></tr>
+<tr><td>1</td><td>waits where it is (in the same room as before)</td><td>60</td><td>actor 42 starts here</td></tr>
+<tr><td>2</td><td>Kings Cross platform four (<a href="asm/34017.html#34328">8618</a>)</td><td>10</td><td></td></tr>
+<tr><td>3</td><td>between stations (room 4, <a href="asm/34017.html#34057">8509</a>)</td><td>5</td><td></td></tr>
+<tr><td>4</td><td>Kings Cross platform three (<a href="asm/34017.html#34312">8608</a>)</td><td>10</td><td></td></tr>
+<tr><td>5</td><td>between stations (room 3, <a href="asm/34017.html#34047">84FF</a>)</td><td>5</td><td></td></tr>
+<tr><td>6</td><td>waits where it is (in the same room as before)</td><td>60</td><td>actor 43 starts here</td></tr>
+<tr><td>7</td><td>Leatherhead platform one (<a href="asm/34017.html#34812">87FC</a>)</td><td>10</td><td></td></tr>
+<tr><td>8</td><td>between stations (room 4, <a href="asm/34017.html#34057">8509</a>)</td><td>5</td><td></td></tr>
+<tr><td>9</td><td>Leatherhead platform two (<a href="asm/34017.html#34828">880C</a>)</td><td>10</td><td></td></tr>
+<tr><td>10</td><td>between stations (room 3, <a href="asm/34017.html#34047">84FF</a>)</td><td>5</td><td></td></tr>
+<tr><td></td><td><b>Whole circuit</b></td><td><b>180</b></td><td></td></tr>
+</table>
+<p>The two trains are half a circuit apart, so a train arrives at each platform every 90 minutes:</p>
+<table class="sherlock">
+<tr><th>Platform</th><th>Trains arrive at</th></tr>
+<tr><td>Kings Cross platform four (<a href="asm/34017.html#34328">8618</a>)</td><td>9:00am, 10:30am, 12:00pm, 1:30pm, 3:00pm, 4:30pm, 6:00pm, 7:30pm ...</td></tr>
+<tr><td>Kings Cross platform three (<a href="asm/34017.html#34312">8608</a>)</td><td>9:15am, 10:45am, 12:15pm, 1:45pm, 3:15pm, 4:45pm, 6:15pm, 7:45pm ...</td></tr>
+<tr><td>Leatherhead platform one (<a href="asm/34017.html#34812">87FC</a>)</td><td>9:00am, 10:30am, 12:00pm, 1:30pm, 3:00pm, 4:30pm, 6:00pm, 7:30pm ...</td></tr>
+<tr><td>Leatherhead platform two (<a href="asm/34017.html#34828">880C</a>)</td><td>9:15am, 10:45am, 12:15pm, 1:45pm, 3:15pm, 4:45pm, 6:15pm, 7:45pm ...</td></tr>
+</table>
+<p>The journey from Kings Cross platform three to Leatherhead takes 65 minutes. A passenger who stays on the train is carried on: at the end of a stop the train moves to the other platform of the same station, so riding on from Leatherhead platform one takes you to platform two, five minutes later, by way of the between-stations room 4 (you cannot get out there). This timetable decides the endgame chase. Phipps boards the train that leaves Leatherhead platform two at 4:55pm, and the next one is 90 minutes behind it (<a href="asm/59367.html">E7E7</a>).</p>
+
+<h3>How a train moves from station to station</h3>
+<p>The move is one action record, "put a train in a room" (<a href="asm/58569.html">E4C9</a>, internal verb <a href="asm/62117.html">140</a>). It does four things:</p>
+<ol>
+<li>Takes the room number from the direct object (<a href="asm/40918.html#41010">$A034</a>). If it is room 2, 3 or 4, the train is about to leave a station, so it prints THE TRAIN PULLS OUT OF THE STATION. (<a href="asm/30225.html">7611</a>) and uses the routine that <i>clears</i> the train's revealed bit (+5 bit 7, <a href="asm/40032.html">9C60</a>). Otherwise it uses the routine that <i>sets</i> it (<a href="asm/40022.html">9C56</a>). A train is therefore visible at a platform and invisible between stations: the visibility test (<a href="asm/51233.html">C821</a>) refuses anything without that bit.</li>
+<li>Moves the train, with everything inside it, to the room (<a href="asm/56579.html#56590">DD0E</a>). The move updates the +15 room byte of the train and of each passenger, and the player's own room, so a passenger's room number follows the train: 23, then 4, then 22, then 3 on the first stage of the Leatherhead run.</li>
+<li>Clears bit 6 of the new room's record (the "visited" bit), so the room description is shown in full again.</li>
+<li>Returns "done"; the script then waits the stated minutes.</li>
+</ol>
+<p>Everything a train prints is shown only when the player can see it. Before each actor's turn the engine switches printing off (<a href="asm/52279.html#52321">CC61</a>) and switches it on only if the actor and the player can see each other (<a href="asm/51233.html">C821</a>), so a train pulling out on the other side of London is silent. When a train arrives at your platform the move narration prints A STEAM TRAIN ENTERS.</p>
+
+<h4>Getting on and off</h4>
+<p>CLIMB INTO TRAIN works like getting into any container, and needs the train to be visible, which means it is at your platform. While you are aboard the room description reads "You are in a steam train" plus the platform or, between stations, "riding in a steam train through the picturesque English countryside". GET OUT OF TRAIN is refused between stations (the message is YOU CANNOT GET OUT OF THE STEAM TRAIN.); at a platform it works. Characters who follow you, such as Watson and Lestrade, climb in after you with the "follow" script (<a href="asm/58450.html#58486">E476</a>), and a train that carries Lestrade is described with him in it.</p>
+
+<h3>Hansom cabs</h3>
+<h4>Where a cab is, and how it is hailed</h4>
+<p>At the start of the game both cabs are off stage, in room 0. The HAIL action (<a href="asm/58055.html">E2C7</a>, shared action <a href="asm/43633.html">AA71</a> entry 11) works only if all of these hold (the pre-check at <a href="asm/58008.html">E298</a>):</p>
+<ul>
+<li>the direct object is cab 30 or cab 33;</li>
+<li>the room you are in is one of the ten cab stands, which means there is a cab journey from here (<a href="asm/39943.html">9C07</a>);</li>
+<li>the cab is in room 0, so it is not already on a job; and</li>
+<li>the cabbie is free (<a href="asm/53120.html#53177">CFB9</a>).</li>
+</ul>
+<p>The action then puts the cab in your room (<a href="asm/56579.html#56590">DD0E</a>), remembers which cab it is (<a href="asm/58054.html">E2C6</a>), and starts the cabbie on the fare script at <a href="asm/62130.html#62134">F2B6</a> with you and the cab as its two objects (<a href="asm/58094.html">E2EE</a>).</p>
+
+<h4>What the cabbie does</h4>
+<p>The cabbie is an actor with the script at <a href="asm/62130.html">F2B2</a>. Its first two instructions are a <code>PASS</code> and a <code>GOTO</code> back to itself, so an unhailed cabbie does nothing for ever. HAIL gives him a second entry point to run, with these stages:</p>
+<ol>
+<li><b>Greeting and waiting.</b> He says GOOD MORNING GUV'NOR (<a href="asm/27564.html">6BAC</a>) and starts a countdown of 4 minutes plus a random 0 to 4 (<a href="asm/58671.html">E52F</a>). Each minute he checks whether you are there (<a href="asm/62130.html#62146">F2C2</a>); if you are, he moves on to the next stage. If you are not, he ticks the countdown (<a href="asm/58746.html">E57A</a>), and when it runs out he prints WITH A PRACTISED FLICK OF THE REINS, YOU MOVES ON DOWN THE STREET IN SEARCH OF OTHER FARES. (<a href="asm/27638.html">6BF6</a>) and puts the cab back in room 0 (<a href="asm/62130.html#62326">F376</a>).</li>
+<li><b>Waiting for a destination.</b> While you are there he waits for a "go to" order, re-asking WELL ARE WE GOIN' ANYWHERE GUV'NOR? (<a href="asm/27675.html">6C1B</a>) whenever a countdown (5 plus a random 0 to 3 minutes) runs out, and then starting again from the first stage. An order is SAY TO CABBIE "GO TO ..." or "GO FURIOUSLY TO ...".</li>
+<li><b>The ride.</b> See below.</li>
+<li><b>Payment.</b> When the ride ends the cabbie names the fare (RIGHT GUV'NOR THAT WILL BE 10D., <a href="asm/59068.html">E6BC</a>). If you stay in the cab without paying he repeats it about every six minutes (a countdown of 5 plus a random 0 to 2 minutes), and the cab never drives off with you. If you get out without paying the cabbie, who now appears to be getting quite agitated, says WHAT ABOUT ME MONEY GUV'NOR? (message <a href="asm/27591.html">6BC7</a>), and if you then walk away he shouts after you (<a href="asm/59150.html">E70E</a>, message <a href="asm/27732.html">6C54</a>): YOU BLOODY SNOB, WATCH OUT IF WE EVER MEET AGAIN. Then he puts the cab back in room 0 (<a href="asm/62130.html#62326">F376</a>) and goes back to his idle loop. Nothing else follows from not paying: he does not chase you, and nothing in the cabbie's script punishes you further. Once the account is settled, or change is given, the script moves on the same way.</li>
+</ol>
+<p>Whether a fare is owed is kept in the cabbie's purse: the ride makes his balance negative by the fare, so "negative" means a fare is owed, "positive" means change is due and zero means settled (<a href="asm/58942.html">E63E</a>, <a href="asm/58964.html">E654</a>, <a href="asm/58991.html">E66F</a>).</p>
+
+<h4>The ride</h4>
+<p>A ride is two shared actions, one for each speed. GO TO (<a href="asm/39668.html">9AF4</a>, shared action 14) and GO FURIOUSLY TO (<a href="asm/39649.html">9AE1</a>, shared action 15) both do the same things:</p>
+<ol>
+<li>Check that the cab can get there from where it stands (<a href="asm/39760.html">9B50</a>): look for a journey between the two rooms in the journey table (<a href="asm/39807.html">9B7F</a>, searched either way round by <a href="asm/39943.html">9C07</a>). If there is none, the cabbie says SORRY GUV'NOR I CANNOT GET THERE FROM 'ERE.</li>
+<li>Price the ride (<a href="asm/39717.html">9B25</a>): the fare is the rate times (the journey's minutes divided by 5, rounded down, plus 1). GO TO charges 2d a step and GO FURIOUSLY TO 6d. Baker Street to Parliament Street is 20 minutes, so 2 &times; 5 = 10d. The fare is taken off the cabbie's purse.</li>
+<li>Set the length of the action to the journey's minutes. Going furiously takes two minutes off, so the ride is two minutes quicker but three times dearer.</li>
+<li>Put the cab in room 1 (the hansom cab) and make it invisible (<a href="asm/40032.html">9C60</a>), then hand the ride to the vehicle sub-script at <a href="asm/62370.html#62381">F3AD</a>, which, when the minutes have passed, moves the cab and everything in it to the destination (<a href="asm/40001.html">9C41</a>) and makes it visible again.</li>
+</ol>
+<p>So a cab ride does not pass through the streets in between: the cab sits in room 1 for the journey time, then appears at the destination.</p>
+
+<h4>The journey table</h4>
+<p>There are ten cab stands, all street rooms, and every pair has an entry: 45 in all (<a href="asm/39807.html">9B7F</a>). Leatherhead and Old Mill Road are not in it. They are reached by train and by the police cab. The minutes for each pair:</p>
+<table class="sherlock">
+<tr><th></th><th>Portman St</th><th>Baker St</th><th>Parliament St</th><th>Slater St</th><th>Aldergate St</th><th>Kings Cross Rd</th><th>Bishops Rd</th><th>Buckingham Palace Rd</th><th>Camden St</th><th>Sidmouth St</th></tr>
+<tr><th>Portman St</th><td>&ndash;</td><td>3</td><td>7</td><td>20</td><td>19</td><td>18</td><td>7</td><td>12</td><td>6</td><td>13</td></tr>
+<tr><th>Baker St</th><td>3</td><td>&ndash;</td><td>20</td><td>25</td><td>26</td><td>12</td><td>6</td><td>15</td><td>24</td><td>9</td></tr>
+<tr><th>Parliament St</th><td>7</td><td>20</td><td>&ndash;</td><td>18</td><td>18</td><td>12</td><td>19</td><td>2</td><td>4</td><td>15</td></tr>
+<tr><th>Slater St</th><td>20</td><td>25</td><td>18</td><td>&ndash;</td><td>3</td><td>20</td><td>30</td><td>20</td><td>17</td><td>25</td></tr>
+<tr><th>Aldergate St</th><td>19</td><td>26</td><td>18</td><td>3</td><td>&ndash;</td><td>13</td><td>28</td><td>17</td><td>9</td><td>11</td></tr>
+<tr><th>Kings Cross Rd</th><td>18</td><td>12</td><td>12</td><td>20</td><td>13</td><td>&ndash;</td><td>11</td><td>16</td><td>18</td><td>3</td></tr>
+<tr><th>Bishops Rd</th><td>7</td><td>6</td><td>19</td><td>30</td><td>28</td><td>11</td><td>&ndash;</td><td>15</td><td>24</td><td>13</td></tr>
+<tr><th>Buckingham Palace Rd</th><td>12</td><td>15</td><td>2</td><td>20</td><td>17</td><td>16</td><td>15</td><td>&ndash;</td><td>12</td><td>19</td></tr>
+<tr><th>Camden St</th><td>6</td><td>24</td><td>4</td><td>17</td><td>9</td><td>18</td><td>24</td><td>12</td><td>&ndash;</td><td>22</td></tr>
+<tr><th>Sidmouth St</th><td>13</td><td>9</td><td>15</td><td>25</td><td>11</td><td>3</td><td>13</td><td>19</td><td>22</td><td>&ndash;</td></tr>
+</table>
+<p>Fares at the normal rate are 2d for each full five minutes plus 2d: 3 minutes costs 2d, 6 to 9 minutes 4d, 20 minutes 10d, 30 minutes 14d.</p>
+
+<h4>The police cab</h4>
+<p>The police cab (thing 109, with the room 105 inside) is driven by the local police man and has only three routes (<a href="asm/39577.html#39587">9AA3</a>): Old Mill Road to Main Street, Main Street to Old Mill Road and Main Street to Kings Cross Road. A plain GO TO (<a href="asm/39577.html">9A99</a>) takes 20 minutes longer than GO FURIOUSLY TO (shared action 2): the run out to Old Mill Road takes 114 minutes by plain GO TO and 94 going furiously. It is the only way to Old Mill Road, which is why the endgame needs it.</p>
+
+<h3>Do cabs move when they are not hailed?</h3>
+<p>No. A cab that has not been hailed is off stage in room 0 and cannot be seen or reached. Its cabbie runs the do-nothing loop at <a href="asm/62130.html">F2B2</a>, so no cabbie ever leaves on his own and no cab ever wanders the streets. The same holds after a ride: when the fare has been dealt with the cab goes back to room 0. A cab is only ever in a street because someone hailed it, and that someone can be a character as well as you: Lestrade hails cab 30 at the start of the game (the action is the same HAIL, run by actor 2) and rides it from Parliament Street to Kings Cross Road, arriving at about 8:16am, after which the cab goes back to room 0. Other characters use cabs the same way: Phipps and the Major each run the cab-hailing sub-script in their own plans, and the German agent runs Phipps's flight code, which includes it, and Lestrade's own cab sub-script is at <a href="asm/60324.html">EBA4</a>. Cab 33 stays in room 0 until somebody hails it.</p>
+<p>The trains are different in exactly this respect: they never stand idle, and a train you cannot see (between stations, or at a platform in another part of London) is still running its script.</p>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

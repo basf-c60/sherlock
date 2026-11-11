@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at B86A - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="47206.html">B866</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#47210">Map</a></td>
+<td class="next">
+Next: <a href="47374.html">B90E</a>
+</td>
+</tr>
+</table>
+<div class="description">B86A: Hand quoted words to the person spoken to (SAY TO / TALK TO)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Called by the TALK TO body (<a href="56734.html#56750">DDAE</a>) with A = 1 if the person has a plan script (an actor, <a href="52238.html">CC0E</a>) and 0 if not. Takes the next quoted sentence off the list at <a href="40918.html#40940">9FEC</a>. For an actor, <a href="47210.html#47274">B8AA</a> puts it on the order/remark list (<a href="40918.html#40942">9FEE</a>) as an 8-byte node: +0 the person, +1 0, +5/+6 the words, +7 = <a href="40918.html#40994">$A024</a> (2 for a statement); the person deals with it on its next turn (<a href="47414.html">B936</a>). For anyone else the words are just used up.
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. Take the next quoted sentence from the list at <a href="40918.html#40940">9FEC</a> and unlink it.
+</div>
+<div class="paragraph">
+2. If the person has a plan script (A = 1), parse the words as a sentence of their own (<a href="47210.html#47274">B8AA</a>) and put them on the order and remark list at <a href="40918.html#40942">9FEE</a> as an 8-byte node.
+</div>
+<div class="paragraph">
+3. Otherwise skip the words to the end of the line and mark it with a $90 token.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">1 if the person spoken to has a plan script; 0 if not</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">The</td>
+<td class="register-desc">quoted sentence handed over or used up</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="47210"></span>B86A</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47211"></span>B86B</td>
+<td class="instruction">LD IX,$9FEE</td>
+<td class="comment-1" rowspan="1">Point IX at orders and remarks (<a href="40918.html#40942">9FEE</a>) - Take the next quoted sentence off its list (<a href="40918.html#40940">9FEC</a>, <a href="41207.html">A0F7</a>); none: done</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47215"></span>B86F</td>
+<td class="instruction">CALL <a href="41207.html">$A0F7</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Move IX to the next node of a list" (<a href="41207.html">A0F7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47218"></span>B872</td>
+<td class="instruction">JR Z,$B8A8</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, jump on to <a href="47210.html#47272">B8A8</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47220"></span>B874</td>
+<td class="instruction">LD C,(IX+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IX into C - Remember where its words are (<a href="47206.html#47208">B868</a>) and unlink it</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47223"></span>B877</td>
+<td class="instruction">LD B,(IX+$01)</td>
+<td class="comment-1" rowspan="1">Read byte +1 of the record at IX into B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47226"></span>B87A</td>
+<td class="instruction">LD ($B868),BC</td>
+<td class="comment-1" rowspan="1">Store BC in <a href="47206.html#47208">B868</a> in "Speech hand-over variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47230"></span>B87E</td>
+<td class="instruction">LD L,(IX-$02)</td>
+<td class="comment-1" rowspan="1">Read byte -2 of the record at IX into L</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47233"></span>B881</td>
+<td class="instruction">LD H,(IX-$01)</td>
+<td class="comment-1" rowspan="1">Read byte -1 of the record at IX into H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47236"></span>B884</td>
+<td class="instruction">LD ($9FEC),HL</td>
+<td class="comment-1" rowspan="1">Store HL in quoted speech waiting to (<a href="40918.html#40940">9FEC</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47239"></span>B887</td>
+<td class="instruction">CALL <a href="41415.html">$A1C7</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Free node IX back to the heap" (<a href="41415.html">A1C7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47242"></span>B88A</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack - A person with a plan script (A = 1): parse it and hand it over (<a href="47210.html#47274">B8AA</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47243"></span>B88B</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47244"></span>B88C</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47245"></span>B88D</td>
+<td class="instruction">JR Z,$B894</td>
+<td class="comment-1" rowspan="1">If A is zero, skip ahead to <a href="47210.html#47252">B894</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47247"></span>B88F</td>
+<td class="instruction">CALL $B8AA</td>
+<td class="comment-1" rowspan="1">Call <a href="47210.html#47274">B8AA</a> (inside "Hand quoted words to the person spoken to...")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47250"></span>B892</td>
+<td class="instruction">JR Z,$B8A8</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, skip ahead to <a href="47210.html#47272">B8A8</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="47252"></span>B894</td>
+<td class="instruction">LD BC,($B868)</td>
+<td class="comment-1" rowspan="1">Read <a href="47206.html#47208">B868</a> in "Speech hand-over variables" into BC - Otherwise just use the words up, to the end of the line ($C0),</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47256"></span>B898</td>
+<td class="instruction">LD ($A02B),BC</td>
+<td class="comment-1" rowspan="1">Store BC in <a href="40918.html#41002">$A02B</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-2"><span id="47260"></span>B89C</td>
+<td class="instruction">CALL <a href="44671.html">$AE7F</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Read the next token of the typed line" (<a href="44671.html">AE7F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47263"></span>B89F</td>
+<td class="instruction">CP $C0</td>
+<td class="comment-1" rowspan="1">Compare A with $C0</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47265"></span>B8A1</td>
+<td class="instruction">JR NZ,$B89C</td>
+<td class="comment-1" rowspan="1">If A differs from $C0, go back to <a href="47210.html#47260">B89C</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47267"></span>B8A3</td>
+<td class="instruction">LD HL,($A029)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40994">$A029</a> in "Game variables" into HL - and mark the end with a $90 token</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47270"></span>B8A6</td>
+<td class="instruction">LD (HL),$90</td>
+<td class="comment-1" rowspan="1">Store $90 at the address HL points to</td>
+</tr>
+<tr>
+<td class="address-2"><span id="47272"></span>B8A8</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47273"></span>B8A9</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="47274"></span>B8AA</td>
+<td class="instruction">LD HL,($B868)</td>
+<td class="comment-1" rowspan="1">Read <a href="47206.html#47208">B868</a> in "Speech hand-over variables" into HL - Parse the words as a sentence of their own</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47277"></span>B8AD</td>
+<td class="instruction">LD ($A02B),HL</td>
+<td class="comment-1" rowspan="1">Store HL in <a href="40918.html#41002">$A02B</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47280"></span>B8B0</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47281"></span>B8B1</td>
+<td class="instruction">LD ($A024),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#40994">$A024</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47284"></span>B8B4</td>
+<td class="instruction">LD HL,($9FF0)</td>
+<td class="comment-1" rowspan="1">Read words the player has (<a href="40918.html#40944">9FF0</a>) into HL - with an empty sentence list (the player's own is kept on the stack)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47287"></span>B8B7</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47288"></span>B8B8</td>
+<td class="instruction">LD HL,$0000</td>
+<td class="comment-1" rowspan="1">Load HL with $0000</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47291"></span>B8BB</td>
+<td class="instruction">LD ($9FF0),HL</td>
+<td class="comment-1" rowspan="1">Store HL in words the player has (<a href="40918.html#40944">9FF0</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="47294"></span>B8BE</td>
+<td class="instruction">CALL <a href="43698.html">$AAB2</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Parse the next sentence from the word list" (<a href="43698.html">AAB2</a>) - Parse (<a href="43698.html">AAB2</a>); A = 2 counts as parsed; anything else is nonsense</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47297"></span>B8C1</td>
+<td class="instruction">JR Z,$B8C7</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, skip ahead to <a href="47210.html#47303">B8C7</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47299"></span>B8C3</td>
+<td class="instruction">CP $02</td>
+<td class="comment-1" rowspan="1">Compare A with $02</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47301"></span>B8C5</td>
+<td class="instruction">JR NZ,$B904</td>
+<td class="comment-1" rowspan="1">If A differs from $02, jump on to <a href="47210.html#47364">B904</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="47303"></span>B8C7</td>
+<td class="instruction">LD HL,($A02B)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41002">$A02B</a> in "Game variables" into HL - Go on until the end of the quotation, then mark it with $90</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47306"></span>B8CA</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47307"></span>B8CB</td>
+<td class="instruction">AND $F0</td>
+<td class="comment-1" rowspan="1">Keep only bits 4, 5, 6, 7 of A (mask $F0)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47309"></span>B8CD</td>
+<td class="instruction">CP $C0</td>
+<td class="comment-1" rowspan="1">Compare A with $C0</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47311"></span>B8CF</td>
+<td class="instruction">JR NZ,$B8BE</td>
+<td class="comment-1" rowspan="1">If A differs from $C0, go back to <a href="47210.html#47294">B8BE</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47313"></span>B8D1</td>
+<td class="instruction">LD (HL),$90</td>
+<td class="comment-1" rowspan="1">Store $90 at the address HL points to</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47315"></span>B8D3</td>
+<td class="instruction">LD A,$08</td>
+<td class="comment-1" rowspan="1">Load A with $08 - An 8-byte node on the order/remark list <a href="40918.html#40942">9FEE</a> (<a href="41244.html">A11C</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47317"></span>B8D5</td>
+<td class="instruction">CALL <a href="41244.html">$A11C</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Allocate A + 3 bytes from the free list, cleared" (<a href="41244.html">A11C</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47320"></span>B8D8</td>
+<td class="instruction">LD HL,($9FEE)</td>
+<td class="comment-1" rowspan="1">Read orders and remarks (<a href="40918.html#40942">9FEE</a>) into HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47323"></span>B8DB</td>
+<td class="instruction">LD ($9FEE),IX</td>
+<td class="comment-1" rowspan="1">Store IX in orders and remarks (<a href="40918.html#40942">9FEE</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47327"></span>B8DF</td>
+<td class="instruction">LD (IX-$02),L</td>
+<td class="comment-1" rowspan="1">Store L in byte -2 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47330"></span>B8E2</td>
+<td class="instruction">LD (IX-$01),H</td>
+<td class="comment-1" rowspan="1">Store H in byte -1 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47333"></span>B8E5</td>
+<td class="instruction">LD HL,($9FF0)</td>
+<td class="comment-1" rowspan="1">Read words the player has (<a href="40918.html#40944">9FF0</a>) into HL - +5/+6: the parsed words</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47336"></span>B8E8</td>
+<td class="instruction">LD (IX+$05),L</td>
+<td class="comment-1" rowspan="1">Store L in byte +5 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47339"></span>B8EB</td>
+<td class="instruction">LD (IX+$06),H</td>
+<td class="comment-1" rowspan="1">Store H in byte +6 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47342"></span>B8EE</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47343"></span>B8EF</td>
+<td class="instruction">LD ($9FF0),HL</td>
+<td class="comment-1" rowspan="1">Store HL in words the player has (<a href="40918.html#40944">9FF0</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47346"></span>B8F2</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag) - +1 = 0, +0 = the person spoken to</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47347"></span>B8F3</td>
+<td class="instruction">LD (IX+$01),A</td>
+<td class="comment-1" rowspan="1">Store A in byte +1 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47350"></span>B8F6</td>
+<td class="instruction">LD A,($A034)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A034</a> in "Game variables" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47353"></span>B8F9</td>
+<td class="instruction">LD (IX+$00),A</td>
+<td class="comment-1" rowspan="1">Store A in the first byte of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47356"></span>B8FC</td>
+<td class="instruction">LD A,($A024)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40994">$A024</a> in "Game variables" into A - +7 = the mode: 2 for a statement</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47359"></span>B8FF</td>
+<td class="instruction">LD (IX+$07),A</td>
+<td class="comment-1" rowspan="1">Store A in byte +7 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47362"></span>B902</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Set A to zero, which sets the zero flag for the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47363"></span>B903</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="47364"></span>B904</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack - Nonsense: free the words (<a href="55421.html">D87D</a>) and put the player's list back</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47365"></span>B905</td>
+<td class="instruction">CALL <a href="55421.html">$D87D</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Free the current sentence's word list (<a href="40918.html#40944">9FF0</a>)" (<a href="55421.html">D87D</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47368"></span>B908</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47369"></span>B909</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47370"></span>B90A</td>
+<td class="instruction">LD ($9FF0),HL</td>
+<td class="comment-1" rowspan="1">Store HL in words the player has (<a href="40918.html#40944">9FF0</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47373"></span>B90D</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="47206.html">B866</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#47210">Map</a></td>
+<td class="next">
+Next: <a href="47374.html">B90E</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

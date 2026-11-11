@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at C9BF - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="51606.html">C996</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#51647">Map</a></td>
+<td class="next">
+Next: <a href="51808.html">CA60</a>
+</td>
+</tr>
+</table>
+<div class="description">C9BF: Run an action record (HL = the record)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Action records are a small data format that every verb's behaviour is written in. Byte 0 is a flags byte, byte 1 holds a value whose high nibble is stored at <a href="40918.html#40986">$A01F</a>.
+</div>
+<div class="paragraph">
+The executable body starts after the header: record + 2, + 2 more if bit 6, + 5 more if bit 4. <a href="51808.html#51812">CA64</a> runs the body through the dispatcher at <a href="52012.html">CB2C</a>.
+</div>
+<div class="paragraph">
+SIT IN's $78 header puts the body at record + 9, <a href="58378.html#58387">E413</a>).
+</div>
+<div class="paragraph">
+The clock does move by 5 for one WAIT (value 5) and 2 for GET OUT (value 2), but another WAIT moved it by 1 and SIT IN (value 2) by 1.
+</div>
+<div class="paragraph">
+WAIT (WAIT HERE, byte 1 $50) moves it on by 5, TAKE LAMP (<a href="56513.html">DCC1</a>, $10) and EXAMINE LAMP (<a href="57152.html">DF40</a>, $10) by 1 each.
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. Refuse if it is too dark (<a href="53368.html">D078</a>) and the record cares about that.
+</div>
+<div class="paragraph">
+2. Check the direct object (<a href="50728.html">C628</a>) and the indirect object (<a href="50878.html">C6BE</a>) against the record.
+</div>
+<div class="paragraph">
+3. If bit 6 of the record is set, run its pre-check routine; if that refuses, stop.
+</div>
+<div class="paragraph">
+4. Otherwise take the high nibble of byte 1 as the action's length (<a href="40918.html#40986">$A01F</a>) and run the body, narrating the action first and describing any change.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">An action record</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Z with HL = the refusal handler if refused; NZ if the record's checks pass; carry set if it is a script</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="51647"></span>C9BF</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">IY = the action record</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51648"></span>C9C0</td>
+<td class="instruction">POP IY</td>
+<td class="comment-1" rowspan="1">Restore IY from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51650"></span>C9C2</td>
+<td class="instruction">CALL <a href="53368.html">$D078</a></td>
+<td class="comment-1" rowspan="1">Is the action ruled out by <a href="53368.html">D078</a>?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51653"></span>C9C5</td>
+<td class="instruction">JR NC,$C9D3</td>
+<td class="comment-1" rowspan="1">No: carry on</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51655"></span>C9C7</td>
+<td class="instruction">LD A,(IY+$00)</td>
+<td class="comment-1" rowspan="1">Yes - but only refuse if this record says that matters</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51658"></span>C9CA</td>
+<td class="instruction">AND $20</td>
+<td class="comment-1" rowspan="1">Isolate bit 5 of A (mask $20)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51660"></span>C9CC</td>
+<td class="instruction">JR Z,$C9D3</td>
+<td class="comment-1" rowspan="1">If bit 5 of A was clear, skip ahead to <a href="51647.html#51667">C9D3</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="51662"></span>C9CE</td>
+<td class="instruction">LD HL,$CBBB</td>
+<td class="comment-1" rowspan="1">HL = the refusal handler</td>
+</tr>
+<tr>
+<td class="address-2"><span id="51665"></span>C9D1</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Refuse (Z)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51666"></span>C9D2</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="51667"></span>C9D3</td>
+<td class="instruction">CALL <a href="50728.html">$C628</a></td>
+<td class="comment-1" rowspan="1">Check the direct object against the record (<a href="50728.html">C628</a>); refuse if it fails</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51670"></span>C9D6</td>
+<td class="instruction">JR Z,$C9D1</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, go back to <a href="51647.html#51665">C9D1</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="51672"></span>C9D8</td>
+<td class="instruction">CALL <a href="50878.html">$C6BE</a></td>
+<td class="comment-1" rowspan="1">Check the indirect object (<a href="50878.html">C6BE</a>); refuse if it fails</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51675"></span>C9DB</td>
+<td class="instruction">JR Z,$C9D1</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, go back to <a href="51647.html#51665">C9D1</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="51677"></span>C9DD</td>
+<td class="instruction">BIT 6,(IY+$00)</td>
+<td class="comment-1" rowspan="1">Does the record have a pre-check routine?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51681"></span>C9E1</td>
+<td class="instruction">JR Z,$C9F2</td>
+<td class="comment-1" rowspan="1">If bit 6 of the first byte of the record at IY is clear, skip ahead to <a href="51647.html#51698">C9F2</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="51683"></span>C9E3</td>
+<td class="instruction">LD L,(IY+$02)</td>
+<td class="comment-1" rowspan="1">Yes: HL = its address...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51686"></span>C9E6</td>
+<td class="instruction">LD H,(IY+$03)</td>
+<td class="comment-1" rowspan="1">Read byte +3 of the record at IY into H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51689"></span>C9E9</td>
+<td class="instruction">PUSH IY</td>
+<td class="comment-1" rowspan="1">Save IY on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51691"></span>C9EB</td>
+<td class="instruction">CALL <a href="52012.html#52020">$CB34</a></td>
+<td class="comment-1" rowspan="1">...run it with the current IX/IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51694"></span>C9EE</td>
+<td class="instruction">POP IY</td>
+<td class="comment-1" rowspan="1">Restore IY from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51696"></span>C9F0</td>
+<td class="instruction">JR Z,$C9D1</td>
+<td class="comment-1" rowspan="1">Refused? Then stop</td>
+</tr>
+<tr>
+<td class="address-2"><span id="51698"></span>C9F2</td>
+<td class="instruction">LD A,($A00B)</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="51701"></span>C9F5</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">A zero: return NZ (nothing to do)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51702"></span>C9F6</td>
+<td class="instruction">JR NZ,$C9FB</td>
+<td class="comment-1" rowspan="1">If A is not zero, skip ahead to <a href="51647.html#51707">C9FB</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="51704"></span>C9F8</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51706"></span>C9FA</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="51707"></span>C9FB</td>
+<td class="instruction">PUSH IY</td>
+<td class="comment-1" rowspan="1">Store the high nibble of byte 1 at <a href="40918.html#40986">$A01F</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="51709"></span>C9FD</td>
+<td class="instruction">LD A,(IY+$01)</td>
+<td class="comment-1" rowspan="1">The record's high nibble of byte 1...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51712"></span>CA00</td>
+<td class="instruction">RRCA</td>
+<td class="comment-1" rowspan="1">...rotated down four places (4 RRCAs)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51713"></span>CA01</td>
+<td class="instruction">RRCA</td>
+<td class="comment-1" rowspan="1">Rotate A right one place (bit 0 goes to carry and bit 7)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51714"></span>CA02</td>
+<td class="instruction">RRCA</td>
+<td class="comment-1" rowspan="1">Rotate A right one place (bit 0 goes to carry and bit 7)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51715"></span>CA03</td>
+<td class="instruction">RRCA</td>
+<td class="comment-1" rowspan="1">Rotate A right one place (bit 0 goes to carry and bit 7)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51716"></span>CA04</td>
+<td class="instruction">AND $0F</td>
+<td class="comment-1" rowspan="1">Low nibble only</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51718"></span>CA06</td>
+<td class="instruction">LD L,A</td>
+<td class="comment-1" rowspan="1">Copy A into L</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51719"></span>CA07</td>
+<td class="instruction">LD H,$00</td>
+<td class="comment-1" rowspan="1">Load H with $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51721"></span>CA09</td>
+<td class="instruction">LD ($A01F),HL</td>
+<td class="comment-1" rowspan="1">Stored in <a href="40918.html#40986">$A01F</a> as a word</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51724"></span>CA0C</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">HL = the record again; skip the two fixed bytes</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51725"></span>CA0D</td>
+<td class="instruction">LD DE,$0002</td>
+<td class="comment-1" rowspan="1">Load DE with $0002, the amount that is added next</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51728"></span>CA10</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1">Add DE to HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51729"></span>CA11</td>
+<td class="instruction">BIT 6,(IY+$00)</td>
+<td class="comment-1" rowspan="1">Skip the pre-check address if there is one</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51733"></span>CA15</td>
+<td class="instruction">JR Z,$CA18</td>
+<td class="comment-1" rowspan="1">If bit 6 of the first byte of the record at IY is clear, skip ahead to <a href="51647.html#51736">CA18</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="51735"></span>CA17</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1">Add DE to HL</td>
+</tr>
+<tr>
+<td class="address-2"><span id="51736"></span>CA18</td>
+<td class="instruction">LD DE,$0005</td>
+<td class="comment-1" rowspan="1">Skip the five extra bytes if there are any</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51739"></span>CA1B</td>
+<td class="instruction">BIT 4,(IY+$00)</td>
+<td class="comment-1" rowspan="1">Test bit 4 of the first byte of the record at IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51743"></span>CA1F</td>
+<td class="instruction">JR Z,$CA22</td>
+<td class="comment-1" rowspan="1">If bit 4 of the first byte of the record at IY is clear, skip ahead to <a href="51647.html#51746">CA22</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="51745"></span>CA21</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1">Add DE to HL</td>
+</tr>
+<tr>
+<td class="address-2"><span id="51746"></span>CA22</td>
+<td class="instruction">LD A,($A00A)</td>
+<td class="comment-1" rowspan="1">Remember the player's and the target's rooms</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51749"></span>CA25</td>
+<td class="instruction">LD ($C491),A</td>
+<td class="comment-1" rowspan="1">Save the actor's room as it was before the action (<a href="50321.html">C491</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51752"></span>CA28</td>
+<td class="instruction">LD IX,($A013)</td>
+<td class="comment-1" rowspan="1">IX = the direct object's record (<a href="40918.html#40978">$A013</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51756"></span>CA2C</td>
+<td class="instruction">LD A,(IX+$0F)</td>
+<td class="comment-1" rowspan="1">Save its room (<a href="50321.html#50322">C492</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51759"></span>CA2F</td>
+<td class="instruction">LD ($C492),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="50321.html#50322">C492</a> in "Rooms saved before an action"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51762"></span>CA32</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51763"></span>CA33</td>
+<td class="instruction">PUSH IY</td>
+<td class="comment-1" rowspan="1">Save IY on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51765"></span>CA35</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="1"><a href="40918.html#40970">$A00C</a> = 1 while the action is narrated</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51767"></span>CA37</td>
+<td class="instruction">LD ($A00C),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#40970">$A00C</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51770"></span>CA3A</td>
+<td class="instruction">CALL <a href="51830.html">$CA76</a></td>
+<td class="comment-1" rowspan="1">Narrate it (<a href="51830.html">CA76</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51773"></span>CA3D</td>
+<td class="instruction">POP IY</td>
+<td class="comment-1" rowspan="1">Restore IY from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51775"></span>CA3F</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51776"></span>CA40</td>
+<td class="instruction">BIT 7,(IY+$00)</td>
+<td class="comment-1" rowspan="1">Record flag bit 7 set: return carry</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51780"></span>CA44</td>
+<td class="instruction">JR Z,$CA48</td>
+<td class="comment-1" rowspan="1">If bit 7 of the first byte of the record at IY is clear, skip ahead to <a href="51647.html#51784">CA48</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="51782"></span>CA46</td>
+<td class="instruction">SCF</td>
+<td class="comment-1" rowspan="1">Yes: report success without running the body</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51783"></span>CA47</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="51784"></span>CA48</td>
+<td class="instruction">LD A,($9FD7)</td>
+<td class="comment-1" rowspan="1">Read the plan's direct object (<a href="40918.html#40919">9FD7</a>) into A - A plan's direct object slot (<a href="40918.html#40919">9FD7</a>) still $FF: take this action's (<a href="40918.html#41010">$A034</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51787"></span>CA4B</td>
+<td class="instruction">INC A</td>
+<td class="comment-1" rowspan="1">Add one to A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51788"></span>CA4C</td>
+<td class="instruction">JR NZ,$CA54</td>
+<td class="comment-1" rowspan="1">If A is not zero, skip ahead to <a href="51647.html#51796">CA54</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="51790"></span>CA4E</td>
+<td class="instruction">LD A,($A034)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A034</a> in "Game variables" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51793"></span>CA51</td>
+<td class="instruction">LD ($9FD7),A</td>
+<td class="comment-1" rowspan="1">Store A in the plan's direct object (<a href="40918.html#40919">9FD7</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="51796"></span>CA54</td>
+<td class="instruction">LD A,($9FD8)</td>
+<td class="comment-1" rowspan="1">Read the plan's indirect (<a href="40918.html#40920">9FD8</a>) into A - Same for the indirect object (<a href="40918.html#40920">9FD8</a>, <a href="40918.html#41010">$A035</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51799"></span>CA57</td>
+<td class="instruction">INC A</td>
+<td class="comment-1" rowspan="1">Add one to A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51800"></span>CA58</td>
+<td class="instruction">JR NZ,<a href="51808.html">$CA60</a></td>
+<td class="comment-1" rowspan="1">If A is not zero, skip ahead to the routine "Run the action body, then report what the player..." (<a href="51808.html">CA60</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51802"></span>CA5A</td>
+<td class="instruction">LD A,($A035)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A035</a> in "Game variables" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51805"></span>CA5D</td>
+<td class="instruction">LD ($9FD8),A</td>
+<td class="comment-1" rowspan="1">Store A in the plan's indirect (<a href="40918.html#40920">9FD8</a>)</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="51606.html">C996</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#51647">Map</a></td>
+<td class="next">
+Next: <a href="51808.html">CA60</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

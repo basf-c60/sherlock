@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Data at 5D80 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-w">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Data</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+</td>
+<td class="up">Up: <a href="../maps/all.html#23936">Map</a></td>
+<td class="next">
+Next: <a href="24000.html">5DC0</a>
+</td>
+</tr>
+</table>
+<div class="description">5D80: Dictionary index: where each letter's words start</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+32 two-byte offsets from <a href="23936.html#23998">$5DBF</a>. Entries 1-26 (indexed by a letter's ASCII code AND $1F) give the first word starting with that letter; entry 31 marks the end of the dictionary (<a href="26551.html">67B7</a>). The tokenizer (<a href="55860.html">DA34</a>) finds the end of a letter's words by skipping forward to the next non-zero entry.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="23936"></span>5D80</td>
+<td class="instruction">DEFW $0000</td>
+<td class="comment-1" rowspan="1">Unused</td>
+</tr>
+<tr>
+<td class="address-1"><span id="23938"></span>5D82</td>
+<td class="instruction">DEFW $0001</td>
+<td class="comment-1" rowspan="1">'A' words</td>
+</tr>
+<tr>
+<td class="address-1"><span id="23940"></span>5D84</td>
+<td class="instruction">DEFW $00A7</td>
+<td class="comment-1" rowspan="1">'B' words</td>
+</tr>
+<tr>
+<td class="address-1"><span id="23942"></span>5D86</td>
+<td class="instruction">DEFW $0164</td>
+<td class="comment-1" rowspan="1">'C' words</td>
+</tr>
+<tr>
+<td class="address-1"><span id="23944"></span>5D88</td>
+<td class="instruction">DEFW $020D</td>
+<td class="comment-1" rowspan="1">'D' words</td>
+</tr>
+<tr>
+<td class="address-1"><span id="23946"></span>5D8A</td>
+<td class="instruction">DEFW $0280</td>
+<td class="comment-1" rowspan="1">'E' words</td>
+</tr>
+<tr>
+<td class="address-1"><span id="23948"></span>5D8C</td>
+<td class="instruction">DEFW $02DD</td>
+<td class="comment-1" rowspan="1">'F' words</td>
+</tr>
+<tr>
+<td class="address-1"><span id="23950"></span>5D8E</td>
+<td class="instruction">DEFW $036A</td>
+<td class="comment-1" rowspan="1">'G' words</td>
+</tr>
+<tr>
+<td class="address-1"><span id="23952"></span>5D90</td>
+<td class="instruction">DEFW $03BA</td>
+<td class="comment-1" rowspan="1">'H' words</td>
+</tr>
+<tr>
+<td class="address-1"><span id="23954"></span>5D92</td>
+<td class="instruction">DEFW $042D</td>
+<td class="comment-1" rowspan="1">'I' words</td>
+</tr>
+<tr>
+<td class="address-1"><span id="23956"></span>5D94</td>
+<td class="instruction">DEFW $048B</td>
+<td class="comment-1" rowspan="1">'J' words</td>
+</tr>
+<tr>
+<td class="address-1"><span id="23958"></span>5D96</td>
+<td class="instruction">DEFW $0494</td>
+<td class="comment-1" rowspan="1">'K' words</td>
+</tr>
+<tr>
+<td class="address-1"><span id="23960"></span>5D98</td>
+<td class="instruction">DEFW $04B0</td>
+<td class="comment-1" rowspan="1">'L' words</td>
+</tr>
+<tr>
+<td class="address-1"><span id="23962"></span>5D9A</td>
+<td class="instruction">DEFW $0532</td>
+<td class="comment-1" rowspan="1">'M' words</td>
+</tr>
+<tr>
+<td class="address-1"><span id="23964"></span>5D9C</td>
+<td class="instruction">DEFW $0599</td>
+<td class="comment-1" rowspan="1">'N' words</td>
+</tr>
+<tr>
+<td class="address-1"><span id="23966"></span>5D9E</td>
+<td class="instruction">DEFW $05E8</td>
+<td class="comment-1" rowspan="1">'O' words</td>
+</tr>
+<tr>
+<td class="address-1"><span id="23968"></span>5DA0</td>
+<td class="instruction">DEFW $0636</td>
+<td class="comment-1" rowspan="1">'P' words</td>
+</tr>
+<tr>
+<td class="address-1"><span id="23970"></span>5DA2</td>
+<td class="instruction">DEFW $06EB</td>
+<td class="comment-1" rowspan="1">'Q' words</td>
+</tr>
+<tr>
+<td class="address-1"><span id="23972"></span>5DA4</td>
+<td class="instruction">DEFW $06F9</td>
+<td class="comment-1" rowspan="1">'R' words</td>
+</tr>
+<tr>
+<td class="address-1"><span id="23974"></span>5DA6</td>
+<td class="instruction">DEFW $075A</td>
+<td class="comment-1" rowspan="1">'S' words</td>
+</tr>
+<tr>
+<td class="address-1"><span id="23976"></span>5DA8</td>
+<td class="instruction">DEFW $0882</td>
+<td class="comment-1" rowspan="1">'T' words</td>
+</tr>
+<tr>
+<td class="address-1"><span id="23978"></span>5DAA</td>
+<td class="instruction">DEFW $090C</td>
+<td class="comment-1" rowspan="1">'U' words</td>
+</tr>
+<tr>
+<td class="address-1"><span id="23980"></span>5DAC</td>
+<td class="instruction">DEFW $094B</td>
+<td class="comment-1" rowspan="1">'V' words</td>
+</tr>
+<tr>
+<td class="address-1"><span id="23982"></span>5DAE</td>
+<td class="instruction">DEFW $095A</td>
+<td class="comment-1" rowspan="1">'W' words</td>
+</tr>
+<tr>
+<td class="address-1"><span id="23984"></span>5DB0</td>
+<td class="instruction">DEFW $09DF</td>
+<td class="comment-1" rowspan="1">'X' words</td>
+</tr>
+<tr>
+<td class="address-1"><span id="23986"></span>5DB2</td>
+<td class="instruction">DEFW $09E3</td>
+<td class="comment-1" rowspan="1">'Y' words</td>
+</tr>
+<tr>
+<td class="address-1"><span id="23988"></span>5DB4</td>
+<td class="instruction">DEFW $09F5</td>
+<td class="comment-1" rowspan="1">'Z' words</td>
+</tr>
+<tr>
+<td class="address-1"><span id="23990"></span>5DB6</td>
+<td class="instruction">DEFW $0000</td>
+<td class="comment-1" rowspan="1">Unused</td>
+</tr>
+<tr>
+<td class="address-1"><span id="23992"></span>5DB8</td>
+<td class="instruction">DEFW $0000</td>
+<td class="comment-1" rowspan="1">Unused</td>
+</tr>
+<tr>
+<td class="address-1"><span id="23994"></span>5DBA</td>
+<td class="instruction">DEFW $0000</td>
+<td class="comment-1" rowspan="1">Unused</td>
+</tr>
+<tr>
+<td class="address-1"><span id="23996"></span>5DBC</td>
+<td class="instruction">DEFW $0000</td>
+<td class="comment-1" rowspan="1">Unused</td>
+</tr>
+<tr>
+<td class="address-1"><span id="23998"></span>5DBE</td>
+<td class="instruction">DEFW $09F8</td>
+<td class="comment-1" rowspan="1">End of dictionary</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+</td>
+<td class="up">Up: <a href="../maps/all.html#23936">Map</a></td>
+<td class="next">
+Next: <a href="24000.html">5DC0</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

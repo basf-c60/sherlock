@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at C821 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="51110.html">C7A6</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#51233">Map</a></td>
+<td class="next">
+Next: <a href="51299.html">C863</a>
+</td>
+</tr>
+</table>
+<div class="description">C821: Can the current actor ($A036) see thing A?</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="40918.html#41010">$A036</a>.
+</div>
+<div class="paragraph">
+NZ if it can. Yes when the thing is what the actor is in or on (the root of the actor's own containment chain, <a href="51299.html">C863</a>); no when the thing's +5 bit 7 is clear (the underground trains, objects 37-41); yes when the thing's chain ends at the actor (carried, or in something open the actor carries) or at the same holder as the actor's; and when neither is held by anything, yes if the actor's room (<a href="40918.html#40970">A00A</a>, set by <a href="52265.html">CC29</a>) is one of the thing's rooms (+0 is how many, from +15 on).
+</div>
+<div class="paragraph">
+During one WAIT at the start, <a href="52279.html#52324">CC64</a> asks it about the player (thing 0) for every actor, and it answers yes only for Watson (actor 3, room 8) and the player himself, both in the sitting room; Mrs Hudson (actor 2, room 10) and everyone else get no.
+</div>
+<div class="paragraph">
+Resolves the id in A via <a href="53815.html">D237</a> and the current id in <a href="40918.html#41010">$A036</a> via <a href="51299.html">C863</a> (the containment-chain walker above), and compares them - essentially 'does this candidate's ultimate container match the thing in <a href="40918.html#41010">$A036</a> (usually the player, or the room being checked)'.
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. The thing is seen if it is what the actor is in or on, or the actor's own container.
+</div>
+<div class="paragraph">
+2. A thing with +5 bit 7 clear cannot be seen.
+</div>
+<div class="paragraph">
+3. Things held by the actor, or with the same top-level holder, can be seen; things with different holders cannot.
+</div>
+<div class="paragraph">
+4. If neither is held, the thing can be seen when it is in the actor's room.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">A thing number</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ if the actor ($A036) can see it; Z if not</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="51233"></span>C821</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51235"></span>C823</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Save BC on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51236"></span>C824</td>
+<td class="instruction">CALL <a href="53815.html">$D237</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Resolve an id (in A) to its full entity record" (<a href="53815.html">D237</a>) - IX = the thing's record; B = the thing</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51239"></span>C827</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">Copy A into B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51240"></span>C828</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A036</a> in "Game variables" into A - A = what the actor is in or held by, at the top (<a href="51299.html">C863</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51243"></span>C82B</td>
+<td class="instruction">CALL <a href="51299.html">$C863</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Is thing number A here? (<a href="51310.html">C86E</a>)" (<a href="51299.html">C863</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51246"></span>C82E</td>
+<td class="instruction">CP B</td>
+<td class="comment-1" rowspan="1">Compare A with B - The thing itself: yes</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51247"></span>C82F</td>
+<td class="instruction">JR Z,$C85D</td>
+<td class="comment-1" rowspan="1">If A equals B, jump on to <a href="51233.html#51293">C85D</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="51249"></span>C831</td>
+<td class="instruction">BIT 7,(IX+$05)</td>
+<td class="comment-1" rowspan="1">Test bit 7 of the flags byte (+5) of the thing record at IX (revealed) - +5 bit 7 clear: no</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51253"></span>C835</td>
+<td class="instruction">JR Z,$C85A</td>
+<td class="comment-1" rowspan="1">If bit 7 of the flags byte (+5) of the thing record at IX is clear, skip ahead to <a href="51233.html#51290">C85A</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="51255"></span>C837</td>
+<td class="instruction">LD C,A</td>
+<td class="comment-1" rowspan="1">Copy A into C - B = the actor's top; A = the thing's own top</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51256"></span>C838</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">Copy B into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51257"></span>C839</td>
+<td class="instruction">LD B,C</td>
+<td class="comment-1" rowspan="1">Copy C into B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51258"></span>C83A</td>
+<td class="instruction">CALL <a href="51299.html">$C863</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Is thing number A here? (<a href="51310.html">C86E</a>)" (<a href="51299.html">C863</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51261"></span>C83D</td>
+<td class="instruction">LD C,A</td>
+<td class="comment-1" rowspan="1">Copy A into C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51262"></span>C83E</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A036</a> in "Game variables" into A - Held by the actor: yes</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51265"></span>C841</td>
+<td class="instruction">CP C</td>
+<td class="comment-1" rowspan="1">Compare A with C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51266"></span>C842</td>
+<td class="instruction">JR Z,$C85D</td>
+<td class="comment-1" rowspan="1">If A equals C, skip ahead to <a href="51233.html#51293">C85D</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="51268"></span>C844</td>
+<td class="instruction">LD A,C</td>
+<td class="comment-1" rowspan="1">Copy C into A - Different tops: no</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51269"></span>C845</td>
+<td class="instruction">CP B</td>
+<td class="comment-1" rowspan="1">Compare A with B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51270"></span>C846</td>
+<td class="instruction">JR NZ,$C85A</td>
+<td class="comment-1" rowspan="1">If A differs from B, skip ahead to <a href="51233.html#51290">C85A</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="51272"></span>C848</td>
+<td class="instruction">INC A</td>
+<td class="comment-1" rowspan="1">Add one to A - The same holder (not $FF): yes</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51273"></span>C849</td>
+<td class="instruction">JR NZ,$C85D</td>
+<td class="comment-1" rowspan="1">If A is not zero, skip ahead to <a href="51233.html#51293">C85D</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="51275"></span>C84B</td>
+<td class="instruction">LD B,(IX+$00)</td>
+<td class="comment-1" rowspan="1">Read the number byte (+0) of the thing record at IX into B - Neither held: is the actor's room one of the thing's rooms?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51278"></span>C84E</td>
+<td class="instruction">LD A,($A00A)</td>
+<td class="comment-1" rowspan="1">Read the current actor's room (<a href="40918.html#40970">A00A</a>) into A</td>
+</tr>
+<tr>
+<td class="address-2"><span id="51281"></span>C851</td>
+<td class="instruction">CP (IX+$0F)</td>
+<td class="comment-1" rowspan="1">Compare A with the rooms byte (+15) of the thing record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51284"></span>C854</td>
+<td class="instruction">JR Z,$C85D</td>
+<td class="comment-1" rowspan="1">If A equals the rooms byte (+15) of the thing record at IX, skip ahead to <a href="51233.html#51293">C85D</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="51286"></span>C856</td>
+<td class="instruction">INC IX</td>
+<td class="comment-1" rowspan="1">Step IX on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51288"></span>C858</td>
+<td class="instruction">DJNZ $C851</td>
+<td class="comment-1" rowspan="1">Count B down and, while it is not zero, go back to <a href="51233.html#51281">C851</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="51290"></span>C85A</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag) - Z: no</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51291"></span>C85B</td>
+<td class="instruction">JR $C85F</td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="51233.html#51295">C85F</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="51293"></span>C85D</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Set bit 0 of A - NZ: yes</td>
+</tr>
+<tr>
+<td class="address-2"><span id="51295"></span>C85F</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore BC from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51296"></span>C860</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51298"></span>C862</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="51110.html">C7A6</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#51233">Map</a></td>
+<td class="next">
+Next: <a href="51299.html">C863</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

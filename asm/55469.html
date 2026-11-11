@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at D8AD - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="55448.html">D898</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#55469">Map</a></td>
+<td class="next">
+Next: <a href="55644.html">D95C</a>
+</td>
+</tr>
+</table>
+<div class="description">D8AD: The line editor</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Prints the '&gt; ' prompt and reads up to 128 characters into <a href="../rom_symbols.html#a5B00">$5B00</a> through <a href="42294.html">A536</a>: DELETE rubs out (and keeps track of quote marks, <a href="55447.html">D897</a>), $18 clears the line (<a href="55735.html">D9B7</a>), letters, digits and a few punctuation marks are accepted, ENTER ends the line (<a href="55469.html#55625">D949</a>). A time-out from <a href="42294.html">A536</a> ends it with nothing (<a href="55710.html#55724">D9AC</a>).
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. Print the prompt '&gt; ' and set up the buffer at <a href="../rom_symbols.html#a5B00">$5B00</a>; B counts down from 128, with bit 7 set while nothing has been typed.
+</div>
+<div class="paragraph">
+2. Wait for a key with the time limit (<a href="42294.html">A536</a>). If time runs out, give up: the player will wait.
+</div>
+<div class="paragraph">
+3. On an empty line, '@' repeats the last command (<a href="55710.html">D99E</a>). The first key of a line may be a cursor key, which is turned into a one-key move (<a href="55672.html">D978</a>).
+</div>
+<div class="paragraph">
+4. Rub-out ($18) clears the whole line; DELETE removes one character, and removing a quote mark flips the inside-quotes flag.
+</div>
+<div class="paragraph">
+5. Letters are taken. A quote mark flips the flag (closing a quotation first ends it with a full stop). Space, full stop, comma, slash, the pound sign, hyphen, colon and digits are taken. Anything else is ignored.
+</div>
+<div class="paragraph">
+6. ENTER closes any open quotation, ends the line with a full stop (<a href="55656.html">D968</a>) and a carriage return, and returns NZ.
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ if a line was typed, Z if the wait timed out</td>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">The end of the line in the buffer at $5B00</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="55469"></span>D8AD</td>
+<td class="instruction">LD A,$3E</td>
+<td class="comment-1" rowspan="1">Load A with $3E - Print the prompt '&gt; '</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55471"></span>D8AF</td>
+<td class="instruction">CALL <a href="43447.html">$A9B7</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print character A, a word at a time (word wrap)" (<a href="43447.html">A9B7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55474"></span>D8B2</td>
+<td class="instruction">LD A,$20</td>
+<td class="comment-1" rowspan="1">Load A with $20</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55476"></span>D8B4</td>
+<td class="instruction">CALL <a href="43447.html">$A9B7</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print character A, a word at a time (word wrap)" (<a href="43447.html">A9B7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55479"></span>D8B7</td>
+<td class="instruction">LD HL,$5B00</td>
+<td class="comment-1" rowspan="1">Load HL with <a href="../rom_symbols.html#a5B00">$5B00</a> - The line goes to <a href="../rom_symbols.html#a5B00">$5B00</a>; B counts down from $80 (bit 7 set: nothing typed yet)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55482"></span>D8BA</td>
+<td class="instruction">LD B,$80</td>
+<td class="comment-1" rowspan="1">Load B with $80</td>
+</tr>
+<tr>
+<td class="address-2"><span id="55484"></span>D8BC</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="1">Load A with $01 - <a href="55447.html">D897</a> = 1: not inside quotes; C = 0: no key yet</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55486"></span>D8BE</td>
+<td class="instruction">LD ($D897),A</td>
+<td class="comment-1" rowspan="1">Store A in "The line editor's inside-quotes flag" (<a href="55447.html">D897</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55489"></span>D8C1</td>
+<td class="instruction">LD C,$00</td>
+<td class="comment-1" rowspan="1">Load C with $00</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="55491"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="55710.html">D99E</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="55491"></span>D8C3</td>
+<td class="instruction">CALL <a href="42294.html">$A536</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Wait for a key, but not for ever" (<a href="42294.html">A536</a>) - Wait for a key, with the time limit (<a href="42294.html">A536</a>); time up: give up the line</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55494"></span>D8C6</td>
+<td class="instruction">JP Z,<a href="55710.html#55724">$D9AC</a></td>
+<td class="comment-1" rowspan="1">If the zero flag is set, jump on to <a href="55710.html#55724">D9AC</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55497"></span>D8C9</td>
+<td class="instruction">BIT 7,B</td>
+<td class="comment-1" rowspan="1">Test bit 7 of B - On an empty line '@' repeats the last command (<a href="55710.html">D99E</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55499"></span>D8CB</td>
+<td class="instruction">JR Z,$D8D2</td>
+<td class="comment-1" rowspan="1">If bit 7 of B is clear, skip ahead to <a href="55469.html#55506">D8D2</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55501"></span>D8CD</td>
+<td class="instruction">CP $40</td>
+<td class="comment-1" rowspan="1">Compare A with $40</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55503"></span>D8CF</td>
+<td class="instruction">JP Z,<a href="55710.html">$D99E</a></td>
+<td class="comment-1" rowspan="1">If A equals $40, jump on to the routine "The '@' key on an empty line: do the last command..." (<a href="55710.html">D99E</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="55506"></span>D8D2</td>
+<td class="instruction">BIT 0,C</td>
+<td class="comment-1" rowspan="1">Test bit 0 of C - The first key of a line may be a cursor key: a one-key move (<a href="55672.html">D978</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55508"></span>D8D4</td>
+<td class="instruction">CALL Z,<a href="55672.html">$D978</a></td>
+<td class="comment-1" rowspan="1">If bit 0 of C is clear, call the routine "A cursor key on an empty line is a compass move" (<a href="55672.html">D978</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55511"></span>D8D7</td>
+<td class="instruction">LD C,$01</td>
+<td class="comment-1" rowspan="1">Load C with $01</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55513"></span>D8D9</td>
+<td class="instruction">CP $18</td>
+<td class="comment-1" rowspan="1">Compare A with $18 - $18 ('_', made so by GET-KEY): rub out the whole line and start again</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55515"></span>D8DB</td>
+<td class="instruction">JR NZ,$D8E2</td>
+<td class="comment-1" rowspan="1">If A differs from $18, skip ahead to <a href="55469.html#55522">D8E2</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55517"></span>D8DD</td>
+<td class="instruction">CALL <a href="55735.html">$D9B7</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Rub out the typed line" (<a href="55735.html">D9B7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55520"></span>D8E0</td>
+<td class="instruction">JR $D8BC</td>
+<td class="comment-1" rowspan="1">Go back to <a href="55469.html#55484">D8BC</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="55522"></span>D8E2</td>
+<td class="instruction">CP $08</td>
+<td class="comment-1" rowspan="1">Compare A with $08 - $08 (DELETE): back one character, unless the line is empty</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55524"></span>D8E4</td>
+<td class="instruction">JR NZ,$D900</td>
+<td class="comment-1" rowspan="1">If A differs from $08, skip ahead to <a href="55469.html#55552">D900</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55526"></span>D8E6</td>
+<td class="instruction">BIT 7,B</td>
+<td class="comment-1" rowspan="1">Test bit 7 of B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55528"></span>D8E8</td>
+<td class="instruction">JR NZ,$D8C3</td>
+<td class="comment-1" rowspan="1">If bit 7 of B is set, go back to <a href="55469.html#55491">D8C3</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55530"></span>D8EA</td>
+<td class="instruction">LD A,$08</td>
+<td class="comment-1" rowspan="1">Load A with $08</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55532"></span>D8EC</td>
+<td class="instruction">CALL <a href="43447.html">$A9B7</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print character A, a word at a time (word wrap)" (<a href="43447.html">A9B7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55535"></span>D8EF</td>
+<td class="instruction">INC B</td>
+<td class="comment-1" rowspan="1">Add one to B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55536"></span>D8F0</td>
+<td class="instruction">DEC HL</td>
+<td class="comment-1" rowspan="1">Step HL back one byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55537"></span>D8F1</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into A - Rubbing out a quote mark flips the inside-quotes flag back</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55538"></span>D8F2</td>
+<td class="instruction">CP $22</td>
+<td class="comment-1" rowspan="1">Compare A with $22</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55540"></span>D8F4</td>
+<td class="instruction">JR NZ,$D8C3</td>
+<td class="comment-1" rowspan="1">If A differs from $22, go back to <a href="55469.html#55491">D8C3</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55542"></span>D8F6</td>
+<td class="instruction">LD A,($D897)</td>
+<td class="comment-1" rowspan="1">Read "The line editor's inside-quotes flag" (<a href="55447.html">D897</a>) into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55545"></span>D8F9</td>
+<td class="instruction">XOR $01</td>
+<td class="comment-1" rowspan="1">Flip in A the bits that are set in $01</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55547"></span>D8FB</td>
+<td class="instruction">LD ($D897),A</td>
+<td class="comment-1" rowspan="1">Store A in "The line editor's inside-quotes flag" (<a href="55447.html">D897</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55550"></span>D8FE</td>
+<td class="instruction">JR $D8C3</td>
+<td class="comment-1" rowspan="1">Go back to <a href="55469.html#55491">D8C3</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="55552"></span>D900</td>
+<td class="instruction">CP $40</td>
+<td class="comment-1" rowspan="1">Compare A with $40 - Letters ($40 up) are always taken</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55554"></span>D902</td>
+<td class="instruction">JR NC,$D93C</td>
+<td class="comment-1" rowspan="1">If A is $40 or more, jump on to <a href="55469.html#55612">D93C</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55556"></span>D904</td>
+<td class="instruction">CP $22</td>
+<td class="comment-1" rowspan="1">Compare A with $22 - A quote mark flips the flag; closing a quotation first ends it with a full stop (<a href="55656.html">D968</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55558"></span>D906</td>
+<td class="instruction">JR NZ,$D917</td>
+<td class="comment-1" rowspan="1">If A differs from $22, skip ahead to <a href="55469.html#55575">D917</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55560"></span>D908</td>
+<td class="instruction">LD A,($D897)</td>
+<td class="comment-1" rowspan="1">Read "The line editor's inside-quotes flag" (<a href="55447.html">D897</a>) into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55563"></span>D90B</td>
+<td class="instruction">XOR $01</td>
+<td class="comment-1" rowspan="1">Flip in A the bits that are set in $01</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55565"></span>D90D</td>
+<td class="instruction">LD ($D897),A</td>
+<td class="comment-1" rowspan="1">Store A in "The line editor's inside-quotes flag" (<a href="55447.html">D897</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55568"></span>D910</td>
+<td class="instruction">CALL NZ,<a href="55656.html">$D968</a></td>
+<td class="comment-1" rowspan="1">If the result is not zero, call the routine "End the typed line with a full stop if it has none" (<a href="55656.html">D968</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55571"></span>D913</td>
+<td class="instruction">LD A,$22</td>
+<td class="comment-1" rowspan="1">Load A with $22</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55573"></span>D915</td>
+<td class="instruction">JR $D93C</td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="55469.html#55612">D93C</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="55575"></span>D917</td>
+<td class="instruction">CP $20</td>
+<td class="comment-1" rowspan="1">Compare A with $20 - Space, ENTER, . , / ` - : are taken...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55577"></span>D919</td>
+<td class="instruction">JR Z,$D93C</td>
+<td class="comment-1" rowspan="1">If A equals $20, skip ahead to <a href="55469.html#55612">D93C</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55579"></span>D91B</td>
+<td class="instruction">CP $0D</td>
+<td class="comment-1" rowspan="1">Compare A with $0D - Carriage return: end of line (<a href="55469.html#55625">D949</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55581"></span>D91D</td>
+<td class="instruction">JR Z,$D949</td>
+<td class="comment-1" rowspan="1">If A equals $0D, jump on to <a href="55469.html#55625">D949</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55583"></span>D91F</td>
+<td class="instruction">CP $2E</td>
+<td class="comment-1" rowspan="1">Compare A with $2E - A '.' ends a word (<a href="55469.html#55612">D93C</a>)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55585"></span>D921</td>
+<td class="instruction">JR Z,$D93C</td>
+<td class="comment-1" rowspan="1">If A equals $2E, skip ahead to <a href="55469.html#55612">D93C</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55587"></span>D923</td>
+<td class="instruction">CP $2C</td>
+<td class="comment-1" rowspan="1">Compare A with $2C - ...and so do ','...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55589"></span>D925</td>
+<td class="instruction">JR Z,$D93C</td>
+<td class="comment-1" rowspan="1">If A equals $2C, skip ahead to <a href="55469.html#55612">D93C</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55591"></span>D927</td>
+<td class="instruction">CP $2F</td>
+<td class="comment-1" rowspan="1">Compare A with $2F</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55593"></span>D929</td>
+<td class="instruction">JR Z,$D93C</td>
+<td class="comment-1" rowspan="1">If A equals $2F, skip ahead to <a href="55469.html#55612">D93C</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55595"></span>D92B</td>
+<td class="instruction">CP $60</td>
+<td class="comment-1" rowspan="1">Compare A with $60 - ...the pound sign ($60)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55597"></span>D92D</td>
+<td class="instruction">JR Z,$D93C</td>
+<td class="comment-1" rowspan="1">If A equals $60, skip ahead to <a href="55469.html#55612">D93C</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55599"></span>D92F</td>
+<td class="instruction">CP $2D</td>
+<td class="comment-1" rowspan="1">Compare A with $2D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55601"></span>D931</td>
+<td class="instruction">JR Z,$D93C</td>
+<td class="comment-1" rowspan="1">If A equals $2D, skip ahead to <a href="55469.html#55612">D93C</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55603"></span>D933</td>
+<td class="instruction">CP $3A</td>
+<td class="comment-1" rowspan="1">Compare A with $3A - ...and ':'</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55605"></span>D935</td>
+<td class="instruction">JR Z,$D93C</td>
+<td class="comment-1" rowspan="1">If A equals $3A, skip ahead to <a href="55469.html#55612">D93C</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55607"></span>D937</td>
+<td class="instruction">CALL <a href="56040.html">$DAE8</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Is A a digit? (carry if not)" (<a href="56040.html">DAE8</a>) - ...and digits (<a href="56040.html">DAE8</a>); anything else is ignored</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55610"></span>D93A</td>
+<td class="instruction">JR C,$D8C3</td>
+<td class="comment-1" rowspan="1">If the carry flag is set, go back to <a href="55469.html#55491">D8C3</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="55612"></span>D93C</td>
+<td class="instruction">DEC B</td>
+<td class="comment-1" rowspan="1">Subtract one from B - Store and print it, if the 128-character line has room</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55613"></span>D93D</td>
+<td class="instruction">INC B</td>
+<td class="comment-1" rowspan="1">Add one to B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55614"></span>D93E</td>
+<td class="instruction">JR Z,$D946</td>
+<td class="comment-1" rowspan="1">If B has become zero, skip ahead to <a href="55469.html#55622">D946</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55616"></span>D940</td>
+<td class="instruction">LD (HL),A</td>
+<td class="comment-1" rowspan="1">Store A at the address HL points to</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55617"></span>D941</td>
+<td class="instruction">CALL <a href="43447.html">$A9B7</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print character A, a word at a time (word wrap)" (<a href="43447.html">A9B7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55620"></span>D944</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55621"></span>D945</td>
+<td class="instruction">DEC B</td>
+<td class="comment-1" rowspan="1">Subtract one from B</td>
+</tr>
+<tr>
+<td class="address-2"><span id="55622"></span>D946</td>
+<td class="instruction">JP $D8C3</td>
+<td class="comment-1" rowspan="1">Go back to <a href="55469.html#55491">D8C3</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="55625"></span>D949</td>
+<td class="instruction">LD A,($D897)</td>
+<td class="comment-1" rowspan="1">Read "The line editor's inside-quotes flag" (<a href="55447.html">D897</a>) into A - ENTER: close an open quotation (<a href="55644.html">D95C</a>),</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55628"></span>D94C</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55629"></span>D94D</td>
+<td class="instruction">CALL Z,<a href="55644.html">$D95C</a></td>
+<td class="comment-1" rowspan="1">If A is zero, call the routine "Close a quotation: a full stop if needed, then the..." (<a href="55644.html">D95C</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55632"></span>D950</td>
+<td class="instruction">CALL <a href="55656.html">$D968</a></td>
+<td class="comment-1" rowspan="1">Call the routine "End the typed line with a full stop if it has none" (<a href="55656.html">D968</a>) - end with a full stop (<a href="55656.html">D968</a>) and a carriage return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55635"></span>D953</td>
+<td class="instruction">LD A,$0D</td>
+<td class="comment-1" rowspan="1">Load A with $0D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55637"></span>D955</td>
+<td class="instruction">LD (HL),A</td>
+<td class="comment-1" rowspan="1">Store A at the address HL points to</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55638"></span>D956</td>
+<td class="instruction">CALL <a href="43447.html">$A9B7</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print character A, a word at a time (word wrap)" (<a href="43447.html">A9B7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55641"></span>D959</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - NZ: a line was typed</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55643"></span>D95B</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="55448.html">D898</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#55469">Map</a></td>
+<td class="next">
+Next: <a href="55644.html">D95C</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

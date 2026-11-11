@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Data at EFF6 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-b">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Data</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="61383.html">EFC7</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#61430">Map</a></td>
+<td class="next">
+Next: <a href="61463.html">F017</a>
+</td>
+</tr>
+</table>
+<div class="description">EFF6: Plan script: the German agent (actor 104) - Phipps's buyer</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Entry points: <a href="61430.html">EFF6</a> = german agent (actor 104).
+</div>
+<div class="paragraph">
+Each sub-block is one instruction. Room and object numbers are as the game uses them (the reference pages list both).
+</div>
+<div class="paragraph">
+In an instruction, 'plan dobj' and 'plan iobj' are not fixed objects: they mean the direct and indirect object currently held in the actor's plan registers (bytes +4 and +5 of its actor record), so the same step works on whatever the actor is dealing with - for the player, the objects of the command just typed. 'plan verb' is the verb register (+3), 'self' is the acting character, and '-' means none.
+</div>
+<div class="paragraph">
+He waits for Phipps's signal (AWAIT), is put at Old Mill Road (room 103), and from 3pm counts down like Phipps; if you turn up there (<a href="61430.html#61449">F009</a>: IS IN you, room 103) he joins Phipps's own flight code at <a href="60971.html#61258">EF4A</a> - put in Main Street, the 4:55 to London, Kings Cross Road, a cab to Buckingham Palace Road and on to platform one at Victoria, where he too runs the last scene (<a href="40520.html">9E48</a>) if he finds you there. In the winning run (see <a href="59367.html">E7E7</a>) he was already standing on platform one at Victoria when the train came in at 6:40 - 'You can see a german agent.' - and Basil walked in two minutes later.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61430"></span>EFF6</td>
+<td class="instruction">DEFB $19,$06,$F6,$EF</td>
+<td class="comment-1" rowspan="1">AWAIT 6 phipps [fail: wait here]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61434"></span>EFFA</td>
+<td class="instruction">DEFB $42,$80,$FB,$67</td>
+<td class="comment-1" rowspan="1">DO 128 <a href="58519.html">PUT</a>: self, room 103 (old mill road) [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61438"></span>EFFE</td>
+<td class="instruction">DEFB $12,$88,$0F,$FF,$FE,$EF</td>
+<td class="comment-1" rowspan="1">DO 136 <a href="61910.html">IS HOUR</a> 15 [fail: wait here]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61444"></span>F004</td>
+<td class="instruction">DEFB $07,$2F,$E5,$10,$FF</td>
+<td class="comment-1" rowspan="1">RUN <a href="58671.html">E52F</a> START COUNTDOWN of (dobj) plus a random number up to (iobj) (16, -)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61449"></span>F009</td>
+<td class="instruction">DEFB $82,$83,$00,$67,$4A,$EF</td>
+<td class="comment-1" rowspan="1">DO 131 <a href="58797.html">IS IN</a>: 0 you, room 103 (old mill road) [ok <a href="60971.html#61258">EF4A</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61455"></span>F00F</td>
+<td class="instruction">DEFB $0F</td>
+<td class="comment-1" rowspan="1">PASS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61456"></span>F010</td>
+<td class="instruction">DEFB $93,$7A,$E5,$09,$F0,$8C,$EF</td>
+<td class="comment-1" rowspan="1">RUN <a href="58746.html">E57A</a> TICK the countdown (fails, and deletes it, when it runs out) [ok <a href="61430.html#61449">F009</a>; fail <a href="60971.html#61324">EF8C</a>]</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="61383.html">EFC7</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#61430">Map</a></td>
+<td class="next">
+Next: <a href="61463.html">F017</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at CC37 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="52265.html">CC29</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#52279">Map</a></td>
+<td class="next">
+Next: <a href="52344.html">CC78</a>
+</td>
+</tr>
+</table>
+<div class="description">CC37: Start an actor's turn</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+On failure to resolve the id, clears <a href="40918.html#40986">$A01F</a> and returns early instead.
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. Clear the failure count (<a href="52235.html">CC0B</a>). Find the actor's record (<a href="52238.html">CC0E</a>); if there is none, make the action take 1 minute and stop.
+</div>
+<div class="paragraph">
+2. Keep the record address (<a href="40918.html#40923">9FDB</a>) and the actor (<a href="40918.html#41010">$A036</a>), and note whether an order or remark is waiting (<a href="47391.html">B91F</a>).
+</div>
+<div class="paragraph">
+3. Set up the actor (<a href="52265.html">CC29</a>) and note the player's room (<a href="53317.html">D045</a>).
+</div>
+<div class="paragraph">
+4. Switch output on only when the player can see the actor (<a href="51233.html">C821</a>). Clear <a href="40918.html#40986">$A01F</a>.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">The actor number</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">$A01F</td>
+<td class="register-desc">0 (or 1 if the actor is not in the table)</td>
+</tr>
+<tr>
+<td class="register">IY</td>
+<td class="register-desc">The actor's record</td>
+</tr>
+<tr>
+<td class="register">$A036</td>
+<td class="register-desc">The actor</td>
+</tr>
+<tr>
+<td class="register">$5C3C</td>
+<td class="register-desc">Output on only when the actor is seen by the player</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="52279"></span>CC37</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack - Clear the failure count (<a href="52235.html">CC0B</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52280"></span>CC38</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52281"></span>CC39</td>
+<td class="instruction">LD ($CC0B),A</td>
+<td class="comment-1" rowspan="1">Store A in "Bytes for the actor's turn (<a href="52279.html">CC37</a>)" (<a href="52235.html">CC0B</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52284"></span>CC3C</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52285"></span>CC3D</td>
+<td class="instruction">CALL <a href="52238.html">$CC0E</a></td>
+<td class="comment-1" rowspan="1">Find the actor's record (<a href="52238.html">CC0E</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52288"></span>CC40</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1">Compare A with $FF - Not found: <a href="40918.html#40986">$A01F</a> = 1 and return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52290"></span>CC42</td>
+<td class="instruction">LD HL,$0001</td>
+<td class="comment-1" rowspan="1">Load HL with $0001</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52293"></span>CC45</td>
+<td class="instruction">JP Z,$CC74</td>
+<td class="comment-1" rowspan="1">If A equals $FF, jump on to <a href="52279.html#52340">CC74</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="52296"></span>CC48</td>
+<td class="instruction">LD ($9FDB),IY</td>
+<td class="comment-1" rowspan="1">Store IY in the current actor's (<a href="40918.html#40923">9FDB</a>) - Save the record address and the actor's id</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52300"></span>CC4C</td>
+<td class="instruction">LD ($A036),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41010">$A036</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52303"></span>CC4F</td>
+<td class="instruction">CALL <a href="47391.html">$B91F</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Is an order or a remark waiting for the current actor?" (<a href="47391.html">B91F</a>) - <a href="52235.html">$CC0D</a> = 1 if an order or remark is waiting for it (<a href="47391.html">B91F</a>), 0 if not</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52306"></span>CC52</td>
+<td class="instruction">LD A,$00</td>
+<td class="comment-1" rowspan="1">Load A with $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52308"></span>CC54</td>
+<td class="instruction">JR NZ,$CC57</td>
+<td class="comment-1" rowspan="1">If the zero flag is clear, skip ahead to <a href="52279.html#52311">CC57</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="52310"></span>CC56</td>
+<td class="instruction">INC A</td>
+<td class="comment-1" rowspan="1">Add one to A</td>
+</tr>
+<tr>
+<td class="address-2"><span id="52311"></span>CC57</td>
+<td class="instruction">LD ($CC0D),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="52235.html">$CC0D</a> in "Bytes for the actor's turn (<a href="52279.html">CC37</a>)"</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="52314"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="52344.html">CC78</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="52314"></span>CC5A</td>
+<td class="instruction">CALL <a href="52265.html">$CC29</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Set up the current actor: its record and room" (<a href="52265.html">CC29</a>) - Set the actor up as the subject (<a href="52265.html">CC29</a>, <a href="53317.html">D045</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52317"></span>CC5D</td>
+<td class="instruction">CALL <a href="53317.html">$D045</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Note the room the player is in (<a href="40918.html#40962">$A009</a>)" (<a href="53317.html">D045</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52320"></span>CC60</td>
+<td class="instruction">SUB A</td>
+<td class="comment-1" rowspan="1">Clear A to zero - Output off (<a href="../rom_symbols.html#a5C3C">$5C3C</a> = 0)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52321"></span>CC61</td>
+<td class="instruction">LD ($5C3C),A</td>
+<td class="comment-1" rowspan="1">Store A in the output-switch byte (TV_FLAG) (<a href="../rom_symbols.html#a5C3C">$5C3C</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52324"></span>CC64</td>
+<td class="instruction">LD A,($9860)</td>
+<td class="comment-1" rowspan="1">Read "The actor table: who acts, and where each is in..." (<a href="39008.html">9860</a>) into A - ...unless the actor is where the player is (<a href="51233.html">C821</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52327"></span>CC67</td>
+<td class="instruction">CALL <a href="51233.html">$C821</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Can the current actor (<a href="40918.html#41010">$A036</a>) see thing A?" (<a href="51233.html">C821</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52330"></span>CC6A</td>
+<td class="instruction">JR Z,$CC71</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, skip ahead to <a href="52279.html#52337">CC71</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="52332"></span>CC6C</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="1">Load A with $01</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52334"></span>CC6E</td>
+<td class="instruction">LD ($5C3C),A</td>
+<td class="comment-1" rowspan="1">Store A in the output-switch byte (TV_FLAG) (<a href="../rom_symbols.html#a5C3C">$5C3C</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="52337"></span>CC71</td>
+<td class="instruction">LD HL,$0000</td>
+<td class="comment-1" rowspan="1">Load HL with $0000 - <a href="40918.html#40986">$A01F</a> = 0</td>
+</tr>
+<tr>
+<td class="address-2"><span id="52340"></span>CC74</td>
+<td class="instruction">LD ($A01F),HL</td>
+<td class="comment-1" rowspan="1">Store HL in <a href="40918.html#40986">$A01F</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52343"></span>CC77</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="52265.html">CC29</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#52279">Map</a></td>
+<td class="next">
+Next: <a href="52344.html">CC78</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

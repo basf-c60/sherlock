@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at D495 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="54380.html">D46C</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#54421">Map</a></td>
+<td class="next">
+Next: <a href="54439.html">D4A7</a>
+</td>
+</tr>
+</table>
+<div class="description">D495: GET-ACTOR-ROOM: what room is actor A currently in?</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Returns $FF for an invalid id, or if the resolved record isn't type 1.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">An actor number</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">The actor's room, or $FF if it is not an actor</td>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">The actor's record</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="54421"></span>D495</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1">Invalid id ($FF)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54423"></span>D497</td>
+<td class="instruction">RET Z</td>
+<td class="comment-1" rowspan="1">...then just say so</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54424"></span>D498</td>
+<td class="instruction">CALL <a href="53815.html">$D237</a></td>
+<td class="comment-1" rowspan="1">Resolve the id to its full record</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54427"></span>D49B</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="1">Is this really an actor/character record (tag $01)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54429"></span>D49D</td>
+<td class="instruction">CP (IX+$00)</td>
+<td class="comment-1" rowspan="1">Compare A with the first byte of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54432"></span>D4A0</td>
+<td class="instruction">LD A,$FF</td>
+<td class="comment-1" rowspan="1">...no: fail</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54434"></span>D4A2</td>
+<td class="instruction">RET NZ</td>
+<td class="comment-1" rowspan="1">If A differs from the first byte of the record at IX, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54435"></span>D4A3</td>
+<td class="instruction">LD A,(IX+$0F)</td>
+<td class="comment-1" rowspan="1">Yes: the room number lives at offset +15</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54438"></span>D4A6</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="54380.html">D46C</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#54421">Map</a></td>
+<td class="next">
+Next: <a href="54439.html">D4A7</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

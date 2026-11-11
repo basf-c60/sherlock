@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at B568 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="46410.html">B54A</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#46440">Map</a></td>
+<td class="next">
+Next: <a href="46500.html">B5A4</a>
+</td>
+</tr>
+</table>
+<div class="description">B568: The next candidate for the indirect object ($A035)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="40918.html#41010">$A035</a>.
+</div>
+<div class="paragraph">
+As <a href="46273.html">B4C1</a>, for the second slot (<a href="45421.html#45429">$B178</a>, <a href="45421.html#45437">$B180</a>, <a href="40918.html#41002">$A031</a>, and <a href="40918.html#40970">$A010</a>'s requirement code).
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">The next candidate for the indirect object ($A035); $FF if none</td>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Z when none</td>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">Saved at $B180</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="46440"></span>B568</td>
+<td class="instruction">LD A,($A010)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40970">$A010</a> in "Game variables" into A - Requirement code 5 (a number): the number is the only candidate</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46443"></span>B56B</td>
+<td class="instruction">CP $05</td>
+<td class="comment-1" rowspan="1">Compare A with $05</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46445"></span>B56D</td>
+<td class="instruction">JR Z,<a href="46410.html">$B54A</a></td>
+<td class="comment-1" rowspan="1">If A equals $05, go back to the routine "The indirect object is a number: use it once" (<a href="46410.html">B54A</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46447"></span>B56F</td>
+<td class="instruction">LD A,($B179)</td>
+<td class="comment-1" rowspan="1">Read <a href="45421.html#45429">$B179</a> in "Parser variables" into A - Bit 7 of the slot's word count set: no more candidates (A = $FF)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46450"></span>B572</td>
+<td class="instruction">BIT 7,A</td>
+<td class="comment-1" rowspan="1">Test bit 7 of A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46452"></span>B574</td>
+<td class="instruction">JR Z,$B57B</td>
+<td class="comment-1" rowspan="1">If bit 7 of A is clear, skip ahead to <a href="46440.html#46459">B57B</a></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="46454"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="46410.html">B54A</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="46454"></span>B576</td>
+<td class="instruction">LD A,$FF</td>
+<td class="comment-1" rowspan="1">Load A with $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46456"></span>B578</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1">Compare A with $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46458"></span>B57A</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="46459"></span>B57B</td>
+<td class="instruction">PUSH IY</td>
+<td class="comment-1" rowspan="1">Save IY on the stack - IX = where the last search stopped (<a href="45421.html#45437">$B180</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46461"></span>B57D</td>
+<td class="instruction">LD IX,($B180)</td>
+<td class="comment-1" rowspan="1">Read <a href="45421.html#45437">$B180</a> in "Parser variables" into IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46465"></span>B581</td>
+<td class="instruction">LD A,($A01D)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40986">$A01D</a> in "Game variables" into A - Need it be here? (<a href="40918.html#40986">$A01D</a> bit 0 -&gt; <a href="40918.html#41010">$A038</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46468"></span>B584</td>
+<td class="instruction">AND $01</td>
+<td class="comment-1" rowspan="1">Isolate bit 0 of A (mask $01)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46470"></span>B586</td>
+<td class="instruction">LD ($A038),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41010">$A038</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46473"></span>B589</td>
+<td class="instruction">LD A,($A010)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40970">$A010</a> in "Game variables" into A - Code below 5 (a room): search the rooms (<a href="54171.html">D39B</a>)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46476"></span>B58C</td>
+<td class="instruction">CP $05</td>
+<td class="comment-1" rowspan="1">Compare A with $05</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46478"></span>B58E</td>
+<td class="instruction">LD IY,$D39B</td>
+<td class="comment-1" rowspan="1">Point IY at "Find the next room that matches a word slot of..." (<a href="54171.html">D39B</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46482"></span>B592</td>
+<td class="instruction">JR C,$B598</td>
+<td class="comment-1" rowspan="1">If A is below $05, skip ahead to <a href="46440.html#46488">B598</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46484"></span>B594</td>
+<td class="instruction">LD IY,$D36A</td>
+<td class="comment-1" rowspan="1">...otherwise the things (<a href="54122.html">D36A</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="46488"></span>B598</td>
+<td class="instruction">CALL <a href="46500.html">$B5A4</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Next thing or room the indirect-object slot names" (<a href="46500.html">B5A4</a>) - Next match; A = $FF if there is none</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46491"></span>B59B</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1">Compare A with $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46493"></span>B59D</td>
+<td class="instruction">LD ($B180),IX</td>
+<td class="comment-1" rowspan="1">Store IX in <a href="45421.html#45437">$B180</a> in "Parser variables" - Remember where it stopped</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46497"></span>B5A1</td>
+<td class="instruction">POP IY</td>
+<td class="comment-1" rowspan="1">Restore IY from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46499"></span>B5A3</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="46410.html">B54A</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#46440">Map</a></td>
+<td class="next">
+Next: <a href="46500.html">B5A4</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at 9ED1 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="40656.html">9ED0</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#40657">Map</a></td>
+<td class="next">
+Next: <a href="40734.html">9F1E</a>
+</td>
+</tr>
+</table>
+<div class="description">9ED1: After-turn routine: the gardener</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+See <a href="40641.html">9EC1</a>.
+</div>
+<div class="paragraph">
+At 9pm he is put off stage with the state word SLEEPING and +5 bit 6 cleared (the bit the flag-word table at <a href="50289.html">C471</a> calls DEAD when it is clear); at his next turn he is put back in the room he left and woken.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IY</td>
+<td class="register-desc">The actor's entry in the actor table</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">None used</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="40657"></span>9ED1</td>
+<td class="instruction">LD HL,$9ED0</td>
+<td class="comment-1" rowspan="1">The gardener's state byte <a href="40656.html">9ED0</a>: the room he left, or 0 while about</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="40660"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="40651.html">9ECB</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="40660"></span>9ED4</td>
+<td class="instruction">LD BC,$0000</td>
+<td class="comment-1" rowspan="1">Load BC with $0000 - B = 0, C = 0 (the cook joins here too; Strachan comes in at <a href="40657.html#40663">9ED7</a> with B = 74, C = $80)</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="40663"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="40641.html">9EC1</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="40663"></span>9ED7</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40664"></span>9ED8</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40665"></span>9ED9</td>
+<td class="instruction">JR Z,$9EF2</td>
+<td class="comment-1" rowspan="1">Not away: see whether it is time to go</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40667"></span>9EDB</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">Away, and this is the turn to come back: B = the room left</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40668"></span>9EDC</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag) - Store 0 at <a href="40656.html">9ED0</a>, put him in room B, next turn in 0 minutes (<a href="40734.html">9F1E</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40669"></span>9EDD</td>
+<td class="instruction">LD DE,$0000</td>
+<td class="comment-1" rowspan="1">Load DE with $0000</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40672"></span>9EE0</td>
+<td class="instruction">CALL <a href="40734.html">$9F1E</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Store A at HL, put the actor in room B, and its next..." (<a href="40734.html">9F1E</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40675"></span>9EE3</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A036</a> in "Game variables" into A - State word and bits back to none (<a href="61889.html">F1C1</a>, DE = 0, B = C)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40678"></span>9EE6</td>
+<td class="instruction">LD B,C</td>
+<td class="comment-1" rowspan="1">Copy C into B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40679"></span>9EE7</td>
+<td class="instruction">LD DE,$0000</td>
+<td class="comment-1" rowspan="1">Load DE with $0000</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40682"></span>9EEA</td>
+<td class="instruction">CALL <a href="61889.html">$F1C1</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Set a thing's state word and state bits" (<a href="61889.html">F1C1</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40685"></span>9EED</td>
+<td class="instruction">SET 6,(IX+$05)</td>
+<td class="comment-1" rowspan="1">Set bit 6 of byte +5 of the record at IX - and +5 bit 6 set: a person again</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40689"></span>9EF1</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="40690"></span>9EF2</td>
+<td class="instruction">LD A,($9FE2)</td>
+<td class="comment-1" rowspan="1">Read 'a' or 'p' (<a href="40918.html#40930">9FE2</a>) into A - Is it am?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40693"></span>9EF5</td>
+<td class="instruction">CP $61</td>
+<td class="comment-1" rowspan="1">Compare A with $61</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40695"></span>9EF7</td>
+<td class="instruction">RET Z</td>
+<td class="comment-1" rowspan="1">Yes: nothing to do</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40696"></span>9EF8</td>
+<td class="instruction">LD A,($9FE0)</td>
+<td class="comment-1" rowspan="1">Read the hour, 1-12 (<a href="40918.html#40928">9FE0</a>) into A - Is it 9 (pm)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40699"></span>9EFB</td>
+<td class="instruction">CP $09</td>
+<td class="comment-1" rowspan="1">Compare A with $09</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40701"></span>9EFD</td>
+<td class="instruction">RET NZ</td>
+<td class="comment-1" rowspan="1">If A differs from $09, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40702"></span>9EFE</td>
+<td class="instruction">LD DE,$01F8</td>
+<td class="comment-1" rowspan="1">DE = 504 minutes (8 hours 24)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40705"></span>9F01</td>
+<td class="instruction">LD A,$1E</td>
+<td class="comment-1" rowspan="1">Load A with $1E - A = a random number from 0 to 30</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40707"></span>9F03</td>
+<td class="instruction">CALL <a href="53924.html">$D2A4</a></td>
+<td class="comment-1" rowspan="1">Call the routine "A random number from 0 to A" (<a href="53924.html">D2A4</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40710"></span>9F06</td>
+<td class="instruction">ADD A,E</td>
+<td class="comment-1" rowspan="1">Add E to A - BUG: added to E only - from 8 up the carry into D is lost and 256 minutes go with it</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40711"></span>9F07</td>
+<td class="instruction">LD E,A</td>
+<td class="comment-1" rowspan="1">Copy A into E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40712"></span>9F08</td>
+<td class="instruction">LD A,($A00A)</td>
+<td class="comment-1" rowspan="1">Read the current actor's room (<a href="40918.html#40970">A00A</a>) into A - Remember the room in the state byte, move to room B (0, or 74 for Strachan), next turn DE minutes on</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40715"></span>9F0B</td>
+<td class="instruction">CALL <a href="40734.html">$9F1E</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Store A at HL, put the actor in room B, and its next..." (<a href="40734.html">9F1E</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40718"></span>9F0E</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A036</a> in "Game variables" into A - State word SLEEPING ($07F0), bit 4 of +8 (<a href="61889.html">F1C1</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40721"></span>9F11</td>
+<td class="instruction">LD B,$10</td>
+<td class="comment-1" rowspan="1">Load B with $10</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40723"></span>9F13</td>
+<td class="instruction">LD DE,$07F0</td>
+<td class="comment-1" rowspan="1">Load DE with $07F0</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40726"></span>9F16</td>
+<td class="instruction">CALL <a href="61889.html">$F1C1</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Set a thing's state word and state bits" (<a href="61889.html">F1C1</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40729"></span>9F19</td>
+<td class="instruction">RES 6,(IX+$05)</td>
+<td class="comment-1" rowspan="1">Clear bit 6 of byte +5 of the record at IX - and +5 bit 6 cleared: no longer a person to talk to</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40733"></span>9F1D</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="40656.html">9ED0</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#40657">Map</a></td>
+<td class="next">
+Next: <a href="40734.html">9F1E</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

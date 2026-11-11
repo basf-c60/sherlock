@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Data at EDF8 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-b">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Data</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="60905.html">EDE9</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#60920">Map</a></td>
+<td class="next">
+Next: <a href="60959.html">EE1F</a>
+</td>
+</tr>
+</table>
+<div class="description">EDF8: Plan script: cook (actor 9)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Entry point: <a href="60920.html">EDF8</a> = cook (actor 9).
+</div>
+<div class="paragraph">
+Each sub-block is one instruction. Split off from the block before, which it merely follows in memory.
+</div>
+<div class="paragraph">
+In an instruction, 'plan dobj' and 'plan iobj' are not fixed objects: they mean the direct and indirect object currently held in the actor's plan registers (bytes +4 and +5 of its actor record), so the same step works on whatever the actor is dealing with - for the player, the objects of the command just typed. 'plan verb' is the verb register (+3), 'self' is the acting character, and '-' means none.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60920"></span>EDF8</td>
+<td class="instruction">DEFB $59,$04,$F8,$ED</td>
+<td class="comment-1" rowspan="1">AWAIT 4 chief constable straker [busy; fail: wait here]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60924"></span>EDFC</td>
+<td class="instruction">DEFB $57,$98,$F1,$32,$FF,$FC,$ED</td>
+<td class="comment-1" rowspan="1">RUN <a href="61848.html">F198</a> CHANCE: succeed if a random 1-99 is at most (dobj) (50, -) [busy; fail: wait here]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60931"></span>EE03</td>
+<td class="instruction">DEFB $57,$98,$F1,$32,$FF,$16,$EE</td>
+<td class="comment-1" rowspan="1">RUN <a href="61848.html">F198</a> CHANCE: succeed if a random 1-99 is at most (dobj) (50, -) [busy; fail <a href="60920.html#60950">EE16</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60938"></span>EE0A</td>
+<td class="instruction">DEFB $02,$8A,$32,$50</td>
+<td class="comment-1" rowspan="1">DO 138 <a href="60905.html">DOOR THEN CHANCE</a>: 50 plain door, 80</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60942"></span>EE0E</td>
+<td class="instruction">DEFB $07,$28,$ED,$32,$FF</td>
+<td class="comment-1" rowspan="1">RUN <a href="60712.html">ED28</a> (50 plain door, -)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60947"></span>EE13</td>
+<td class="instruction">DEFB $0E,$FC,$ED</td>
+<td class="comment-1" rowspan="1">GOTO <a href="60920.html#60924">EDFC</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="60950"></span>EE16</td>
+<td class="instruction">DEFB $02,$8B,$04,$3C</td>
+<td class="comment-1" rowspan="1">DO 139 <a href="60893.html">DO THEN CHANCE</a>: verb <a href="56579.html">4</a> <a href="56579.html">WEST</a>, 60</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60954"></span>EE1A</td>
+<td class="instruction">DEFB $41,$03</td>
+<td class="comment-1" rowspan="1">DO 3 <a href="56579.html">EAST</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60956"></span>EE1C</td>
+<td class="instruction">DEFB $0E,$FC,$ED</td>
+<td class="comment-1" rowspan="1">GOTO <a href="60920.html#60924">EDFC</a></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="60905.html">EDE9</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#60920">Map</a></td>
+<td class="next">
+Next: <a href="60959.html">EE1F</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

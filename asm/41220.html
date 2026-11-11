@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at A104 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="41207.html">A0F7</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#41220">Map</a></td>
+<td class="next">
+Next: <a href="41242.html">A11A</a>
+</td>
+</tr>
+</table>
+<div class="description">A104: Find the node before node DE in the list at IY</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Leaves IY at the node (or list head) whose link points at DE, so the caller can unlink DE.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IY</td>
+<td class="register-desc">The list head</td>
+</tr>
+<tr>
+<td class="register">DE</td>
+<td class="register-desc">The node to find</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">IY</td>
+<td class="register-desc">The node (or list head) whose link points at DE</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="41220"></span>A104</td>
+<td class="instruction">INC IY</td>
+<td class="comment-1" rowspan="1">Step IY on to the next byte - Start after the list head's own link</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41222"></span>A106</td>
+<td class="instruction">INC IY</td>
+<td class="comment-1" rowspan="1">Step IY on to the next byte</td>
+</tr>
+<tr>
+<td class="address-2"><span id="41224"></span>A108</td>
+<td class="instruction">LD L,(IY-$02)</td>
+<td class="comment-1" rowspan="1">Read byte -2 of the record at IY into L - HL = the link (the next node's address) at IY - 2</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41227"></span>A10B</td>
+<td class="instruction">LD H,(IY-$01)</td>
+<td class="comment-1" rowspan="1">Read byte -1 of the record at IY into H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41230"></span>A10E</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41231"></span>A10F</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41232"></span>A110</td>
+<td class="instruction">SBC HL,DE</td>
+<td class="comment-1" rowspan="1">Subtract DE and the carry from HL - Is it node DE? Then IY is the node before it</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41234"></span>A112</td>
+<td class="instruction">JR Z,$A118</td>
+<td class="comment-1" rowspan="1">If the two values are equal, skip ahead to <a href="41220.html#41240">A118</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="41236"></span>A114</td>
+<td class="instruction">POP IY</td>
+<td class="comment-1" rowspan="1">Restore IY from the stack - No: step to that node and look again</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41238"></span>A116</td>
+<td class="instruction">JR $A108</td>
+<td class="comment-1" rowspan="1">Go back to <a href="41220.html#41224">A108</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="41240"></span>A118</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41241"></span>A119</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="41207.html">A0F7</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#41220">Map</a></td>
+<td class="next">
+Next: <a href="41242.html">A11A</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

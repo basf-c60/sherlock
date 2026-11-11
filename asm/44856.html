@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at AF38 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="44785.html">AEF1</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#44856">Map</a></td>
+<td class="next">
+Next: <a href="44878.html">AF4E</a>
+</td>
+</tr>
+</table>
+<div class="description">AF38: Z if the ten bytes at IY + A are all zero</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routine at <a href="44785.html">AEF1</a>.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IY</td>
+<td class="register-desc">A node</td>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">The offset into it</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Z if the ten bytes at IY + A are all zero</td>
+</tr>
+<tr>
+<td class="register">Registers</td>
+<td class="register-desc">kept</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="44856"></span>AF38</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack - Save registers</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44857"></span>AF39</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Save BC on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44858"></span>AF3A</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44859"></span>AF3B</td>
+<td class="instruction">LD B,$0A</td>
+<td class="comment-1" rowspan="1">Load B with $0A - 10 bytes at IY + A...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44861"></span>AF3D</td>
+<td class="instruction">PUSH IY</td>
+<td class="comment-1" rowspan="1">Save IY on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44863"></span>AF3F</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44864"></span>AF40</td>
+<td class="instruction">LD E,A</td>
+<td class="comment-1" rowspan="1">Copy A into E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44865"></span>AF41</td>
+<td class="instruction">LD D,$00</td>
+<td class="comment-1" rowspan="1">Load D with $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44867"></span>AF43</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1">Add DE to HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44868"></span>AF44</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag) - ...ORed together</td>
+</tr>
+<tr>
+<td class="address-2"><span id="44869"></span>AF45</td>
+<td class="instruction">OR (HL)</td>
+<td class="comment-1" rowspan="1">Set in A the bits that are set in the byte HL points at</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44870"></span>AF46</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44871"></span>AF47</td>
+<td class="instruction">DJNZ $AF45</td>
+<td class="comment-1" rowspan="1">Count B down and, while it is not zero, go back to <a href="44856.html#44869">AF45</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44873"></span>AF49</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack - Restore; Z if all ten were zero (AND A also clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44874"></span>AF4A</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore BC from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44875"></span>AF4B</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44876"></span>AF4C</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Clear the carry flag for the caller (A is unchanged)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44877"></span>AF4D</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="44785.html">AEF1</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#44856">Map</a></td>
+<td class="next">
+Next: <a href="44878.html">AF4E</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

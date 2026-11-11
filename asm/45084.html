@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at B01C - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="45050.html">AFFA</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#45084">Map</a></td>
+<td class="next">
+Next: <a href="45228.html">B0AC</a>
+</td>
+</tr>
+</table>
+<div class="description">B01C: Handlers for BUT, ALL and a quote mark</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+<a href="45084.html">B01C</a> (BUT, after ALL) and <a href="45084.html#45107">B033</a> (ALL) set <a href="40918.html#40986">A01A</a> to 2 and 1 for 'all but' and 'all'. <a href="45084.html#45129">B049</a> (a quote mark): the words that follow are speech; their position is added to the list at <a href="40918.html#40940">9FEC</a> and the parser skips to the closing quote, marking it as the end of a sentence. <a href="47210.html">B86A</a> hands them on when SAY TO / TALK TO runs. <a href="45084.html#45210">B09A</a> (PAUSE) waits (<a href="50197.html">C415</a>). <a href="45084.html#45219">B0A3</a> (LOAD, and QUIT too) goes to <a href="45228.html">B0AC</a>: the game asks for a saved-game tape.
+</div>
+<div class="paragraph">
+QUIT and LOAD both print 'PLAY SAVED GAME TAPE TO BE LOADED' and set <a href="41060.html#41177">$A0DA</a> to 1; PAUSE and NOPRINT are accepted with no message.
+</div>
+<div class="paragraph">
+A line that is only a quotation, "HELLO", is taken as TALK (the word at $088B): 'You talk to Watson.' and Watson's good morning, the same as SAY "HELLO". TO WATSON "HELLO" gets WHAT ?.
+</div>
+<div class="paragraph">
+Each quotation in a SAY TO / TALK TO is added to the list at <a href="40918.html#40940">9FEC</a> (<a href="45084.html#45129">B049</a>) whether or not the command later succeeds; <a href="47210.html">B86A</a> hands on the first node. A SAY that failed (I SEE NO ... THAT YOU CAN TALK TO, no answer) therefore leaves a stale quotation in front of the next one, and the next person spoken to hears the old words. TALK TO &lt;person&gt; with no quotation empties the list.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">E</td>
+<td class="register-desc">Parse flags</td>
+</tr>
+<tr>
+<td class="register">IY</td>
+<td class="register-desc">The sentence node</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">Carries</td>
+<td class="register-desc">on in the parser, or NZ if out of place</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="45084"></span>B01C</td>
+<td class="instruction">LD A,($A01A)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40986">A01A</a> in "Game variables" into A - BUT: only straight after ALL (<a href="40918.html#40986">A01A</a> = 1)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45087"></span>B01F</td>
+<td class="instruction">CP $01</td>
+<td class="comment-1" rowspan="1">Compare A with $01</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45089"></span>B021</td>
+<td class="instruction">JP NZ,<a href="44903.html">$AF67</a></td>
+<td class="comment-1" rowspan="1">If A differs from $01, go back to the routine "Not a special word: NZ" (<a href="44903.html">AF67</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45092"></span>B024</td>
+<td class="instruction">LD A,$02</td>
+<td class="comment-1" rowspan="1">Load A with $02 - 'All but' (<a href="40918.html#40986">A01A</a> = 2)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45094"></span>B026</td>
+<td class="instruction">LD ($A01A),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#40986">A01A</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45097"></span>B029</td>
+<td class="instruction">CALL <a href="44650.html">$AE6A</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Add a new node to the end of the sentence list" (<a href="44650.html">AE6A</a>) - A new sentence node for the things after BUT, marked with bit 6 of +1</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45100"></span>B02C</td>
+<td class="instruction">SET 6,(IY+$01)</td>
+<td class="comment-1" rowspan="1">Set bit 6 of byte +1 of the record at IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45104"></span>B030</td>
+<td class="instruction">JP <a href="43698.html#43858">$AB52</a></td>
+<td class="comment-1" rowspan="1">Go on parsing</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45107"></span>B033</td>
+<td class="instruction">CALL <a href="45025.html#45032">$AFE8</a></td>
+<td class="comment-1" rowspan="1">Call <a href="45025.html#45032">AFE8</a> (inside "Handler guards: only at the start of a...") - ALL: only at the start of a sentence, and only once</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45110"></span>B036</td>
+<td class="instruction">LD A,($A01A)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40986">A01A</a> in "Game variables" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45113"></span>B039</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45114"></span>B03A</td>
+<td class="instruction">JP NZ,<a href="44903.html">$AF67</a></td>
+<td class="comment-1" rowspan="1">If A is not zero, go back to the routine "Not a special word: NZ" (<a href="44903.html">AF67</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45117"></span>B03D</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="1">Load A with $01 - 'All' (<a href="40918.html#40986">A01A</a> = 1), and bit 7 of +1 on the node</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45119"></span>B03F</td>
+<td class="instruction">LD ($A01A),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#40986">A01A</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45122"></span>B042</td>
+<td class="instruction">SET 7,(IY+$01)</td>
+<td class="comment-1" rowspan="1">Set bit 7 of byte +1 of the record at IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45126"></span>B046</td>
+<td class="instruction">JP <a href="43698.html#43858">$AB52</a></td>
+<td class="comment-1" rowspan="1">Go back to <a href="43698.html#43858">AB52</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45129"></span>B049</td>
+<td class="instruction">BIT 1,E</td>
+<td class="comment-1" rowspan="1">Test bit 1 of E - A quote mark with no verb yet (E bit 1)? Then it becomes TALK ($088B)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45131"></span>B04B</td>
+<td class="instruction">JR Z,$B058</td>
+<td class="comment-1" rowspan="1">If bit 1 of E is clear, skip ahead to <a href="45084.html#45144">B058</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45133"></span>B04D</td>
+<td class="instruction">LD HL,$088B</td>
+<td class="comment-1" rowspan="1">Load HL with $088B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45136"></span>B050</td>
+<td class="instruction">LD (IY+$00),L</td>
+<td class="comment-1" rowspan="1">Store L in the first byte of the record at IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45139"></span>B053</td>
+<td class="instruction">LD (IY+$01),H</td>
+<td class="comment-1" rowspan="1">Store H in byte +1 of the record at IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45142"></span>B056</td>
+<td class="instruction">RES 1,E</td>
+<td class="comment-1" rowspan="1">Clear bit 1 of E</td>
+</tr>
+<tr>
+<td class="address-2"><span id="45144"></span>B058</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack - Add the quote's position in the word list (<a href="40918.html#41002">$A02B</a>) to the list at <a href="40918.html#40940">9FEC</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45145"></span>B059</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45146"></span>B05A</td>
+<td class="instruction">PUSH IY</td>
+<td class="comment-1" rowspan="1">Save IY on the stack - Save IY, IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45148"></span>B05C</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45150"></span>B05E</td>
+<td class="instruction">LD IY,$9FEC</td>
+<td class="comment-1" rowspan="1">The list headed at <a href="40918.html#40940">9FEC</a>...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45154"></span>B062</td>
+<td class="instruction">LD DE,$0000</td>
+<td class="comment-1" rowspan="1">Load DE with $0000 - ...find its last node: the one whose link is 0 (<a href="41220.html">A104</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45157"></span>B065</td>
+<td class="instruction">CALL <a href="41220.html">$A104</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Find the node before node DE in the list at IY" (<a href="41220.html">A104</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45160"></span>B068</td>
+<td class="instruction">LD A,$02</td>
+<td class="comment-1" rowspan="1">Load A with $02 - Get a 2-byte heap node (<a href="41244.html">A11C</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45162"></span>B06A</td>
+<td class="instruction">CALL <a href="41244.html">$A11C</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Allocate A + 3 bytes from the free list, cleared" (<a href="41244.html">A11C</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45165"></span>B06D</td>
+<td class="instruction">LD HL,($A02B)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41002">$A02B</a> in "Game variables" into HL - Store the token position <a href="40918.html#41002">$A02B</a> in it</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45168"></span>B070</td>
+<td class="instruction">LD (IX+$00),L</td>
+<td class="comment-1" rowspan="1">Store L in the first byte of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45171"></span>B073</td>
+<td class="instruction">LD (IX+$01),H</td>
+<td class="comment-1" rowspan="1">Store H in byte +1 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45174"></span>B076</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack - Link it after the last node</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45176"></span>B078</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45177"></span>B079</td>
+<td class="instruction">LD (IY-$02),L</td>
+<td class="comment-1" rowspan="1">Store L in byte -2 of the record at IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45180"></span>B07C</td>
+<td class="instruction">LD (IY-$01),H</td>
+<td class="comment-1" rowspan="1">Store H in byte -1 of the record at IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45183"></span>B07F</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack - Restore the registers</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45185"></span>B081</td>
+<td class="instruction">POP IY</td>
+<td class="comment-1" rowspan="1">Restore IY from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45187"></span>B083</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack - (and DE, HL)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45188"></span>B084</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-2"><span id="45189"></span>B085</td>
+<td class="instruction">CALL <a href="44671.html">$AE7F</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Read the next token of the typed line" (<a href="44671.html">AE7F</a>) - Skip tokens up to the closing quote (class $90, no value)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45192"></span>B088</td>
+<td class="instruction">CP $90</td>
+<td class="comment-1" rowspan="1">Compare A with $90</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45194"></span>B08A</td>
+<td class="instruction">JR NZ,$B085</td>
+<td class="comment-1" rowspan="1">If A differs from $90, go back to <a href="45084.html#45189">B085</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45196"></span>B08C</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">Copy B into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45197"></span>B08D</td>
+<td class="instruction">AND $0F</td>
+<td class="comment-1" rowspan="1">Keep only bits 0, 1, 2, 3 of A (mask $0F)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45199"></span>B08F</td>
+<td class="instruction">OR C</td>
+<td class="comment-1" rowspan="1">Set in A the bits that are set in C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45200"></span>B090</td>
+<td class="instruction">JR NZ,$B085</td>
+<td class="comment-1" rowspan="1">If the result is not zero, go back to <a href="45084.html#45189">B085</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45202"></span>B092</td>
+<td class="instruction">LD HL,($A029)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40994">$A029</a> in "Game variables" into HL - Mark it as the end of a sentence (class $C0)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45205"></span>B095</td>
+<td class="instruction">LD (HL),$C0</td>
+<td class="comment-1" rowspan="1">Store $C0 at the address HL points to</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45207"></span>B097</td>
+<td class="instruction">JP <a href="43698.html#43858">$AB52</a></td>
+<td class="comment-1" rowspan="1">Go back to <a href="43698.html#43858">AB52</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45210"></span>B09A</td>
+<td class="instruction">CALL <a href="45025.html">$AFE1</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Handler guards: only at the start of a sentence (not..." (<a href="45025.html">AFE1</a>) - PAUSE: wait for a key (<a href="50197.html">C415</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45213"></span>B09D</td>
+<td class="instruction">CALL <a href="50197.html">$C415</a></td>
+<td class="comment-1" rowspan="1">Call the routine "GET-KEY, but block until a key is actually pressed" (<a href="50197.html">C415</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45216"></span>B0A0</td>
+<td class="instruction">JP <a href="45050.html#45077">$B015</a></td>
+<td class="comment-1" rowspan="1">Go back to <a href="45050.html#45077">B015</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45219"></span>B0A3</td>
+<td class="instruction">CALL <a href="45025.html">$AFE1</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Handler guards: only at the start of a sentence (not..." (<a href="45025.html">AFE1</a>) - LOAD (and QUIT): load a saved game (<a href="45228.html">B0AC</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45222"></span>B0A6</td>
+<td class="instruction">CALL <a href="45228.html">$B0AC</a></td>
+<td class="comment-1" rowspan="1">Call the routine "After a game-over message: get ready to load a saved..." (<a href="45228.html">B0AC</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45225"></span>B0A9</td>
+<td class="instruction">JP <a href="45050.html#45077">$B015</a></td>
+<td class="comment-1" rowspan="1">Go back to <a href="45050.html#45077">B015</a></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="45050.html">AFFA</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#45084">Map</a></td>
+<td class="next">
+Next: <a href="45228.html">B0AC</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

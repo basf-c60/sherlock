@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at EFC7 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="61363.html">EFB3</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#61383">Map</a></td>
+<td class="next">
+Next: <a href="61430.html">EFF6</a>
+</td>
+</tr>
+</table>
+<div class="description">EFC7: Action record: Phipps wakes at 7 - or shoots you if you are in the house (RUN at $EE46, $EEC3, $EEDB, $EF09)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="60971.html#60998">EE46</a>, <a href="60971.html#61123">EEC3</a>, <a href="60971.html#61147">EEDB</a>, <a href="60971.html#61193">EF09</a>.
+</div>
+<div class="paragraph">
+If the player is in one of the rooms of Basil's house (33 to 39, the seven compares at <a href="61383.html#61385">EFC9</a>-<a href="61383.html#61412">EFE4</a>) control goes to <a href="57290.html#57292">DFCC</a> and Basil shoots you; otherwise the state word is cleared, the high nibble of +8 becomes 8 and bit 6 of +5 is set again - he is awake and a person again.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$A009</td>
+<td class="register-desc">The player's room</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ; Phipps wakes, or shoots the player if the player is in Basil's house</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="61383"></span>EFC7</td>
+<td class="instruction">DEFB $00,$00</td>
+<td class="comment-1" rowspan="1">Action record header: flags $00; byte 1 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61385"></span>EFC9</td>
+<td class="instruction">LD A,($A009)</td>
+<td class="comment-1" rowspan="1">Read the room the player is in, which decides what is shown (<a href="40918.html#40962">$A009</a>) into A - The player's room (<a href="40918.html#40962">$A009</a>): one of Basil's house (33 entrance hall to 39 yard; the seven compares run $23, $21, $22, $26, $25, $24, $27)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61388"></span>EFCC</td>
+<td class="instruction">CP $23</td>
+<td class="comment-1" rowspan="1">Compare A with $23</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61390"></span>EFCE</td>
+<td class="instruction">JR Z,$EFE6</td>
+<td class="comment-1" rowspan="1">If A equals $23, skip ahead to <a href="61383.html#61414">EFE6</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="61392"></span>EFD0</td>
+<td class="instruction">CP $21</td>
+<td class="comment-1" rowspan="1">Compare A with $21</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61394"></span>EFD2</td>
+<td class="instruction">JR Z,$EFE6</td>
+<td class="comment-1" rowspan="1">If A equals $21, skip ahead to <a href="61383.html#61414">EFE6</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="61396"></span>EFD4</td>
+<td class="instruction">CP $22</td>
+<td class="comment-1" rowspan="1">Compare A with $22</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61398"></span>EFD6</td>
+<td class="instruction">JR Z,$EFE6</td>
+<td class="comment-1" rowspan="1">If A equals $22, skip ahead to <a href="61383.html#61414">EFE6</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="61400"></span>EFD8</td>
+<td class="instruction">CP $26</td>
+<td class="comment-1" rowspan="1">Compare A with $26</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61402"></span>EFDA</td>
+<td class="instruction">JR Z,$EFE6</td>
+<td class="comment-1" rowspan="1">If A equals $26, skip ahead to <a href="61383.html#61414">EFE6</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="61404"></span>EFDC</td>
+<td class="instruction">CP $25</td>
+<td class="comment-1" rowspan="1">Compare A with $25</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61406"></span>EFDE</td>
+<td class="instruction">JR Z,$EFE6</td>
+<td class="comment-1" rowspan="1">If A equals $25, skip ahead to <a href="61383.html#61414">EFE6</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="61408"></span>EFE0</td>
+<td class="instruction">CP $24</td>
+<td class="comment-1" rowspan="1">Compare A with $24</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61410"></span>EFE2</td>
+<td class="instruction">JR Z,$EFE6</td>
+<td class="comment-1" rowspan="1">If A equals $24, skip ahead to <a href="61383.html#61414">EFE6</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="61412"></span>EFE4</td>
+<td class="instruction">CP $27</td>
+<td class="comment-1" rowspan="1">Compare A with $27</td>
+</tr>
+<tr>
+<td class="address-2"><span id="61414"></span>EFE6</td>
+<td class="instruction">JP Z,<a href="57290.html#57292">$DFCC</a></td>
+<td class="comment-1" rowspan="1">Yes: take the other branch at <a href="57290.html#57292">DFCC</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="61417"></span>EFE9</td>
+<td class="instruction">LD DE,$0000</td>
+<td class="comment-1" rowspan="1">Load DE with $0000 - No: DE = 0, B = $80, and clear then re-set bit 6 of the record's +5 (<a href="61363.html#61370">EFBA</a>)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61420"></span>EFEC</td>
+<td class="instruction">LD B,$80</td>
+<td class="comment-1" rowspan="1">Load B with $80</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61422"></span>EFEE</td>
+<td class="instruction">CALL <a href="61363.html#61370">$EFBA</a></td>
+<td class="comment-1" rowspan="1">Call <a href="61363.html#61370">EFBA</a> (inside "Action record: Phipps goes to sleep (RUN at...")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61425"></span>EFF1</td>
+<td class="instruction">SET 6,(IX+$05)</td>
+<td class="comment-1" rowspan="1">Set bit 6 of byte +5 of the record at IX - ...so it ends with bit 6 set again: awake and a person (the state word and the +8 nibble were cleared by AWAIT 6 phipps [fail: wait here] DO 128 PUT: self, room 103 (old mill DO 136 IS HOUR 15 [fail: wait here] RUN <a href="58671.html">E52F</a> START COUNTDOWN of (dobj) DO 131 IS IN: 0 you, room 103 (old PASS RUN <a href="58746.html">E57A</a> TICK the countdown PASS AWAIT 4 chief constable straker RUN <a href="61848.html">F198</a> CHANCE: succeed if a PRINT message <a href="30034.html">7552</a>: "YOU SEEMS AT GOTO <a href="61463.html">F017</a> PASS RUN <a href="61848.html">F198</a> CHANCE: succeed if a PRINT message <a href="30034.html">7552</a>: "YOU SEEMS AT RUN <a href="61848.html">F198</a> CHANCE: succeed if a RUN <a href="61848.html">F198</a> CHANCE: succeed if a DO 135 GO THROUGH DOOR: -, - DO 131 IS IN: self, room 63 (browns DO 135 GO THROUGH DOOR: 45 large oak GOTO <a href="61463.html#61481">F029</a> DO 40 SIT IN [busy; ok <a href="61463.html#61481">F029</a>] DO 25 GET OUT OF [busy] GOTO <a href="61463.html#61481">F029</a> Entry (not reached from anywhere GOTO <a href="61463.html#61532">F05C</a> AWAIT 2 inspector lestrade [busy; DO 128 PUT: self, room 92 (jones SAY TO 11 local police man message PASS AWAIT 2 inspector lestrade [busy; SAY TO 2 inspector lestrade message SIGNAL 2 inspector lestrade [busy] DO 134 FOLLOW UNTIL IN: 2 inspector PRINT message <a href="27833.html">6CB9</a>: "UPON SEEING RUN <a href="58671.html">E52F</a> START COUNTDOWN of (dobj) RUN <a href="58792.html">E5A8</a> IDLE (no checks; takes a RUN <a href="58746.html">E57A</a> TICK the countdown DO 135 GO THROUGH DOOR: 69 DO 135 GO THROUGH DOOR: 19 front DO 1 NORTH [busy] RUN <a href="61864.html">F1A8</a> [busy] DO 4 WEST [busy] DO 2 SOUTH [busy] DO 2 SOUTH [busy] DO 128 PUT: self, room 0 (off stage) DO 136 IS HOUR 23 [fail: wait here] RUN <a href="61848.html">F198</a> CHANCE: succeed if a DO 128 PUT: self, room 40 (sidmouth DO 135 GO THROUGH DOOR: 48 heavy oak DO 9 UP [busy] DO 36 OPEN: 48 heavy oak door, - DO 5 NORTHEAST [busy] DO 8 SOUTHWEST [busy] DO 10 DOWN [busy] DO 135 GO THROUGH DOOR: 48 heavy oak RUN <a href="60324.html">EBA4</a> (-, 12 local police man) DO 1 NORTH [busy] SIGNAL 2 inspector lestrade PASS DO 129 IS WITH: 0 you, self [ok DO 136 IS HOUR 1 [busy; fail <a href="61538.html#61650">F0D2</a>] GOTO <a href="61538.html#61678">F0EE</a> SAY TO 0 you message <a href="27768.html">6C78</a>: "WELL RUN <a href="61699.html">F103</a> [busy] RUN <a href="56766.html">DDBE</a> WAIT (dobj) minutes (4, RUN <a href="61848.html">F198</a> CHANCE: succeed if a DO 2 SOUTH AWAIT 2 inspector lestrade [busy; DO 128 PUT: self, room 0 (off stage) PASS GOTO <a href="61538.html#61695">F0FF</a> Action record header: flags $00; byte 1 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61429"></span>EFF5</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="61363.html">EFB3</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#61383">Map</a></td>
+<td class="next">
+Next: <a href="61430.html">EFF6</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

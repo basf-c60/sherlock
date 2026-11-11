@@ -1,0 +1,2779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routines - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="RoutinesMap">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<div class="map-intro"></div>
+<table class="map">
+<tr>
+<th>Address</th>
+<th>Description</th>
+</tr>
+<tr>
+<td class="map-c"><span id="39420"></span><a href="../asm/39420.html">99FC</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/39420.html">Routines run when a statement of the case is proven</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="39550"></span><a href="../asm/39550.html">9A7E</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/39550.html">Action record: default for verb 32 (HELLO)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="39552"></span><a href="../asm/39552.html">9A80</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/39552.html">Print one of two messages, depending on who is acting</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="39577"></span><a href="../asm/39577.html">9A99</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/39577.html">Shared action 1: the police cab, GO TO (Leatherhead routes, $9AA3)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="39627"></span><a href="../asm/39627.html">9ACB</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/39627.html">Shared action 2: the police cab, GO FURIOUSLY TO - 20 minutes quicker</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="39649"></span><a href="../asm/39649.html">9AE1</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/39649.html">Shared action 15: GO FURIOUSLY TO in a hansom cab - dearer, two minutes quicker</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="39668"></span><a href="../asm/39668.html">9AF4</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/39668.html">Shared action 14: GO TO in a hansom cab</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="39717"></span><a href="../asm/39717.html">9B25</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/39717.html">Price a cab ride from its journey time</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="39760"></span><a href="../asm/39760.html">9B50</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/39760.html">A cabbie told where to go: can he get there from here?</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="39943"></span><a href="../asm/39943.html">9C07</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/39943.html">Find the cab journey between two rooms</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="40001"></span><a href="../asm/40001.html">9C41</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/40001.html">Action record: move the vehicle the actor is in to the direct object's room</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="40022"></span><a href="../asm/40022.html">9C56</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/40022.html">Set an object's 'revealed' flag (+5 bit 7)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="40032"></span><a href="../asm/40032.html">9C60</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/40032.html">Clear an object's 'revealed' flag (+5 bit 7)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="40042"></span><a href="../asm/40042.html">9C6A</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/40042.html">Look up the actor's after-turn routine</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="40055"></span><a href="../asm/40055.html">9C77</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/40055.html">Run the current actor's own after-turn routine</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="40098"></span><a href="../asm/40098.html">9CA2</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/40098.html">Phipps's after-turn routine</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="40142"></span><a href="../asm/40142.html">9CCE</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/40142.html">Is thing C in the same room as the current actor, and visible to the player?</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="40169"></span><a href="../asm/40169.html">9CE9</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/40169.html">Say good morning to C, if just met</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="40211"></span><a href="../asm/40211.html">9D13</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/40211.html">Watson's after-turn routine</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="40240"></span><a href="../asm/40240.html">9D30</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/40240.html">Chief Constable Straker's after-turn routine</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="40264"></span><a href="../asm/40264.html">9D48</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/40264.html">A police man's after-turn routine: 'no one is to get by'</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="40307"></span><a href="../asm/40307.html">9D73</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/40307.html">The other police man's after-turn routine</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="40341"></span><a href="../asm/40341.html">9D95</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/40341.html">Lestrade's after-turn routine, after the introduction</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="40390"></span><a href="../asm/40390.html">9DC6</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/40390.html">Lestrade greets you: 'WELL, HOLMES FANCY SEEING YOU HERE.' the first time</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="40408"></span><a href="../asm/40408.html">9DD8</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/40408.html">Lestrade asks whether you can prove a waiting statement yet</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="40447"></span><a href="../asm/40447.html">9DFF</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/40447.html">Lestrade's after-turn routine, until the introduction</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="40520"></span><a href="../asm/40520.html">9E48</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/40520.html">The last scene: Basil arrives at Victoria (the winning ending)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="40554"></span><a href="../asm/40554.html">9E6A</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/40554.html">Game-over record: 'I do not think you are doing too well'</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="40564"></span><a href="../asm/40564.html">9E74</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/40564.html">End the game with the message in HL</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="40581"></span><a href="../asm/40581.html">9E85</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/40581.html">Game-over record: the Major is arrested</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="40610"></span><a href="../asm/40610.html">9EA2</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/40610.html">Game-over record: the morning papers</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="40641"></span><a href="../asm/40641.html">9EC1</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/40641.html">After-turn routines for Strachan, the cook and the gardener: bedtime</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="40651"></span><a href="../asm/40651.html">9ECB</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/40651.html">After-turn routine: the cook</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="40657"></span><a href="../asm/40657.html">9ED1</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/40657.html">After-turn routine: the gardener</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="40734"></span><a href="../asm/40734.html">9F1E</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/40734.html">Store A at HL, put the actor in room B, and its next turn DE minutes on</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="40901"></span><a href="../asm/40901.html">9FC5</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/40901.html">Default action: KILL (also BREAK and a profane synonym)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="41024"></span><a href="../asm/41024.html">A040</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/41024.html">Start the game</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="41060"></span><a href="../asm/41060.html">A064</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/41060.html">The main loop: one minute of game time per pass</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="41207"></span><a href="../asm/41207.html">A0F7</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/41207.html">Move IX to the next node of a list</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="41220"></span><a href="../asm/41220.html">A104</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/41220.html">Find the node before node DE in the list at IY</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="41244"></span><a href="../asm/41244.html">A11C</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/41244.html">Allocate A + 3 bytes from the free list, cleared</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="41391"></span><a href="../asm/41391.html">A1AF</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/41391.html">Free every node of the list starting at IX</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="41415"></span><a href="../asm/41415.html">A1C7</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/41415.html">Free node IX back to the heap</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="41484"></span><a href="../asm/41484.html">A20C</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/41484.html">Join free block IX to the next one if they touch</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="41565"></span><a href="../asm/41565.html">A25D</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/41565.html">Is thing B in the list at ($A0D8)? (only when $A011 is set)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="41591"></span><a href="../asm/41591.html">A277</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/41591.html">Describe a room's picture</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="41622"></span><a href="../asm/41622.html">A296</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/41622.html">Print 18 newlines</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="41634"></span><a href="../asm/41634.html">A2A2</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/41634.html">Print a newline (A kept)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="41643"></span><a href="../asm/41643.html">A2AB</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/41643.html">Fill B bytes at HL with zero (or, from $A2AC, with A)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="41649"></span><a href="../asm/41649.html">A2B1</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/41649.html">HL = verb A's record in the verb table</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="41661"></span><a href="../asm/41661.html">A2BD</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/41661.html">Gather a verb record's flag nibbles into $A01D and $A01E</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="41700"></span><a href="../asm/41700.html">A2E4</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/41700.html">Narrate a command as a sentence ('You take the oil lamp.')</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="41824"></span><a href="../asm/41824.html">A360</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/41824.html">Code $18: narrate the remembered command</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="41853"></span><a href="../asm/41853.html">A37D</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/41853.html">Print the rest of a narrated command: verb words, objects, numbers</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42009"></span><a href="../asm/42009.html">A419</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42009.html">Print an amount of money</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42102"></span><a href="../asm/42102.html">A476</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42102.html">Divide HL by DE: A = quotient, HL = remainder</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42112"></span><a href="../asm/42112.html">A480</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42112.html">Print one digit of HL / DE, skipping leading zeros (C)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42128"></span><a href="../asm/42128.html">A490</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42128.html">Print the number B (0-255) in decimal</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42155"></span><a href="../asm/42155.html">A4AB</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42155.html">HL = room A's record + 1</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42172"></span><a href="../asm/42172.html">A4BC</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42172.html">HL = thing A's record + 7</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42189"></span><a href="../asm/42189.html">A4CD</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42189.html">Do the pattern words at IY name the words at HL? ($A4CD, $A4E0)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42267"></span><a href="../asm/42267.html">A51B</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42267.html">Does the word reference at HL match the one at IY? (Z)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42294"></span><a href="../asm/42294.html">A536</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42294.html">Wait for a key, but not for ever</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42399"></span><a href="../asm/42399.html">A59F</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42399.html">Print the message at HL</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42436"></span><a href="../asm/42436.html">A5C4</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42436.html">Interpret message bytes until the end of the message</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42445"></span><a href="../asm/42445.html">A5CD</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42445.html">Interpret one message element at IX</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42529"></span><a href="../asm/42529.html">A621</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42529.html">Run control code A</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42554"></span><a href="../asm/42554.html">A63A</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42554.html">Codes $08 and $0D: print the code itself</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42559"></span><a href="../asm/42559.html">A63F</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42559.html">Codes $1D and $1E (and $A647): finish a sentence</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42586"></span><a href="../asm/42586.html">A65A</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42586.html">Code $1F: end of message</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42588"></span><a href="../asm/42588.html">A65C</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42588.html">Code $12: does nothing</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42589"></span><a href="../asm/42589.html">A65D</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42589.html">Code $00: print the thing whose address is the next parameter</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42604"></span><a href="../asm/42604.html">A66C</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42604.html">Code $01: print the next parameter as a word (and: fetch the next parameter)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42617"></span><a href="../asm/42617.html">A679</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42617.html">Code $02: jump within the message</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42626"></span><a href="../asm/42626.html">A682</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42626.html">Code $1C: does nothing</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42628"></span><a href="../asm/42628.html">A684</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42628.html">Code $1A: carry on with the message at the next parameter</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42636"></span><a href="../asm/42636.html">A68C</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42636.html">Codes $0F, $14-$17: only in one part of the day</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42683"></span><a href="../asm/42683.html">A6BB</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42683.html">Skip one message element at IX</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42707"></span><a href="../asm/42707.html">A6D3</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42707.html">Code $0A: one of the next n elements, at random</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42754"></span><a href="../asm/42754.html">A702</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42754.html">Code $03: print the word reference in $A00D</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42761"></span><a href="../asm/42761.html">A709</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42761.html">Code $04: print the next parameter as a word or number</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42769"></span><a href="../asm/42769.html">A711</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42769.html">Code $05: print the case statement at the next parameter</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42784"></span><a href="../asm/42784.html">A720</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42784.html">Code $06: name the actor</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42796"></span><a href="../asm/42796.html">A72C</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42796.html">Code $07: name the direct object</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42806"></span><a href="../asm/42806.html">A736</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42806.html">Code $08: print the code itself</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42811"></span><a href="../asm/42811.html">A73B</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42811.html">Code $09: name the indirect object</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42821"></span><a href="../asm/42821.html">A745</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42821.html">Name room or thing A</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42843"></span><a href="../asm/42843.html">A75B</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42843.html">Code $0B: print a message at an offset from here</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42865"></span><a href="../asm/42865.html">A771</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42865.html">Code $19: print the message at the next parameter</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42880"></span><a href="../asm/42880.html">A780</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42880.html">Codes $0C and $0E: YOUR or HIS</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42899"></span><a href="../asm/42899.html">A793</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42899.html">Codes $10, $11 and $13: name someone, then ARE or IS</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42938"></span><a href="../asm/42938.html">A7BA</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42938.html">Print the name of the thing at HL (as $D405)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42949"></span><a href="../asm/42949.html">A7C5</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42949.html">Print the name of the thing at HL (as $D3E8)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42960"></span><a href="../asm/42960.html">A7D0</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42960.html">Print an article, or note whether the word is YOU</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="42987"></span><a href="../asm/42987.html">A7EB</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/42987.html">Print the article for article code DE</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="43022"></span><a href="../asm/43022.html">A80E</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/43022.html">Print word reference DE (code $04's printer)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="43055"></span><a href="../asm/43055.html">A82F</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/43055.html">Name actor A ($FF: SOMEONE)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="43066"></span><a href="../asm/43066.html">A83A</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/43066.html">Message bytes $60 and up: a common word</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="43090"></span><a href="../asm/43090.html">A852</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/43090.html">Code $1B: capitals on/off</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="43136"></span><a href="../asm/43136.html">A880</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/43136.html">Print the dictionary word that HL refers to</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="43311"></span><a href="../asm/43311.html">A92F</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/43311.html">Add a dictionary word's suffix to the spelling at IX</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="43341"></span><a href="../asm/43341.html">A94D</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/43341.html">Spell dictionary record HL into the buffer at $5C42</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="43355"></span><a href="../asm/43355.html">A95B</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/43355.html">Unpack a dictionary record's letters (front-coded)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="43408"></span><a href="../asm/43408.html">A990</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/43408.html">Unpack the next five-bit letter (C = bit position)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="43447"></span><a href="../asm/43447.html">A9B7</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/43447.html">Print character A, a word at a time (word wrap)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="43540"></span><a href="../asm/43540.html">AA14</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/43540.html">Send one character to the screen layer</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="43698"></span><a href="../asm/43698.html">AAB2</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/43698.html">Parse the next sentence from the word list</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="43921"></span><a href="../asm/43921.html">AB91</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/43921.html">Read a sentence's verb words into the node at IY</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="44068"></span><a href="../asm/44068.html">AC24</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/44068.html">Read a noun phrase into the pattern at $AAA8</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="44175"></span><a href="../asm/44175.html">AC8F</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/44175.html">Put word BC in the first empty pair at $AAA8 (NZ if both are taken)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="44180"></span><a href="../asm/44180.html">AC94</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/44180.html">Put word BC in the first empty pair at $AAAE (NZ if both are taken)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="44198"></span><a href="../asm/44198.html">ACA6</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/44198.html">Copy the noun-phrase pattern into the node: first or second object</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="44236"></span><a href="../asm/44236.html">ACCC</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/44236.html">Note where this sentence started, so it can be read again</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="44283"></span><a href="../asm/44283.html">ACFB</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/44283.html">After a sentence: copy the objects on, or rewind to read it again</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="44375"></span><a href="../asm/44375.html">AD57</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/44375.html">Count the sentence, then on to the next or finish</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="44633"></span><a href="../asm/44633.html">AE59</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/44633.html">Fill in a word reference at HL from DE, unless HL already has one</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="44650"></span><a href="../asm/44650.html">AE6A</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/44650.html">Add a new node to the end of the sentence list</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="44671"></span><a href="../asm/44671.html">AE7F</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/44671.html">Read the next token of the typed line</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="44713"></span><a href="../asm/44713.html">AEA9</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/44713.html">IY = the next node in the list (Z at the end)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="44726"></span><a href="../asm/44726.html">AEB6</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/44726.html">Step forward over nodes marked with bit 6 of +1</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="44741"></span><a href="../asm/44741.html">AEC5</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/44741.html">IY = the node before IY in the sentence list ($9FF0)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="44778"></span><a href="../asm/44778.html">AEEA</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/44778.html">IY = the last node of the sentence list</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="44785"></span><a href="../asm/44785.html">AEF1</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/44785.html">Merge parse node IX into node IY</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="44856"></span><a href="../asm/44856.html">AF38</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/44856.html">Z if the ten bytes at IY + A are all zero</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="44878"></span><a href="../asm/44878.html">AF4E</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/44878.html">Copy 6, 10 or 2 bytes from IX + DE to IY + DE</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="44903"></span><a href="../asm/44903.html">AF67</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/44903.html">Not a special word: NZ</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="44979"></span><a href="../asm/44979.html">AFB3</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/44979.html">Is word BC a special word? Then run its handler</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="45025"></span><a href="../asm/45025.html">AFE1</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/45025.html">Handler guards: only at the start of a sentence</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="45050"></span><a href="../asm/45050.html">AFFA</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/45050.html">Handlers for BECAUSE / THEREFORE, PRINT and NOPRINT</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="45084"></span><a href="../asm/45084.html">B01C</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/45084.html">Handlers for BUT, ALL and a quote mark</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="45228"></span><a href="../asm/45228.html">B0AC</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/45228.html">After a game-over message: get ready to load a saved game</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="45254"></span><a href="../asm/45254.html">B0C6</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/45254.html">Handler for SAVE</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="45271"></span><a href="../asm/45271.html">B0D7</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/45271.html">Load a saved game from tape</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="45294"></span><a href="../asm/45294.html">B0EE</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/45294.html">The block a saved game holds: $840B up to $A01F</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="45309"></span><a href="../asm/45309.html">B0FD</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/45309.html">Handlers for THATS, HE, IT and THEY</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="45457"></span><a href="../asm/45457.html">B191</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/45457.html">Match the typed command against the verb patterns</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="45791"></span><a href="../asm/45791.html">B2DF</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/45791.html">Choose the indirect object: the candidate that passes the record's checks</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="45827"></span><a href="../asm/45827.html">B303</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/45827.html">HL = $B6AE (ask which one), Z</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="45832"></span><a href="../asm/45832.html">B308</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/45832.html">Count the candidates for the direct object</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="45869"></span><a href="../asm/45869.html">B32D</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/45869.html">Count the candidates for the indirect object</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="45903"></span><a href="../asm/45903.html">B34F</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/45903.html">Start the direct-object search afresh</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="45931"></span><a href="../asm/45931.html">B36B</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/45931.html">Start the indirect-object search afresh</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="45959"></span><a href="../asm/45959.html">B387</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/45959.html">Test the verb record's flags against the indirect-object slot</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="45981"></span><a href="../asm/45981.html">B39D</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/45981.html">Look the typed verb up in the verb table ($8259)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="46085"></span><a href="../asm/46085.html">B405</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/46085.html">Copy the typed objects into the two object slots, in the verb's order</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="46211"></span><a href="../asm/46211.html">B483</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/46211.html">Copy the word pair at IY + E to HL, if B is not 0</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="46240"></span><a href="../asm/46240.html">B4A0</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/46240.html">Call the search routine in IY</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="46243"></span><a href="../asm/46243.html">B4A3</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/46243.html">The direct object is a number: use it once</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="46273"></span><a href="../asm/46273.html">B4C1</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/46273.html">The next candidate for the direct object ($A034)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="46333"></span><a href="../asm/46333.html">B4FD</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/46333.html">Next thing or room the direct-object slot names, skipping those $B517 rejects</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="46359"></span><a href="../asm/46359.html">B517</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/46359.html">ALL BUT: is the candidate one of the things after BUT?</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="46410"></span><a href="../asm/46410.html">B54A</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/46410.html">The indirect object is a number: use it once</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="46440"></span><a href="../asm/46440.html">B568</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/46440.html">The next candidate for the indirect object ($A035)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="46500"></span><a href="../asm/46500.html">B5A4</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/46500.html">Next thing or room the indirect-object slot names</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="46518"></span><a href="../asm/46518.html">B5B6</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/46518.html">Move on to the next sentence of the typed line</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="46547"></span><a href="../asm/46547.html">B5D3</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/46547.html">Ask the player which object, or what</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="46766"></span><a href="../asm/46766.html">B6AE</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/46766.html">No indirect object: DON'T BE SILLY, or YOU CANNOT ... THE ...</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="46810"></span><a href="../asm/46810.html">B6DA</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/46810.html">If the slot names scenery: 'YOU CANNOT &lt;verb&gt; THE &lt;word&gt;'</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="46845"></span><a href="../asm/46845.html">B6FD</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/46845.html">Do the slot's words name some of the room's scenery?</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="46962"></span><a href="../asm/46962.html">B772</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/46962.html">A = the class of dictionary word DE</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="46975"></span><a href="../asm/46975.html">B77F</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/46975.html">Fetch the next word for $B6FD's name match</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="47164"></span><a href="../asm/47164.html">B83C</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/47164.html">Push the three words at HL as message parameters</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="47180"></span><a href="../asm/47180.html">B84C</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/47180.html">I DO NOT KNOW THE VERB "&lt;word&gt;"</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="47203"></span><a href="../asm/47203.html">B863</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/47203.html">JP $C929 (check the record)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="47210"></span><a href="../asm/47210.html">B86A</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/47210.html">Hand quoted words to the person spoken to (SAY TO / TALK TO)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="47374"></span><a href="../asm/47374.html">B90E</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/47374.html">Find the current actor's waiting order or remark</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="47391"></span><a href="../asm/47391.html">B91F</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/47391.html">Is an order or a remark waiting for the current actor?</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="47414"></span><a href="../asm/47414.html">B936</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/47414.html">Deal with an order or remark addressed to the current actor</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="47500"></span><a href="../asm/47500.html">B98C</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/47500.html">Take the command out of an ASK order</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="47610"></span><a href="../asm/47610.html">B9FA</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/47610.html">Remove node IX from the order/remark list and free it</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="47648"></span><a href="../asm/47648.html">BA20</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/47648.html">A remark for Watson or Inspector Lestrade: let them reply</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="47719"></span><a href="../asm/47719.html">BA67</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/47719.html">Watson's reply to something the player says</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="47942"></span><a href="../asm/47942.html">BB46</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/47942.html">Remember a choice (A) and the 3 bytes at $BA19</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="47964"></span><a href="../asm/47964.html">BB5C</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/47964.html">Jump to the handler of the record at ($BA65)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="47975"></span><a href="../asm/47975.html">BB67</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/47975.html">Lestrade's reply to something the player says</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="48198"></span><a href="../asm/48198.html">BC46</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/48198.html">Check every statement that is waiting to be proven</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="48244"></span><a href="../asm/48244.html">BC74</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/48244.html">Count the waiting statements that can now be proven</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="48284"></span><a href="../asm/48284.html">BC9C</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/48284.html">Find the first waiting statement that cannot be proven yet</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="48329"></span><a href="../asm/48329.html">BCC9</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/48329.html">Try to prove statement IX</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="48465"></span><a href="../asm/48465.html">BD51</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/48465.html">Find the statement $BA19-$BA1B in the case table</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="48578"></span><a href="../asm/48578.html">BDC2</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/48578.html">Turn the player's remark into a statement</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="48730"></span><a href="../asm/48730.html">BE5A</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/48730.html">Step IX over one case record (4 bytes, or 6 with a routine)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="48754"></span><a href="../asm/48754.html">BE72</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/48754.html">Step IX over a whole group of case records</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="48785"></span><a href="../asm/48785.html">BE91</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/48785.html">Check one piece of evidence (NZ if it holds)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="48904"></span><a href="../asm/48904.html">BF08</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/48904.html">Check every piece of evidence in the group after IX (Z if one fails)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="48924"></span><a href="../asm/48924.html">BF1C</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/48924.html">Print a case statement: thing, relation, thing</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="48965"></span><a href="../asm/48965.html">BF45</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/48965.html">DE = the words for a statement's relation (+1)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="49017"></span><a href="../asm/49017.html">BF79</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/49017.html">Print the clock: day, hour, minute, a or p</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="49113"></span><a href="../asm/49113.html">BFD9</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/49113.html">Advance the clock by one minute</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="49164"></span><a href="../asm/49164.html">C00C</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/49164.html">What part of the day is it? (A = 1-5)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="49211"></span><a href="../asm/49211.html">C03B</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/49211.html">Read the ZX Printer's status (port $FB, bit 6)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="49216"></span><a href="../asm/49216.html">C040</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/49216.html">Save the game to tape, then verify it</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="49375"></span><a href="../asm/49375.html">C0DF</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/49375.html">Load the saved-game block from tape</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="49423"></span><a href="../asm/49423.html">C10F</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/49423.html">Set the border, then clear the screen and attributes</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="49449"></span><a href="../asm/49449.html">C129</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/49449.html">Narrow the text lines to the left half (a picture is showing)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="49474"></span><a href="../asm/49474.html">C142</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/49474.html">Text lines full width again (36 characters)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="49482"></span><a href="../asm/49482.html">C14A</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/49482.html">Set up the screen at the start of the game</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="49576"></span><a href="../asm/49576.html">C1A8</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/49576.html">Print the clock line: B characters from HL at screen address $5041</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="49600"></span><a href="../asm/49600.html">C1C0</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/49600.html">Print a prompt at HL, wait for a key, newline</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="49611"></span><a href="../asm/49611.html">C1CB</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/49611.html">Print a message: plain ASCII, last byte has bit 7 set</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="49633"></span><a href="../asm/49633.html">C1E1</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/49633.html">Print gatekeeper: check two flags, then dispatch</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="49660"></span><a href="../asm/49660.html">C1FC</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/49660.html">Echo a typed character in the command window</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="49728"></span><a href="../asm/49728.html">C240</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/49728.html">Upper-case A if it is a lower-case letter</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="49737"></span><a href="../asm/49737.html">C249</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/49737.html">Rub out the last character in the command window</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="49767"></span><a href="../asm/49767.html">C267</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/49767.html">Step the print position back one 7-pixel character</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="49777"></span><a href="../asm/49777.html">C271</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/49777.html">Scroll the command window up one line and clear the bottom line</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="49820"></span><a href="../asm/49820.html">C29C</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/49820.html">Move part of the command window down a row and clear the gap</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="49850"></span><a href="../asm/49850.html">C2BA</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/49850.html">Print one character (or handle a newline) at the cursor</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="49926"></span><a href="../asm/49926.html">C306</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/49926.html">Page-wait: flash the cursor, wait for a key, clear</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="49942"></span><a href="../asm/49942.html">C316</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/49942.html">Scroll the text up a line, printing the line that goes if printing is on</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="50045"></span><a href="../asm/50045.html">C37D</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/50045.html">Swap DE and HL, then move HL down a character row</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="50056"></span><a href="../asm/50056.html">C388</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/50056.html">PLOT-CHAR: draw one character glyph at HL, shifted by C</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="50148"></span><a href="../asm/50148.html">C3E4</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/50148.html">Send the screen's top character row to the ZX Printer, if printing is on</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="50176"></span><a href="../asm/50176.html">C400</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/50176.html">The end of $C3E4 (POP DE, POP HL, RET)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="50179"></span><a href="../asm/50179.html">C403</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/50179.html">Print one pixel line on the ZX Printer</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="50197"></span><a href="../asm/50197.html">C415</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/50197.html">GET-KEY, but block until a key is actually pressed</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="50207"></span><a href="../asm/50207.html">C41F</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/50207.html">GET-KEY: has the player pressed a key?</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="50270"></span><a href="../asm/50270.html">C45E</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/50270.html">Is B below the last number for this object slot?</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="50323"></span><a href="../asm/50323.html">C493</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/50323.html">Set the direct object's requirement from the parsed words</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="50354"></span><a href="../asm/50354.html">C4B2</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/50354.html">Set the indirect object's requirement from the parsed words</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="50385"></span><a href="../asm/50385.html">C4D1</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/50385.html">Carry out the command in $A033-$A035 for the current actor</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="50498"></span><a href="../asm/50498.html">C542</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/50498.html">Should the indirect object be guessed?</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="50522"></span><a href="../asm/50522.html">C55A</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/50522.html">Guess the indirect object: try each one until the record's checks pass</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="50545"></span><a href="../asm/50545.html">C571</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/50545.html">$A00F = an action record's requirement code (header byte 0, low nibble)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="50554"></span><a href="../asm/50554.html">C57A</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/50554.html">$A010 = the record's header byte 1, low nibble (the indirect object's requirement)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="50563"></span><a href="../asm/50563.html">C583</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/50563.html">Pick one of the 13 numbered action records</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="50684"></span><a href="../asm/50684.html">C5FC</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/50684.html">Should the indirect object be guessed? (numbered records)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="50701"></span><a href="../asm/50701.html">C60D</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/50701.html">Guess the indirect object for a numbered record</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="50728"></span><a href="../asm/50728.html">C628</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/50728.html">Check the direct object against the action record's requirement</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="50878"></span><a href="../asm/50878.html">C6BE</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/50878.html">Check the indirect object against the action record's requirement</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="51022"></span><a href="../asm/51022.html">C74E</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/51022.html">Test object C's +5 flags against a record's masks</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="51110"></span><a href="../asm/51110.html">C7A6</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/51110.html">Check object C against requirement code A (7-15)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="51233"></span><a href="../asm/51233.html">C821</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/51233.html">Can the current actor ($A036) see thing A?</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="51299"></span><a href="../asm/51299.html">C863</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/51299.html">Is thing number A here? ($C86E)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="51310"></span><a href="../asm/51310.html">C86E</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/51310.html">Follow an object's containment chain to its root</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="51352"></span><a href="../asm/51352.html">C898</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/51352.html">Follow IY's containment chain</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="51367"></span><a href="../asm/51367.html">C8A7</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/51367.html">How many locations has object A? (Z if exactly one)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="51375"></span><a href="../asm/51375.html">C8AF</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/51375.html">Is object A held, at any depth, by a person?</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="51390"></span><a href="../asm/51390.html">C8BE</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/51390.html">Is object A a person? (NZ if so)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="51398"></span><a href="../asm/51398.html">C8C6</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/51398.html">Can the actor carry object A as well as what it holds?</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="51439"></span><a href="../asm/51439.html">C8EF</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/51439.html">Point $A013 and $A015 at the direct and indirect objects' records</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="51497"></span><a href="../asm/51497.html">C929</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/51497.html">Check the action record against the command's objects</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="51507"></span><a href="../asm/51507.html">C933</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/51507.html">Find the action record for the current command</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="51552"></span><a href="../asm/51552.html">C960</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/51552.html">Look up a numbered entry in the table at $AA71</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="51593"></span><a href="../asm/51593.html">C989</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/51593.html">Run the numbered action record IX</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="51606"></span><a href="../asm/51606.html">C996</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/51606.html">Run a numbered action record; a script record becomes the actor's plan</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="51647"></span><a href="../asm/51647.html">C9BF</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/51647.html">Run an action record (HL = the record)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="51808"></span><a href="../asm/51808.html">CA60</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/51808.html">Run the action body, then report what the player saw</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="51830"></span><a href="../asm/51830.html">CA76</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/51830.html">Narrate the action, unless the verb is script-only</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="51839"></span><a href="../asm/51839.html">CA7F</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/51839.html">If the player's own view changed, describe the room</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="51870"></span><a href="../asm/51870.html">CA9E</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/51870.html">Describe the player's room: in full the first time, briefly after</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="51887"></span><a href="../asm/51887.html">CAAF</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/51887.html">Announce a character coming into the player's room</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="52012"></span><a href="../asm/52012.html">CB2C</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/52012.html">Dispatch to a handler routine via a computed jump</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="52032"></span><a href="../asm/52032.html">CB40</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/52032.html">Jump to HL</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="52033"></span><a href="../asm/52033.html">CB41</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/52033.html">Return Z (does nothing)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="52035"></span><a href="../asm/52035.html">CB43</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/52035.html">End of an actor's go: hand the turn back to the player</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="52091"></span><a href="../asm/52091.html">CB7B</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/52091.html">Refuse by naming the flag that failed: "THE ... IS &lt;word&gt;"</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="52135"></span><a href="../asm/52135.html">CBA7</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/52135.html">Refuse if the character is busy: 'SORRY, I CANNOT DO THAT NOW.'</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="52155"></span><a href="../asm/52155.html">CBBB</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/52155.html">Refusal: "SORRY IT IS TOO DARK."</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="52162"></span><a href="../asm/52162.html">CBC2</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/52162.html">Print message DE about thing A, if it is in the player's room</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="52238"></span><a href="../asm/52238.html">CC0E</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/52238.html">Find the actor record whose id matches C</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="52265"></span><a href="../asm/52265.html">CC29</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/52265.html">Set up the current actor: its record and room</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="52279"></span><a href="../asm/52279.html">CC37</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/52279.html">Start an actor's turn</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="52344"></span><a href="../asm/52344.html">CC78</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/52344.html">Run one step of the current actor's plan script</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="52516"></span><a href="../asm/52516.html">CD24</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/52516.html">Plan opcode 8, SIGNAL: leave a token for another actor</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="52551"></span><a href="../asm/52551.html">CD47</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/52551.html">Plan opcode 9, AWAIT: wait for a token from another actor</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="52610"></span><a href="../asm/52610.html">CD82</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/52610.html">Plan opcodes 13 and 15, PASS; and giving up for the turn</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="52629"></span><a href="../asm/52629.html">CD95</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/52629.html">Plan opcode 6, PRINT: print a message</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="52641"></span><a href="../asm/52641.html">CDA1</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/52641.html">Plan opcode 5, SAY TO: say something to someone</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="52671"></span><a href="../asm/52671.html">CDBF</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/52671.html">Plan opcode 4, ASK: order another character to do something</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="52760"></span><a href="../asm/52760.html">CE18</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/52760.html">Plan opcodes 1, 2, 3 and 7: DO a command or RUN a record</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="52867"></span><a href="../asm/52867.html">CE83</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/52867.html">Point IX and HL at the current plan instruction</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="52879"></span><a href="../asm/52879.html">CE8F</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/52879.html">A plan instruction succeeded: move on</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="52920"></span><a href="../asm/52920.html">CEB8</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/52920.html">A plan instruction failed: move on and try again now</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="52958"></span><a href="../asm/52958.html">CEDE</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/52958.html">Resolve a plan argument byte</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="52990"></span><a href="../asm/52990.html">CEFE</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/52990.html">Skip past a plan instruction</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="53059"></span><a href="../asm/53059.html">CF43</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/53059.html">Erase a spent one-shot plan instruction</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="53120"></span><a href="../asm/53120.html">CF80</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/53120.html">Save a sub-script call frame</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="53256"></span><a href="../asm/53256.html">D008</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/53256.html">Load the current actor's plan registers</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="53317"></span><a href="../asm/53317.html">D045</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/53317.html">Note the room the player is in ($A009)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="53327"></span><a href="../asm/53327.html">D04F</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/53327.html">IX = just before the start of the thing index ($8B6F)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="53368"></span><a href="../asm/53368.html">D078</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/53368.html">Is it too dark for the actor to see? (carry if so)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="53456"></span><a href="../asm/53456.html">D0D0</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/53456.html">Put word HL into the 'YOU ARE ...' message</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="53469"></span><a href="../asm/53469.html">D0DD</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/53469.html">Get the room's opening: 'YOU ARE ON/IN/AT ...' or 'YOU CAN SEE'</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="53506"></span><a href="../asm/53506.html">D102</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/53506.html">Describe room A in full (the first visit)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="53523"></span><a href="../asm/53523.html">D113</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/53523.html">Describe room A in full</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="53634"></span><a href="../asm/53634.html">D182</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/53634.html">Print a room's description</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="53682"></span><a href="../asm/53682.html">D1B2</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/53682.html">Describe room A briefly (a room seen before)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="53702"></span><a href="../asm/53702.html">D1C6</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/53702.html">Print room IX's name (its name words at +1)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="53723"></span><a href="../asm/53723.html">D1DB</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/53723.html">Jump to HL</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="53724"></span><a href="../asm/53724.html">D1DC</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/53724.html">Does this object list verb A in its own action list?</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="53766"></span><a href="../asm/53766.html">D206</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/53766.html">Step to the next 3-byte entry</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="53788"></span><a href="../asm/53788.html">D21C</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/53788.html">Step to the next thing's record ($D206), keeping A</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="53796"></span><a href="../asm/53796.html">D224</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/53796.html">Find a room record</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="53815"></span><a href="../asm/53815.html">D237</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/53815.html">Resolve an id (in A) to its full entity record</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="53833"></span><a href="../asm/53833.html">D249</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/53833.html">Move everything inside thing A, at any depth, to room B</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="53868"></span><a href="../asm/53868.html">D26C</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/53868.html">Is the direct object carried by the actor? (carry = yes)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="53877"></span><a href="../asm/53877.html">D275</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/53877.html">Is thing A carried by the actor, perhaps inside something? (carry = yes)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="53917"></span><a href="../asm/53917.html">D29D</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/53917.html">A random number from 1 to 100</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="53924"></span><a href="../asm/53924.html">D2A4</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/53924.html">A random number from 0 to A</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="53933"></span><a href="../asm/53933.html">D2AD</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/53933.html">The random number generator</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="53997"></span><a href="../asm/53997.html">D2ED</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/53997.html">Total size (+2) of the things directly in thing A</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="54002"></span><a href="../asm/54002.html">D2F2</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/54002.html">Total weight (+3) of everything in thing A, at any depth</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="54021"></span><a href="../asm/54021.html">D305</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/54021.html">Add up a byte of the things in thing A (the work of $D2ED/$D2F2)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="54076"></span><a href="../asm/54076.html">D33C</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/54076.html">IX = record of the actor's room</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="54089"></span><a href="../asm/54089.html">D349</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/54089.html">Search a table of two-byte entries for A</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="54094"></span><a href="../asm/54094.html">D34E</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/54094.html">Find a 3-byte record by id, in a sentinel-terminated table</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="54122"></span><a href="../asm/54122.html">D36A</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/54122.html">Find the next thing that matches a word slot of the parse</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="54171"></span><a href="../asm/54171.html">D39B</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/54171.html">Find the next room that matches a word slot of the parse</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="54229"></span><a href="../asm/54229.html">D3D5</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/54229.html">Print thing IX's name</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="54248"></span><a href="../asm/54248.html">D3E8</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/54248.html">Print the name words at IY</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="54277"></span><a href="../asm/54277.html">D405</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/54277.html">Print a thing's name with its adjectives (IY = its name words)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="54344"></span><a href="../asm/54344.html">D448</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/54344.html">Find the actor's exit in a direction</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="54380"></span><a href="../asm/54380.html">D46C</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/54380.html">Find the exit from the actor's room through door A ($D46C) or to room A ($D471)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="54421"></span><a href="../asm/54421.html">D495</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/54421.html">GET-ACTOR-ROOM: what room is actor A currently in?</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="54439"></span><a href="../asm/54439.html">D4A7</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/54439.html">List the people here: 'YOU CAN SEE ...'</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="54476"></span><a href="../asm/54476.html">D4CC</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/54476.html">Count the things in place B that should be listed (B)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="54511"></span><a href="../asm/54511.html">D4EF</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/54511.html">Should this thing be listed here?</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="54554"></span><a href="../asm/54554.html">D51A</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/54554.html">List the things in a place, with commas and AND</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="54566"></span><a href="../asm/54566.html">D526</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/54566.html">List the things in place A, then what each of them holds</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="54652"></span><a href="../asm/54652.html">D57C</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/54652.html">The next listable thing in place A (carry at the end)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="54672"></span><a href="../asm/54672.html">D590</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/54672.html">Say what a person is carrying, or what is on or in a thing</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="54739"></span><a href="../asm/54739.html">D5D3</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/54739.html">Print how a thing is held: IN, ON, BEHIND, UNDER or TIED TO</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="54767"></span><a href="../asm/54767.html">D5EF</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/54767.html">IX = room A's exits (record + 6), BC = 3 (their size)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="54779"></span><a href="../asm/54779.html">D5FB</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/54779.html">DE = the word for direction A (NORTH ... DOWN)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="54795"></span><a href="../asm/54795.html">D60B</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/54795.html">Describe the ways out through things: 'TO THE NORTH THERE IS THE FRONT DOOR'</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="54897"></span><a href="../asm/54897.html">D671</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/54897.html">Step IX to the room's next plain exit (Z at the end)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="54924"></span><a href="../asm/54924.html">D68C</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/54924.html">List the plain exits: 'VISIBLE EXITS ARE ...'</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="54975"></span><a href="../asm/54975.html">D6BF</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/54975.html">Player's turn: read a line from the keyboard (RUN at $9923)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="54990"></span><a href="../asm/54990.html">D6CE</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/54990.html">Read one word and classify it as noun or verb</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="55013"></span><a href="../asm/55013.html">D6E5</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/55013.html">Say 'I DO NOT KNOW THE WORD "..."'</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="55061"></span><a href="../asm/55061.html">D715</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/55061.html">Player's turn: split the typed line into words (RUN at $9928)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="55145"></span><a href="../asm/55145.html">D769</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/55145.html">Player's turn: stop when the line has no more words (RUN at $992D)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="55152"></span><a href="../asm/55152.html">D770</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/55152.html">Fail if the next token is of class $C0</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="55166"></span><a href="../asm/55166.html">D77E</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/55166.html">Player's turn: parse the next sentence (RUN at $9932)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="55257"></span><a href="../asm/55257.html">D7D9</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/55257.html">Player's turn: another sentence waiting? (RUN at $9937)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="55265"></span><a href="../asm/55265.html">D7E1</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/55265.html">More of the typed line to do?</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="55290"></span><a href="../asm/55290.html">D7FA</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/55290.html">Player's turn: turn the sentence into a command (RUN at $993C)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="55421"></span><a href="../asm/55421.html">D87D</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/55421.html">Free the current sentence's word list ($9FF0)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="55434"></span><a href="../asm/55434.html">D88A</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/55434.html">Free the rest of the typed line's word list ($9FF2)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="55448"></span><a href="../asm/55448.html">D898</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/55448.html">Read a line from the keyboard, with a time limit</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="55469"></span><a href="../asm/55469.html">D8AD</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/55469.html">The line editor</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="55644"></span><a href="../asm/55644.html">D95C</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/55644.html">Close a quotation: a full stop if needed, then the closing quote mark</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="55656"></span><a href="../asm/55656.html">D968</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/55656.html">End the typed line with a full stop if it has none</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="55672"></span><a href="../asm/55672.html">D978</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/55672.html">A cursor key on an empty line is a compass move</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="55710"></span><a href="../asm/55710.html">D99E</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/55710.html">The '@' key on an empty line: do the last command again</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="55735"></span><a href="../asm/55735.html">D9B7</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/55735.html">Rub out the typed line</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="55749"></span><a href="../asm/55749.html">D9C5</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/55749.html">Tokenizer: read and classify the next word from input</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="55860"></span><a href="../asm/55860.html">DA34</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/55860.html">Look up this word's first letter in the dictionary index</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="55933"></span><a href="../asm/55933.html">DA7D</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/55933.html">Compare the typed word against one dictionary candidate</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="56006"></span><a href="../asm/56006.html">DAC6</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/56006.html">Read a token that is not a word: money, a number or punctuation</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="56040"></span><a href="../asm/56040.html">DAE8</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/56040.html">Is A a digit? (carry if not)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="56047"></span><a href="../asm/56047.html">DAEF</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/56047.html">Read a time, or a number that may turn out to be money</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="56150"></span><a href="../asm/56150.html">DB56</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/56150.html">Is A a separator (full stop, comma or space)? Z if so</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="56159"></span><a href="../asm/56159.html">DB5F</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/56159.html">Step HL back one and return Z with A = $F0</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="56167"></span><a href="../asm/56167.html">DB67</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/56167.html">Read an amount of pre-decimal money</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="56311"></span><a href="../asm/56311.html">DBF7</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/56311.html">Read a decimal number at HL into A</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="56341"></span><a href="../asm/56341.html">DC15</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/56341.html">Fail: A = 0, HL = 0, Z set</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="56345"></span><a href="../asm/56345.html">DC19</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/56345.html">Action record: default for verb 35 (LOOK THROUGH)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="56407"></span><a href="../asm/56407.html">DC57</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/56407.html">Action record: default for verb 28 (GO THROUGH)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="56443"></span><a href="../asm/56443.html">DC7B</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/56443.html">Action record: default for verb 34 (LOOK)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="56461"></span><a href="../asm/56461.html">DC8D</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/56461.html">Action record: default for verb 16 (DROP)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="56507"></span><a href="../asm/56507.html">DCBB</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/56507.html">Refusal: "YOU ARE CARRYING THE ..."</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="56513"></span><a href="../asm/56513.html">DCC1</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/56513.html">Default action: take (TAKE, GET, CARRY, TAKE FROM, TAKE OUT OF)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="56530"></span><a href="../asm/56530.html">DCD2</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/56530.html">Pre-check for moving in a direction (verbs 1-10)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="56579"></span><a href="../asm/56579.html">DD03</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/56579.html">Default action: move in a direction (verbs 1-10)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="56629"></span><a href="../asm/56629.html">DD35</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/56629.html">Can the actor get past the thing in an exit?</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="56673"></span><a href="../asm/56673.html">DD61</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/56673.html">Action record: find the exit to a room next door (RUN at $DD54)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="56708"></span><a href="../asm/56708.html">DD84</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/56708.html">Action record: remember what holds the direct object (RUN at $E476, $E7CF)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="56734"></span><a href="../asm/56734.html">DD9E</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/56734.html">Action record: default for verb 46 (TALK TO)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="56756"></span><a href="../asm/56756.html">DDB4</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/56756.html">Action record: default for verb 49 (WAIT HERE)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="56766"></span><a href="../asm/56766.html">DDBE</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/56766.html">Script helper: wait n minutes</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="56784"></span><a href="../asm/56784.html">DDD0</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/56784.html">Default action: WAIT UNTIL (verb 50)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="56943"></span><a href="../asm/56943.html">DE6F</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/56943.html">Action record: default for verb 33 (INVENTORY)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="56989"></span><a href="../asm/56989.html">DE9D</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/56989.html">Shared OPEN action ($AA71 entry #6, CLOSE is #7)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="57007"></span><a href="../asm/57007.html">DEAF</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/57007.html">Shared CLOSE action ($AA71 entry #7)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="57025"></span><a href="../asm/57025.html">DEC1</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/57025.html">Default action: put something into something (PUT IN, PUT ON, DROP IN)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="57049"></span><a href="../asm/57049.html">DED9</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/57049.html">Pre-check for PUT IN: will the thing fit in the container?</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="57090"></span><a href="../asm/57090.html">DF02</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/57090.html">Action record: default for verb 26 (GIVE TO): hand the object over</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="57152"></span><a href="../asm/57152.html">DF40</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/57152.html">Action record: default for verb 19 (EXAMINE)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="57227"></span><a href="../asm/57227.html">DF8B</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/57227.html">Action record: singe the note when it is picked up (RUN at $DF85)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="57270"></span><a href="../asm/57270.html">DFB6</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/57270.html">Action record: opening the wall safe on Monday (RUN at $DFAB)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="57290"></span><a href="../asm/57290.html">DFCA</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/57290.html">Action record: Basil shoots you (RUN at $EF99, and from $DFB6)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="57322"></span><a href="../asm/57322.html">DFEA</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/57322.html">Action record: shared 24 (TAKE OFF (used by the old man's disguise))</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="57328"></span><a href="../asm/57328.html">DFF0</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/57328.html">Action record: shared 23 (WEAR (used by the old man's disguise))</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="57347"></span><a href="../asm/57347.html">E003</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/57347.html">Shared TAKE OFF action ($AA71 entry #5)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="57378"></span><a href="../asm/57378.html">E022</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/57378.html">Shared WEAR action ($AA71 entry #4)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="57402"></span><a href="../asm/57402.html">E03A</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/57402.html">Set the worn state of the actor (A = 1 wear, 0 take off)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="57517"></span><a href="../asm/57517.html">E0AD</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/57517.html">Action record: Lestrade finds the large rock in the stream (RUN at $E0A2)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="57579"></span><a href="../asm/57579.html">E0EB</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/57579.html">Action record: the trash pile gives up the torn note (RUN at $E0E7)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="57597"></span><a href="../asm/57597.html">E0FD</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/57597.html">Action record: the drawer's false bottom (RUN at $E0F9)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="57604"></span><a href="../asm/57604.html">E104</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/57604.html">Action record: the bookcase swings away (shared 18)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="57653"></span><a href="../asm/57653.html">E135</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/57653.html">Action record: RUN at $E0A7; RUN at $E0E2; RUN at $E0F4; default for verb 20 (EXAMINE CLOSELY)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="57736"></span><a href="../asm/57736.html">E188</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/57736.html">Action record: Mrs Jones is asked what happened or about her alibi (RUN at $E17D)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="57778"></span><a href="../asm/57778.html">E1B2</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/57778.html">Action record: asked about the bloodstained clothes, Tricia Fender becomes Mrs Jones (RUN at $E1A5)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="57814"></span><a href="../asm/57814.html">E1D6</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/57814.html">Action record: default for TELL and TELL ABOUT (verbs 47 and 48)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="57997"></span><a href="../asm/57997.html">E28D</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/57997.html">Refuse if the actor is the direct object</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="58008"></span><a href="../asm/58008.html">E298</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/58008.html">Can this hansom cab be hailed here?</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="58055"></span><a href="../asm/58055.html">E2C7</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/58055.html">Shared HAIL action ($AA71 entry #11)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="58094"></span><a href="../asm/58094.html">E2EE</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/58094.html">Start actor A on the script at DE, with objects B and C</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="58140"></span><a href="../asm/58140.html">E31C</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/58140.html">COUNT's pre-check: is the thing countable?</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="58152"></span><a href="../asm/58152.html">E328</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/58152.html">Action record: shared 10 (COUNT the money)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="58218"></span><a href="../asm/58218.html">E36A</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/58218.html">Refusal: "YOU DO NOT HAVE ENOUGH."</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="58224"></span><a href="../asm/58224.html">E370</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/58224.html">Action record: RUN at $E510; default for verb 37 (PAY TO)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="58255"></span><a href="../asm/58255.html">E38F</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/58255.html">Store HL as the money a thing holds (+9/+10)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="58268"></span><a href="../asm/58268.html">E39C</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/58268.html">HL = the money a thing holds (+9/+10)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="58281"></span><a href="../asm/58281.html">E3A9</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/58281.html">DE = the sum of money in the command ($A02F)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="58296"></span><a href="../asm/58296.html">E3B8</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/58296.html">Pre-check for getting into a cab</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="58346"></span><a href="../asm/58346.html">E3EA</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/58346.html">Shared GET INTO a cab ($AA71 entry #12)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="58357"></span><a href="../asm/58357.html">E3F5</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/58357.html">Pre-check for sitting on or getting into something</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="58378"></span><a href="../asm/58378.html">E40A</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/58378.html">Shared SIT implementation ($AA71 entry #9)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="58418"></span><a href="../asm/58418.html">E432</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/58418.html">Shared GET-OUT implementation ($AA71 entry #8)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="58504"></span><a href="../asm/58504.html">E488</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/58504.html">Action record: where is the person I follow? (RUN at $E45B, $E7B9)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="58519"></span><a href="../asm/58519.html">E497</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/58519.html">Verb 128 (scripts only): put a thing in a room</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="58569"></span><a href="../asm/58569.html">E4C9</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/58569.html">Action record: put a train in a room (internal verb 140, RUN at $F2A7)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="58648"></span><a href="../asm/58648.html">E518</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/58648.html">Action record: pay everything in the purse (RUN at $E508)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="58671"></span><a href="../asm/58671.html">E52F</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/58671.html">Script helper: start a countdown for the actor</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="58746"></span><a href="../asm/58746.html">E57A</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/58746.html">Script helper: tick the countdown (fail when it runs out)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="58760"></span><a href="../asm/58760.html">E588</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/58760.html">Script helper: cancel the actor's countdown</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="58792"></span><a href="../asm/58792.html">E5A8</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/58792.html">Script helper: idle for a minute</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="58797"></span><a href="../asm/58797.html">E5AD</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/58797.html">Verb 131 (scripts only): is the direct object in room n?</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="58817"></span><a href="../asm/58817.html">E5C1</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/58817.html">Action record: is the player in my room? (RUN at $E781)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="58840"></span><a href="../asm/58840.html">E5D8</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/58840.html">Verb 129 (scripts only): are two things in the same room?</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="58877"></span><a href="../asm/58877.html">E5FD</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/58877.html">Action record: RUN at $E08F; RUN at $E46B; internal verb 130 (IS HERE: is the direct object with the actor ($C863)?)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="58942"></span><a href="../asm/58942.html">E63E</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/58942.html">Action record: is a fare owed? (RUN at $F2D8)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="58964"></span><a href="../asm/58964.html">E654</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/58964.html">Action record: is change due? (RUN at $F304, $F31C, $F339)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="58991"></span><a href="../asm/58991.html">E66F</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/58991.html">Action record: is the account settled? (RUN at $F309, $F321, $F33E)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="59068"></span><a href="../asm/59068.html">E6BC</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/59068.html">Action record: the cabbie names the fare (RUN at $F326)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="59110"></span><a href="../asm/59110.html">E6E6</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/59110.html">Action record: take the passenger in my cab as the one to deal with (RUN at $F2F7, $F35F, $F371)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="59150"></span><a href="../asm/59150.html">E70E</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/59150.html">Action record: the cabbie's parting shout (RUN at $F35C)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="59362"></span><a href="../asm/59362.html">E7E2</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/59362.html">Script helper: is the actor carrying this?</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="60150"></span><a href="../asm/60150.html">EAF6</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/60150.html">Action record: Lestrade puts the policeman into the police cab (RUN at $EA5F)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="60177"></span><a href="../asm/60177.html">EB11</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/60177.html">Script helper: is THE SALE LOCATION IS OLD MILL ROAD proven?</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="60185"></span><a href="../asm/60185.html">EB19</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/60185.html">Action record: has Lestrade's statement been proven? (RUN at $EA2C)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="60373"></span><a href="../asm/60373.html">EBD5</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/60373.html">Action record: remember which cab is meant (RUN at $EBAA, $EBBB)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="60729"></span><a href="../asm/60729.html">ED39</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/60729.html">Action record: Straker revives the policeman (RUN at $ECBB)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="61340"></span><a href="../asm/61340.html">EF9C</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/61340.html">Action record: the first messenger takes a note from Basil (RUN at $EE95)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="61356"></span><a href="../asm/61356.html">EFAC</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/61356.html">Action record: the second messenger gives a note to Basil (RUN at $EF01)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="61363"></span><a href="../asm/61363.html">EFB3</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/61363.html">Action record: Phipps goes to sleep (RUN at $EE3D, $EEBB)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="61383"></span><a href="../asm/61383.html">EFC7</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/61383.html">Action record: Phipps wakes at 7 - or shoots you if you are in the house (RUN at $EE46, $EEC3, $EEDB, $EF09)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="61699"></span><a href="../asm/61699.html">F103</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/61699.html">The Major's confession: establish 'MAJOR VISITED OPIUM DEN'</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="61848"></span><a href="../asm/61848.html">F198</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/61848.html">Script helper: succeed by chance (n in 100)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="61864"></span><a href="../asm/61864.html">F1A8</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/61864.html">Action record: the Major knocks the policeman out (RUN at $F097)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="61889"></span><a href="../asm/61889.html">F1C1</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/61889.html">Set a thing's state word and state bits</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="61910"></span><a href="../asm/61910.html">F1D6</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/61910.html">Verb 136 (scripts only): is it hour n?</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="61942"></span><a href="../asm/61942.html">F1F6</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/61942.html">Action record: reveal the burning note (RUN at $EF0C)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="61955"></span><a href="../asm/61955.html">F203</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/61955.html">Verb 133 (scripts only): clear bit 0 of a thing's +5 flags</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="61968"></span><a href="../asm/61968.html">F210</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/61968.html">Verb 132 (scripts only): set bit 0 of a thing's +5 flags</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="62345"></span><a href="../asm/62345.html">F389</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/62345.html">Code after a plan script ($F389)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="62402"></span><a href="../asm/62402.html">F3C2</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/62402.html">Draw a picture (the picture interpreter)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="62608"></span><a href="../asm/62608.html">F490</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/62608.html">Fill the area around the pen in colour A</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="62733"></span><a href="../asm/62733.html">F50D</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/62733.html">Is the pixel under the pen set? (NZ if so)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="62740"></span><a href="../asm/62740.html">F514</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/62740.html">Move attribute address HL up a row (not past the top)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="62794"></span><a href="../asm/62794.html">F54A</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/62794.html">Move the pen one pixel (Z when it would leave the picture area)</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="62830"></span><a href="../asm/62830.html">F56E</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/62830.html">Draw a line from the pen</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="62930"></span><a href="../asm/62930.html">F5D2</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/62930.html">Plot the pen position in the current colour</a></div>
+</td>
+</tr>
+<tr>
+<td class="map-c"><span id="62971"></span><a href="../asm/62971.html">F5FB</a></td>
+<td class="map-c-desc">
+<div class="map-entry-title-10"><a class="map-entry-title" href="../asm/62971.html">Find the screen byte and bit for the pen</a></div>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

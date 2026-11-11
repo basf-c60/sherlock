@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at D305 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="54002.html">D2F2</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#54021">Map</a></td>
+<td class="next">
+Next: <a href="54076.html">D33C</a>
+</td>
+</tr>
+</table>
+<div class="description">D305: Add up a byte of the things in thing A (the work of $D2ED/$D2F2)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="53997.html">D2ED</a>, <a href="54002.html">D2F2</a>.
+</div>
+<div class="paragraph">
+Walks the things from <a href="35695.html">8B6F</a> (<a href="53788.html">D21C</a>); B selects +2 (and no recursion) or +3 (and recursion into each thing's own contents).
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">A thing</td>
+</tr>
+<tr>
+<td class="register">B</td>
+<td class="register-desc">0 for weights (all the way down); non-zero for sizes (one level)</td>
+</tr>
+<tr>
+<td class="register">C</td>
+<td class="register-desc">The running total</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">C</td>
+<td class="register-desc">The total, $FF if it overflows</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="54021"></span>D305</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54023"></span>D307</td>
+<td class="instruction">LD IX,$8B6F</td>
+<td class="comment-1" rowspan="1">Start at the first thing</td>
+</tr>
+<tr>
+<td class="address-2"><span id="54027"></span>D30B</td>
+<td class="instruction">CALL <a href="53788.html">$D21C</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Step to the next thing's record (<a href="53766.html">D206</a>), keeping A" (<a href="53788.html">D21C</a>) - Next thing; Z at the end</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54030"></span>D30E</td>
+<td class="instruction">JR Z,$D334</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, skip ahead to <a href="54021.html#54068">D334</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="54032"></span>D310</td>
+<td class="instruction">CP (IY+$01)</td>
+<td class="comment-1" rowspan="1">Compare A with the holder byte (+1) of the thing record at IY - Is it in A?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54035"></span>D313</td>
+<td class="instruction">JR NZ,$D30B</td>
+<td class="comment-1" rowspan="1">If A differs from the holder byte (+1) of the thing record at IY, go back to <a href="54021.html#54027">D30B</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="54037"></span>D315</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54038"></span>D316</td>
+<td class="instruction">SUB A</td>
+<td class="comment-1" rowspan="1">Clear A to zero - B = 0: weights (+3), all the way down; B &lt;&gt; 0: sizes (+2), this level only</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54039"></span>D317</td>
+<td class="instruction">CP B</td>
+<td class="comment-1" rowspan="1">Compare A with B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54040"></span>D318</td>
+<td class="instruction">LD A,C</td>
+<td class="comment-1" rowspan="1">Copy C into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54041"></span>D319</td>
+<td class="instruction">JR Z,$D324</td>
+<td class="comment-1" rowspan="1">If A equals B, skip ahead to <a href="54021.html#54052">D324</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="54043"></span>D31B</td>
+<td class="instruction">ADD A,(IY+$02)</td>
+<td class="comment-1" rowspan="1">Add the size byte (+2) of the thing record at IY to A - Add its size; over 127 gives $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54046"></span>D31E</td>
+<td class="instruction">JP PE,$D337</td>
+<td class="comment-1" rowspan="1">If the parity/overflow flag is set, skip ahead to <a href="54021.html#54071">D337</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="54049"></span>D321</td>
+<td class="instruction">LD C,A</td>
+<td class="comment-1" rowspan="1">Copy A into C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54050"></span>D322</td>
+<td class="instruction">JR $D331</td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="54021.html#54065">D331</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="54052"></span>D324</td>
+<td class="instruction">ADD A,(IY+$03)</td>
+<td class="comment-1" rowspan="1">Add the weight byte (+3) of the thing record at IY to A - Add its weight; over 127 gives $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54055"></span>D327</td>
+<td class="instruction">JP PE,$D337</td>
+<td class="comment-1" rowspan="1">If the parity/overflow flag is set, skip ahead to <a href="54021.html#54071">D337</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="54058"></span>D32A</td>
+<td class="instruction">LD C,A</td>
+<td class="comment-1" rowspan="1">Copy A into C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54059"></span>D32B</td>
+<td class="instruction">LD A,(IX+$00)</td>
+<td class="comment-1" rowspan="1">Read the number byte (+0) of the thing record at IX into A - and the weight of what it holds</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54062"></span>D32E</td>
+<td class="instruction">CALL $D305</td>
+<td class="comment-1" rowspan="1">Call the routine "Add up a byte of the things in thing A (the work of..." (<a href="54021.html">D305</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="54065"></span>D331</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54066"></span>D332</td>
+<td class="instruction">JR $D30B</td>
+<td class="comment-1" rowspan="1">Go back to <a href="54021.html#54027">D30B</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="54068"></span>D334</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54070"></span>D336</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="54071"></span>D337</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack - Overflow: C = $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54072"></span>D338</td>
+<td class="instruction">LD C,$FF</td>
+<td class="comment-1" rowspan="1">Load C with $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54074"></span>D33A</td>
+<td class="instruction">JR $D334</td>
+<td class="comment-1" rowspan="1">Go back to <a href="54021.html#54068">D334</a></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="54002.html">D2F2</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#54021">Map</a></td>
+<td class="next">
+Next: <a href="54076.html">D33C</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

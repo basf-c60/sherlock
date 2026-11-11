@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at A66C - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="42589.html">A65D</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#42604">Map</a></td>
+<td class="next">
+Next: <a href="42617.html">A679</a>
+</td>
+</tr>
+</table>
+<div class="description">A66C: Code $01: print the next parameter as a word (and: fetch the next parameter)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+DE = the next word of the parameters the caller pushed before printing the message, at <a href="42397.html">A59D</a>, which moves on by two. Returns NZ, and a handler that returns NZ has DE printed as a dictionary word reference (<a href="42529.html#42547">A633</a>, <a href="42445.html#42474">A5EA</a>) - so as code $01 it prints the parameter as a word. The other codes call it to read their parameters.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$A59D</td>
+<td class="register-desc">The parameter pointer</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">DE</td>
+<td class="register-desc">The next parameter word</td>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">The pointer, moved on two</td>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="42604"></span>A66C</td>
+<td class="instruction">LD HL,($A59D)</td>
+<td class="comment-1" rowspan="1">The message printer's parameter pointer (<a href="42397.html">A59D</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42607"></span>A66F</td>
+<td class="instruction">LD E,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into E - DE = the next parameter word; the pointer moves on two bytes</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42608"></span>A670</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42609"></span>A671</td>
+<td class="instruction">LD D,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42610"></span>A672</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42611"></span>A673</td>
+<td class="instruction">LD ($A59D),HL</td>
+<td class="comment-1" rowspan="1">Store HL in "Where the message's stack parameters end" (<a href="42397.html">A59D</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42614"></span>A676</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42616"></span>A678</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="42589.html">A65D</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#42604">Map</a></td>
+<td class="next">
+Next: <a href="42617.html">A679</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

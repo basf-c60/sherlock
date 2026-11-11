@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Data at ED4B - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-b">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Data</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="60729.html">ED39</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#60747">Map</a></td>
+<td class="next">
+Next: <a href="60893.html">EDDD</a>
+</td>
+</tr>
+</table>
+<div class="description">ED4B: Plan script: gardener (actor 8)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Entry points: <a href="60747.html">ED4B</a> = gardener (actor 8).
+</div>
+<div class="paragraph">
+Each sub-block is one instruction. Room and object numbers are as the game uses them (the reference pages list both).
+</div>
+<div class="paragraph">
+In an instruction, 'plan dobj' and 'plan iobj' are not fixed objects: they mean the direct and indirect object currently held in the actor's plan registers (bytes +4 and +5 of its actor record), so the same step works on whatever the actor is dealing with - for the player, the objects of the command just typed. 'plan verb' is the verb register (+3), 'self' is the acting character, and '-' means none.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60747"></span>ED4B</td>
+<td class="instruction">DEFB $59,$04,$4B,$ED</td>
+<td class="comment-1" rowspan="1">AWAIT 4 chief constable straker [busy; fail: wait here]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60751"></span>ED4F</td>
+<td class="instruction">DEFB $57,$98,$F1,$32,$FF,$4F,$ED</td>
+<td class="comment-1" rowspan="1">RUN <a href="61848.html">F198</a> CHANCE: succeed if a random 1-99 is at most (dobj) (50, -) [busy; fail: wait here]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60758"></span>ED56</td>
+<td class="instruction">DEFB $02,$8A,$32,$14</td>
+<td class="comment-1" rowspan="1">DO 138 <a href="60905.html">DOOR THEN CHANCE</a>: 50 plain door, 20</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60762"></span>ED5A</td>
+<td class="instruction">DEFB $02,$8A,$31,$1E</td>
+<td class="comment-1" rowspan="1">DO 138 <a href="60905.html">DOOR THEN CHANCE</a>: 49 diningroom door, 30</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60766"></span>ED5E</td>
+<td class="instruction">DEFB $02,$8A,$30,$14</td>
+<td class="comment-1" rowspan="1">DO 138 <a href="60905.html">DOOR THEN CHANCE</a>: 48 heavy oak door, 20</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60770"></span>ED62</td>
+<td class="instruction">DEFB $02,$8A,$2D,$14</td>
+<td class="comment-1" rowspan="1">DO 138 <a href="60905.html">DOOR THEN CHANCE</a>: 45 large oak door, 20</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60774"></span>ED66</td>
+<td class="instruction">DEFB $02,$8B,$01,$14</td>
+<td class="comment-1" rowspan="1">DO 139 <a href="60893.html">DO THEN CHANCE</a>: verb <a href="56579.html">1</a> <a href="56579.html">NORTH</a>, 20</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60778"></span>ED6A</td>
+<td class="instruction">DEFB $87,$98,$F1,$21,$FF,$8F,$ED</td>
+<td class="comment-1" rowspan="1">RUN <a href="61848.html">F198</a> CHANCE: succeed if a random 1-99 is at most (dobj) (33, -) [ok <a href="60747.html#60815">ED8F</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60785"></span>ED71</td>
+<td class="instruction">DEFB $87,$98,$F1,$32,$FF,$AA,$ED</td>
+<td class="comment-1" rowspan="1">RUN <a href="61848.html">F198</a> CHANCE: succeed if a random 1-99 is at most (dobj) (50, -) [ok <a href="60747.html#60842">EDAA</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60792"></span>ED78</td>
+<td class="instruction">DEFB $02,$8B,$02,$14</td>
+<td class="comment-1" rowspan="1">DO 139 <a href="60893.html">DO THEN CHANCE</a>: verb <a href="56579.html">2</a> <a href="56579.html">SOUTH</a>, 20</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60796"></span>ED7C</td>
+<td class="instruction">DEFB $02,$8A,$2D,$14</td>
+<td class="comment-1" rowspan="1">DO 138 <a href="60905.html">DOOR THEN CHANCE</a>: 45 large oak door, 20</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60800"></span>ED80</td>
+<td class="instruction">DEFB $02,$8A,$30,$14</td>
+<td class="comment-1" rowspan="1">DO 138 <a href="60905.html">DOOR THEN CHANCE</a>: 48 heavy oak door, 20</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60804"></span>ED84</td>
+<td class="instruction">DEFB $02,$8A,$31,$1E</td>
+<td class="comment-1" rowspan="1">DO 138 <a href="60905.html">DOOR THEN CHANCE</a>: 49 diningroom door, 30</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60808"></span>ED88</td>
+<td class="instruction">DEFB $02,$8A,$32,$14</td>
+<td class="comment-1" rowspan="1">DO 138 <a href="60905.html">DOOR THEN CHANCE</a>: 50 plain door, 20</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60812"></span>ED8C</td>
+<td class="instruction">DEFB $0E,$4F,$ED</td>
+<td class="comment-1" rowspan="1">GOTO <a href="60747.html#60751">ED4F</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="60815"></span>ED8F</td>
+<td class="instruction">DEFB $02,$8B,$03,$28</td>
+<td class="comment-1" rowspan="1">DO 139 <a href="60893.html">DO THEN CHANCE</a>: verb <a href="56579.html">3</a> <a href="56579.html">EAST</a>, 40</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60819"></span>ED93</td>
+<td class="instruction">DEFB $02,$8B,$03,$28</td>
+<td class="comment-1" rowspan="1">DO 139 <a href="60893.html">DO THEN CHANCE</a>: verb <a href="56579.html">3</a> <a href="56579.html">EAST</a>, 40</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60823"></span>ED97</td>
+<td class="instruction">DEFB $02,$8B,$03,$28</td>
+<td class="comment-1" rowspan="1">DO 139 <a href="60893.html">DO THEN CHANCE</a>: verb <a href="56579.html">3</a> <a href="56579.html">EAST</a>, 40</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60827"></span>ED9B</td>
+<td class="instruction">DEFB $02,$8B,$02,$28</td>
+<td class="comment-1" rowspan="1">DO 139 <a href="60893.html">DO THEN CHANCE</a>: verb <a href="56579.html">2</a> <a href="56579.html">SOUTH</a>, 40</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60831"></span>ED9F</td>
+<td class="instruction">DEFB $02,$8B,$06,$28</td>
+<td class="comment-1" rowspan="1">DO 139 <a href="60893.html">DO THEN CHANCE</a>: verb <a href="56579.html">6</a> <a href="56579.html">NORTHWEST</a>, 40</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60835"></span>EDA3</td>
+<td class="instruction">DEFB $02,$8B,$04,$28</td>
+<td class="comment-1" rowspan="1">DO 139 <a href="60893.html">DO THEN CHANCE</a>: verb <a href="56579.html">4</a> <a href="56579.html">WEST</a>, 40</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60839"></span>EDA7</td>
+<td class="instruction">DEFB $0E,$6A,$ED</td>
+<td class="comment-1" rowspan="1">GOTO <a href="60747.html#60778">ED6A</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="60842"></span>EDAA</td>
+<td class="instruction">DEFB $02,$8B,$08,$28</td>
+<td class="comment-1" rowspan="1">DO 139 <a href="60893.html">DO THEN CHANCE</a>: verb <a href="56579.html">8</a> <a href="56579.html">SOUTHWEST</a>, 40</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60846"></span>EDAE</td>
+<td class="instruction">DEFB $02,$8B,$02,$28</td>
+<td class="comment-1" rowspan="1">DO 139 <a href="60893.html">DO THEN CHANCE</a>: verb <a href="56579.html">2</a> <a href="56579.html">SOUTH</a>, 40</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60850"></span>EDB2</td>
+<td class="instruction">DEFB $02,$8B,$07,$28</td>
+<td class="comment-1" rowspan="1">DO 139 <a href="60893.html">DO THEN CHANCE</a>: verb <a href="56579.html">7</a> <a href="56579.html">SOUTHEAST</a>, 40</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60854"></span>EDB6</td>
+<td class="instruction">DEFB $02,$8B,$07,$28</td>
+<td class="comment-1" rowspan="1">DO 139 <a href="60893.html">DO THEN CHANCE</a>: verb <a href="56579.html">7</a> <a href="56579.html">SOUTHEAST</a>, 40</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60858"></span>EDBA</td>
+<td class="instruction">DEFB $02,$8B,$07,$28</td>
+<td class="comment-1" rowspan="1">DO 139 <a href="60893.html">DO THEN CHANCE</a>: verb <a href="56579.html">7</a> <a href="56579.html">SOUTHEAST</a>, 40</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60862"></span>EDBE</td>
+<td class="instruction">DEFB $02,$8B,$02,$28</td>
+<td class="comment-1" rowspan="1">DO 139 <a href="60893.html">DO THEN CHANCE</a>: verb <a href="56579.html">2</a> <a href="56579.html">SOUTH</a>, 40</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60866"></span>EDC2</td>
+<td class="instruction">DEFB $02,$8B,$04,$28</td>
+<td class="comment-1" rowspan="1">DO 139 <a href="60893.html">DO THEN CHANCE</a>: verb <a href="56579.html">4</a> <a href="56579.html">WEST</a>, 40</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60870"></span>EDC6</td>
+<td class="instruction">DEFB $02,$8B,$04,$28</td>
+<td class="comment-1" rowspan="1">DO 139 <a href="60893.html">DO THEN CHANCE</a>: verb <a href="56579.html">4</a> <a href="56579.html">WEST</a>, 40</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60874"></span>EDCA</td>
+<td class="instruction">DEFB $02,$8B,$04,$28</td>
+<td class="comment-1" rowspan="1">DO 139 <a href="60893.html">DO THEN CHANCE</a>: verb <a href="56579.html">4</a> <a href="56579.html">WEST</a>, 40</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60878"></span>EDCE</td>
+<td class="instruction">DEFB $02,$8B,$01,$28</td>
+<td class="comment-1" rowspan="1">DO 139 <a href="60893.html">DO THEN CHANCE</a>: verb <a href="56579.html">1</a> <a href="56579.html">NORTH</a>, 40</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60882"></span>EDD2</td>
+<td class="instruction">DEFB $02,$8B,$01,$28</td>
+<td class="comment-1" rowspan="1">DO 139 <a href="60893.html">DO THEN CHANCE</a>: verb <a href="56579.html">1</a> <a href="56579.html">NORTH</a>, 40</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60886"></span>EDD6</td>
+<td class="instruction">DEFB $02,$8B,$05,$28</td>
+<td class="comment-1" rowspan="1">DO 139 <a href="60893.html">DO THEN CHANCE</a>: verb <a href="56579.html">5</a> <a href="56579.html">NORTHEAST</a>, 40</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60890"></span>EDDA</td>
+<td class="instruction">DEFB $0E,$6A,$ED</td>
+<td class="comment-1" rowspan="1">GOTO <a href="60747.html#60778">ED6A</a></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="60729.html">ED39</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#60747">Map</a></td>
+<td class="next">
+Next: <a href="60893.html">EDDD</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

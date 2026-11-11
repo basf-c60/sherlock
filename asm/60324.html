@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Data at EBA4 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-b">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Data</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="60315.html">EB9B</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#60324">Map</a></td>
+<td class="next">
+Next: <a href="60373.html">EBD5</a>
+</td>
+</tr>
+</table>
+<div class="description">EBA4: Sub-script: take a hansom cab to room (indirect object)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Sub-script: RUN at <a href="59367.html#59764">E974</a>; RUN at <a href="59367.html#60138">EAEA</a>; RUN at <a href="60200.html#60221">EB3D</a>; RUN at <a href="60274.html#60276">EB74</a>; RUN at <a href="60971.html#61030">EE66</a>; RUN at <a href="60971.html#61306">EF7A</a>; RUN at <a href="61538.html#61641">F0C9</a>.
+</div>
+<div class="paragraph">
+HAIL until a cab stops, climb in, ASK the cabbie (the plan's verb register holds who answered) TO GO TO the room, wait until there (verb <a href="58797.html">131</a>), pay (<a href="58630.html">E506</a>) and climb out. 'Inspector Lestrade hails the hansom cab.', '...climbs into the hansom cab.', then 'Inspector Lestrade remarks to the cabbie " Go to Kings Cross Road. "'.
+</div>
+<div class="paragraph">
+Entry points: <a href="60324.html#60326">EBA6</a> = body of record <a href="60324.html">EBA4</a>.
+</div>
+<div class="paragraph">
+Each sub-block is one instruction. Room and object numbers are as the game uses them (the reference pages list both).
+</div>
+<div class="paragraph">
+In an instruction, 'plan dobj' and 'plan iobj' are not fixed objects: they mean the direct and indirect object currently held in the actor's plan registers (bytes +4 and +5 of its actor record), so the same step works on whatever the actor is dealing with - for the player, the objects of the command just typed. 'plan verb' is the verb register (+3), 'self' is the acting character, and '-' means none.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60324"></span>EBA4</td>
+<td class="instruction">DEFB $80,$04</td>
+<td class="comment-1" rowspan="1">Action record header: flags $80; bit 7: checks only; byte 1 $04 - checks-only: the script follows</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60326"></span>EBA6</td>
+<td class="instruction">DEFB $51,$1F,$A6,$EB</td>
+<td class="comment-1" rowspan="1">DO 31 <a href="58055.html">HAIL</a> [busy; fail: wait here]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60330"></span>EBAA</td>
+<td class="instruction">DEFB $47,$D5,$EB,$FD,$FF</td>
+<td class="comment-1" rowspan="1">RUN <a href="60373.html">EBD5</a> (plan dobj, -) [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60335"></span>EBAF</td>
+<td class="instruction">DEFB $C2,$82,$FA,$FF,$C0,$EB</td>
+<td class="comment-1" rowspan="1">DO 130 <a href="58877.html">IS HERE</a>: plan verb, - [busy; ok <a href="60324.html#60352">EBC0</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60341"></span>EBB5</td>
+<td class="instruction">DEFB $52,$0C,$FD,$FF,$AA,$EB</td>
+<td class="comment-1" rowspan="1">DO 12 <a href="58378.html">CLIMB INTO</a>: plan dobj, - [busy; fail <a href="60324.html#60330">EBAA</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60347"></span>EBBB</td>
+<td class="instruction">DEFB $47,$D5,$EB,$FD,$FF</td>
+<td class="comment-1" rowspan="1">RUN <a href="60373.html">EBD5</a> (plan dobj, -) [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60352"></span>EBC0</td>
+<td class="instruction">DEFB $44,$FA,$1D,$FC,$FF</td>
+<td class="comment-1" rowspan="1">ASK plan verb TO 29 <a href="39668.html">GO TO</a>: plan iobj, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60357"></span>EBC5</td>
+<td class="instruction">DEFB $52,$83,$FB,$FC,$C5,$EB</td>
+<td class="comment-1" rowspan="1">DO 131 <a href="58797.html">IS IN</a>: self, plan iobj [busy; fail: wait here]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60363"></span>EBCB</td>
+<td class="instruction">DEFB $47,$06,$E5,$FB,$FA</td>
+<td class="comment-1" rowspan="1">RUN <a href="58630.html">E506</a> (self, plan verb) [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60368"></span>EBD0</td>
+<td class="instruction">DEFB $42,$0D,$FD,$FF</td>
+<td class="comment-1" rowspan="1">DO 13 <a href="58418.html">CLIMB OUT OF</a>: plan dobj, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60372"></span>EBD4</td>
+<td class="instruction">DEFB $0B</td>
+<td class="comment-1" rowspan="1">RETURN OK</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="60315.html">EB9B</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#60324">Map</a></td>
+<td class="next">
+Next: <a href="60373.html">EBD5</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at E28D - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="57898.html">E22A</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#57997">Map</a></td>
+<td class="next">
+Next: <a href="58008.html">E298</a>
+</td>
+</tr>
+</table>
+<div class="description">E28D: Refuse if the actor is the direct object</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Fails (<a href="56341.html">DC15</a>) when <a href="40918.html#41010">$A036</a> = <a href="40918.html#41010">$A034</a> - doing the thing to yourself. Reached by the JP at <a href="58418.html#58447">E44F</a>.
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Fails ($DC15) when the actor is the direct object</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="57997"></span>E28D</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A036</a> in "Game variables" into A - The actor (<a href="40918.html#41010">$A036</a>) against the direct object (<a href="40918.html#41010">$A034</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58000"></span>E290</td>
+<td class="instruction">LD HL,$A034</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="40918.html#41010">$A034</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58003"></span>E293</td>
+<td class="instruction">CP (HL)</td>
+<td class="comment-1" rowspan="1">Compare A with the byte at <a href="40918.html#41010">$A034</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58004"></span>E294</td>
+<td class="instruction">JP Z,<a href="56341.html">$DC15</a></td>
+<td class="comment-1" rowspan="1">If A equals the byte at <a href="40918.html#41010">$A034</a> in "Game variables", go back to the routine "Fail: A = 0, HL = 0, Z set" (<a href="56341.html">DC15</a>) - Same: fail (<a href="56341.html">DC15</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58007"></span>E297</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="57898.html">E22A</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#57997">Map</a></td>
+<td class="next">
+Next: <a href="58008.html">E298</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

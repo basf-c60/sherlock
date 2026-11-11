@@ -1,0 +1,3035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Data at 5DC0 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-b">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Data</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="23936.html">5D80</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#24000">Map</a></td>
+<td class="next">
+Next: <a href="26551.html">67B7</a>
+</td>
+</tr>
+</table>
+<div class="description">5DC0: The dictionary: 592 words</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Each record: byte 0's low nibble picks a suffix from the table at <a href="43100.html">A85C</a> ($F = none); byte 1 says how many characters to keep from the previous word (bits 4-6) and how many new 5-bit letters follow (bits 0-3); if bit 7 of byte 1 is set, two more bytes give the offset of the word this one is a synonym of. The first letter is never stored: it is implied by the letter index.
+</div>
+<div class="paragraph">
+One link is unexplained: IN is recorded as a synonym of VISITED.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24000"></span>5DC0</td>
+<td class="instruction">DEFB $8F,$00</td>
+<td class="comment-1" rowspan="1">A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24002"></span>5DC2</td>
+<td class="instruction">DEFB $D0,$00</td>
+<td class="comment-1" rowspan="1">AS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24004"></span>5DC4</td>
+<td class="instruction">DEFB $7F,$04,$13,$EB,$40</td>
+<td class="comment-1" rowspan="1">ABOUT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24009"></span>5DC9</td>
+<td class="instruction">DEFB $DF,$22,$B1,$40</td>
+<td class="comment-1" rowspan="1">ABOVE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24013"></span>5DCD</td>
+<td class="instruction">DEFB $6F,$06,$18,$DF,$57,$50</td>
+<td class="comment-1" rowspan="1">ACCOUNT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24019"></span>5DD3</td>
+<td class="instruction">DEFB $6F,$12,$49,$00</td>
+<td class="comment-1" rowspan="1">ACID</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24023"></span>5DD7</td>
+<td class="instruction">DEFB $56,$06,$21,$24,$59,$CC</td>
+<td class="comment-1" rowspan="1">ADDRESSED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24029"></span>5DDD</td>
+<td class="instruction">DEFB $3F,$08,$35,$0B,$27,$3D,$EE</td>
+<td class="comment-1" rowspan="1">AFTERNOON</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24036"></span>5DE4</td>
+<td class="instruction">DEFB $DF,$04,$38,$52,$E0</td>
+<td class="comment-1" rowspan="1">AGAIN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24041"></span>5DE9</td>
+<td class="instruction">DEFB $5F,$13,$2B,$A8</td>
+<td class="comment-1" rowspan="1">AGENT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24045"></span>5DED</td>
+<td class="instruction">DEFB $DF,$11,$78</td>
+<td class="comment-1" rowspan="1">AGO</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24048"></span>5DF0</td>
+<td class="instruction">DEFB $6F,$08,$61,$0B,$23,$86,$85</td>
+<td class="comment-1" rowspan="1">ALDERGATE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24055"></span>5DF7</td>
+<td class="instruction">DEFB $5F,$13,$48,$92</td>
+<td class="comment-1" rowspan="1">ALIBI</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24059"></span>5DFB</td>
+<td class="instruction">DEFB $6F,$22,$B1,$40</td>
+<td class="comment-1" rowspan="1">ALIVE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24063"></span>5DFF</td>
+<td class="instruction">DEFB $9F,$11,$60</td>
+<td class="comment-1" rowspan="1">ALL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24066"></span>5E02</td>
+<td class="instruction">DEFB $DF,$13,$7B,$8E</td>
+<td class="comment-1" rowspan="1">ALONG</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24070"></span>5E06</td>
+<td class="instruction">DEFB $DF,$15,$91,$42,$4C,$80</td>
+<td class="comment-1" rowspan="1">ALREADY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24076"></span>5E0C</td>
+<td class="instruction">DEFB $DF,$16,$A2,$1F,$53,$A0</td>
+<td class="comment-1" rowspan="1">ALTHOUGH</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24082"></span>5E12</td>
+<td class="instruction">DEFB $D0,$13,$B8,$72</td>
+<td class="comment-1" rowspan="1">ALWAYS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24086"></span>5E16</td>
+<td class="instruction">DEFB $DF,$01,$68</td>
+<td class="comment-1" rowspan="1">AM</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24089"></span>5E19</td>
+<td class="instruction">DEFB $8F,$01,$70</td>
+<td class="comment-1" rowspan="1">AN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24092"></span>5E1C</td>
+<td class="instruction">DEFB $AF,$11,$20</td>
+<td class="comment-1" rowspan="1">AND</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24095"></span>5E1F</td>
+<td class="instruction">DEFB $8F,$15,$7D,$10,$59,$00</td>
+<td class="comment-1" rowspan="1">ANOTHER</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24101"></span>5E25</td>
+<td class="instruction">DEFB $DF,$14,$CB,$DC,$50</td>
+<td class="comment-1" rowspan="1">ANYONE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24106"></span>5E2A</td>
+<td class="instruction">DEFB $DF,$04,$80,$65,$40</td>
+<td class="comment-1" rowspan="1">APART</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24111"></span>5E2F</td>
+<td class="instruction">DEFB $D8,$16,$80,$64,$57,$50</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="24117"></span>5E35</td>
+<td class="instruction">DEFB $D0,$23,$28,$64</td>
+<td class="comment-1" rowspan="1">APPEARS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24121"></span>5E39</td>
+<td class="instruction">DEFB $8F,$02,$91,$40</td>
+<td class="comment-1" rowspan="1">ARE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24125"></span>5E3D</td>
+<td class="instruction">DEFB $50,$16,$68,$D0,$14,$C8</td>
+<td class="comment-1" rowspan="1">ARMCHAIRS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24131"></span>5E43</td>
+<td class="instruction">DEFB $D4,$13,$7D,$5C</td>
+<td class="comment-1" rowspan="1">AROUND</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24135"></span>5E47</td>
+<td class="instruction">DEFB $D6,$13,$92,$6C</td>
+<td class="comment-1" rowspan="1">ARRIVED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24139"></span>5E4B</td>
+<td class="instruction">DEFB $D0,$41,$28</td>
+<td class="comment-1" rowspan="1">ARRIVES</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24142"></span>5E4E</td>
+<td class="instruction">DEFB $5F,$17,$A2,$4C,$11,$D2,$60</td>
+<td class="comment-1" rowspan="1">ARTIFACTS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24149"></span>5E55</td>
+<td class="instruction">DEFB $30,$02,$9A,$C0</td>
+<td class="comment-1" rowspan="1">ASKS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24153"></span>5E59</td>
+<td class="instruction">DEFB $8F,$01,$A0</td>
+<td class="comment-1" rowspan="1">AT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24156"></span>5E5C</td>
+<td class="instruction">DEFB $D0,$15,$A1,$5B,$0A,$00</td>
+<td class="comment-1" rowspan="1">ATTEMPTS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24162"></span>5E62</td>
+<td class="instruction">DEFB $DF,$03,$B8,$72</td>
+<td class="comment-1" rowspan="1">AWAY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24166"></span>5E66</td>
+<td class="instruction">DEFB $6F,$03,$08,$D6</td>
+<td class="comment-1" rowspan="1">BACK</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24170"></span>5E6A</td>
+<td class="instruction">DEFB $6F,$13,$59,$64</td>
+<td class="comment-1" rowspan="1">BAKER</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24174"></span>5E6E</td>
+<td class="instruction">DEFB $6F,$12,$72,$C0</td>
+<td class="comment-1" rowspan="1">BANK</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24178"></span>5E72</td>
+<td class="instruction">DEFB $DF,$15,$93,$E3,$52,$80</td>
+<td class="comment-1" rowspan="1">BAROQUE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24184"></span>5E78</td>
+<td class="instruction">DEFB $6F,$13,$9A,$58</td>
+<td class="comment-1" rowspan="1">BASIL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24188"></span>5E7C</td>
+<td class="instruction">DEFB $6F,$41,$98</td>
+<td class="comment-1" rowspan="1">BASILS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24191"></span>5E7F</td>
+<td class="instruction">DEFB $8F,$01,$28</td>
+<td class="comment-1" rowspan="1">BE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24194"></span>5E82</td>
+<td class="instruction">DEFB $D5,$10</td>
+<td class="comment-1" rowspan="1">BEING</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24196"></span>5E84</td>
+<td class="instruction">DEFB $9F,$15,$18,$6B,$32,$80</td>
+<td class="comment-1" rowspan="1">BECAUSE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24202"></span>5E8A</td>
+<td class="instruction">DEFB $5F,$11,$20</td>
+<td class="comment-1" rowspan="1">BED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24205"></span>5E8D</td>
+<td class="instruction">DEFB $5F,$24,$93,$DE,$D0</td>
+<td class="comment-1" rowspan="1">BEDROOM</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24210"></span>5E92</td>
+<td class="instruction">DEFB $DF,$12,$2B,$80</td>
+<td class="comment-1" rowspan="1">BEEN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24214"></span>5E96</td>
+<td class="instruction">DEFB $DF,$14,$33,$E4,$50</td>
+<td class="comment-1" rowspan="1">BEFORE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24219"></span>5E9B</td>
+<td class="instruction">DEFB $DF,$14,$42,$5C,$40</td>
+<td class="comment-1" rowspan="1">BEHIND</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24224"></span>5EA0</td>
+<td class="instruction">DEFB $DF,$15,$62,$4B,$62,$80</td>
+<td class="comment-1" rowspan="1">BELIEVE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24230"></span>5EA6</td>
+<td class="instruction">DEFB $DF,$22,$7D,$C0</td>
+<td class="comment-1" rowspan="1">BELOW</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24234"></span>5EAA</td>
+<td class="instruction">DEFB $DF,$15,$A5,$CA,$57,$00</td>
+<td class="comment-1" rowspan="1">BETWEEN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24240"></span>5EB0</td>
+<td class="instruction">DEFB $5F,$02,$4B,$80</td>
+<td class="comment-1" rowspan="1">BIN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24244"></span>5EB4</td>
+<td class="instruction">DEFB $6F,$15,$9A,$1F,$09,$80</td>
+<td class="comment-1" rowspan="1">BISHOPS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24250"></span>5EBA</td>
+<td class="instruction">DEFB $DF,$11,$A0</td>
+<td class="comment-1" rowspan="1">BIT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24253"></span>5EBD</td>
+<td class="instruction">DEFB $E6,$08,$60,$46,$B6,$85,$2C</td>
+<td class="comment-1" rowspan="1">BLACKMAILED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24260"></span>5EC4</td>
+<td class="instruction">DEFB $5F,$13,$7B,$C8</td>
+<td class="comment-1" rowspan="1">BLOOD</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24264"></span>5EC8</td>
+<td class="instruction">DEFB $6F,$47,$9D,$02,$97,$14,$80</td>
+<td class="comment-1" rowspan="1">BLOODSTAINED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24271"></span>5ECF</td>
+<td class="instruction">DEFB $6F,$07,$78,$64,$44,$B8,$E0</td>
+<td class="comment-1" rowspan="1">BOARDING</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24278"></span>5ED6</td>
+<td class="instruction">DEFB $5F,$12,$26,$40</td>
+<td class="comment-1" rowspan="1">BODY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24282"></span>5EDA</td>
+<td class="instruction">DEFB $50,$12,$7A,$C0</td>
+<td class="comment-1" rowspan="1">BOOKS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24286"></span>5EDE</td>
+<td class="instruction">DEFB $5F,$34,$18,$66,$50</td>
+<td class="comment-1" rowspan="1">BOOKCASE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24291"></span>5EE3</td>
+<td class="instruction">DEFB $5F,$14,$A5,$1E,$D0</td>
+<td class="comment-1" rowspan="1">BOTTOM</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24296"></span>5EE8</td>
+<td class="instruction">DEFB $30,$84,$94,$04,$91,$42,$B0</td>
+<td class="comment-1" rowspan="1">BREAKS (synonym of KILLS)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24303"></span>5EEF</td>
+<td class="instruction">DEFB $5F,$14,$49,$0E,$50</td>
+<td class="comment-1" rowspan="1">BRIDGE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24308"></span>5EF4</td>
+<td class="instruction">DEFB $DF,$26,$63,$12,$17,$50</td>
+<td class="comment-1" rowspan="1">BRILLIANT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24314"></span>5EFA</td>
+<td class="instruction">DEFB $6F,$13,$78,$48</td>
+<td class="comment-1" rowspan="1">BROAD</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24318"></span>5EFE</td>
+<td class="instruction">DEFB $6F,$23,$59,$5C</td>
+<td class="comment-1" rowspan="1">BROKEN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24322"></span>5F02</td>
+<td class="instruction">DEFB $5F,$22,$BB,$80</td>
+<td class="comment-1" rowspan="1">BROWN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24326"></span>5F06</td>
+<td class="instruction">DEFB $6F,$41,$98</td>
+<td class="comment-1" rowspan="1">BROWNS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24329"></span>5F09</td>
+<td class="instruction">DEFB $6F,$09,$A8,$D6,$97,$1D,$01,$68</td>
+<td class="comment-1" rowspan="1">BUCKINGHAM</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24337"></span>5F11</td>
+<td class="instruction">DEFB $5F,$14,$63,$0B,$40</td>
+<td class="comment-1" rowspan="1">BULLET</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24342"></span>5F16</td>
+<td class="instruction">DEFB $65,$12,$93,$80</td>
+<td class="comment-1" rowspan="1">BURNING</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24346"></span>5F1A</td>
+<td class="instruction">DEFB $6F,$31,$A0</td>
+<td class="comment-1" rowspan="1">BURNT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24349"></span>5F1D</td>
+<td class="instruction">DEFB $9F,$11,$A0</td>
+<td class="comment-1" rowspan="1">BUT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24352"></span>5F20</td>
+<td class="instruction">DEFB $DF,$01,$C8</td>
+<td class="comment-1" rowspan="1">BY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24355"></span>5F23</td>
+<td class="instruction">DEFB $50,$02,$08,$80</td>
+<td class="comment-1" rowspan="1">CABS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24359"></span>5F27</td>
+<td class="instruction">DEFB $5F,$23,$12,$4A</td>
+<td class="comment-1" rowspan="1">CABBIE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24363"></span>5F2B</td>
+<td class="instruction">DEFB $D0,$12,$63,$00</td>
+<td class="comment-1" rowspan="1">CALLS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24367"></span>5F2F</td>
+<td class="instruction">DEFB $36,$B0,$BE,$03</td>
+<td class="comment-1" rowspan="1">CALLED (synonym of HAILS)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24371"></span>5F33</td>
+<td class="instruction">DEFB $6F,$14,$69,$0A,$E0</td>
+<td class="comment-1" rowspan="1">CAMDEN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24376"></span>5F38</td>
+<td class="instruction">DEFB $DF,$21,$28</td>
+<td class="comment-1" rowspan="1">CAME</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24379"></span>5F3B</td>
+<td class="instruction">DEFB $8F,$11,$70</td>
+<td class="comment-1" rowspan="1">CAN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24382"></span>5F3E</td>
+<td class="instruction">DEFB $8F,$23,$73,$E8</td>
+<td class="comment-1" rowspan="1">CANNOT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24386"></span>5F42</td>
+<td class="instruction">DEFB $08,$95,$BE,$01,$91,$4D,$56,$00</td>
+<td class="comment-1" rowspan="1">CAREFULLY (synonym of CLOSELY)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24394"></span>5F4A</td>
+<td class="instruction">DEFB $33,$22,$96,$40</td>
+<td class="comment-1" rowspan="1">CARRIES</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24398"></span>5F4E</td>
+<td class="instruction">DEFB $D5,$40</td>
+<td class="comment-1" rowspan="1">CARRYING</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24400"></span>5F50</td>
+<td class="instruction">DEFB $5F,$12,$99,$40</td>
+<td class="comment-1" rowspan="1">CASE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24404"></span>5F54</td>
+<td class="instruction">DEFB $50,$04,$40,$53,$20</td>
+<td class="comment-1" rowspan="1">CHAIRS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24409"></span>5F59</td>
+<td class="instruction">DEFB $5F,$23,$95,$26</td>
+<td class="comment-1" rowspan="1">CHARTS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24413"></span>5F5D</td>
+<td class="instruction">DEFB $6F,$13,$49,$4C</td>
+<td class="comment-1" rowspan="1">CHIEF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24417"></span>5F61</td>
+<td class="instruction">DEFB $6F,$22,$70,$40</td>
+<td class="comment-1" rowspan="1">CHINA</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24421"></span>5F65</td>
+<td class="instruction">DEFB $5F,$14,$7C,$12,$E0</td>
+<td class="comment-1" rowspan="1">CHOPIN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24426"></span>5F6A</td>
+<td class="instruction">DEFB $5F,$17,$93,$DC,$91,$B0,$A0</td>
+<td class="comment-1" rowspan="1">CHRONICLE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24433"></span>5F71</td>
+<td class="instruction">DEFB $40,$04,$62,$5A,$20</td>
+<td class="comment-1" rowspan="1">CLIMBS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24438"></span>5F76</td>
+<td class="instruction">DEFB $30,$13,$7C,$CA</td>
+<td class="comment-1" rowspan="1">CLOSES</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24442"></span>5F7A</td>
+<td class="instruction">DEFB $6F,$41,$20</td>
+<td class="comment-1" rowspan="1">CLOSED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24445"></span>5F7D</td>
+<td class="instruction">DEFB $0F,$42,$66,$40</td>
+<td class="comment-1" rowspan="1">CLOSELY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24449"></span>5F81</td>
+<td class="instruction">DEFB $5F,$41,$A0</td>
+<td class="comment-1" rowspan="1">CLOSET</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24452"></span>5F84</td>
+<td class="instruction">DEFB $5F,$24,$A2,$0B,$30</td>
+<td class="comment-1" rowspan="1">CLOTHES</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24457"></span>5F89</td>
+<td class="instruction">DEFB $6F,$05,$78,$88,$57,$00</td>
+<td class="comment-1" rowspan="1">COBDEN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24463"></span>5F8F</td>
+<td class="instruction">DEFB $6F,$13,$21,$48</td>
+<td class="comment-1" rowspan="1">CODED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24467"></span>5F93</td>
+<td class="instruction">DEFB $30,$12,$69,$40</td>
+<td class="comment-1" rowspan="1">COMES</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24471"></span>5F97</td>
+<td class="instruction">DEFB $6F,$17,$74,$E8,$11,$30,$A0</td>
+<td class="comment-1" rowspan="1">CONSTABLE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24478"></span>5F9E</td>
+<td class="instruction">DEFB $5F,$12,$7A,$C0</td>
+<td class="comment-1" rowspan="1">COOK</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24482"></span>5FA2</td>
+<td class="instruction">DEFB $5F,$14,$93,$8B,$20</td>
+<td class="comment-1" rowspan="1">CORNER</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24487"></span>5FA7</td>
+<td class="instruction">DEFB $50,$23,$84,$CA</td>
+<td class="comment-1" rowspan="1">CORPSES</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24491"></span>5FAB</td>
+<td class="instruction">DEFB $6F,$12,$9E,$40</td>
+<td class="comment-1" rowspan="1">COSY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24495"></span>5FAF</td>
+<td class="instruction">DEFB $5F,$13,$A8,$D0</td>
+<td class="comment-1" rowspan="1">COUCH</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24499"></span>5FB3</td>
+<td class="instruction">DEFB $D4,$21,$60</td>
+<td class="comment-1" rowspan="1">COULD</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24502"></span>5FB6</td>
+<td class="instruction">DEFB $3F,$22,$75,$00</td>
+<td class="comment-1" rowspan="1">COUNT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24506"></span>5FBA</td>
+<td class="instruction">DEFB $D0,$04,$92,$5A,$50</td>
+<td class="comment-1" rowspan="1">CRIMES</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24511"></span>5FBF</td>
+<td class="instruction">DEFB $6F,$13,$7C,$E6</td>
+<td class="comment-1" rowspan="1">CROSS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24515"></span>5FC3</td>
+<td class="instruction">DEFB $64,$15,$AB,$60,$C2,$80</td>
+<td class="comment-1" rowspan="1">CRUMPLED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24521"></span>5FC9</td>
+<td class="instruction">DEFB $35,$11,$C8</td>
+<td class="comment-1" rowspan="1">CRYING</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24524"></span>5FCC</td>
+<td class="instruction">DEFB $2F,$80,$72,$02</td>
+<td class="comment-1" rowspan="1">D (synonym of DOWN)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24528"></span>5FD0</td>
+<td class="instruction">DEFB $6F,$04,$0A,$59,$90</td>
+<td class="comment-1" rowspan="1">DAILY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24533"></span>5FD5</td>
+<td class="instruction">DEFB $6F,$14,$82,$1C,$50</td>
+<td class="comment-1" rowspan="1">DAPHNE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24538"></span>5FDA</td>
+<td class="instruction">DEFB $6F,$51,$98</td>
+<td class="comment-1" rowspan="1">DAPHNES</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24541"></span>5FDD</td>
+<td class="instruction">DEFB $DF,$12,$92,$C0</td>
+<td class="comment-1" rowspan="1">DARK</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24545"></span>5FE1</td>
+<td class="instruction">DEFB $3F,$11,$C8</td>
+<td class="comment-1" rowspan="1">DAY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24548"></span>5FE4</td>
+<td class="instruction">DEFB $6F,$03,$28,$48</td>
+<td class="comment-1" rowspan="1">DEAD</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24552"></span>5FE8</td>
+<td class="instruction">DEFB $D8,$22,$A2,$00</td>
+<td class="comment-1" rowspan="1">DEATHLY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24556"></span>5FEC</td>
+<td class="instruction">DEFB $6F,$12,$2C,$00</td>
+<td class="comment-1" rowspan="1">DEEP</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24560"></span>5FF0</td>
+<td class="instruction">DEFB $5F,$11,$70</td>
+<td class="comment-1" rowspan="1">DEN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24563"></span>5FF3</td>
+<td class="instruction">DEFB $5F,$12,$9A,$C0</td>
+<td class="comment-1" rowspan="1">DESK</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24567"></span>5FF7</td>
+<td class="instruction">DEFB $6F,$24,$80,$64,$40</td>
+<td class="comment-1" rowspan="1">DESPARD</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24572"></span>5FFC</td>
+<td class="instruction">DEFB $DF,$17,$A1,$47,$44,$D8,$A0</td>
+<td class="comment-1" rowspan="1">DETECTIVE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24579"></span>6003</td>
+<td class="instruction">DEFB $D4,$01,$48</td>
+<td class="comment-1" rowspan="1">DID</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24582"></span>6006</td>
+<td class="instruction">DEFB $D6,$10</td>
+<td class="comment-1" rowspan="1">DIED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24584"></span>6008</td>
+<td class="instruction">DEFB $5F,$16,$09,$E4,$16,$CC</td>
+<td class="comment-1" rowspan="1">DIAGRAMS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24590"></span>600E</td>
+<td class="instruction">DEFB $6F,$14,$72,$5C,$70</td>
+<td class="comment-1" rowspan="1">DINING</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24595"></span>6013</td>
+<td class="instruction">DEFB $6F,$54,$93,$DE,$D0</td>
+<td class="comment-1" rowspan="1">DININGROOM</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24600"></span>6018</td>
+<td class="instruction">DEFB $5F,$16,$99,$EA,$99,$94</td>
+<td class="comment-1" rowspan="1">DISGUISE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24606"></span>601E</td>
+<td class="instruction">DEFB $65,$42,$9D,$00</td>
+<td class="comment-1" rowspan="1">DISGUSTING</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24610"></span>6022</td>
+<td class="instruction">DEFB $DF,$01,$78</td>
+<td class="comment-1" rowspan="1">DO</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24613"></span>6025</td>
+<td class="instruction">DEFB $D1,$10</td>
+<td class="comment-1" rowspan="1">DOES</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24615"></span>6027</td>
+<td class="instruction">DEFB $D5,$10</td>
+<td class="comment-1" rowspan="1">DOING</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24617"></span>6029</td>
+<td class="instruction">DEFB $DF,$12,$71,$40</td>
+<td class="comment-1" rowspan="1">DONE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24621"></span>602D</td>
+<td class="instruction">DEFB $5F,$12,$7C,$80</td>
+<td class="comment-1" rowspan="1">DOOR</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24625"></span>6031</td>
+<td class="instruction">DEFB $2F,$12,$BB,$80</td>
+<td class="comment-1" rowspan="1">DOWN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24629"></span>6035</td>
+<td class="instruction">DEFB $5F,$05,$90,$6E,$59,$00</td>
+<td class="comment-1" rowspan="1">DRAWER</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24635"></span>603B</td>
+<td class="instruction">DEFB $30,$12,$7C,$00</td>
+<td class="comment-1" rowspan="1">DROPS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24639"></span>603F</td>
+<td class="instruction">DEFB $2F,$80,$84,$02</td>
+<td class="comment-1" rowspan="1">E (synonym of EAST)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24643"></span>6043</td>
+<td class="instruction">DEFB $2F,$03,$0C,$E8</td>
+<td class="comment-1" rowspan="1">EAST</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24647"></span>6047</td>
+<td class="instruction">DEFB $32,$04,$6C,$29,$90</td>
+<td class="comment-1" rowspan="1">EMPTYIES</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24652"></span>604C</td>
+<td class="instruction">DEFB $6F,$06,$71,$D8,$99,$A0</td>
+<td class="comment-1" rowspan="1">ENGLISH</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24658"></span>6052</td>
+<td class="instruction">DEFB $DF,$14,$7D,$4E,$80</td>
+<td class="comment-1" rowspan="1">ENOUGH</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24663"></span>6057</td>
+<td class="instruction">DEFB $30,$13,$A1,$64</td>
+<td class="comment-1" rowspan="1">ENTERS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24667"></span>605B</td>
+<td class="instruction">DEFB $6F,$25,$90,$5C,$32,$80</td>
+<td class="comment-1" rowspan="1">ENTRANCE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24673"></span>6061</td>
+<td class="instruction">DEFB $DF,$05,$9D,$03,$42,$80</td>
+<td class="comment-1" rowspan="1">ESTATE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24679"></span>6067</td>
+<td class="instruction">DEFB $35,$03,$B1,$5C</td>
+<td class="comment-1" rowspan="1">EVENING</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24683"></span>606B</td>
+<td class="instruction">DEFB $DF,$21,$90</td>
+<td class="comment-1" rowspan="1">EVER</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24686"></span>606E</td>
+<td class="instruction">DEFB $9F,$B6,$40,$00,$CD,$10,$97,$1C</td>
+<td class="comment-1" rowspan="1">EVERYTHING (synonym of ALL)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24694"></span>6076</td>
+<td class="instruction">DEFB $DF,$16,$49,$0A,$E1,$94</td>
+<td class="comment-1" rowspan="1">EVIDENCE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24700"></span>607C</td>
+<td class="instruction">DEFB $DF,$53,$A3,$32</td>
+<td class="comment-1" rowspan="1">EVIDENTLY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24704"></span>6080</td>
+<td class="instruction">DEFB $DF,$0A,$C0,$5A,$97,$06,$89,$7B</td>
+<td class="comment-1" rowspan="2">EXAMINATION</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24712"></span>6088</td>
+<td class="instruction">DEFB $80</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24713"></span>6089</td>
+<td class="instruction">DEFB $30,$51,$28</td>
+<td class="comment-1" rowspan="1">EXAMINES</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24716"></span>608C</td>
+<td class="instruction">DEFB $EF,$61,$20</td>
+<td class="comment-1" rowspan="1">EXAMINED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24719"></span>608F</td>
+<td class="instruction">DEFB $DF,$17,$19,$58,$C2,$BA,$80</td>
+<td class="comment-1" rowspan="1">EXCELLENT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24726"></span>6096</td>
+<td class="instruction">DEFB $9F,$B2,$5E,$01,$85,$00</td>
+<td class="comment-1" rowspan="1">EXCEPT (synonym of BUT)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24732"></span>609C</td>
+<td class="instruction">DEFB $DF,$03,$08,$CA</td>
+<td class="comment-1" rowspan="1">FACE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24736"></span>60A0</td>
+<td class="instruction">DEFB $08,$12,$4C,$80</td>
+<td class="comment-1" rowspan="1">FAIRLY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24740"></span>60A4</td>
+<td class="instruction">DEFB $6F,$13,$64,$CA</td>
+<td class="comment-1" rowspan="1">FALSE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24744"></span>60A8</td>
+<td class="instruction">DEFB $D4,$12,$69,$40</td>
+<td class="comment-1" rowspan="1">FAMED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24748"></span>60AC</td>
+<td class="instruction">DEFB $DF,$13,$70,$F2</td>
+<td class="comment-1" rowspan="1">FANCY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24752"></span>60B0</td>
+<td class="instruction">DEFB $DF,$11,$90</td>
+<td class="comment-1" rowspan="1">FAR</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24755"></span>60B3</td>
+<td class="instruction">DEFB $D0,$21,$28</td>
+<td class="comment-1" rowspan="1">FARES</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24758"></span>60B6</td>
+<td class="instruction">DEFB $DF,$05,$2B,$18,$FB,$80</td>
+<td class="comment-1" rowspan="1">FELLOW</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24764"></span>60BC</td>
+<td class="instruction">DEFB $6F,$14,$68,$58,$50</td>
+<td class="comment-1" rowspan="1">FEMALE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24769"></span>60C1</td>
+<td class="instruction">DEFB $5F,$14,$71,$0B,$20</td>
+<td class="comment-1" rowspan="1">FENDER</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24774"></span>60C6</td>
+<td class="instruction">DEFB $DF,$11,$B8</td>
+<td class="comment-1" rowspan="1">FEW</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24777"></span>60C9</td>
+<td class="instruction">DEFB $5F,$07,$33,$EA,$C5,$96,$60</td>
+<td class="comment-1" rowspan="1">FFOULKES</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24784"></span>60D0</td>
+<td class="instruction">DEFB $D4,$02,$4B,$80</td>
+<td class="comment-1" rowspan="1">FIND</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24788"></span>60D4</td>
+<td class="instruction">DEFB $50,$12,$91,$40</td>
+<td class="comment-1" rowspan="1">FIRES</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24792"></span>60D8</td>
+<td class="instruction">DEFB $5F,$35,$83,$02,$32,$80</td>
+<td class="comment-1" rowspan="1">FIREPLACE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24798"></span>60DE</td>
+<td class="instruction">DEFB $DF,$22,$9D,$00</td>
+<td class="comment-1" rowspan="1">FIRST</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24802"></span>60E2</td>
+<td class="instruction">DEFB $5F,$12,$9D,$00</td>
+<td class="comment-1" rowspan="1">FIST</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24806"></span>60E6</td>
+<td class="instruction">DEFB $65,$06,$62,$46,$B2,$C8</td>
+<td class="comment-1" rowspan="1">FLICKERING</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24812"></span>60EC</td>
+<td class="instruction">DEFB $5F,$05,$7B,$08,$59,$00</td>
+<td class="comment-1" rowspan="1">FOLDER</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24818"></span>60F2</td>
+<td class="instruction">DEFB $30,$23,$63,$EE</td>
+<td class="comment-1" rowspan="1">FOLLOWS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24822"></span>60F6</td>
+<td class="instruction">DEFB $5F,$18,$7D,$05,$24,$90,$E5</td>
+<td class="comment-1" rowspan="1">FOOTBRIDGE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24829"></span>60FD</td>
+<td class="instruction">DEFB $7F,$11,$90</td>
+<td class="comment-1" rowspan="1">FOR</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24832"></span>6100</td>
+<td class="instruction">DEFB $D4,$12,$AB,$80</td>
+<td class="comment-1" rowspan="1">FOUND</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24836"></span>6104</td>
+<td class="instruction">DEFB $5F,$21,$90</td>
+<td class="comment-1" rowspan="1">FOUR</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24839"></span>6107</td>
+<td class="instruction">DEFB $DF,$03,$91,$4A</td>
+<td class="comment-1" rowspan="1">FREE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24843"></span>610B</td>
+<td class="instruction">DEFB $D0,$14,$49,$5C,$40</td>
+<td class="comment-1" rowspan="1">FRIENDS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24848"></span>6110</td>
+<td class="instruction">DEFB $7F,$12,$7B,$40</td>
+<td class="comment-1" rowspan="1">FROM</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24852"></span>6114</td>
+<td class="instruction">DEFB $6F,$22,$75,$00</td>
+<td class="comment-1" rowspan="1">FRONT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24856"></span>6118</td>
+<td class="instruction">DEFB $3F,$83,$94,$04,$A8,$D6</td>
+<td class="comment-1" rowspan="1">FUCK (synonym of KILLS)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24862"></span>611E</td>
+<td class="instruction">DEFB $6F,$12,$63,$00</td>
+<td class="comment-1" rowspan="1">FULL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24866"></span>6122</td>
+<td class="instruction">DEFB $0F,$17,$92,$5F,$59,$B3,$20</td>
+<td class="comment-1" rowspan="1">FURIOUSLY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24873"></span>6129</td>
+<td class="instruction">DEFB $6F,$05,$0C,$88,$57,$00</td>
+<td class="comment-1" rowspan="1">GARDEN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24879"></span>612F</td>
+<td class="instruction">DEFB $5F,$52,$2C,$80</td>
+<td class="comment-1" rowspan="1">GARDENER</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24883"></span>6133</td>
+<td class="instruction">DEFB $6F,$11,$98</td>
+<td class="comment-1" rowspan="1">GAS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24886"></span>6136</td>
+<td class="instruction">DEFB $5F,$12,$A1,$40</td>
+<td class="comment-1" rowspan="1">GATE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24890"></span>613A</td>
+<td class="instruction">DEFB $6F,$05,$2C,$9A,$17,$00</td>
+<td class="comment-1" rowspan="1">GERMAN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24896"></span>6140</td>
+<td class="instruction">DEFB $30,$11,$A0</td>
+<td class="comment-1" rowspan="1">GETS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24899"></span>6143</td>
+<td class="instruction">DEFB $6F,$04,$4B,$0B,$30</td>
+<td class="comment-1" rowspan="1">GILES</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24904"></span>6148</td>
+<td class="instruction">DEFB $30,$12,$B1,$40</td>
+<td class="comment-1" rowspan="1">GIVES</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24908"></span>614C</td>
+<td class="instruction">DEFB $41,$01,$78</td>
+<td class="comment-1" rowspan="1">GOES</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24911"></span>614F</td>
+<td class="instruction">DEFB $D5,$10</td>
+<td class="comment-1" rowspan="1">GOING</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24913"></span>6151</td>
+<td class="instruction">DEFB $DF,$12,$71,$40</td>
+<td class="comment-1" rowspan="1">GONE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24917"></span>6155</td>
+<td class="instruction">DEFB $0F,$12,$79,$00</td>
+<td class="comment-1" rowspan="1">GOOD</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24921"></span>6159</td>
+<td class="instruction">DEFB $DF,$11,$A0</td>
+<td class="comment-1" rowspan="1">GOT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24924"></span>615C</td>
+<td class="instruction">DEFB $5F,$09,$90,$5A,$18,$21,$EE,$28</td>
+<td class="comment-1" rowspan="1">GRAMAPHONE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24932"></span>6164</td>
+<td class="instruction">DEFB $5F,$14,$7D,$5C,$40</td>
+<td class="comment-1" rowspan="1">GROUND</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24937"></span>6169</td>
+<td class="instruction">DEFB $6F,$04,$A9,$67,$40</td>
+<td class="comment-1" rowspan="1">GUEST</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24942"></span>616E</td>
+<td class="instruction">DEFB $5F,$14,$4B,$29,$90</td>
+<td class="comment-1" rowspan="1">GUILTY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24947"></span>6173</td>
+<td class="instruction">DEFB $5F,$11,$70</td>
+<td class="comment-1" rowspan="1">GUN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24950"></span>6176</td>
+<td class="instruction">DEFB $DF,$11,$B0</td>
+<td class="comment-1" rowspan="1">GUV</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24953"></span>6179</td>
+<td class="instruction">DEFB $EF,$02,$09,$00</td>
+<td class="comment-1" rowspan="1">HAD</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24957"></span>617D</td>
+<td class="instruction">DEFB $30,$12,$4B,$00</td>
+<td class="comment-1" rowspan="1">HAILS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24961"></span>6181</td>
+<td class="instruction">DEFB $5F,$12,$63,$00</td>
+<td class="comment-1" rowspan="1">HALL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24965"></span>6185</td>
+<td class="instruction">DEFB $5F,$33,$B8,$72</td>
+<td class="comment-1" rowspan="1">HALLWAY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24969"></span>6189</td>
+<td class="instruction">DEFB $50,$12,$71,$00</td>
+<td class="comment-1" rowspan="1">HANDS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24973"></span>618D</td>
+<td class="instruction">DEFB $6F,$23,$9B,$DA</td>
+<td class="comment-1" rowspan="1">HANSOM</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24977"></span>6191</td>
+<td class="instruction">DEFB $5F,$16,$84,$0A,$E2,$90</td>
+<td class="comment-1" rowspan="1">HAPPENED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24983"></span>6197</td>
+<td class="instruction">DEFB $EF,$11,$98</td>
+<td class="comment-1" rowspan="1">HAS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24986"></span>619A</td>
+<td class="instruction">DEFB $EF,$13,$A1,$48</td>
+<td class="comment-1" rowspan="1">HATED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24990"></span>619E</td>
+<td class="instruction">DEFB $D7,$12,$B1,$40</td>
+<td class="comment-1" rowspan="1">HAVING</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24994"></span>61A2</td>
+<td class="instruction">DEFB $9F,$01,$28</td>
+<td class="comment-1" rowspan="1">HE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="24997"></span>61A5</td>
+<td class="instruction">DEFB $DF,$12,$09,$00</td>
+<td class="comment-1" rowspan="1">HEAD</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25001"></span>61A9</td>
+<td class="instruction">DEFB $DF,$21,$90</td>
+<td class="comment-1" rowspan="1">HEAR</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25004"></span>61AC</td>
+<td class="instruction">DEFB $6F,$22,$B6,$40</td>
+<td class="comment-1" rowspan="1">HEAVY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25008"></span>61B0</td>
+<td class="instruction">DEFB $5F,$13,$21,$CA</td>
+<td class="comment-1" rowspan="1">HEDGE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25012"></span>61B4</td>
+<td class="instruction">DEFB $3F,$13,$63,$1E</td>
+<td class="comment-1" rowspan="1">HELLO</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25016"></span>61B8</td>
+<td class="instruction">DEFB $DF,$21,$80</td>
+<td class="comment-1" rowspan="1">HELP</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25019"></span>61BB</td>
+<td class="instruction">DEFB $DF,$11,$90</td>
+<td class="comment-1" rowspan="1">HER</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25022"></span>61BE</td>
+<td class="instruction">DEFB $7F,$21,$28</td>
+<td class="comment-1" rowspan="1">HERE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25025"></span>61C1</td>
+<td class="instruction">DEFB $5F,$24,$99,$58,$60</td>
+<td class="comment-1" rowspan="1">HERSELF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25030"></span>61C6</td>
+<td class="instruction">DEFB $DF,$01,$48</td>
+<td class="comment-1" rowspan="1">HI</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25033"></span>61C9</td>
+<td class="instruction">DEFB $EF,$11,$20</td>
+<td class="comment-1" rowspan="1">HID</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25036"></span>61CC</td>
+<td class="instruction">DEFB $6F,$23,$21,$5C</td>
+<td class="comment-1" rowspan="1">HIDDEN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25040"></span>61D0</td>
+<td class="instruction">DEFB $DF,$11,$68</td>
+<td class="comment-1" rowspan="1">HIM</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25043"></span>61D3</td>
+<td class="instruction">DEFB $DF,$11,$98</td>
+<td class="comment-1" rowspan="1">HIS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25046"></span>61D6</td>
+<td class="instruction">DEFB $DF,$05,$7B,$1A,$59,$80</td>
+<td class="comment-1" rowspan="1">HOLMES</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25052"></span>61DC</td>
+<td class="instruction">DEFB $5F,$13,$AC,$CA</td>
+<td class="comment-1" rowspan="1">HOUSE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25056"></span>61E0</td>
+<td class="instruction">DEFB $DF,$11,$B8</td>
+<td class="comment-1" rowspan="1">HOW</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25059"></span>61E3</td>
+<td class="instruction">DEFB $DF,$03,$AC,$A8</td>
+<td class="comment-1" rowspan="1">HURT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25063"></span>61E7</td>
+<td class="instruction">DEFB $D4,$14,$98,$82,$E0</td>
+<td class="comment-1" rowspan="1">HUSBAND</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25068"></span>61EC</td>
+<td class="instruction">DEFB $0F,$80,$7A,$04</td>
+<td class="comment-1" rowspan="1">I (synonym of INVENTORY)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25072"></span>61F0</td>
+<td class="instruction">DEFB $5F,$04,$22,$5F,$40</td>
+<td class="comment-1" rowspan="1">IDIOT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25077"></span>61F5</td>
+<td class="instruction">DEFB $DF,$01,$30</td>
+<td class="comment-1" rowspan="1">IF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25080"></span>61F8</td>
+<td class="instruction">DEFB $DF,$06,$68,$4E,$97,$14</td>
+<td class="comment-1" rowspan="1">IMAGINE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25086"></span>61FE</td>
+<td class="instruction">DEFB $08,$17,$69,$48,$90,$D0,$A0</td>
+<td class="comment-1" rowspan="1">IMMEDIATELY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25093"></span>6205</td>
+<td class="instruction">DEFB $DF,$18,$83,$E5,$40,$B8,$65</td>
+<td class="comment-1" rowspan="1">IMPORTANCE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25100"></span>620C</td>
+<td class="instruction">DEFB $6F,$71,$A0</td>
+<td class="comment-1" rowspan="1">IMPORTANT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25103"></span>620F</td>
+<td class="instruction">DEFB $1F,$81,$56,$09,$70</td>
+<td class="comment-1" rowspan="1">IN (synonym of VISITED)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25108"></span>6214</td>
+<td class="instruction">DEFB $D0,$16,$1A,$48,$57,$50</td>
+<td class="comment-1" rowspan="1">INCIDENTS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25114"></span>621A</td>
+<td class="instruction">DEFB $6F,$14,$22,$42,$E0</td>
+<td class="comment-1" rowspan="1">INDIAN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25119"></span>621F</td>
+<td class="instruction">DEFB $5F,$16,$73,$C6,$57,$50</td>
+<td class="comment-1" rowspan="1">INNOCENT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25125"></span>6225</td>
+<td class="instruction">DEFB $7F,$14,$9A,$48,$50</td>
+<td class="comment-1" rowspan="1">INSIDE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25130"></span>622A</td>
+<td class="instruction">DEFB $6F,$26,$81,$47,$47,$C8</td>
+<td class="comment-1" rowspan="1">INSPECTOR</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25136"></span>6230</td>
+<td class="instruction">DEFB $DF,$16,$A1,$64,$59,$D0</td>
+<td class="comment-1" rowspan="1">INTEREST</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25142"></span>6236</td>
+<td class="instruction">DEFB $1F,$21,$78</td>
+<td class="comment-1" rowspan="1">INTO</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25145"></span>6239</td>
+<td class="instruction">DEFB $3F,$17,$B1,$5D,$47,$CB,$20</td>
+<td class="comment-1" rowspan="1">INVENTORY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25152"></span>6240</td>
+<td class="instruction">DEFB $D6,$23,$7B,$2C</td>
+<td class="comment-1" rowspan="1">INVOLVED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25156"></span>6244</td>
+<td class="instruction">DEFB $EF,$01,$98</td>
+<td class="comment-1" rowspan="1">IS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25159"></span>6247</td>
+<td class="instruction">DEFB $9F,$01,$A0</td>
+<td class="comment-1" rowspan="1">IT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25162"></span>624A</td>
+<td class="instruction">DEFB $5F,$04,$7B,$8B,$30</td>
+<td class="comment-1" rowspan="1">JONES</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25167"></span>624F</td>
+<td class="instruction">DEFB $DF,$03,$AC,$E8</td>
+<td class="comment-1" rowspan="1">JUST</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25171"></span>6253</td>
+<td class="instruction">DEFB $30,$03,$4B,$18</td>
+<td class="comment-1" rowspan="1">KILLS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25175"></span>6257</td>
+<td class="instruction">DEFB $EF,$32,$29,$00</td>
+<td class="comment-1" rowspan="1">KILLED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25179"></span>625B</td>
+<td class="instruction">DEFB $6F,$13,$71,$E6</td>
+<td class="comment-1" rowspan="1">KINGS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25183"></span>625F</td>
+<td class="instruction">DEFB $5F,$15,$A0,$D0,$57,$00</td>
+<td class="comment-1" rowspan="1">KITCHEN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25189"></span>6265</td>
+<td class="instruction">DEFB $D6,$04,$73,$C6,$B0</td>
+<td class="comment-1" rowspan="1">KNOCKED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25194"></span>626A</td>
+<td class="instruction">DEFB $D0,$40</td>
+<td class="comment-1" rowspan="1">KNOCKS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25196"></span>626C</td>
+<td class="instruction">DEFB $D0,$21,$B8</td>
+<td class="comment-1" rowspan="1">KNOWS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25199"></span>626F</td>
+<td class="instruction">DEFB $0F,$80,$23,$05</td>
+<td class="comment-1" rowspan="1">L (synonym of LOOKS)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25203"></span>6273</td>
+<td class="instruction">DEFB $5F,$04,$08,$8A,$C0</td>
+<td class="comment-1" rowspan="1">LABEL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25208"></span>6278</td>
+<td class="instruction">DEFB $5F,$12,$6C,$00</td>
+<td class="comment-1" rowspan="1">LAMP</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25212"></span>627C</td>
+<td class="instruction">DEFB $5F,$12,$71,$40</td>
+<td class="comment-1" rowspan="1">LANE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25216"></span>6280</td>
+<td class="instruction">DEFB $6F,$13,$91,$CA</td>
+<td class="comment-1" rowspan="1">LARGE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25220"></span>6284</td>
+<td class="instruction">DEFB $DF,$12,$9D,$00</td>
+<td class="comment-1" rowspan="1">LAST</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25224"></span>6288</td>
+<td class="instruction">DEFB $DF,$13,$A1,$64</td>
+<td class="comment-1" rowspan="1">LATER</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25228"></span>628C</td>
+<td class="instruction">DEFB $DF,$06,$28,$68,$82,$C8</td>
+<td class="comment-1" rowspan="1">LEATHER</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25234"></span>6292</td>
+<td class="instruction">DEFB $6F,$64,$41,$42,$40</td>
+<td class="comment-1" rowspan="1">LEATHERHEAD</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25239"></span>6297</td>
+<td class="instruction">DEFB $DF,$12,$35,$00</td>
+<td class="comment-1" rowspan="1">LEFT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25243"></span>629B</td>
+<td class="instruction">DEFB $5F,$16,$9D,$24,$12,$14</td>
+<td class="comment-1" rowspan="1">LESTRADE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25249"></span>62A1</td>
+<td class="instruction">DEFB $DF,$11,$A0</td>
+<td class="comment-1" rowspan="1">LET</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25252"></span>62A4</td>
+<td class="instruction">DEFB $5F,$24,$A1,$65,$30</td>
+<td class="comment-1" rowspan="1">LETTERS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25257"></span>62A9</td>
+<td class="instruction">DEFB $5F,$06,$48,$A4,$19,$64</td>
+<td class="comment-1" rowspan="1">LIBRARY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25263"></span>62AF</td>
+<td class="instruction">DEFB $6F,$13,$3A,$28</td>
+<td class="comment-1" rowspan="1">LIGHT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25267"></span>62B3</td>
+<td class="instruction">DEFB $D6,$11,$58</td>
+<td class="comment-1" rowspan="1">LIKED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25270"></span>62B6</td>
+<td class="instruction">DEFB $DF,$21,$28</td>
+<td class="comment-1" rowspan="1">LIKE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25273"></span>62B9</td>
+<td class="instruction">DEFB $D8,$30</td>
+<td class="comment-1" rowspan="1">LIKELY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25275"></span>62BB</td>
+<td class="instruction">DEFB $DF,$12,$B1,$40</td>
+<td class="comment-1" rowspan="1">LIVE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25279"></span>62BF</td>
+<td class="instruction">DEFB $D0,$30</td>
+<td class="comment-1" rowspan="1">LIVES</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25281"></span>62C1</td>
+<td class="instruction">DEFB $0F,$81,$23,$05,$78</td>
+<td class="comment-1" rowspan="1">LO (synonym of LOOKS)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25286"></span>62C6</td>
+<td class="instruction">DEFB $9F,$12,$09,$00</td>
+<td class="comment-1" rowspan="1">LOAD</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25290"></span>62CA</td>
+<td class="instruction">DEFB $6F,$13,$18,$58</td>
+<td class="comment-1" rowspan="1">LOCAL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25294"></span>62CE</td>
+<td class="instruction">DEFB $5F,$34,$A2,$5E,$E0</td>
+<td class="comment-1" rowspan="1">LOCATION</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25299"></span>62D3</td>
+<td class="instruction">DEFB $3F,$21,$58</td>
+<td class="comment-1" rowspan="1">LOCK</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25302"></span>62D6</td>
+<td class="instruction">DEFB $6F,$32,$29,$00</td>
+<td class="comment-1" rowspan="1">LOCKED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25306"></span>62DA</td>
+<td class="instruction">DEFB $DF,$14,$71,$1E,$E0</td>
+<td class="comment-1" rowspan="1">LONDON</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25311"></span>62DF</td>
+<td class="instruction">DEFB $6F,$21,$38</td>
+<td class="comment-1" rowspan="1">LONG</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25314"></span>62E2</td>
+<td class="instruction">DEFB $30,$12,$7A,$C0</td>
+<td class="comment-1" rowspan="1">LOOKS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25318"></span>62E6</td>
+<td class="instruction">DEFB $DF,$11,$A0</td>
+<td class="comment-1" rowspan="1">LOT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25321"></span>62E9</td>
+<td class="instruction">DEFB $6F,$14,$AB,$8E,$50</td>
+<td class="comment-1" rowspan="1">LOUNGE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25326"></span>62EE</td>
+<td class="instruction">DEFB $D5,$01,$C8</td>
+<td class="comment-1" rowspan="1">LYING</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25329"></span>62F1</td>
+<td class="instruction">DEFB $08,$82,$63,$03,$09,$00</td>
+<td class="comment-1" rowspan="1">MADLY (synonym of FURIOUSLY)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25335"></span>62F7</td>
+<td class="instruction">DEFB $EF,$21,$28</td>
+<td class="comment-1" rowspan="1">MADE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25338"></span>62FA</td>
+<td class="instruction">DEFB $5F,$12,$49,$00</td>
+<td class="comment-1" rowspan="1">MAID</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25342"></span>62FE</td>
+<td class="instruction">DEFB $6F,$21,$70</td>
+<td class="comment-1" rowspan="1">MAIN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25345"></span>6301</td>
+<td class="instruction">DEFB $6F,$13,$53,$E4</td>
+<td class="comment-1" rowspan="1">MAJOR</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25349"></span>6305</td>
+<td class="instruction">DEFB $5F,$11,$70</td>
+<td class="comment-1" rowspan="1">MAN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25352"></span>6308</td>
+<td class="instruction">DEFB $6F,$21,$98</td>
+<td class="comment-1" rowspan="1">MANS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25355"></span>630B</td>
+<td class="instruction">DEFB $DF,$21,$C8</td>
+<td class="comment-1" rowspan="1">MANY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25358"></span>630E</td>
+<td class="instruction">DEFB $50,$12,$92,$C0</td>
+<td class="comment-1" rowspan="1">MARKS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25362"></span>6312</td>
+<td class="instruction">DEFB $6F,$14,$9D,$0B,$20</td>
+<td class="comment-1" rowspan="1">MASTER</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25367"></span>6317</td>
+<td class="instruction">DEFB $DF,$11,$C8</td>
+<td class="comment-1" rowspan="1">MAY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25370"></span>631A</td>
+<td class="instruction">DEFB $5F,$81,$EE,$09,$28</td>
+<td class="comment-1" rowspan="1">ME (synonym of YOU)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25375"></span>631F</td>
+<td class="instruction">DEFB $DF,$12,$2D,$00</td>
+<td class="comment-1" rowspan="1">MEET</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25379"></span>6323</td>
+<td class="instruction">DEFB $DF,$11,$70</td>
+<td class="comment-1" rowspan="1">MEN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25382"></span>6326</td>
+<td class="instruction">DEFB $6F,$03,$4B,$18</td>
+<td class="comment-1" rowspan="1">MILL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25386"></span>632A</td>
+<td class="instruction">DEFB $6F,$92,$F2,$09,$71,$40</td>
+<td class="comment-1" rowspan="1">MINE (synonym of YOUR)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25392"></span>6330</td>
+<td class="instruction">DEFB $6F,$12,$9C,$C0</td>
+<td class="comment-1" rowspan="1">MISS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25396"></span>6334</td>
+<td class="instruction">DEFB $5F,$04,$7B,$8B,$90</td>
+<td class="comment-1" rowspan="1">MONEY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25401"></span>6339</td>
+<td class="instruction">DEFB $DF,$12,$91,$40</td>
+<td class="comment-1" rowspan="1">MORE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25405"></span>633D</td>
+<td class="instruction">DEFB $35,$21,$70</td>
+<td class="comment-1" rowspan="1">MORNING</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25408"></span>6340</td>
+<td class="instruction">DEFB $DF,$01,$90</td>
+<td class="comment-1" rowspan="1">MR</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25411"></span>6343</td>
+<td class="instruction">DEFB $6F,$11,$98</td>
+<td class="comment-1" rowspan="1">MRS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25414"></span>6346</td>
+<td class="instruction">DEFB $DF,$03,$A8,$D0</td>
+<td class="comment-1" rowspan="1">MUCH</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25418"></span>634A</td>
+<td class="instruction">DEFB $D6,$14,$91,$0B,$20</td>
+<td class="comment-1" rowspan="1">MURDERED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25423"></span>634F</td>
+<td class="instruction">DEFB $DF,$12,$9D,$00</td>
+<td class="comment-1" rowspan="1">MUST</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25427"></span>6353</td>
+<td class="instruction">DEFB $6F,$81,$F2,$09,$C8</td>
+<td class="comment-1" rowspan="1">MY (synonym of YOUR)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25432"></span>6358</td>
+<td class="instruction">DEFB $2F,$80,$C3,$05</td>
+<td class="comment-1" rowspan="1">N (synonym of NORTH)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25436"></span>635C</td>
+<td class="instruction">DEFB $DF,$04,$0C,$E9,$90</td>
+<td class="comment-1" rowspan="1">NASTY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25441"></span>6361</td>
+<td class="instruction">DEFB $2F,$81,$C7,$05,$28</td>
+<td class="comment-1" rowspan="1">NE (synonym of NORTHEAST)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25446"></span>6366</td>
+<td class="instruction">DEFB $DF,$13,$B1,$64</td>
+<td class="comment-1" rowspan="1">NEVER</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25450"></span>636A</td>
+<td class="instruction">DEFB $D0,$11,$B8</td>
+<td class="comment-1" rowspan="1">NEWS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25453"></span>636D</td>
+<td class="instruction">DEFB $3F,$04,$49,$D1,$40</td>
+<td class="comment-1" rowspan="1">NIGHT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25458"></span>6372</td>
+<td class="instruction">DEFB $9F,$01,$78</td>
+<td class="comment-1" rowspan="1">NO</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25461"></span>6375</td>
+<td class="instruction">DEFB $DF,$17,$1D,$2B,$27,$16,$60</td>
+<td class="comment-1" rowspan="1">NOCTURNES</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25468"></span>637C</td>
+<td class="instruction">DEFB $9F,$15,$84,$92,$EA,$00</td>
+<td class="comment-1" rowspan="1">NOPRINT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25474"></span>6382</td>
+<td class="instruction">DEFB $2F,$13,$95,$10</td>
+<td class="comment-1" rowspan="1">NORTH</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25478"></span>6386</td>
+<td class="instruction">DEFB $2F,$44,$28,$67,$40</td>
+<td class="comment-1" rowspan="1">NORTHEAST</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25483"></span>638B</td>
+<td class="instruction">DEFB $6F,$52,$93,$80</td>
+<td class="comment-1" rowspan="1">NORTHERN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25487"></span>638F</td>
+<td class="instruction">DEFB $2F,$44,$B9,$67,$40</td>
+<td class="comment-1" rowspan="1">NORTHWEST</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25492"></span>6394</td>
+<td class="instruction">DEFB $DF,$11,$A0</td>
+<td class="comment-1" rowspan="1">NOT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25495"></span>6397</td>
+<td class="instruction">DEFB $5F,$21,$28</td>
+<td class="comment-1" rowspan="1">NOTE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25498"></span>639A</td>
+<td class="instruction">DEFB $DF,$24,$42,$5C,$70</td>
+<td class="comment-1" rowspan="1">NOTHING</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25503"></span>639F</td>
+<td class="instruction">DEFB $DF,$11,$B8</td>
+<td class="comment-1" rowspan="1">NOW</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25506"></span>63A2</td>
+<td class="instruction">DEFB $2F,$81,$D0,$05,$B8</td>
+<td class="comment-1" rowspan="1">NW (synonym of NORTHWEST)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25511"></span>63A7</td>
+<td class="instruction">DEFB $6F,$02,$0A,$C0</td>
+<td class="comment-1" rowspan="1">OAK</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25515"></span>63AB</td>
+<td class="instruction">DEFB $7F,$01,$30</td>
+<td class="comment-1" rowspan="1">OF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25518"></span>63AE</td>
+<td class="instruction">DEFB $7F,$11,$30</td>
+<td class="comment-1" rowspan="1">OFF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25521"></span>63B1</td>
+<td class="instruction">DEFB $DF,$24,$48,$CB,$20</td>
+<td class="comment-1" rowspan="1">OFFICER</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25526"></span>63B6</td>
+<td class="instruction">DEFB $6F,$02,$4B,$00</td>
+<td class="comment-1" rowspan="1">OIL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25530"></span>63BA</td>
+<td class="instruction">DEFB $6F,$02,$61,$00</td>
+<td class="comment-1" rowspan="1">OLD</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25534"></span>63BE</td>
+<td class="instruction">DEFB $7F,$01,$70</td>
+<td class="comment-1" rowspan="1">ON</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25537"></span>63C1</td>
+<td class="instruction">DEFB $D8,$10</td>
+<td class="comment-1" rowspan="1">ONLY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25539"></span>63C3</td>
+<td class="instruction">DEFB $5F,$11,$28</td>
+<td class="comment-1" rowspan="1">ONE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25542"></span>63C6</td>
+<td class="instruction">DEFB $7F,$12,$A3,$C0</td>
+<td class="comment-1" rowspan="1">ONTO</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25546"></span>63CA</td>
+<td class="instruction">DEFB $30,$03,$81,$5C</td>
+<td class="comment-1" rowspan="1">OPENS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25550"></span>63CE</td>
+<td class="instruction">DEFB $6F,$13,$4D,$5A</td>
+<td class="comment-1" rowspan="1">OPIUM</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25554"></span>63D2</td>
+<td class="instruction">DEFB $DF,$01,$90</td>
+<td class="comment-1" rowspan="1">OR</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25557"></span>63D5</td>
+<td class="instruction">DEFB $6F,$14,$70,$68,$50</td>
+<td class="comment-1" rowspan="1">ORNATE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25562"></span>63DA</td>
+<td class="instruction">DEFB $D0,$04,$A2,$0B,$20</td>
+<td class="comment-1" rowspan="1">OTHERS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25567"></span>63DF</td>
+<td class="instruction">DEFB $7F,$02,$AD,$00</td>
+<td class="comment-1" rowspan="1">OUT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25571"></span>63E3</td>
+<td class="instruction">DEFB $6F,$24,$9A,$48,$50</td>
+<td class="comment-1" rowspan="1">OUTSIDE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25576"></span>63E8</td>
+<td class="instruction">DEFB $DF,$03,$B1,$64</td>
+<td class="comment-1" rowspan="1">OVER</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25580"></span>63EC</td>
+<td class="instruction">DEFB $DF,$34,$41,$43,$20</td>
+<td class="comment-1" rowspan="1">OVERHEAR</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25585"></span>63F1</td>
+<td class="instruction">DEFB $EF,$03,$BB,$A6</td>
+<td class="comment-1" rowspan="1">OWNS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25589"></span>63F5</td>
+<td class="instruction">DEFB $6F,$09,$09,$08,$97,$1E,$8F,$70</td>
+<td class="comment-1" rowspan="1">PADDINGTON</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25597"></span>63FD</td>
+<td class="instruction">DEFB $6F,$14,$60,$46,$50</td>
+<td class="comment-1" rowspan="1">PALACE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25602"></span>6402</td>
+<td class="instruction">DEFB $5F,$14,$75,$25,$90</td>
+<td class="comment-1" rowspan="1">PANTRY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25607"></span>6407</td>
+<td class="instruction">DEFB $50,$13,$81,$64</td>
+<td class="comment-1" rowspan="1">PAPERS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25611"></span>640B</td>
+<td class="instruction">DEFB $6F,$18,$93,$12,$16,$95,$D4</td>
+<td class="comment-1" rowspan="1">PARLIAMENT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25618"></span>6412</td>
+<td class="instruction">DEFB $5F,$15,$9C,$C2,$72,$80</td>
+<td class="comment-1" rowspan="1">PASSAGE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25624"></span>6418</td>
+<td class="instruction">DEFB $DF,$21,$A0</td>
+<td class="comment-1" rowspan="1">PAST</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25627"></span>641B</td>
+<td class="instruction">DEFB $5F,$12,$A2,$00</td>
+<td class="comment-1" rowspan="1">PATH</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25631"></span>641F</td>
+<td class="instruction">DEFB $9F,$13,$AC,$CA</td>
+<td class="comment-1" rowspan="1">PAUSE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25635"></span>6423</td>
+<td class="instruction">DEFB $30,$11,$C8</td>
+<td class="comment-1" rowspan="1">PAYS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25638"></span>6426</td>
+<td class="instruction">DEFB $DF,$05,$2B,$E0,$C2,$80</td>
+<td class="comment-1" rowspan="1">PEOPLE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25644"></span>642C</td>
+<td class="instruction">DEFB $6F,$16,$90,$D3,$60,$B0</td>
+<td class="comment-1" rowspan="1">PERCIVAL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25650"></span>6432</td>
+<td class="instruction">DEFB $D0,$23,$40,$60</td>
+<td class="comment-1" rowspan="1">PERHAPS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25654"></span>6436</td>
+<td class="instruction">DEFB $6F,$24,$9A,$42,$E0</td>
+<td class="comment-1" rowspan="1">PERSIAN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25659"></span>643B</td>
+<td class="instruction">DEFB $5F,$05,$42,$61,$09,$80</td>
+<td class="comment-1" rowspan="1">PHIPPS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25665"></span>6441</td>
+<td class="instruction">DEFB $5F,$04,$48,$5C,$F0</td>
+<td class="comment-1" rowspan="1">PIANO</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25670"></span>6446</td>
+<td class="instruction">DEFB $30,$92,$8B,$01,$1A,$C0</td>
+<td class="comment-1" rowspan="1">PICKS (synonym of CARRIES)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25676"></span>644C</td>
+<td class="instruction">DEFB $DF,$13,$28,$CA</td>
+<td class="comment-1" rowspan="1">PIECE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25680"></span>6450</td>
+<td class="instruction">DEFB $5F,$12,$61,$40</td>
+<td class="comment-1" rowspan="1">PILE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25684"></span>6454</td>
+<td class="instruction">DEFB $6F,$12,$81,$40</td>
+<td class="comment-1" rowspan="1">PIPE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25688"></span>6458</td>
+<td class="instruction">DEFB $6F,$04,$60,$52,$E0</td>
+<td class="comment-1" rowspan="1">PLAIN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25693"></span>645D</td>
+<td class="instruction">DEFB $5F,$22,$74,$C0</td>
+<td class="comment-1" rowspan="1">PLANS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25697"></span>6461</td>
+<td class="instruction">DEFB $6F,$25,$A1,$9F,$26,$80</td>
+<td class="comment-1" rowspan="1">PLATFORM</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25703"></span>6467</td>
+<td class="instruction">DEFB $DF,$14,$28,$66,$50</td>
+<td class="comment-1" rowspan="1">PLEASE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25708"></span>646C</td>
+<td class="instruction">DEFB $6F,$13,$AC,$D0</td>
+<td class="comment-1" rowspan="1">PLUSH</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25712"></span>6470</td>
+<td class="instruction">DEFB $6F,$03,$78,$D6</td>
+<td class="comment-1" rowspan="1">POCK</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25716"></span>6474</td>
+<td class="instruction">DEFB $6F,$14,$62,$46,$50</td>
+<td class="comment-1" rowspan="1">POLICE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25721"></span>6479</td>
+<td class="instruction">DEFB $DF,$12,$7C,$80</td>
+<td class="comment-1" rowspan="1">POOR</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25725"></span>647D</td>
+<td class="instruction">DEFB $6F,$15,$95,$1A,$17,$00</td>
+<td class="comment-1" rowspan="1">PORTMAN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25731"></span>6483</td>
+<td class="instruction">DEFB $5F,$07,$90,$47,$44,$8C,$A0</td>
+<td class="comment-1" rowspan="1">PRACTICE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25738"></span>648A</td>
+<td class="instruction">DEFB $6F,$53,$99,$48</td>
+<td class="comment-1" rowspan="1">PRACTISED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25742"></span>648E</td>
+<td class="instruction">DEFB $DF,$15,$2C,$CA,$EA,$00</td>
+<td class="comment-1" rowspan="1">PRESENT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25748"></span>6494</td>
+<td class="instruction">DEFB $9F,$13,$4B,$A8</td>
+<td class="comment-1" rowspan="1">PRINT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25752"></span>6498</td>
+<td class="instruction">DEFB $DF,$15,$7A,$8A,$3A,$00</td>
+<td class="comment-1" rowspan="1">PROJECT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25758"></span>649E</td>
+<td class="instruction">DEFB $D1,$21,$B0</td>
+<td class="comment-1" rowspan="1">PROVES</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25761"></span>64A1</td>
+<td class="instruction">DEFB $D5,$03,$AB,$18</td>
+<td class="comment-1" rowspan="1">PULLING</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25765"></span>64A5</td>
+<td class="instruction">DEFB $D0,$30</td>
+<td class="comment-1" rowspan="1">PULLS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25767"></span>64A7</td>
+<td class="instruction">DEFB $30,$11,$A0</td>
+<td class="comment-1" rowspan="1">PUTS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25770"></span>64AA</td>
+<td class="instruction">DEFB $08,$84,$63,$03,$AA,$46,$B0</td>
+<td class="comment-1" rowspan="1">QUICKLY (synonym of FURIOUSLY)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25777"></span>64B1</td>
+<td class="instruction">DEFB $68,$22,$2D,$00</td>
+<td class="comment-1" rowspan="1">QUIETLY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25781"></span>64B5</td>
+<td class="instruction">DEFB $9F,$21,$A0</td>
+<td class="comment-1" rowspan="1">QUIT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25784"></span>64B8</td>
+<td class="instruction">DEFB $5F,$03,$08,$D6</td>
+<td class="comment-1" rowspan="1">RACK</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25788"></span>64BC</td>
+<td class="instruction">DEFB $30,$83,$CA,$02,$28,$48</td>
+<td class="comment-1" rowspan="1">READS (synonym of EXAMINES)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25794"></span>64C2</td>
+<td class="instruction">DEFB $6F,$33,$4B,$8E</td>
+<td class="comment-1" rowspan="1">READING</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25798"></span>64C6</td>
+<td class="instruction">DEFB $D8,$21,$60</td>
+<td class="comment-1" rowspan="1">REALLY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25801"></span>64C9</td>
+<td class="instruction">DEFB $5F,$13,$4B,$A6</td>
+<td class="comment-1" rowspan="1">REINS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25805"></span>64CD</td>
+<td class="instruction">DEFB $DF,$14,$68,$52,$E0</td>
+<td class="comment-1" rowspan="1">REMAIN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25810"></span>64D2</td>
+<td class="instruction">DEFB $60,$32,$92,$C0</td>
+<td class="comment-1" rowspan="1">REMARKS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25814"></span>64D6</td>
+<td class="instruction">DEFB $D6,$12,$75,$00</td>
+<td class="comment-1" rowspan="1">RENTED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25818"></span>64DA</td>
+<td class="instruction">DEFB $D5,$30</td>
+<td class="comment-1" rowspan="1">RENTING</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25820"></span>64DC</td>
+<td class="instruction">DEFB $DF,$14,$83,$E5,$40</td>
+<td class="comment-1" rowspan="1">REPORT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25825"></span>64E1</td>
+<td class="instruction">DEFB $D6,$14,$A5,$64,$E0</td>
+<td class="comment-1" rowspan="1">RETURNED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25830"></span>64E6</td>
+<td class="instruction">DEFB $D5,$14,$B1,$42,$C0</td>
+<td class="comment-1" rowspan="1">REVEALING</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25835"></span>64EB</td>
+<td class="instruction">DEFB $D0,$50</td>
+<td class="comment-1" rowspan="1">REVEALS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25837"></span>64ED</td>
+<td class="instruction">DEFB $D7,$03,$49,$0A</td>
+<td class="comment-1" rowspan="1">RIDING</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25841"></span>64F1</td>
+<td class="instruction">DEFB $DF,$13,$3A,$28</td>
+<td class="comment-1" rowspan="1">RIGHT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25845"></span>64F5</td>
+<td class="instruction">DEFB $6F,$14,$84,$0A,$40</td>
+<td class="comment-1" rowspan="1">RIPPED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25850"></span>64FA</td>
+<td class="instruction">DEFB $5F,$13,$B1,$64</td>
+<td class="comment-1" rowspan="1">RIVER</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25854"></span>64FE</td>
+<td class="instruction">DEFB $5F,$03,$78,$48</td>
+<td class="comment-1" rowspan="1">ROAD</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25858"></span>6502</td>
+<td class="instruction">DEFB $5F,$12,$1A,$C0</td>
+<td class="comment-1" rowspan="1">ROCK</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25862"></span>6506</td>
+<td class="instruction">DEFB $50,$12,$7B,$40</td>
+<td class="comment-1" rowspan="1">ROOMS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25866"></span>650A</td>
+<td class="instruction">DEFB $6F,$06,$A8,$84,$99,$A0</td>
+<td class="comment-1" rowspan="1">RUBBISH</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25872"></span>6510</td>
+<td class="instruction">DEFB $40,$11,$70</td>
+<td class="comment-1" rowspan="1">RUNS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25875"></span>6513</td>
+<td class="instruction">DEFB $5F,$16,$A2,$18,$59,$CC</td>
+<td class="comment-1" rowspan="1">RUTHLESS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25881"></span>6519</td>
+<td class="instruction">DEFB $2F,$80,$1A,$08</td>
+<td class="comment-1" rowspan="1">S (synonym of SOUTH)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25885"></span>651D</td>
+<td class="instruction">DEFB $5F,$03,$09,$8A</td>
+<td class="comment-1" rowspan="1">SAFE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25889"></span>6521</td>
+<td class="instruction">DEFB $6F,$12,$61,$40</td>
+<td class="comment-1" rowspan="1">SALE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25893"></span>6525</td>
+<td class="instruction">DEFB $DF,$12,$69,$40</td>
+<td class="comment-1" rowspan="1">SAME</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25897"></span>6529</td>
+<td class="instruction">DEFB $6F,$17,$71,$27,$47,$B8,$A0</td>
+<td class="comment-1" rowspan="1">SANDSTONE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25904"></span>6530</td>
+<td class="instruction">DEFB $6F,$13,$90,$50</td>
+<td class="comment-1" rowspan="1">SARAH</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25908"></span>6534</td>
+<td class="instruction">DEFB $9F,$12,$B1,$40</td>
+<td class="comment-1" rowspan="1">SAVE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25912"></span>6538</td>
+<td class="instruction">DEFB $30,$91,$8B,$08,$C8</td>
+<td class="comment-1" rowspan="1">SAYS (synonym of TALKS)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25917"></span>653D</td>
+<td class="instruction">DEFB $6F,$07,$1B,$E8,$C0,$B8,$80</td>
+<td class="comment-1" rowspan="1">SCOTLAND</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25924"></span>6544</td>
+<td class="instruction">DEFB $2F,$81,$1E,$08,$28</td>
+<td class="comment-1" rowspan="1">SE (synonym of SOUTHEAST)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25929"></span>6549</td>
+<td class="instruction">DEFB $36,$14,$0C,$86,$80</td>
+<td class="comment-1" rowspan="1">SEARCHED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25934"></span>654E</td>
+<td class="instruction">DEFB $6F,$14,$1C,$8B,$40</td>
+<td class="comment-1" rowspan="1">SECRET</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25939"></span>6553</td>
+<td class="instruction">DEFB $D5,$11,$28</td>
+<td class="comment-1" rowspan="1">SEEING</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25942"></span>6556</td>
+<td class="instruction">DEFB $D0,$21,$68</td>
+<td class="comment-1" rowspan="1">SEEMS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25945"></span>6559</td>
+<td class="instruction">DEFB $DF,$21,$70</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="25948"></span>655C</td>
+<td class="instruction">DEFB $DF,$04,$40,$58,$C0</td>
+<td class="comment-1" rowspan="1">SHALL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25953"></span>6561</td>
+<td class="instruction">DEFB $DF,$11,$28</td>
+<td class="comment-1" rowspan="1">SHE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25956"></span>6564</td>
+<td class="instruction">DEFB $5F,$22,$2D,$00</td>
+<td class="comment-1" rowspan="1">SHEET</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25960"></span>6568</td>
+<td class="instruction">DEFB $5F,$25,$93,$1E,$35,$80</td>
+<td class="comment-1" rowspan="1">SHERLOCK</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25966"></span>656E</td>
+<td class="instruction">DEFB $DF,$14,$7B,$E9,$30</td>
+<td class="comment-1" rowspan="1">SHOOTS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25971"></span>6573</td>
+<td class="instruction">DEFB $DF,$21,$A0</td>
+<td class="comment-1" rowspan="1">SHOT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25974"></span>6576</td>
+<td class="instruction">DEFB $D4,$22,$AB,$00</td>
+<td class="comment-1" rowspan="1">SHOULD</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25978"></span>657A</td>
+<td class="instruction">DEFB $D0,$21,$B8</td>
+<td class="comment-1" rowspan="1">SHOWS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25981"></span>657D</td>
+<td class="instruction">DEFB $5F,$03,$49,$0A</td>
+<td class="comment-1" rowspan="1">SIDE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25985"></span>6581</td>
+<td class="instruction">DEFB $6F,$25,$6B,$EB,$44,$00</td>
+<td class="comment-1" rowspan="1">SIDMOUTH</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25991"></span>6587</td>
+<td class="instruction">DEFB $D6,$12,$3B,$80</td>
+<td class="comment-1" rowspan="1">SIGNED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="25995"></span>658B</td>
+<td class="instruction">DEFB $08,$14,$61,$5D,$40</td>
+<td class="comment-1" rowspan="1">SILENTLY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26000"></span>6590</td>
+<td class="instruction">DEFB $DF,$13,$70,$CA</td>
+<td class="comment-1" rowspan="1">SINCE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26004"></span>6594</td>
+<td class="instruction">DEFB $64,$22,$39,$40</td>
+<td class="comment-1" rowspan="1">SINGED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26008"></span>6598</td>
+<td class="instruction">DEFB $DF,$32,$61,$40</td>
+<td class="comment-1" rowspan="1">SINGLE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26012"></span>659C</td>
+<td class="instruction">DEFB $30,$11,$A0</td>
+<td class="comment-1" rowspan="1">SITS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26015"></span>659F</td>
+<td class="instruction">DEFB $6F,$24,$A2,$5C,$70</td>
+<td class="comment-1" rowspan="1">SITTING</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26020"></span>65A4</td>
+<td class="instruction">DEFB $6F,$64,$93,$DE,$D0</td>
+<td class="comment-1" rowspan="1">SITTINGROOM</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26025"></span>65A9</td>
+<td class="instruction">DEFB $6F,$05,$60,$68,$59,$00</td>
+<td class="comment-1" rowspan="1">SLATER</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26031"></span>65AF</td>
+<td class="instruction">DEFB $65,$13,$29,$60</td>
+<td class="comment-1" rowspan="1">SLEEPING</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26035"></span>65B3</td>
+<td class="instruction">DEFB $6F,$04,$68,$58,$C0</td>
+<td class="comment-1" rowspan="1">SMALL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26040"></span>65B8</td>
+<td class="instruction">DEFB $DF,$01,$78</td>
+<td class="comment-1" rowspan="1">SO</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26043"></span>65BB</td>
+<td class="instruction">DEFB $5F,$12,$30,$40</td>
+<td class="comment-1" rowspan="1">SOFA</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26047"></span>65BF</td>
+<td class="instruction">DEFB $08,$21,$A0</td>
+<td class="comment-1" rowspan="1">SOFTLY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26050"></span>65C2</td>
+<td class="instruction">DEFB $6F,$13,$62,$48</td>
+<td class="comment-1" rowspan="1">SOLID</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26054"></span>65C6</td>
+<td class="instruction">DEFB $D6,$21,$B0</td>
+<td class="comment-1" rowspan="1">SOLVED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26057"></span>65C9</td>
+<td class="instruction">DEFB $6F,$12,$69,$40</td>
+<td class="comment-1" rowspan="1">SOME</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26061"></span>65CD</td>
+<td class="instruction">DEFB $DF,$33,$7B,$8A</td>
+<td class="comment-1" rowspan="1">SOMEONE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26065"></span>65D1</td>
+<td class="instruction">DEFB $DF,$13,$94,$B2</td>
+<td class="comment-1" rowspan="1">SORRY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26069"></span>65D5</td>
+<td class="instruction">DEFB $D6,$13,$AB,$88</td>
+<td class="comment-1" rowspan="1">SOUNDED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26073"></span>65D9</td>
+<td class="instruction">DEFB $2F,$22,$A2,$00</td>
+<td class="comment-1" rowspan="1">SOUTH</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26077"></span>65DD</td>
+<td class="instruction">DEFB $2F,$44,$28,$67,$40</td>
+<td class="comment-1" rowspan="1">SOUTHEAST</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26082"></span>65E2</td>
+<td class="instruction">DEFB $6F,$52,$93,$80</td>
+<td class="comment-1" rowspan="1">SOUTHERN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26086"></span>65E6</td>
+<td class="instruction">DEFB $2F,$44,$B9,$67,$40</td>
+<td class="comment-1" rowspan="1">SOUTHWEST</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26091"></span>65EB</td>
+<td class="instruction">DEFB $5F,$81,$61,$08,$A0</td>
+<td class="comment-1" rowspan="1">ST (synonym of STREETS)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26096"></span>65F0</td>
+<td class="instruction">DEFB $6F,$15,$0A,$5C,$52,$00</td>
+<td class="comment-1" rowspan="1">STAINED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26102"></span>65F6</td>
+<td class="instruction">DEFB $5F,$34,$95,$C3,$90</td>
+<td class="comment-1" rowspan="1">STAIRWAY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26107"></span>65FB</td>
+<td class="instruction">DEFB $50,$40</td>
+<td class="comment-1" rowspan="1">STAIRS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26109"></span>65FD</td>
+<td class="instruction">DEFB $5F,$24,$A2,$5E,$E0</td>
+<td class="comment-1" rowspan="1">STATION</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26114"></span>6602</td>
+<td class="instruction">DEFB $D6,$21,$C8</td>
+<td class="comment-1" rowspan="1">STAYED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26117"></span>6605</td>
+<td class="instruction">DEFB $0F,$16,$28,$48,$96,$64</td>
+<td class="comment-1" rowspan="1">STEADILY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26123"></span>660B</td>
+<td class="instruction">DEFB $6F,$31,$68</td>
+<td class="comment-1" rowspan="1">STEAM</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26126"></span>660E</td>
+<td class="instruction">DEFB $5F,$16,$90,$46,$80,$B8</td>
+<td class="comment-1" rowspan="1">STRACHAN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26132"></span>6614</td>
+<td class="instruction">DEFB $5F,$33,$59,$64</td>
+<td class="comment-1" rowspan="1">STRAKER</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26136"></span>6618</td>
+<td class="instruction">DEFB $D8,$33,$71,$CA</td>
+<td class="comment-1" rowspan="1">STRANGELY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26140"></span>661C</td>
+<td class="instruction">DEFB $5F,$23,$28,$5A</td>
+<td class="comment-1" rowspan="1">STREAM</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26144"></span>6620</td>
+<td class="instruction">DEFB $50,$32,$2D,$00</td>
+<td class="comment-1" rowspan="1">STREETS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26148"></span>6624</td>
+<td class="instruction">DEFB $5F,$13,$A9,$32</td>
+<td class="comment-1" rowspan="1">STUDY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26152"></span>6628</td>
+<td class="instruction">DEFB $DF,$03,$A8,$D0</td>
+<td class="comment-1" rowspan="1">SUCH</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26156"></span>662C</td>
+<td class="instruction">DEFB $08,$14,$21,$0A,$E0</td>
+<td class="comment-1" rowspan="1">SUDDENLY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26161"></span>6631</td>
+<td class="instruction">DEFB $DF,$11,$70</td>
+<td class="comment-1" rowspan="1">SUN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26164"></span>6634</td>
+<td class="instruction">DEFB $D8,$12,$91,$40</td>
+<td class="comment-1" rowspan="1">SURELY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26168"></span>6638</td>
+<td class="instruction">DEFB $2F,$81,$27,$08,$B8</td>
+<td class="comment-1" rowspan="1">SW (synonym of SOUTHWEST)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26173"></span>663D</td>
+<td class="instruction">DEFB $08,$13,$49,$A8</td>
+<td class="comment-1" rowspan="1">SWIFTLY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26177"></span>6641</td>
+<td class="instruction">DEFB $5F,$04,$08,$98,$50</td>
+<td class="comment-1" rowspan="1">TABLE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26182"></span>6646</td>
+<td class="instruction">DEFB $30,$12,$59,$40</td>
+<td class="comment-1" rowspan="1">TAKES</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26186"></span>664A</td>
+<td class="instruction">DEFB $30,$12,$62,$C0</td>
+<td class="comment-1" rowspan="1">TALKS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26190"></span>664E</td>
+<td class="instruction">DEFB $30,$03,$2B,$18</td>
+<td class="comment-1" rowspan="1">TELLS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26194"></span>6652</td>
+<td class="instruction">DEFB $DF,$16,$94,$92,$26,$14</td>
+<td class="comment-1" rowspan="1">TERRIBLE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26200"></span>6658</td>
+<td class="instruction">DEFB $90,$03,$40,$68</td>
+<td class="comment-1" rowspan="1">THATS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26204"></span>665C</td>
+<td class="instruction">DEFB $8F,$11,$28</td>
+<td class="comment-1" rowspan="1">THE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26207"></span>665F</td>
+<td class="instruction">DEFB $DF,$22,$4C,$80</td>
+<td class="comment-1" rowspan="1">THEIR</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26211"></span>6663</td>
+<td class="instruction">DEFB $DF,$21,$68</td>
+<td class="comment-1" rowspan="1">THEM</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26214"></span>6666</td>
+<td class="instruction">DEFB $BF,$21,$70</td>
+<td class="comment-1" rowspan="1">THEN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26217"></span>6669</td>
+<td class="instruction">DEFB $DF,$22,$91,$40</td>
+<td class="comment-1" rowspan="1">THERE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26221"></span>666D</td>
+<td class="instruction">DEFB $9F,$44,$33,$E4,$50</td>
+<td class="comment-1" rowspan="1">THEREFORE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26226"></span>6672</td>
+<td class="instruction">DEFB $9F,$21,$C8</td>
+<td class="comment-1" rowspan="1">THEY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26229"></span>6675</td>
+<td class="instruction">DEFB $D0,$11,$48</td>
+<td class="comment-1" rowspan="1">THIS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26232"></span>6678</td>
+<td class="instruction">DEFB $6F,$22,$1A,$C0</td>
+<td class="comment-1" rowspan="1">THICK</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26236"></span>667C</td>
+<td class="instruction">DEFB $D0,$22,$71,$C0</td>
+<td class="comment-1" rowspan="1">THINGS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26240"></span>6680</td>
+<td class="instruction">DEFB $DF,$31,$58</td>
+<td class="comment-1" rowspan="1">THINK</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26243"></span>6683</td>
+<td class="instruction">DEFB $DF,$15,$7D,$4E,$8A,$00</td>
+<td class="comment-1" rowspan="1">THOUGHT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26249"></span>6689</td>
+<td class="instruction">DEFB $5F,$13,$91,$4A</td>
+<td class="comment-1" rowspan="1">THREE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26253"></span>668D</td>
+<td class="instruction">DEFB $7F,$24,$7D,$4E,$80</td>
+<td class="comment-1" rowspan="1">THROUGH</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26258"></span>6692</td>
+<td class="instruction">DEFB $6F,$03,$49,$48</td>
+<td class="comment-1" rowspan="1">TIED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26262"></span>6696</td>
+<td class="instruction">DEFB $DF,$12,$69,$40</td>
+<td class="comment-1" rowspan="1">TIME</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26266"></span>669A</td>
+<td class="instruction">DEFB $7F,$01,$78</td>
+<td class="comment-1" rowspan="1">TO</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26269"></span>669D</td>
+<td class="instruction">DEFB $D4,$11,$60</td>
+<td class="comment-1" rowspan="1">TOLD</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26272"></span>66A0</td>
+<td class="instruction">DEFB $7F,$11,$78</td>
+<td class="comment-1" rowspan="1">TOO</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26275"></span>66A3</td>
+<td class="instruction">DEFB $DF,$11,$80</td>
+<td class="comment-1" rowspan="1">TOP</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26278"></span>66A6</td>
+<td class="instruction">DEFB $6F,$12,$93,$80</td>
+<td class="comment-1" rowspan="1">TORN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26282"></span>66AA</td>
+<td class="instruction">DEFB $5F,$04,$90,$52,$E0</td>
+<td class="comment-1" rowspan="1">TRAIN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26287"></span>66AF</td>
+<td class="instruction">DEFB $6F,$22,$9A,$00</td>
+<td class="comment-1" rowspan="1">TRASH</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26291"></span>66B3</td>
+<td class="instruction">DEFB $D5,$24,$B1,$58,$C0</td>
+<td class="comment-1" rowspan="1">TRAVELLING</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26296"></span>66B8</td>
+<td class="instruction">DEFB $6F,$14,$48,$D2,$10</td>
+<td class="comment-1" rowspan="1">TRICIA</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26301"></span>66BD</td>
+<td class="instruction">DEFB $6F,$51,$98</td>
+<td class="comment-1" rowspan="1">TRICIAS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26304"></span>66C0</td>
+<td class="instruction">DEFB $DF,$11,$C8</td>
+<td class="comment-1" rowspan="1">TRY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26307"></span>66C3</td>
+<td class="instruction">DEFB $D0,$03,$AC,$9C</td>
+<td class="comment-1" rowspan="1">TURNS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26311"></span>66C7</td>
+<td class="instruction">DEFB $5F,$02,$BB,$C0</td>
+<td class="comment-1" rowspan="1">TWO</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26315"></span>66CB</td>
+<td class="instruction">DEFB $0F,$80,$3C,$09</td>
+<td class="comment-1" rowspan="1">U (synonym of UP)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26319"></span>66CF</td>
+<td class="instruction">DEFB $6F,$0A,$70,$DE,$E9,$8D,$2F,$AC</td>
+<td class="comment-1" rowspan="2">UNCONSCIOUS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26327"></span>66D7</td>
+<td class="instruction">DEFB $C0</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26328"></span>66D8</td>
+<td class="instruction">DEFB $DF,$13,$21,$64</td>
+<td class="comment-1" rowspan="1">UNDER</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26332"></span>66DC</td>
+<td class="instruction">DEFB $6F,$18,$32,$5C,$99,$A0,$A4</td>
+<td class="comment-1" rowspan="1">UNFINISHED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26339"></span>66E3</td>
+<td class="instruction">DEFB $D8,$28,$7C,$A9,$57,$06,$85</td>
+<td class="comment-1" rowspan="1">UNFORTUNATELY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26346"></span>66EA</td>
+<td class="instruction">DEFB $3F,$14,$63,$C6,$B0</td>
+<td class="comment-1" rowspan="1">UNLOCK</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26351"></span>66EF</td>
+<td class="instruction">DEFB $6F,$52,$29,$00</td>
+<td class="comment-1" rowspan="1">UNLOCKED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26355"></span>66F3</td>
+<td class="instruction">DEFB $DF,$12,$6A,$00</td>
+<td class="comment-1" rowspan="1">UNMH</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26359"></span>66F7</td>
+<td class="instruction">DEFB $7F,$13,$A2,$58</td>
+<td class="comment-1" rowspan="1">UNTIL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26363"></span>66FB</td>
+<td class="instruction">DEFB $2F,$01,$80</td>
+<td class="comment-1" rowspan="1">UP</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26366"></span>66FE</td>
+<td class="instruction">DEFB $DF,$12,$7B,$80</td>
+<td class="comment-1" rowspan="1">UPON</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26370"></span>6702</td>
+<td class="instruction">DEFB $DF,$02,$9A,$00</td>
+<td class="comment-1" rowspan="1">USH</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26374"></span>6706</td>
+<td class="instruction">DEFB $DF,$02,$B2,$C0</td>
+<td class="comment-1" rowspan="1">UVK</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26378"></span>670A</td>
+<td class="instruction">DEFB $DF,$03,$2C,$B2</td>
+<td class="comment-1" rowspan="1">VERY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26382"></span>670E</td>
+<td class="instruction">DEFB $6F,$07,$48,$E8,$F9,$24,$20</td>
+<td class="comment-1" rowspan="1">VICTORIA</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26389"></span>6715</td>
+<td class="instruction">DEFB $E6,$13,$9A,$68</td>
+<td class="comment-1" rowspan="1">VISITED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26393"></span>6719</td>
+<td class="instruction">DEFB $2F,$80,$92,$09</td>
+<td class="comment-1" rowspan="1">W (synonym of WEST)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26397"></span>671D</td>
+<td class="instruction">DEFB $30,$03,$0A,$68</td>
+<td class="comment-1" rowspan="1">WAITS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26401"></span>6721</td>
+<td class="instruction">DEFB $6F,$12,$63,$00</td>
+<td class="comment-1" rowspan="1">WALL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26405"></span>6725</td>
+<td class="instruction">DEFB $08,$12,$93,$40</td>
+<td class="comment-1" rowspan="1">WARMLY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26409"></span>6729</td>
+<td class="instruction">DEFB $8F,$11,$98</td>
+<td class="comment-1" rowspan="1">WAS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26412"></span>672C</td>
+<td class="instruction">DEFB $DF,$13,$A0,$D0</td>
+<td class="comment-1" rowspan="1">WATCH</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26416"></span>6730</td>
+<td class="instruction">DEFB $5F,$23,$9B,$DC</td>
+<td class="comment-1" rowspan="1">WATSON</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26420"></span>6734</td>
+<td class="instruction">DEFB $6F,$51,$98</td>
+<td class="comment-1" rowspan="1">WATSONS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26423"></span>6737</td>
+<td class="instruction">DEFB $DF,$11,$C8</td>
+<td class="comment-1" rowspan="1">WAY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26426"></span>673A</td>
+<td class="instruction">DEFB $DF,$01,$28</td>
+<td class="comment-1" rowspan="1">WE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26429"></span>673D</td>
+<td class="instruction">DEFB $DF,$14,$0C,$1E,$E0</td>
+<td class="comment-1" rowspan="1">WEAPON</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26434"></span>6742</td>
+<td class="instruction">DEFB $3F,$21,$90</td>
+<td class="comment-1" rowspan="1">WEAR</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26437"></span>6745</td>
+<td class="instruction">DEFB $DF,$12,$63,$00</td>
+<td class="comment-1" rowspan="1">WELL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26441"></span>6749</td>
+<td class="instruction">DEFB $DF,$12,$75,$00</td>
+<td class="comment-1" rowspan="1">WENT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26445"></span>674D</td>
+<td class="instruction">DEFB $DF,$12,$91,$40</td>
+<td class="comment-1" rowspan="1">WERE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26449"></span>6751</td>
+<td class="instruction">DEFB $2F,$12,$9D,$00</td>
+<td class="comment-1" rowspan="1">WEST</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26453"></span>6755</td>
+<td class="instruction">DEFB $6F,$03,$40,$68</td>
+<td class="comment-1" rowspan="1">WHAT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26457"></span>6759</td>
+<td class="instruction">DEFB $DF,$12,$2B,$80</td>
+<td class="comment-1" rowspan="1">WHEN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26461"></span>675D</td>
+<td class="instruction">DEFB $DF,$22,$91,$40</td>
+<td class="comment-1" rowspan="1">WHERE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26465"></span>6761</td>
+<td class="instruction">DEFB $DF,$13,$4B,$0A</td>
+<td class="comment-1" rowspan="1">WHILE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26469"></span>6765</td>
+<td class="instruction">DEFB $DF,$11,$78</td>
+<td class="comment-1" rowspan="1">WHO</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26472"></span>6768</td>
+<td class="instruction">DEFB $6F,$03,$49,$0A</td>
+<td class="comment-1" rowspan="1">WIDE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26476"></span>676C</td>
+<td class="instruction">DEFB $DF,$12,$31,$40</td>
+<td class="comment-1" rowspan="1">WIFE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26480"></span>6770</td>
+<td class="instruction">DEFB $8F,$12,$63,$00</td>
+<td class="comment-1" rowspan="1">WILL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26484"></span>6774</td>
+<td class="instruction">DEFB $6F,$15,$71,$12,$E3,$80</td>
+<td class="comment-1" rowspan="1">WINDING</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26490"></span>677A</td>
+<td class="instruction">DEFB $50,$32,$7D,$C0</td>
+<td class="comment-1" rowspan="1">WINDOWS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26494"></span>677E</td>
+<td class="instruction">DEFB $7F,$12,$A2,$00</td>
+<td class="comment-1" rowspan="1">WITH</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26498"></span>6782</td>
+<td class="instruction">DEFB $DF,$03,$7A,$CA</td>
+<td class="comment-1" rowspan="1">WOKE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26502"></span>6786</td>
+<td class="instruction">DEFB $DF,$31,$70</td>
+<td class="comment-1" rowspan="1">WOKEN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26505"></span>6789</td>
+<td class="instruction">DEFB $DF,$13,$68,$5C</td>
+<td class="comment-1" rowspan="1">WOMAN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26509"></span>678D</td>
+<td class="instruction">DEFB $6F,$14,$79,$0A,$E0</td>
+<td class="comment-1" rowspan="1">WOODEN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26514"></span>6792</td>
+<td class="instruction">DEFB $D5,$12,$92,$C0</td>
+<td class="comment-1" rowspan="1">WORKING</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26518"></span>6796</td>
+<td class="instruction">DEFB $D0,$22,$61,$00</td>
+<td class="comment-1" rowspan="1">WORLDS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26522"></span>679A</td>
+<td class="instruction">DEFB $D4,$12,$AB,$00</td>
+<td class="comment-1" rowspan="1">WOULD</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26526"></span>679E</td>
+<td class="instruction">DEFB $DF,$02,$61,$40</td>
+<td class="comment-1" rowspan="1">XLE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26530"></span>67A2</td>
+<td class="instruction">DEFB $5F,$03,$0C,$88</td>
+<td class="comment-1" rowspan="1">YARD</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26534"></span>67A6</td>
+<td class="instruction">DEFB $D0,$03,$28,$64</td>
+<td class="comment-1" rowspan="1">YEARS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26538"></span>67AA</td>
+<td class="instruction">DEFB $DF,$11,$A0</td>
+<td class="comment-1" rowspan="1">YET</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26541"></span>67AD</td>
+<td class="instruction">DEFB $5F,$02,$7D,$40</td>
+<td class="comment-1" rowspan="1">YOU</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26545"></span>67B1</td>
+<td class="instruction">DEFB $6F,$21,$90</td>
+<td class="comment-1" rowspan="1">YOUR</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26548"></span>67B4</td>
+<td class="instruction">DEFB $DF,$00,$00</td>
+<td class="comment-1" rowspan="1">Z</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="23936.html">5D80</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#24000">Map</a></td>
+<td class="next">
+Next: <a href="26551.html">67B7</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

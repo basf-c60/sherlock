@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at B4FD - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="46273.html">B4C1</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#46333">Map</a></td>
+<td class="next">
+Next: <a href="46359.html">B517</a>
+</td>
+</tr>
+</table>
+<div class="description">B4FD: Next thing or room the direct-object slot names, skipping those $B517 rejects</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="46359.html">B517</a>.
+</div>
+<div class="paragraph">
+Sets bit 1 of <a href="45421.html">B16D</a> when one is found.
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">The next thing or room, $FF if none</td>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Z when none</td>
+</tr>
+<tr>
+<td class="register">$A034</td>
+<td class="register-desc">The candidate</td>
+</tr>
+<tr>
+<td class="register">$B16D</td>
+<td class="register-desc">bit 1 set when found</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="46333"></span>B4FD</td>
+<td class="instruction">LD HL,$B172</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="45421.html">$B172</a> in "Parser variables" - Next thing or room named by the direct-object slot (<a href="45421.html">$B172</a>, via <a href="46240.html">B4A0</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46336"></span>B500</td>
+<td class="instruction">CALL <a href="46240.html">$B4A0</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Call the search routine in IY" (<a href="46240.html">B4A0</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46339"></span>B503</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1">Compare A with $FF - None left ($FF): return Z</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46341"></span>B505</td>
+<td class="instruction">RET Z</td>
+<td class="comment-1" rowspan="1">If A equals $FF, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46342"></span>B506</td>
+<td class="instruction">LD ($A034),A</td>
+<td class="comment-1" rowspan="1">It becomes the direct object (<a href="40918.html#41010">$A034</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46345"></span>B509</td>
+<td class="instruction">CALL <a href="46359.html">$B517</a></td>
+<td class="comment-1" rowspan="1">Call the routine "ALL BUT: is the candidate one of the things after BUT?" (<a href="46359.html">B517</a>) - Does the verb's check reject it? (<a href="46359.html">B517</a>) Then try the next</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46348"></span>B50C</td>
+<td class="instruction">JR NZ,$B4FD</td>
+<td class="comment-1" rowspan="1">If the zero flag is clear, go back to the routine "Next thing or room the direct-object slot names,..." (<a href="46333.html">B4FD</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46350"></span>B50E</td>
+<td class="instruction">LD A,($A034)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A034</a> in "Game variables" into A - Accepted: A = it, and <a href="45421.html">B16D</a> bit 1 notes that something was found</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46353"></span>B511</td>
+<td class="instruction">LD HL,$B16D</td>
+<td class="comment-1" rowspan="1">Point HL at "Parser variables" (<a href="45421.html">B16D</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46356"></span>B514</td>
+<td class="instruction">SET 1,(HL)</td>
+<td class="comment-1" rowspan="1">Set bit 1 of the byte at "Parser variables" (<a href="45421.html">B16D</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46358"></span>B516</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="46273.html">B4C1</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#46333">Map</a></td>
+<td class="next">
+Next: <a href="46359.html">B517</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

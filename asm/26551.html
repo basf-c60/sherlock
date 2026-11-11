@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Text at 67B7 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-t">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Messages</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="24000.html">5DC0</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#26551">Map</a></td>
+<td class="next">
+Next: <a href="26615.html">67F7</a>
+</td>
+</tr>
+</table>
+<div class="description">67B7: Message bytecode: everything the game prints</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+From the end of the dictionary (<a href="26551.html">67B7</a>) up to the verb patterns at <a href="33369.html">8259</a>, this is text in the message interpreter's bytecode (<a href="42399.html">A59F</a>): a byte with bit 7 set starts a two-byte dictionary reference, $00-$1C are control codes (jump table at <a href="42333.html">A55D</a>), $20-$3F are literal characters, $40-$5F introduce a run of packed 5-bit letters, and $60 and above are handled at <a href="43066.html">A83A</a>.
+</div>
+<div class="paragraph">
+Two of them collided with message starts and broke the round trip, which is how this was found.
+</div>
+<div class="paragraph">
+212 messages are split out below: those printed by an LD HL shortly before a printer call, those loaded into HL or DE anywhere in code, those printed or said by plan scripts (PRINT and SAY TO, see <a href="52344.html">CC78</a>), those only a room or thing record points to (room descriptions, for instance), and the rest, found by walking the bytecode from <a href="26623.html">67FF</a> message by message. The 72 bytes before <a href="26623.html">67FF</a> (this block) are not an ordinary message.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="26551"></span>67B7</td>
+<td class="instruction">DEFB $9D,$08,$DB,$08,$01,$00,$5D,$00</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="26559"></span>67BF</td>
+<td class="instruction">DEFB $EE,$09,$EC,$05,$99,$08,$85,$04</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="26567"></span>67C7</td>
+<td class="instruction">DEFB $50,$04,$6A,$09,$9A,$00,$2D,$04</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="26575"></span>67CF</td>
+<td class="instruction">DEFB $88,$04,$D5,$05,$DF,$03,$63,$02</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="26583"></span>67D7</td>
+<td class="instruction">DEFB $86,$09,$4B,$09,$BF,$09,$FC,$03</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="26591"></span>67DF</td>
+<td class="instruction">DEFB $94,$07,$5E,$01,$E3,$03,$FF,$05</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="26599"></span>67E7</td>
+<td class="instruction">DEFB $7A,$00,$20,$06,$51,$03,$E0,$05</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="26607"></span>67EF</td>
+<td class="instruction">DEFB $C0,$00,$96,$09,$14,$04,$94,$05</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="24000.html">5DC0</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#26551">Map</a></td>
+<td class="next">
+Next: <a href="26615.html">67F7</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

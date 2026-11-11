@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at DCD2 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="56513.html">DCC1</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#56530">Map</a></td>
+<td class="next">
+Next: <a href="56579.html">DD03</a>
+</td>
+</tr>
+</table>
+<div class="description">DCD2: Pre-check for moving in a direction (verbs 1-10)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Refuses (via <a href="56341.html">DC15</a>, "YOU CANNOT GO ...") when there is no usable exit that way, when the actor is inside something (sitting in an armchair - GET OUT first), or when the thing in the way stops them (<a href="56629.html">DD35</a>).
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$A033</td>
+<td class="register-desc">The direction verb</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ if the actor can go; otherwise the move is refused through $DC15</td>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">The exit</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56530"></span>DCD2</td>
+<td class="instruction">LD A,($A033)</td>
+<td class="comment-1" rowspan="1">The direction is the verb number</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56533"></span>DCD5</td>
+<td class="instruction">CALL <a href="54344.html">$D448</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Find the actor's exit in a direction" (<a href="54344.html">D448</a>) - Find the exit</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56536"></span>DCD8</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1">Compare A with $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56538"></span>DCDA</td>
+<td class="instruction">JP Z,<a href="56341.html">$DC15</a></td>
+<td class="comment-1" rowspan="1">None: "YOU CANNOT GO ..."</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="56541"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="56345.html">DC19</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56541"></span>DCDD</td>
+<td class="instruction">CALL <a href="52135.html">$CBA7</a></td>
+<td class="comment-1" rowspan="1">Refuse if <a href="47412.html">B934</a> bit 6 is set ("SORRY, I CANNOT DO THAT NOW")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56544"></span>DCE0</td>
+<td class="instruction">LD IY,($A017)</td>
+<td class="comment-1" rowspan="1">The actor</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56548"></span>DCE4</td>
+<td class="instruction">LD A,(IY+$01)</td>
+<td class="comment-1" rowspan="1">Read byte +1 of the record at IY into A - Inside something?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56551"></span>DCE7</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1">Compare A with $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56553"></span>DCE9</td>
+<td class="instruction">JP NZ,<a href="56341.html">$DC15</a></td>
+<td class="comment-1" rowspan="1">...then they cannot walk off</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56556"></span>DCEC</td>
+<td class="instruction">LD A,(IX+$02)</td>
+<td class="comment-1" rowspan="1">Read byte +2 of the record at IX into A - Destination</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56559"></span>DCEF</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56560"></span>DCF0</td>
+<td class="instruction">JP Z,<a href="56341.html">$DC15</a></td>
+<td class="comment-1" rowspan="1">(0: refuse)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56563"></span>DCF3</td>
+<td class="instruction">LD A,(IX+$01)</td>
+<td class="comment-1" rowspan="1">The thing in the way</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56566"></span>DCF6</td>
+<td class="instruction">CALL <a href="56629.html">$DD35</a></td>
+<td class="comment-1" rowspan="1">...lets the actor through?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56569"></span>DCF9</td>
+<td class="instruction">JP NZ,<a href="56341.html">$DC15</a></td>
+<td class="comment-1" rowspan="1">No: refuse</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56572"></span>DCFC</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - Yes</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56574"></span>DCFE</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56575"></span>DCFF</td>
+<td class="instruction">NOP</td>
+<td class="comment-1" rowspan="1">Do nothing (padding)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56576"></span>DD00</td>
+<td class="instruction">NOP</td>
+<td class="comment-1" rowspan="1">Do nothing (padding)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56577"></span>DD01</td>
+<td class="instruction">NOP</td>
+<td class="comment-1" rowspan="1">Do nothing (padding)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56578"></span>DD02</td>
+<td class="instruction">NOP</td>
+<td class="comment-1" rowspan="1">Do nothing (padding)</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="56513.html">DCC1</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#56530">Map</a></td>
+<td class="next">
+Next: <a href="56579.html">DD03</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

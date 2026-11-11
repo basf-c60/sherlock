@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at 9C07 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="39807.html">9B7F</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#39943">Map</a></td>
+<td class="next">
+Next: <a href="40001.html">9C41</a>
+</td>
+</tr>
+</table>
+<div class="description">9C07: Find the cab journey between two rooms</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Searches <a href="39807.html">9B7F</a> for an entry joining room A and room C, in either order; C = 0 matches any entry with A at either end. Returns Z with IX on the entry, or NZ if there is none.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">one room</td>
+</tr>
+<tr>
+<td class="register">C</td>
+<td class="register-desc">the other (0 = any)</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Z if found</td>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">the entry</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="39943"></span>9C07</td>
+<td class="instruction">LD IX,$9B7F</td>
+<td class="comment-1" rowspan="1">Point IX at "Cab journeys: which cab stands a hansom cab runs..." (<a href="39807.html">9B7F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39947"></span>9C0B</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Save BC on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39948"></span>9C0C</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">Copy A into B</td>
+</tr>
+<tr>
+<td class="address-2"><span id="39949"></span>9C0D</td>
+<td class="instruction">LD A,(IX+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IX into A - End of the table: NZ, not found</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39952"></span>9C10</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1">Compare A with $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39954"></span>9C12</td>
+<td class="instruction">JR Z,$9C3D</td>
+<td class="comment-1" rowspan="1">If A equals $FF, jump on to <a href="39943.html#39997">9C3D</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="39956"></span>9C14</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">Copy B into A - Is A this entry's first stand?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39957"></span>9C15</td>
+<td class="instruction">CP (IX+$00)</td>
+<td class="comment-1" rowspan="1">Compare A with the first byte of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39960"></span>9C18</td>
+<td class="instruction">JR Z,$9C2A</td>
+<td class="comment-1" rowspan="1">If A equals the first byte of the record at IX, skip ahead to <a href="39943.html#39978">9C2A</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="39962"></span>9C1A</td>
+<td class="instruction">CP (IX+$01)</td>
+<td class="comment-1" rowspan="1">Compare A with byte +1 of the record at IX - or its second?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39965"></span>9C1D</td>
+<td class="instruction">JR NZ,$9C33</td>
+<td class="comment-1" rowspan="1">If A differs from byte +1 of the record at IX, skip ahead to <a href="39943.html#39987">9C33</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="39967"></span>9C1F</td>
+<td class="instruction">LD A,C</td>
+<td class="comment-1" rowspan="1">Copy C into A - A is the second stand: C = 0 matches anything,</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39968"></span>9C20</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39969"></span>9C21</td>
+<td class="instruction">JR Z,$9C3B</td>
+<td class="comment-1" rowspan="1">If A is zero, skip ahead to <a href="39943.html#39995">9C3B</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="39971"></span>9C23</td>
+<td class="instruction">CP (IX+$00)</td>
+<td class="comment-1" rowspan="1">Compare A with the first byte of the record at IX - otherwise C must be the first</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39974"></span>9C26</td>
+<td class="instruction">JR NZ,$9C33</td>
+<td class="comment-1" rowspan="1">If A differs from the first byte of the record at IX, skip ahead to <a href="39943.html#39987">9C33</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="39976"></span>9C28</td>
+<td class="instruction">JR $9C3B</td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="39943.html#39995">9C3B</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="39978"></span>9C2A</td>
+<td class="instruction">LD A,C</td>
+<td class="comment-1" rowspan="1">Copy C into A - A is the first stand: C = 0 or C the second</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39979"></span>9C2B</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39980"></span>9C2C</td>
+<td class="instruction">JR Z,$9C3B</td>
+<td class="comment-1" rowspan="1">If A is zero, skip ahead to <a href="39943.html#39995">9C3B</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="39982"></span>9C2E</td>
+<td class="instruction">CP (IX+$01)</td>
+<td class="comment-1" rowspan="1">Compare A with byte +1 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39985"></span>9C31</td>
+<td class="instruction">JR Z,$9C3B</td>
+<td class="comment-1" rowspan="1">If A equals byte +1 of the record at IX, skip ahead to <a href="39943.html#39995">9C3B</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="39987"></span>9C33</td>
+<td class="instruction">INC IX</td>
+<td class="comment-1" rowspan="1">Step IX on to the next byte - Next entry</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39989"></span>9C35</td>
+<td class="instruction">INC IX</td>
+<td class="comment-1" rowspan="1">Step IX on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39991"></span>9C37</td>
+<td class="instruction">INC IX</td>
+<td class="comment-1" rowspan="1">Step IX on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39993"></span>9C39</td>
+<td class="instruction">JR $9C0D</td>
+<td class="comment-1" rowspan="1">Go back to <a href="39943.html#39949">9C0D</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="39995"></span>9C3B</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore BC from the stack - Z: found, IX on the entry</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39996"></span>9C3C</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="39997"></span>9C3D</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Set bit 0 of A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39999"></span>9C3F</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore BC from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40000"></span>9C40</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="39807.html">9B7F</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#39943">Map</a></td>
+<td class="next">
+Next: <a href="40001.html">9C41</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

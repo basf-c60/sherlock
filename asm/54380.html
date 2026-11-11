@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at D46C - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="54344.html">D448</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#54380">Map</a></td>
+<td class="next">
+Next: <a href="54421.html">D495</a>
+</td>
+</tr>
+</table>
+<div class="description">D46C: Find the exit from the actor's room through door A ($D46C) or to room A ($D471)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="54380.html#54385">D471</a>.
+</div>
+<div class="paragraph">
+Walks the exits of the actor's room (<a href="54076.html">D33C</a>; three-byte entries: direction, door, room, stepped by <a href="53766.html">D206</a>) comparing byte 1 (the door, entry <a href="54380.html">D46C</a>) or byte 2 (the room beyond, entry <a href="54380.html#54385">D471</a>) with A. The offset is written into the instruction at <a href="54380.html#54411">D48B</a> (its displacement byte <a href="54380.html#54411">$D48D</a>) - self-modifying code. Returns IX on the exit, or A = $FF if there is none. <a href="54380.html#54385">D471</a> is why a room can only be named in a command when it is next door: the room search <a href="54171.html">D39B</a> lets through only rooms it finds.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">A door number (entry $D46C) or a room number (entry $D471)</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ with IX the exit if there is one; Z if not</td>
+</tr>
+<tr>
+<td class="register">BC,</td>
+<td class="register-desc">IY Kept</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="54380"></span>D46C</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack - Entry for a door: patch the offset in the LD A,(IX+n) at <a href="54380.html#54411">D48B</a> to 1</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54381"></span>D46D</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="1">Load A with $01</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54383"></span>D46F</td>
+<td class="instruction">JR $D474</td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="54380.html#54388">D474</a></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="54385"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routines at <a href="50728.html">C628</a>, <a href="50878.html">C6BE</a>, <a href="51887.html">CAAF</a>, <a href="54171.html">D39B</a> and <a href="56673.html">DD61</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="54385"></span>D471</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack - Entry for a room: patch it to 2</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54386"></span>D472</td>
+<td class="instruction">LD A,$02</td>
+<td class="comment-1" rowspan="1">Load A with $02</td>
+</tr>
+<tr>
+<td class="address-2"><span id="54388"></span>D474</td>
+<td class="instruction">LD ($D48D),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="54380.html#54411">$D48D</a> in "Find the exit from the actor's room through..."</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54391"></span>D477</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54392"></span>D478</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Save BC on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54393"></span>D479</td>
+<td class="instruction">PUSH IY</td>
+<td class="comment-1" rowspan="1">Save IY on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54395"></span>D47B</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">Copy A into B - B = the door or room number</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54396"></span>D47C</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54397"></span>D47D</td>
+<td class="instruction">CALL <a href="54076.html">$D33C</a></td>
+<td class="comment-1" rowspan="1">Call the routine "IX = record of the actor's room" (<a href="54076.html">D33C</a>) - IX = the actor's room record (<a href="54076.html">D33C</a>), past its six header bytes, at its exits</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54400"></span>D480</td>
+<td class="instruction">LD DE,$0006</td>
+<td class="comment-1" rowspan="1">Load DE with $0006, the amount that is added next</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54403"></span>D483</td>
+<td class="instruction">ADD IX,DE</td>
+<td class="comment-1" rowspan="1">Add DE to IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54405"></span>D485</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-2"><span id="54406"></span>D486</td>
+<td class="instruction">CALL <a href="53766.html">$D206</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Step to the next 3-byte entry" (<a href="53766.html">D206</a>) - Next exit (<a href="53766.html">D206</a>): Z at the end of the list</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54409"></span>D489</td>
+<td class="instruction">JR Z,$D491</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, skip ahead to <a href="54380.html#54417">D491</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="54411"></span>D48B</td>
+<td class="instruction">LD A,(IX+$02)</td>
+<td class="comment-1" rowspan="1">Read byte +2 of the record at IX into A - Its byte 1 (the door) or byte 2 (the room beyond) against B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54414"></span>D48E</td>
+<td class="instruction">CP B</td>
+<td class="comment-1" rowspan="1">Compare A with B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54415"></span>D48F</td>
+<td class="instruction">JR NZ,$D486</td>
+<td class="comment-1" rowspan="1">If A differs from B, go back to <a href="54380.html#54406">D486</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="54417"></span>D491</td>
+<td class="instruction">POP IY</td>
+<td class="comment-1" rowspan="1">Restore IY from the stack - Z: no such exit; NZ: IX = the exit</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54419"></span>D493</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore BC from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54420"></span>D494</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="54344.html">D448</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#54380">Map</a></td>
+<td class="next">
+Next: <a href="54421.html">D495</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

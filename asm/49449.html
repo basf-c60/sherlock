@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at C129 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="49448.html">C128</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#49449">Map</a></td>
+<td class="next">
+Next: <a href="49474.html">C142</a>
+</td>
+</tr>
+</table>
+<div class="description">C129: Narrow the text lines to the left half (a picture is showing)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Called at <a href="41591.html#41604">A284</a>, after the 18 newlines that clear the text window and before the room's picture is drawn in the top right quarter (<a href="62402.html">F3C2</a>). Sets <a href="49448.html">C128</a>, the characters-left count (<a href="49652.html#49653">C1F5</a>) to 18, the print position to $5020 and the pixel shift to 2, and clears the page line count (<a href="40918.html#40978">$A019</a>). From then on the scroll (<a href="49942.html">C316</a>) moves only the left 16 bytes of each pixel line and leaves the colours alone, so the picture stays where it is while the text runs beside it.
+</div>
+<div class="paragraph">
+In room 6 the description comes out 18 characters to a line ('You are in an | entrance hallway. | Above there is the | stairway...').
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">$C1F5</td>
+<td class="register-desc">18 characters to a line</td>
+</tr>
+<tr>
+<td class="register">$C1F8</td>
+<td class="register-desc">The print position</td>
+</tr>
+<tr>
+<td class="register">$C128</td>
+<td class="register-desc">1</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="49449"></span>C129</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag) - New page: no lines printed yet</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49450"></span>C12A</td>
+<td class="instruction">LD ($A019),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#40978">$A019</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49453"></span>C12D</td>
+<td class="instruction">INC A</td>
+<td class="comment-1" rowspan="1">Add one to A - Narrow mode on</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49454"></span>C12E</td>
+<td class="instruction">LD ($C128),A</td>
+<td class="comment-1" rowspan="1">Store A in "Flag: text lines are narrow (a picture is showing)" (<a href="49448.html">C128</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49457"></span>C131</td>
+<td class="instruction">LD A,$12</td>
+<td class="comment-1" rowspan="1">18 characters to a line</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="49459"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="49474.html">C142</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="49459"></span>C133</td>
+<td class="instruction">LD ($C1F5),A</td>
+<td class="comment-1" rowspan="1">Characters left on this line</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49462"></span>C136</td>
+<td class="instruction">LD HL,$5020</td>
+<td class="comment-1" rowspan="1">Load HL with $5020 - Print at the start of screen row 17</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49465"></span>C139</td>
+<td class="instruction">LD ($C1F8),HL</td>
+<td class="comment-1" rowspan="1">Store HL in <a href="49652.html#49656">C1F8</a> in "Command-window state"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49468"></span>C13C</td>
+<td class="instruction">LD A,$02</td>
+<td class="comment-1" rowspan="1">Load A with $02 - Pixel shift 2</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49470"></span>C13E</td>
+<td class="instruction">LD ($C1FA),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="49652.html#49656">$C1FA</a> in "Command-window state"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49473"></span>C141</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="49448.html">C128</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#49449">Map</a></td>
+<td class="next">
+Next: <a href="49474.html">C142</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

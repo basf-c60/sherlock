@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at CC78 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="52279.html">CC37</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#52344">Map</a></td>
+<td class="next">
+Next: <a href="52516.html">CD24</a>
+</td>
+</tr>
+</table>
+<div class="description">CC78: Run one step of the current actor's plan script</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Each actor (the 8-byte records at <a href="39008.html">9860</a>: +0 id, +1/+2 script position, +3/+4/+5 saved plan registers) runs a script in a small language. Each instruction starts with one byte: the low nibble is the opcode and the high nibble holds flags. Bit 7: a 2-byte success address follows the operands. Bit 4: a 2-byte failure address follows (after the success address, if both).
+</div>
+<div class="paragraph">
+Opcodes (lengths from <a href="52990.html#52995">CF03</a>): 1 DO verb (2 bytes); 2 DO verb dobj iobj (4); 3 RUN record (3); 4 ASK person TO verb dobj iobj (5): an order to another character, queued on the list at <a href="40918.html#40942">9FEE</a> and announced with <a href="26666.html">682A</a>; 5 SAY TO person message (4), via <a href="26672.html">6830</a>; 6 PRINT message (3); 7 RUN record dobj iobj (5); 8 SIGNAL actor (2) and 9 AWAIT actor (2): one actor leaves a token on the <a href="40918.html#40935">9FE7</a> list for another, which AWAIT consumes; A RETURN FAIL and B RETURN OK (1 each): leave a sub-script; D (2) and F (1) PASS: spend a minute doing nothing; E GOTO address (3). C is not used: <a href="52344.html#52488">CD08</a> is JR Z,<a href="52344.html#52488">CD08</a>, a jump to itself with Z set, which would hang the game.
+</div>
+<div class="paragraph">
+DO runs a command for the actor exactly as if it had been typed, through <a href="50385.html">C4D1</a>: the verb's own default record, the object's own action list, the requirement codes and the pre-check all apply. Verbs 128-140 exist only for scripts and are looked up in the table at <a href="40875.html">9FAB</a>. RUN skips the verb and runs one action record directly (<a href="50563.html#50577">C591</a>). Argument bytes $F5-$FF are not objects: $FA is the plan's verb (<a href="40918.html">9FD6</a>), $FB the actor itself, $FC and $FD the plan's indirect and direct objects (<a href="40918.html#40920">9FD8</a>, <a href="40918.html#40919">9FD7</a>), $FE a number and $FF nothing (<a href="52958.html">CEDE</a>).
+</div>
+<div class="paragraph">
+Success (<a href="52879.html">CE8F</a>) moves to the success address or the next instruction and returns to the main loop, which runs the next step at once if the action took no time and otherwise ends the actor's turn for as many minutes as it took. Failure (<a href="52920.html">CEB8</a>) moves to the failure address or the next instruction and tries again at once, up to ten times in one turn (<a href="52235.html">CC0B</a>); if the failure address is the instruction itself, the actor simply waits there. So 'DO verb <a href="61910.html">136</a> / 23 [fail -&gt; itself]' means 'wait here until 11pm'.
+</div>
+<div class="paragraph">
+A RUN or DO that reaches a checks-only action record (flags bit 7) calls a sub-script: <a href="51606.html#51623">C9A7</a> saves a call frame (<a href="53120.html">CF80</a>: actor, return position, objects, plan verb) on the list at <a href="40918.html#40937">9FE9</a> and points the actor at the script after the record's header. RETURN OK or RETURN FAIL (<a href="53120.html#53199">CFCF</a>) drops the frame and makes the calling instruction succeed or fail.
+</div>
+<div class="paragraph">
+This routine fetches the actor's script position (+1/+2 of its record), skips spent one-shot bytes, and dispatches on the opcode. <a href="52344.html#52391">CCA7</a>-<a href="52344.html#52422">CCC6</a> is a separate path for an actor who has been given an order (ASK) this turn (<a href="52235.html">$CC0D</a>, set by <a href="52279.html">CC37</a> from <a href="47391.html">B91F</a>): the order is carried out first, through <a href="47414.html">B936</a>.
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. Set up the actor (<a href="52279.html#52314">CC5A</a>) and load its plan registers (<a href="53256.html">D008</a>). Take its script position from its record.
+</div>
+<div class="paragraph">
+2. If ten steps have failed this turn, give up until next turn (<a href="52610.html#52619">CD8B</a>). Skip any zero bytes (spent one-shot instructions).
+</div>
+<div class="paragraph">
+3. The opcode is the low nibble of the first byte. Codes of 10 and up are control flow (<a href="52344.html#52467">CCF3</a>); the others are actions. If an order was given this turn, turn it into a command (<a href="47414.html">B936</a>) and carry it out first.
+</div>
+<div class="paragraph">
+4. Run the instruction. It succeeds (<a href="52879.html">CE8F</a>), moving to its success address, or fails (<a href="52920.html">CEB8</a>), moving to its failure address, and a one-shot instruction is erased (<a href="53059.html">CF43</a>).
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">The actor number</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">$A01F</td>
+<td class="register-desc">The minutes the step took (0 if none)</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="52344"></span>CC78</td>
+<td class="instruction">CALL <a href="52279.html#52314">$CC5A</a></td>
+<td class="comment-1" rowspan="1">Set up this actor's room comparisons</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52347"></span>CC7B</td>
+<td class="instruction">LD IY,($9FDB)</td>
+<td class="comment-1" rowspan="1">IY = the actor's record in the actor table</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52351"></span>CC7F</td>
+<td class="instruction">CALL <a href="53256.html">$D008</a></td>
+<td class="comment-1" rowspan="1">Load its plan registers</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="52354"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="52920.html">CEB8</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="52354"></span>CC82</td>
+<td class="instruction">LD L,(IY+$01)</td>
+<td class="comment-1" rowspan="1">Read byte +1 of the record at IY into L - HL = its script position</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52357"></span>CC85</td>
+<td class="instruction">LD H,(IY+$02)</td>
+<td class="comment-1" rowspan="1">Read byte +2 of the record at IY into H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52360"></span>CC88</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52361"></span>CC89</td>
+<td class="instruction">LD ($B934),A</td>
+<td class="comment-1" rowspan="1">Store A in "The actor an order is for (two copies)" (<a href="47412.html">B934</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52364"></span>CC8C</td>
+<td class="instruction">LD A,($CC0B)</td>
+<td class="comment-1" rowspan="1">Read "Bytes for the actor's turn (<a href="52279.html">CC37</a>)" (<a href="52235.html">CC0B</a>) into A - Ten failures this turn already?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52367"></span>CC8F</td>
+<td class="instruction">CP $0A</td>
+<td class="comment-1" rowspan="1">Compare A with $0A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52369"></span>CC91</td>
+<td class="instruction">JP Z,<a href="52610.html#52619">$CD8B</a></td>
+<td class="comment-1" rowspan="1">Then give up for this turn</td>
+</tr>
+<tr>
+<td class="address-2"><span id="52372"></span>CC94</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into A - Skip zero bytes: spent one-shot instructions</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52373"></span>CC95</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52374"></span>CC96</td>
+<td class="instruction">JR NZ,$CC9B</td>
+<td class="comment-1" rowspan="1">If A is not zero, skip ahead to <a href="52344.html#52379">CC9B</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="52376"></span>CC98</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52377"></span>CC99</td>
+<td class="instruction">JR $CC94</td>
+<td class="comment-1" rowspan="1">Go back to <a href="52344.html#52372">CC94</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="52379"></span>CC9B</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack - IX = the instruction; remember where it is</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52380"></span>CC9C</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52382"></span>CC9E</td>
+<td class="instruction">LD ($9FD9),HL</td>
+<td class="comment-1" rowspan="1">Store HL in the plan instruction (<a href="40918.html#40921">9FD9</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52385"></span>CCA1</td>
+<td class="instruction">AND $0F</td>
+<td class="comment-1" rowspan="1">Keep only bits 0, 1, 2, 3 of A (mask $0F) - Opcodes 10 and up are control flow</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52387"></span>CCA3</td>
+<td class="instruction">CP $0A</td>
+<td class="comment-1" rowspan="1">Compare A with $0A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52389"></span>CCA5</td>
+<td class="instruction">JR NC,$CCF3</td>
+<td class="comment-1" rowspan="1">If A is $0A or more, jump on to <a href="52344.html#52467">CCF3</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="52391"></span>CCA7</td>
+<td class="instruction">LD A,($CC0D)</td>
+<td class="comment-1" rowspan="1">Read <a href="52235.html">$CC0D</a> in "Bytes for the actor's turn (<a href="52279.html">CC37</a>)" into A - Has the actor been given an order this turn?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52394"></span>CCAA</td>
+<td class="instruction">CP $01</td>
+<td class="comment-1" rowspan="1">Compare A with $01</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52396"></span>CCAC</td>
+<td class="instruction">JR NZ,$CCC7</td>
+<td class="comment-1" rowspan="1">If A differs from $01, skip ahead to <a href="52344.html#52423">CCC7</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="52398"></span>CCAE</td>
+<td class="instruction">SUB A</td>
+<td class="comment-1" rowspan="1">Clear A to zero - Yes: turn the order into a command (<a href="47414.html">B936</a>) and carry it out (<a href="50385.html">C4D1</a>) before the script's own instruction</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52399"></span>CCAF</td>
+<td class="instruction">LD ($CC0D),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="52235.html">$CC0D</a> in "Bytes for the actor's turn (<a href="52279.html">CC37</a>)"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52402"></span>CCB2</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52403"></span>CCB3</td>
+<td class="instruction">CALL <a href="47414.html">$B936</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Deal with an order or remark addressed to the current..." (<a href="47414.html">B936</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52406"></span>CCB6</td>
+<td class="instruction">JP C,<a href="52610.html#52625">$CD91</a></td>
+<td class="comment-1" rowspan="1">If the carry flag is set, jump on to <a href="52610.html#52625">CD91</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="52409"></span>CCB9</td>
+<td class="instruction">JR Z,$CCC7</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, skip ahead to <a href="52344.html#52423">CCC7</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="52411"></span>CCBB</td>
+<td class="instruction">CALL <a href="50385.html">$C4D1</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Carry out the command in <a href="40918.html#41010">$A033</a>-<a href="40918.html#41010">$A035</a> for the current..." (<a href="50385.html">C4D1</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52414"></span>CCBE</td>
+<td class="instruction">RET NC</td>
+<td class="comment-1" rowspan="1">If the carry flag is clear, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52415"></span>CCBF</td>
+<td class="instruction">CALL <a href="53120.html#53174">$CFB6</a></td>
+<td class="comment-1" rowspan="1">Call <a href="53120.html#53174">CFB6</a> (inside "Save a sub-script call frame")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52418"></span>CCC2</td>
+<td class="instruction">LD (IX+$05),$02</td>
+<td class="comment-1" rowspan="1">Set byte +5 of the record at IX to $02</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52422"></span>CCC6</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="52423"></span>CCC7</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into A - Dispatch on the opcode</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52424"></span>CCC8</td>
+<td class="instruction">AND $0F</td>
+<td class="comment-1" rowspan="1">Keep only bits 0, 1, 2, 3 of A (mask $0F)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52426"></span>CCCA</td>
+<td class="instruction">CP $07</td>
+<td class="comment-1" rowspan="1">Compare A with $07</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52428"></span>CCCC</td>
+<td class="instruction">JP Z,<a href="52760.html#52795">$CE3B</a></td>
+<td class="comment-1" rowspan="1">If A equals $07, jump on to <a href="52760.html#52795">CE3B</a> - 7: RUN record with objects</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52431"></span>CCCF</td>
+<td class="instruction">CP $06</td>
+<td class="comment-1" rowspan="1">Compare A with $06</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52433"></span>CCD1</td>
+<td class="instruction">JP Z,<a href="52629.html">$CD95</a></td>
+<td class="comment-1" rowspan="1">If A equals $06, jump on to the routine "Plan opcode 6, PRINT: print a message" (<a href="52629.html">CD95</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52436"></span>CCD4</td>
+<td class="instruction">CP $05</td>
+<td class="comment-1" rowspan="1">Compare A with $05</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52438"></span>CCD6</td>
+<td class="instruction">JP Z,<a href="52641.html">$CDA1</a></td>
+<td class="comment-1" rowspan="1">If A equals $05, jump on to the routine "Plan opcode 5, SAY TO: say something to someone" (<a href="52641.html">CDA1</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52441"></span>CCD9</td>
+<td class="instruction">CP $04</td>
+<td class="comment-1" rowspan="1">Compare A with $04</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52443"></span>CCDB</td>
+<td class="instruction">JP Z,<a href="52671.html">$CDBF</a></td>
+<td class="comment-1" rowspan="1">If A equals $04, jump on to the routine "Plan opcode 4, ASK: order another character to do..." (<a href="52671.html">CDBF</a>) - 4: ASK someone to do something</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52446"></span>CCDE</td>
+<td class="instruction">CP $01</td>
+<td class="comment-1" rowspan="1">Compare A with $01</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52448"></span>CCE0</td>
+<td class="instruction">JP Z,<a href="52760.html#52842">$CE6A</a></td>
+<td class="comment-1" rowspan="1">If A equals $01, jump on to <a href="52760.html#52842">CE6A</a> - 1: DO verb</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52451"></span>CCE3</td>
+<td class="instruction">CP $03</td>
+<td class="comment-1" rowspan="1">Compare A with $03</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52453"></span>CCE5</td>
+<td class="instruction">JP Z,<a href="52760.html#52815">$CE4F</a></td>
+<td class="comment-1" rowspan="1">If A equals $03, jump on to <a href="52760.html#52815">CE4F</a> - 3: RUN record</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52456"></span>CCE8</td>
+<td class="instruction">CP $08</td>
+<td class="comment-1" rowspan="1">Compare A with $08</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52458"></span>CCEA</td>
+<td class="instruction">JR Z,<a href="52516.html">$CD24</a></td>
+<td class="comment-1" rowspan="1">If A equals $08, jump on to the routine "Plan opcode 8, SIGNAL: leave a token for another..." (<a href="52516.html">CD24</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52460"></span>CCEC</td>
+<td class="instruction">CP $09</td>
+<td class="comment-1" rowspan="1">Compare A with $09</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52462"></span>CCEE</td>
+<td class="instruction">JR Z,<a href="52551.html">$CD47</a></td>
+<td class="comment-1" rowspan="1">9: AWAIT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52464"></span>CCF0</td>
+<td class="instruction">JP <a href="52760.html">$CE18</a></td>
+<td class="comment-1" rowspan="1">2: DO verb dobj iobj</td>
+</tr>
+<tr>
+<td class="address-2"><span id="52467"></span>CCF3</td>
+<td class="instruction">CP $0E</td>
+<td class="comment-1" rowspan="1">Compare A with $0E - 14: GOTO...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52469"></span>CCF5</td>
+<td class="instruction">JR NZ,$CD06</td>
+<td class="comment-1" rowspan="1">If A differs from $0E, skip ahead to <a href="52344.html#52486">CD06</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="52471"></span>CCF7</td>
+<td class="instruction">LD A,(IX+$01)</td>
+<td class="comment-1" rowspan="1">Read byte +1 of the record at IX into A - ...the script position becomes the address</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52474"></span>CCFA</td>
+<td class="instruction">LD (IY+$01),A</td>
+<td class="comment-1" rowspan="1">Store A in byte +1 of the record at IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52477"></span>CCFD</td>
+<td class="instruction">LD A,(IX+$02)</td>
+<td class="comment-1" rowspan="1">Read byte +2 of the record at IX into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52480"></span>CD00</td>
+<td class="instruction">LD (IY+$02),A</td>
+<td class="comment-1" rowspan="1">Store A in byte +2 of the record at IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52483"></span>CD03</td>
+<td class="instruction">JP $CC82</td>
+<td class="comment-1" rowspan="1">...and fetch again at once</td>
+</tr>
+<tr>
+<td class="address-2"><span id="52486"></span>CD06</td>
+<td class="instruction">CP $0C</td>
+<td class="comment-1" rowspan="1">Compare A with $0C - 12: unused - this jumps to itself and would hang</td>
+</tr>
+<tr>
+<td class="address-2"><span id="52488"></span>CD08</td>
+<td class="instruction">JR Z,$CD08</td>
+<td class="comment-1" rowspan="1">If A equals $0C, go back to <a href="52344.html#52488">CD08</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="52490"></span>CD0A</td>
+<td class="instruction">CP $0B</td>
+<td class="comment-1" rowspan="1">Compare A with $0B - 11: RETURN OK</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52492"></span>CD0C</td>
+<td class="instruction">JR NZ,$CD17</td>
+<td class="comment-1" rowspan="1">If A differs from $0B, skip ahead to <a href="52344.html#52503">CD17</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="52494"></span>CD0E</td>
+<td class="instruction">CALL <a href="53120.html#53199">$CFCF</a></td>
+<td class="comment-1" rowspan="1">Leave the sub-script</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52497"></span>CD11</td>
+<td class="instruction">CP $02</td>
+<td class="comment-1" rowspan="1">Compare A with $02</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52499"></span>CD13</td>
+<td class="instruction">RET Z</td>
+<td class="comment-1" rowspan="1">If A equals $02, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52500"></span>CD14</td>
+<td class="instruction">JP <a href="52879.html">$CE8F</a></td>
+<td class="comment-1" rowspan="1">The calling instruction succeeds</td>
+</tr>
+<tr>
+<td class="address-2"><span id="52503"></span>CD17</td>
+<td class="instruction">CP $0A</td>
+<td class="comment-1" rowspan="1">Compare A with $0A - 10: RETURN FAIL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52505"></span>CD19</td>
+<td class="instruction">JR NZ,<a href="52610.html">$CD82</a></td>
+<td class="comment-1" rowspan="1">If A differs from $0A, jump on to the routine "Plan opcodes 13 and 15, PASS; and giving up for..." (<a href="52610.html">CD82</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52507"></span>CD1B</td>
+<td class="instruction">CALL <a href="53120.html#53199">$CFCF</a></td>
+<td class="comment-1" rowspan="1">Call <a href="53120.html#53199">CFCF</a> (inside "Save a sub-script call frame")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52510"></span>CD1E</td>
+<td class="instruction">CP $02</td>
+<td class="comment-1" rowspan="1">Compare A with $02</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52512"></span>CD20</td>
+<td class="instruction">RET Z</td>
+<td class="comment-1" rowspan="1">If A equals $02, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52513"></span>CD21</td>
+<td class="instruction">JP <a href="52920.html">$CEB8</a></td>
+<td class="comment-1" rowspan="1">The calling instruction fails</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="52279.html">CC37</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#52344">Map</a></td>
+<td class="next">
+Next: <a href="52516.html">CD24</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

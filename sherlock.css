@@ -1,0 +1,213 @@
+/* Sherlock disassembly: a reading theme loaded after skoolkit.css.
+   Light by default, dark when the reader's system asks for it. No external fonts or scripts. */
+:root {
+  --bg: #f7f4ec;
+  --surface: #fffdf8;
+  --surface-2: #efeadc;
+  --ink: #1e1c17;
+  --ink-2: #5a564b;
+  --rule: #d9d2bf;
+  --accent: #1d5c63;
+  --accent-ink: #ffffff;
+  --link: #1a5a8a;
+  --link-hover: #a63d1e;
+  --addr: #a63d1e;       /* addresses, entry points */
+  --op: #2f6a3a;         /* instructions */
+  --code-bg: #efe9d8;
+  --warn: #8a5a00;
+  --warn-bg: #fbf0d4;
+  --measure: 46rem;
+  --wide: 78rem;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14161a;
+    --surface: #1b1e24;
+    --surface-2: #242830;
+    --ink: #e8e4d8;
+    --ink-2: #a9a595;
+    --rule: #33373f;
+    --accent: #5fb3ba;
+    --accent-ink: #0d1316;
+    --link: #8cc4ee;
+    --link-hover: #f0a07f;
+    --addr: #f0a07f;
+    --op: #9fd4a6;
+    --code-bg: #232730;
+    --warn: #f0c36a;
+    --warn-bg: #2d2615;
+  }
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 1rem/1.6 var(--sans);
+}
+a { color: var(--link); text-decoration: none; }
+a:hover, a.map-entry-title:hover { color: var(--link-hover); text-decoration: underline; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+code, tt, pre { font-family: var(--mono); font-size: 0.92em; background: var(--code-bg); border-radius: 3px; }
+code { padding: 0.08em 0.3em; }
+pre { padding: 0.8rem 1rem; overflow-x: auto; line-height: 1.45; }
+pre code { background: none; padding: 0; }
+
+/* ---- site bar ---- */
+header.site {
+  background: var(--surface);
+  border-bottom: 1px solid var(--rule);
+  position: sticky; top: 0; z-index: 10;
+}
+header.site .bar {
+  max-width: var(--wide); margin: 0 auto; padding: 0.55rem 1rem;
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 1.4rem;
+}
+header.site a.brand { font-weight: 700; color: var(--ink); letter-spacing: 0.01em; }
+header.site a.brand:hover { color: var(--accent); text-decoration: none; }
+header.site nav { display: flex; flex-wrap: wrap; gap: 0.2rem 1.1rem; font-size: 0.92rem; }
+header.site nav a { color: var(--ink-2); }
+header.site nav a:hover, header.site nav a[aria-current] { color: var(--accent); }
+
+main { max-width: var(--measure); margin: 0 auto; padding: 1.4rem 1rem 2.5rem; }
+body.Asm-c main, body.Asm-b main, body.Asm-w main, body.Asm-t main, body.Asm-s main, body.Asm-g main, body.Asm-u main,
+body.MemoryMap main, body.RoutinesMap main, body.DataMap main, body.MessagesMap main, body.UnusedMap main,
+body.the-walkthrough main, body.the-endings-played main, body.vocabulary main, body.things main, body.cast main, body.map main,
+body.Facts main, body.Bugs main { max-width: var(--wide); }
+h1.page-title { font: 700 1.9rem/1.2 var(--sans); margin: 0.2rem 0 1rem; letter-spacing: -0.01em; }
+h1, h2, h3, h4 { line-height: 1.25; }
+h1 { font-size: 1.7rem; margin: 1.6rem 0 0.7rem; }
+h2 { font-size: 1.35rem; margin: 1.8rem 0 0.6rem; padding-bottom: 0.25rem; border-bottom: 1px solid var(--rule); }
+h3 { font-size: 1.1rem; margin: 1.4rem 0 0.4rem; }
+main p, main li { max-width: 68ch; }
+main td p, main td li, main th p { max-width: none; }
+
+/* ---- landing page ---- */
+.hero { padding: 1.2rem 0 0.6rem; }
+.hero h1.page-title { font-size: 2.3rem; margin-bottom: 0.3rem; }
+.hero .lede { font: 1.15rem/1.55 var(--serif); color: var(--ink); max-width: 40rem; margin: 0 0 1rem; }
+.stats { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0 1.4rem; padding: 0; list-style: none; }
+.stats li { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 0.5rem 0.8rem; flex: 1 1 8rem; max-width: 11rem; }
+.stats b { display: block; font-size: 1.35rem; color: var(--accent); font-variant-numeric: tabular-nums; line-height: 1.2; }
+.stats span { font-size: 0.82rem; color: var(--ink-2); }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr)); gap: 0.8rem; margin: 0.8rem 0 1.6rem; max-width: none; }
+.card { display: block; background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 0.85rem 1rem; color: var(--ink); }
+.card:hover { border-color: var(--accent); text-decoration: none; color: var(--ink); }
+.card strong { display: block; color: var(--accent); margin-bottom: 0.15rem; }
+.card span { font-size: 0.92rem; color: var(--ink-2); line-height: 1.45; display: block; }
+body.GameIndex main { max-width: 60rem; }
+body.GameIndex div.section-header { font: 700 1.2rem/1.3 var(--sans); margin: 1.6rem 0 0.4rem; padding-bottom: 0.25rem; border-bottom: 1px solid var(--rule); }
+ul.index-list { list-style: none; margin: 0 0 0.6rem; padding: 0; columns: 2 18rem; column-gap: 2rem; }
+ul.index-list li { padding: 0.12rem 0; break-inside: avoid; }
+.honest { background: var(--warn-bg); border-left: 4px solid var(--warn); border-radius: 4px; padding: 0.7rem 1rem; margin: 1.2rem 0; max-width: 46rem; font-size: 0.95rem; }
+.honest b { color: var(--warn); }
+
+/* ---- disassembly pages ---- */
+table.asm-navigation, table.asm-navigation td { background: var(--surface) !important; color: var(--ink-2); }
+table.asm-navigation { width: 100%; border-collapse: collapse; margin: 0 0 0.9rem; font-size: 0.9rem; background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; }
+table.asm-navigation td { padding: 0.35rem 0.7rem; }
+table.asm-navigation td.up { text-align: center; }
+table.asm-navigation td.next { text-align: right; }
+div.description { font: 700 1.35rem/1.3 var(--sans); margin: 0.4rem 0 0.8rem; }
+div.description::first-line { color: var(--ink); }
+table.disassembly { width: 100%; border-collapse: separate; border-spacing: 0; margin-bottom: 1.2rem; font-size: 0.92rem; }
+table.disassembly td { vertical-align: top; padding: 0.12rem 0.6rem; }
+table.disassembly td.routine-comment { padding: 0.2rem 0 0.9rem; }
+td.routine-comment .details { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 0.7rem 1rem 0.3rem; }
+td.routine-comment .paragraph { margin: 0 0 0.7rem; max-width: 72ch; font-size: 0.97rem; line-height: 1.6; }
+td.asm-label, td.address-1, td.address-2, td.bytes, td.instruction { font-family: var(--mono); white-space: pre; }
+td.address-1, td.address-2 { color: var(--addr); width: 1%; }
+td.address-2 { font-weight: 700; }
+td.instruction { color: var(--op); width: 1%; padding-right: 1.4rem; }
+td.comment-0, td.comment-1 { font-family: var(--sans); color: var(--ink); border-left: 2px solid var(--rule); background: var(--surface); }
+td.comment-0 { font-style: normal; }
+table.input, table.output { border-collapse: collapse; margin: 0.3rem 0 0.7rem; font-size: 0.9rem; }
+table.input td, table.output td, table.input th, table.output th { padding: 0.1rem 0.7rem 0.1rem 0; text-align: left; }
+tr.asm-input-header th, tr.asm-output-header th { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-2); }
+td.register { font-family: var(--mono); color: var(--accent); }
+td.image { padding: 0; }
+
+/* ---- memory maps ---- */
+table.map { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+table.map th { text-align: left; color: var(--ink-2); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.3rem 0.6rem; border-bottom: 1px solid var(--rule); }
+table.map td { padding: 0.25rem 0.6rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+td.map-page, td.map-byte { font-family: var(--mono); color: var(--addr); white-space: nowrap; }
+td.map-c, td.map-b, td.map-w, td.map-t, td.map-s, td.map-g, td.map-u { font-family: var(--mono); }
+a.map-entry-title { color: var(--ink); font-weight: 600; }
+td.map-c-desc, td.map-b-desc, td.map-w-desc, td.map-t-desc { color: var(--ink-2); font-size: 0.88rem; }
+
+/* ---- Trivia and Bugs ---- */
+ul.contents { columns: 2 22rem; column-gap: 2rem; padding-left: 1.1rem; margin: 0 0 1.6rem; font-size: 0.94rem; }
+ul.contents li { break-inside: avoid; padding: 0.1rem 0; }
+div.box { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; margin: 0 0 1rem; overflow: hidden; }
+div.box-title { background: var(--surface-2); font: 700 1.05rem/1.35 var(--sans); padding: 0.55rem 1rem; border-bottom: 1px solid var(--rule); }
+div.box .paragraph, div.box p { padding: 0 1rem; margin: 0.7rem 0; max-width: 72ch; }
+body.Bugs div.box { border-left: 5px solid var(--link-hover); }
+div.box span[id] { scroll-margin-top: 4.5rem; }
+span[id] { scroll-margin-top: 4.5rem; }
+
+/* ---- notes pages ---- */
+body.the-walkthrough table, body.the-endings-played table, body.the-case table, body.vocabulary table, body.things table, body.cast table, body.map table,
+body.loader-notes table, body.harness-notes table, body.dictionary-notes table, body.world-model-notes table, body.how-it-works table, body.pictures table,
+body.the-endgame table, body.the-playthrough table, body.the-playthrough-2 table, body.trivia-by-theme table {
+  border-collapse: collapse; width: 100%; margin: 0.8rem 0 1.4rem; font-size: 0.93rem; background: var(--surface); border: 1px solid var(--rule);
+}
+main table th { text-align: left; background: var(--surface-2); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-2); padding: 0.45rem 0.7rem; position: sticky; top: 2.6rem; }
+main table td { padding: 0.45rem 0.7rem; border-top: 1px solid var(--rule); vertical-align: top; }
+main table tr:nth-child(even) td { background: color-mix(in srgb, var(--surface-2) 35%, transparent); }
+.tablewrap { overflow-x: auto; }
+body.trivia-by-theme h2 { margin-top: 2rem; }
+body.trivia-by-theme ul { padding-left: 1.2rem; }
+body.trivia-by-theme li { padding: 0.15rem 0; }
+body.trivia-by-theme li small { color: var(--ink-2); display: block; }
+img { max-width: 100%; height: auto; }
+
+footer { max-width: var(--wide); margin: 0 auto; padding: 1.2rem 1rem 2rem; text-align: left; color: var(--ink-2); font-size: 0.85rem; border-top: 1px solid var(--rule); }
+footer a { color: var(--ink-2); text-decoration: underline; }
+footer .release:empty, footer .copyright:empty { display: none; }
+
+@media (max-width: 40rem) {
+  header.site .bar { gap: 0.2rem 1rem; }
+  h1.page-title { font-size: 1.5rem; }
+  .hero h1.page-title { font-size: 1.8rem; }
+  table.disassembly { font-size: 0.82rem; }
+  table.disassembly { display: block; overflow-x: auto; }
+  table.disassembly td.comment-0, table.disassembly td.comment-1 { min-width: 14rem; }
+  td.routine-comment .details { position: sticky; left: 0; width: calc(100vw - 2.6rem); }
+  main { padding: 1rem 0.9rem 2rem; }
+  main table th { position: static; }
+  .tablewrap table { min-width: 36rem; }
+}
+@media print { header.site { display: none; } body { background: #fff; color: #000; } }
+
+main table, main pre { max-width: 100%; }
+div.box { max-width: 100%; }
+div.box code { overflow-wrap: anywhere; }
+div.box .paragraph, div.box p { overflow-wrap: anywhere; }
+
+main code { overflow-wrap: anywhere; }
+main table code { word-break: break-word; }
+
+/* overrides for SkoolKit's default blue/beige striping and fixed widths */
+table.map td, table.map tr { background: transparent !important; }
+table.map th { background: var(--surface-2) !important; color: var(--ink-2) !important; }
+table.map tr:hover td { background: var(--surface) !important; }
+a.map-entry-title { font-weight: 600; }
+td.map-c-desc, td.map-b-desc, td.map-w-desc, td.map-t-desc, td.map-s-desc, td.map-g-desc, td.map-u-desc { font-weight: 400; }
+div.box, div.box-1, div.box-2, div.list-entry-1, div.list-entry-2 { width: auto !important; max-width: 62rem; }
+div.box-1, div.box-2 { background: var(--surface) !important; }
+main { overflow-wrap: anywhere; } main li small { overflow-wrap: anywhere; word-break: break-word; }
+body.the-endings-played td:first-child { min-width: 12rem; font-family: var(--mono); font-size: 0.8rem; overflow-wrap: anywhere; color: var(--ink-2); }
+
+/* walkthrough step tables */
+table.steps { font-size: 0.88rem; }
+table.steps th, table.steps td:nth-child(1), table.steps td:nth-child(3) { white-space: nowrap; }
+table.steps td:nth-child(2) { min-width: 11rem; }
+table.steps td:nth-child(4) { min-width: 7rem; }
+table.steps td:nth-child(5) { min-width: 16rem; }
+table.steps td:nth-child(6) { white-space: nowrap; }

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at AFB3 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="44907.html">AF6B</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#44979">Map</a></td>
+<td class="next">
+Next: <a href="45025.html">AFE1</a>
+</td>
+</tr>
+</table>
+<div class="description">AFB3: Is word BC a special word? Then run its handler</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Searches the table at <a href="44907.html">AF6B</a> (see there for which part) and jumps to the handler; otherwise NZ (<a href="44903.html">AF67</a>).
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. Pick the table: the twelve special words at <a href="44907.html">AF6B</a>, or - when the parser is reading speech (<a href="40918.html#40994">$A024</a> = 2) - only the last six, from <a href="44907.html#44955">AF9B</a>.
+</div>
+<div class="paragraph">
+2. Each entry is four bytes: a dictionary word reference followed by the address of a handler. Compare the word in BC with each entry in turn.
+</div>
+<div class="paragraph">
+3. No match: return NZ, and the word is an ordinary one.
+</div>
+<div class="paragraph">
+4. A match: take the handler's address and jump to it. The handler does the work and returns to the parser's caller.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">BC</td>
+<td class="register-desc">The word reference</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ if the word is not special (otherwise the handler runs)</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="44979"></span>AFB3</td>
+<td class="instruction">LD HL,$AF6B</td>
+<td class="comment-1" rowspan="1">The ordinary words...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44982"></span>AFB6</td>
+<td class="instruction">LD A,($A024)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40994">$A024</a> in "Game variables" into A - ...unless this is speech</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44985"></span>AFB9</td>
+<td class="instruction">CP $02</td>
+<td class="comment-1" rowspan="1">Compare A with $02</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44987"></span>AFBB</td>
+<td class="instruction">JR NZ,$AFC0</td>
+<td class="comment-1" rowspan="1">If A differs from $02, skip ahead to <a href="44979.html#44992">AFC0</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44989"></span>AFBD</td>
+<td class="instruction">LD HL,$AF9B</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="44907.html#44955">AF9B</a> in "Special words and their handlers" - Speech: the last six</td>
+</tr>
+<tr>
+<td class="address-2"><span id="44992"></span>AFC0</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44993"></span>AFC1</td>
+<td class="instruction">LD E,$0C</td>
+<td class="comment-1" rowspan="1">Load E with $0C - Twelve entries...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44995"></span>AFC3</td>
+<td class="instruction">JR NZ,$AFC7</td>
+<td class="comment-1" rowspan="1">If A differs from $02, skip ahead to <a href="44979.html#44999">AFC7</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44997"></span>AFC5</td>
+<td class="instruction">LD E,$06</td>
+<td class="comment-1" rowspan="1">...or six</td>
+</tr>
+<tr>
+<td class="address-2"><span id="44999"></span>AFC7</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into A - This word?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45000"></span>AFC8</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45001"></span>AFC9</td>
+<td class="instruction">CP C</td>
+<td class="comment-1" rowspan="1">Compare A with C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45002"></span>AFCA</td>
+<td class="instruction">JR NZ,$AFD0</td>
+<td class="comment-1" rowspan="1">If A differs from C, skip ahead to <a href="44979.html#45008">AFD0</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45004"></span>AFCC</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45005"></span>AFCD</td>
+<td class="instruction">CP B</td>
+<td class="comment-1" rowspan="1">Compare A with B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45006"></span>AFCE</td>
+<td class="instruction">JR Z,$AFDA</td>
+<td class="comment-1" rowspan="1">If A equals B, skip ahead to <a href="44979.html#45018">AFDA</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="45008"></span>AFD0</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte - No: next entry</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45009"></span>AFD1</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45010"></span>AFD2</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45011"></span>AFD3</td>
+<td class="instruction">DEC E</td>
+<td class="comment-1" rowspan="1">Subtract one from E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45012"></span>AFD4</td>
+<td class="instruction">JR NZ,$AFC7</td>
+<td class="comment-1" rowspan="1">If E is not zero, go back to <a href="44979.html#44999">AFC7</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45014"></span>AFD6</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack - Not special</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45015"></span>AFD7</td>
+<td class="instruction">JP <a href="44903.html">$AF67</a></td>
+<td class="comment-1" rowspan="1">Go back to the routine "Not a special word: NZ" (<a href="44903.html">AF67</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="45018"></span>AFDA</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte - Yes: its handler</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45019"></span>AFDB</td>
+<td class="instruction">LD E,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45020"></span>AFDC</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45021"></span>AFDD</td>
+<td class="instruction">LD D,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45022"></span>AFDE</td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-1" rowspan="1">Swap DE and HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45023"></span>AFDF</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45024"></span>AFE0</td>
+<td class="instruction">JP (HL)</td>
+<td class="comment-1" rowspan="1">Run it</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="44907.html">AF6B</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#44979">Map</a></td>
+<td class="next">
+Next: <a href="45025.html">AFE1</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

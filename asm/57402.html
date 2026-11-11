@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at E03A - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="57378.html">E022</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#57402">Map</a></td>
+<td class="next">
+Next: <a href="57485.html">E08D</a>
+</td>
+</tr>
+</table>
+<div class="description">E03A: Set the worn state of the actor (A = 1 wear, 0 take off)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Called by the shared WEAR (with A = 1) and TAKE OFF (with A = 0) actions. Finds the actor's compact record via <a href="52238.html">CC0E</a>, writes A into its byte 0, then re-resolves the actor and refreshes the cached record pointer at <a href="40918.html#40978">$A017</a>.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">1 to wear, 0 to take off</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">$A017</td>
+<td class="register-desc">The actor's new record</td>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">That record</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="57402"></span>E03A</td>
+<td class="instruction">LD C,A</td>
+<td class="comment-1" rowspan="1">C = 1 to wear, 0 to take off</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57403"></span>E03B</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">The actor's id</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57406"></span>E03E</td>
+<td class="instruction">CALL <a href="52238.html">$CC0E</a></td>
+<td class="comment-1" rowspan="1">Find their compact record</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57409"></span>E041</td>
+<td class="instruction">LD (IY+$00),C</td>
+<td class="comment-1" rowspan="1">Record whether they are wearing it</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57412"></span>E044</td>
+<td class="instruction">LD IY,($A017)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40978">$A017</a> in "Game variables" into IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57416"></span>E048</td>
+<td class="instruction">LD A,C</td>
+<td class="comment-1" rowspan="1">Copy C into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57417"></span>E049</td>
+<td class="instruction">CALL <a href="53815.html">$D237</a></td>
+<td class="comment-1" rowspan="1">Re-resolve the actor...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57420"></span>E04C</td>
+<td class="instruction">LD ($A017),IX</td>
+<td class="comment-1" rowspan="1">...and refresh the cached pointer</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57424"></span>E050</td>
+<td class="instruction">LD A,(IY+$01)</td>
+<td class="comment-1" rowspan="1">Read byte +1 of the record at IY into A - The new body takes over the old one's holder (+1) and room (+15)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57427"></span>E053</td>
+<td class="instruction">LD (IX+$01),A</td>
+<td class="comment-1" rowspan="1">Store A in byte +1 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57430"></span>E056</td>
+<td class="instruction">LD (IY+$01),$FF</td>
+<td class="comment-1" rowspan="1">Set byte +1 of the record at IY to $FF - The old body is held by nothing ($FF) and in no room</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57434"></span>E05A</td>
+<td class="instruction">LD A,(IY+$0F)</td>
+<td class="comment-1" rowspan="1">Read byte +15 of the record at IY into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57437"></span>E05D</td>
+<td class="instruction">LD (IX+$0F),A</td>
+<td class="comment-1" rowspan="1">Store A in byte +15 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57440"></span>E060</td>
+<td class="instruction">LD (IY+$0F),$00</td>
+<td class="comment-1" rowspan="1">Set byte +15 of the record at IY to $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57444"></span>E064</td>
+<td class="instruction">LD B,$00</td>
+<td class="comment-1" rowspan="1">Load B with $00 - For everything from 1 to $6D: if the old actor holds it...</td>
+</tr>
+<tr>
+<td class="address-2"><span id="57446"></span>E066</td>
+<td class="instruction">INC B</td>
+<td class="comment-1" rowspan="1">Add one to B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57447"></span>E067</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">Copy B into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57448"></span>E068</td>
+<td class="instruction">CP $6E</td>
+<td class="comment-1" rowspan="1">Compare A with $6E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57450"></span>E06A</td>
+<td class="instruction">JR Z,$E07C</td>
+<td class="comment-1" rowspan="1">If A equals $6E, skip ahead to <a href="57402.html#57468">E07C</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="57452"></span>E06C</td>
+<td class="instruction">CALL <a href="53815.html">$D237</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Resolve an id (in A) to its full entity record" (<a href="53815.html">D237</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57455"></span>E06F</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A036</a> in "Game variables" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57458"></span>E072</td>
+<td class="instruction">CP (IX+$01)</td>
+<td class="comment-1" rowspan="1">Compare A with byte +1 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57461"></span>E075</td>
+<td class="instruction">JR NZ,$E066</td>
+<td class="comment-1" rowspan="1">If A differs from byte +1 of the record at IX, go back to <a href="57402.html#57446">E066</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="57463"></span>E077</td>
+<td class="instruction">LD (IX+$01),C</td>
+<td class="comment-1" rowspan="1">Store C in byte +1 of the record at IX - ...the new body holds it</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57466"></span>E07A</td>
+<td class="instruction">JR $E066</td>
+<td class="comment-1" rowspan="1">Go back to <a href="57402.html#57446">E066</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="57468"></span>E07C</td>
+<td class="instruction">CALL <a href="53120.html#53174">$CFB6</a></td>
+<td class="comment-1" rowspan="1">Call <a href="53120.html#53174">CFB6</a> (inside "Save a sub-script call frame") - Walk (<a href="53120.html#53174">CFB6</a>) the records it yields and set their +0 to C, until it returns Z</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57471"></span>E07F</td>
+<td class="instruction">JR Z,$E086</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, skip ahead to <a href="57402.html#57478">E086</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="57473"></span>E081</td>
+<td class="instruction">LD (IX+$00),C</td>
+<td class="comment-1" rowspan="1">Store C in the first byte of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57476"></span>E084</td>
+<td class="instruction">JR $E07C</td>
+<td class="comment-1" rowspan="1">Go back to <a href="57402.html#57468">E07C</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="57478"></span>E086</td>
+<td class="instruction">LD A,C</td>
+<td class="comment-1" rowspan="1">Copy C into A - The current actor (<a href="40918.html#41010">$A036</a>) is now the new body</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57479"></span>E087</td>
+<td class="instruction">LD ($A036),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41010">$A036</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57482"></span>E08A</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57484"></span>E08C</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="57378.html">E022</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#57402">Map</a></td>
+<td class="next">
+Next: <a href="57485.html">E08D</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

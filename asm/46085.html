@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at B405 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="45981.html">B39D</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#46085">Map</a></td>
+<td class="next">
+Next: <a href="46211.html">B483</a>
+</td>
+</tr>
+</table>
+<div class="description">B405: Copy the typed objects into the two object slots, in the verb's order</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Once a verb record has matched (<a href="45981.html">B39D</a>): works out from the record (<a href="41661.html">A2BD</a>, <a href="40918.html#40986">$A01D</a>/<a href="40918.html#40986">$A01E</a>) and the preposition typed whether the parse node's first or second group of words is the direct object, notes the order at <a href="45421.html#45437">$B182</a>, and copies six bytes of words from the node into the direct-object slot <a href="45421.html">$B172</a> and the indirect-object slot <a href="45421.html#45429">$B178</a>, setting bit 0 of <a href="45421.html">B16D</a>/<a href="45421.html">$B16E</a> when a slot is not empty.
+</div>
+<div class="paragraph">
+TAKE LAMP: no preposition, <a href="40918.html#40986">$A01E</a> = $40, BC = $0812 - the direct object from the node's first group (+8), the indirect from the second (+18). GIVE WATSON LAMP: no preposition, <a href="40918.html#40986">$A01E</a> = $61 (bit 5 set), BC = $1208 - the other way round, and the game says 'You give the oil lamp to Watson.' GIVE LAMP TO WATSON: TO matches the node's first group's preposition (+14), <a href="40918.html#40986">$A01D</a> = $0C, bit 5 flipped, BC = $0812. TALK TO WATSON: TO typed (<a href="45421.html#45445">$B188</a>) but not attached to a group, so <a href="40918.html#40986">$A01D</a>'s bit 5 ($28) is used as it is: $0812.
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. If the pattern matched with its middle words swapped (A = 1), swap the two prepositions at <a href="45421.html#45445">$B188</a> and <a href="45421.html#45445">$B18A</a>.
+</div>
+<div class="paragraph">
+2. Gather the verb's flags (<a href="41661.html">A2BD</a>).
+</div>
+<div class="paragraph">
+3. With no preposition typed, bit 5 of <a href="40918.html#40986">$A01E</a> decides the order of the two noun phrases (GIVE WATSON LAMP).
+</div>
+<div class="paragraph">
+4. Otherwise see which of the node's two groups the preposition belongs to (+14 or +16) and put each group in the matching slot.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">1 if the pattern matched with its middle words swapped, 0 if not</td>
+</tr>
+<tr>
+<td class="register">IY</td>
+<td class="register-desc">The parse node</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">The</td>
+<td class="register-desc">two object slots filled in the verb's order</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="46085"></span>B405</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry) - A = 1: the verb record matched with its middle words swapped (<a href="42189.html">A4CD</a>); swap <a href="45421.html#45445">$B188</a> and <a href="45421.html#45445">$B18A</a> to suit</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46086"></span>B406</td>
+<td class="instruction">JR Z,$B416</td>
+<td class="comment-1" rowspan="1">If A is zero, skip ahead to <a href="46085.html#46102">B416</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46088"></span>B408</td>
+<td class="instruction">LD HL,($B188)</td>
+<td class="comment-1" rowspan="1">Read <a href="45421.html#45445">$B188</a> in "Parser variables" into HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46091"></span>B40B</td>
+<td class="instruction">LD DE,($B18A)</td>
+<td class="comment-1" rowspan="1">Read <a href="45421.html#45445">$B18A</a> in "Parser variables" into DE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46095"></span>B40F</td>
+<td class="instruction">LD ($B188),DE</td>
+<td class="comment-1" rowspan="1">Store DE in <a href="45421.html#45445">$B188</a> in "Parser variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46099"></span>B413</td>
+<td class="instruction">LD ($B18A),HL</td>
+<td class="comment-1" rowspan="1">Store HL in <a href="45421.html#45445">$B18A</a> in "Parser variables"</td>
+</tr>
+<tr>
+<td class="address-2"><span id="46102"></span>B416</td>
+<td class="instruction">CALL <a href="41661.html">$A2BD</a></td>
+<td class="comment-1" rowspan="1">Gather the verb's flags (<a href="40918.html#40986">$A01D</a>, <a href="40918.html#40986">$A01E</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46105"></span>B419</td>
+<td class="instruction">LD HL,$B188</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="45421.html#45445">$B188</a> in "Parser variables" - No preposition typed (<a href="45421.html#45445">$B188</a> = 0)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46108"></span>B41C</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte at <a href="45421.html#45445">$B188</a> in "Parser variables" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46109"></span>B41D</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46110"></span>B41E</td>
+<td class="instruction">OR (HL)</td>
+<td class="comment-1" rowspan="1">Set in A the bits that are set in the byte HL points at</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46111"></span>B41F</td>
+<td class="instruction">JR NZ,$B426</td>
+<td class="comment-1" rowspan="1">If the result is not zero, skip ahead to <a href="46085.html#46118">B426</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46113"></span>B421</td>
+<td class="instruction">LD A,($A01E)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40986">$A01E</a> in "Game variables" into A - Then <a href="40918.html#40986">$A01E</a> bit 5, flipped, picks the order (GIVE WATSON LAMP)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46116"></span>B424</td>
+<td class="instruction">JR $B445</td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="46085.html#46149">B445</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="46118"></span>B426</td>
+<td class="instruction">DEC HL</td>
+<td class="comment-1" rowspan="1">Step HL back one byte - Is it the preposition of the node's first group (+14)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46119"></span>B427</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46120"></span>B428</td>
+<td class="instruction">CP (IY+$0E)</td>
+<td class="comment-1" rowspan="1">Compare A with byte +14 of the record at IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46123"></span>B42B</td>
+<td class="instruction">JR NZ,$B435</td>
+<td class="comment-1" rowspan="1">If A differs from byte +14 of the record at IY, skip ahead to <a href="46085.html#46133">B435</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46125"></span>B42D</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46126"></span>B42E</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46127"></span>B42F</td>
+<td class="instruction">CP (IY+$0F)</td>
+<td class="comment-1" rowspan="1">Compare A with byte +15 of the record at IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46130"></span>B432</td>
+<td class="instruction">JR Z,$B440</td>
+<td class="comment-1" rowspan="1">If A equals byte +15 of the record at IY, skip ahead to <a href="46085.html#46144">B440</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46132"></span>B434</td>
+<td class="instruction">DEC HL</td>
+<td class="comment-1" rowspan="1">Step HL back one byte</td>
+</tr>
+<tr>
+<td class="address-2"><span id="46133"></span>B435</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into A - ...or of its second (+16)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46134"></span>B436</td>
+<td class="instruction">CP (IY+$10)</td>
+<td class="comment-1" rowspan="1">Compare A with byte +16 of the record at IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46137"></span>B439</td>
+<td class="instruction">JR NZ,$B440</td>
+<td class="comment-1" rowspan="1">If A differs from byte +16 of the record at IY, skip ahead to <a href="46085.html#46144">B440</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46139"></span>B43B</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46140"></span>B43C</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46141"></span>B43D</td>
+<td class="instruction">CP (IY+$11)</td>
+<td class="comment-1" rowspan="1">Compare A with byte +17 of the record at IY</td>
+</tr>
+<tr>
+<td class="address-2"><span id="46144"></span>B440</td>
+<td class="instruction">LD A,($A01D)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40986">$A01D</a> in "Game variables" into A - <a href="40918.html#40986">$A01D</a> bit 5 - flipped if so - picks the order</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46147"></span>B443</td>
+<td class="instruction">JR NZ,$B447</td>
+<td class="comment-1" rowspan="1">If A differs from byte +17 of the record at IY, skip ahead to <a href="46085.html#46151">B447</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="46149"></span>B445</td>
+<td class="instruction">XOR $20</td>
+<td class="comment-1" rowspan="1">Flip in A the bits that are set in $20</td>
+</tr>
+<tr>
+<td class="address-2"><span id="46151"></span>B447</td>
+<td class="instruction">BIT 5,A</td>
+<td class="comment-1" rowspan="1">Test bit 5 of A - Bit 5 set: B = 8 (the direct object is the first group), C = 18</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46153"></span>B449</td>
+<td class="instruction">LD BC,$1208</td>
+<td class="comment-1" rowspan="1">Load BC with $1208</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46156"></span>B44C</td>
+<td class="instruction">JR Z,$B451</td>
+<td class="comment-1" rowspan="1">If bit 5 of A is clear, skip ahead to <a href="46085.html#46161">B451</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46158"></span>B44E</td>
+<td class="instruction">LD BC,$0812</td>
+<td class="comment-1" rowspan="1">Clear: the other way round</td>
+</tr>
+<tr>
+<td class="address-2"><span id="46161"></span>B451</td>
+<td class="instruction">LD HL,$B182</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="45421.html#45437">$B182</a> in "Parser variables" - Note the order at <a href="45421.html#45437">$B182</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46164"></span>B454</td>
+<td class="instruction">LD (HL),B</td>
+<td class="comment-1" rowspan="1">Store B at the address HL points to</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46165"></span>B455</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46166"></span>B456</td>
+<td class="instruction">LD (HL),C</td>
+<td class="comment-1" rowspan="1">Store C at the address HL points to</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46167"></span>B457</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">Copy B into A - Copy the direct object's six bytes into <a href="45421.html">$B172</a> (count at <a href="45421.html">B16D</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46168"></span>B458</td>
+<td class="instruction">LD DE,$B172</td>
+<td class="comment-1" rowspan="1">Point DE at <a href="45421.html">$B172</a> in "Parser variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46171"></span>B45B</td>
+<td class="instruction">LD HL,$B16D</td>
+<td class="comment-1" rowspan="1">Point HL at "Parser variables" (<a href="45421.html">B16D</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46174"></span>B45E</td>
+<td class="instruction">CALL $B468</td>
+<td class="comment-1" rowspan="1">Call <a href="46085.html#46184">B468</a> (inside "Copy the typed objects into the two object...")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46177"></span>B461</td>
+<td class="instruction">LD A,C</td>
+<td class="comment-1" rowspan="1">Copy C into A - and the indirect object's into <a href="45421.html#45429">$B178</a> (<a href="45421.html">$B16E</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46178"></span>B462</td>
+<td class="instruction">LD DE,$B178</td>
+<td class="comment-1" rowspan="1">Point DE at <a href="45421.html#45429">$B178</a> in "Parser variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46181"></span>B465</td>
+<td class="instruction">LD HL,$B16E</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="45421.html">$B16E</a> in "Parser variables"</td>
+</tr>
+<tr>
+<td class="address-2"><span id="46184"></span>B468</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Save BC on the stack - HL = the node + the offset; copy six bytes</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46185"></span>B469</td>
+<td class="instruction">LD C,A</td>
+<td class="comment-1" rowspan="1">Copy A into C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46186"></span>B46A</td>
+<td class="instruction">LD B,$00</td>
+<td class="comment-1" rowspan="1">Load B with $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46188"></span>B46C</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46189"></span>B46D</td>
+<td class="instruction">PUSH IY</td>
+<td class="comment-1" rowspan="1">Save IY on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46191"></span>B46F</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46192"></span>B470</td>
+<td class="instruction">ADD HL,BC</td>
+<td class="comment-1" rowspan="1">Add BC to HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46193"></span>B471</td>
+<td class="instruction">LD BC,$0006</td>
+<td class="comment-1" rowspan="1">Load BC with $0006</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46196"></span>B474</td>
+<td class="instruction">LDIR</td>
+<td class="comment-1" rowspan="1">Copy BC bytes from where HL points to where DE points, counting up</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46198"></span>B476</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag) - Any of them non-zero?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46199"></span>B477</td>
+<td class="instruction">LD B,$06</td>
+<td class="comment-1" rowspan="1">Load B with $06</td>
+</tr>
+<tr>
+<td class="address-2"><span id="46201"></span>B479</td>
+<td class="instruction">DEC HL</td>
+<td class="comment-1" rowspan="1">Step HL back one byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46202"></span>B47A</td>
+<td class="instruction">OR (HL)</td>
+<td class="comment-1" rowspan="1">Set in A the bits that are set in the byte HL points at</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46203"></span>B47B</td>
+<td class="instruction">DJNZ $B479</td>
+<td class="comment-1" rowspan="1">Count B down and, while it is not zero, go back to <a href="46085.html#46201">B479</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46205"></span>B47D</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46206"></span>B47E</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore BC from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46207"></span>B47F</td>
+<td class="instruction">RET Z</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46208"></span>B480</td>
+<td class="instruction">SET 0,(HL)</td>
+<td class="comment-1" rowspan="1">Set bit 0 of the byte HL points at - Then the slot is used: set bit 0 of its count</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46210"></span>B482</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="45981.html">B39D</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#46085">Map</a></td>
+<td class="next">
+Next: <a href="46211.html">B483</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

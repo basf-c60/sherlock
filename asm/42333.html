@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Data at A55D - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-w">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Data</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="42294.html">A536</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#42333">Map</a></td>
+<td class="next">
+Next: <a href="42397.html">A59D</a>
+</td>
+</tr>
+</table>
+<div class="description">A55D: Routines for the message control codes $00-$1F</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+One address per control code, used by <a href="42529.html">A621</a>. Codes below $1D are called and the interpreter carries on; $1D-$1F are jumped to instead (<a href="42529.html#42543">A62F</a>).
+</div>
+<div class="paragraph">
+What the handlers do, from reading them: $00 print the thing whose address is the next parameter; $01 print the next parameter as a word; $05 print the case statement at the next parameter; $06 name the current actor; $07 name the direct object; $08 print the character in A; $09 name the indirect object; $0A pick one of the next n elements at random; $0B print a message at an offset from here; $0C YOUR for the player, HIS for anyone else (the actor); $0D print the character in A; $0E YOUR for the player, HIS for anyone else (the direct object); $0F only in part of the day 5; $10 name the actor with the verb form (ARE / IS); $11 name the direct object with the verb form; $13 name the person in the next parameter with the verb form; $14 only in part of the day 4; $15 only in part of the day 3; $16 only in part of the day 2; $17 only in part of the day 1; $18 narrate the remembered command; $19 print the message at the next parameter; $1D end the message, no full stop, with a newline; $1E end the message with a full stop and a newline; $1F does nothing.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42333"></span>A55D</td>
+<td class="instruction">DEFW <a href="42589.html">$A65D</a></td>
+<td class="comment-1" rowspan="1">Code $00: <a href="42589.html">A65D</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42335"></span>A55F</td>
+<td class="instruction">DEFW <a href="42604.html">$A66C</a></td>
+<td class="comment-1" rowspan="1">Code $01: <a href="42604.html">A66C</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42337"></span>A561</td>
+<td class="instruction">DEFW <a href="42617.html">$A679</a></td>
+<td class="comment-1" rowspan="1">Code $02: <a href="42617.html">A679</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42339"></span>A563</td>
+<td class="instruction">DEFW <a href="42754.html">$A702</a></td>
+<td class="comment-1" rowspan="1">Code $03: <a href="42754.html">A702</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42341"></span>A565</td>
+<td class="instruction">DEFW <a href="42761.html">$A709</a></td>
+<td class="comment-1" rowspan="1">Code $04: <a href="42761.html">A709</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42343"></span>A567</td>
+<td class="instruction">DEFW <a href="42769.html">$A711</a></td>
+<td class="comment-1" rowspan="1">Code $05: <a href="42769.html">A711</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42345"></span>A569</td>
+<td class="instruction">DEFW <a href="42784.html">$A720</a></td>
+<td class="comment-1" rowspan="1">Code $06: <a href="42784.html">A720</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42347"></span>A56B</td>
+<td class="instruction">DEFW <a href="42796.html">$A72C</a></td>
+<td class="comment-1" rowspan="1">Code $07: <a href="42796.html">A72C</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42349"></span>A56D</td>
+<td class="instruction">DEFW <a href="42806.html">$A736</a></td>
+<td class="comment-1" rowspan="1">Code $08: <a href="42806.html">A736</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42351"></span>A56F</td>
+<td class="instruction">DEFW <a href="42811.html">$A73B</a></td>
+<td class="comment-1" rowspan="1">Code $09: <a href="42811.html">A73B</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42353"></span>A571</td>
+<td class="instruction">DEFW <a href="42707.html">$A6D3</a></td>
+<td class="comment-1" rowspan="1">Code $0A: <a href="42707.html">A6D3</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42355"></span>A573</td>
+<td class="instruction">DEFW <a href="42843.html">$A75B</a></td>
+<td class="comment-1" rowspan="1">Code $0B: <a href="42843.html">A75B</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42357"></span>A575</td>
+<td class="instruction">DEFW <a href="42880.html">$A780</a></td>
+<td class="comment-1" rowspan="1">Code $0C: <a href="42880.html">A780</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42359"></span>A577</td>
+<td class="instruction">DEFW <a href="42554.html">$A63A</a></td>
+<td class="comment-1" rowspan="1">Code $0D: <a href="42554.html">A63A</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42361"></span>A579</td>
+<td class="instruction">DEFW <a href="42880.html#42894">$A78E</a></td>
+<td class="comment-1" rowspan="1">Code $0E: <a href="42880.html#42894">A78E</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42363"></span>A57B</td>
+<td class="instruction">DEFW <a href="42636.html">$A68C</a></td>
+<td class="comment-1" rowspan="1">Code $0F: <a href="42636.html">A68C</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42365"></span>A57D</td>
+<td class="instruction">DEFW <a href="42899.html">$A793</a></td>
+<td class="comment-1" rowspan="1">Code $10: <a href="42899.html">A793</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42367"></span>A57F</td>
+<td class="instruction">DEFW <a href="42899.html#42924">$A7AC</a></td>
+<td class="comment-1" rowspan="1">Code $11: <a href="42899.html#42924">A7AC</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42369"></span>A581</td>
+<td class="instruction">DEFW <a href="42588.html">$A65C</a></td>
+<td class="comment-1" rowspan="1">Code $12: <a href="42588.html">A65C</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42371"></span>A583</td>
+<td class="instruction">DEFW <a href="42899.html#42932">$A7B4</a></td>
+<td class="comment-1" rowspan="1">Code $13: <a href="42899.html#42932">A7B4</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42373"></span>A585</td>
+<td class="instruction">DEFW <a href="42636.html#42644">$A694</a></td>
+<td class="comment-1" rowspan="1">Code $14: <a href="42636.html#42644">A694</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42375"></span>A587</td>
+<td class="instruction">DEFW <a href="42636.html#42652">$A69C</a></td>
+<td class="comment-1" rowspan="1">Code $15: <a href="42636.html#42652">A69C</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42377"></span>A589</td>
+<td class="instruction">DEFW <a href="42636.html#42660">$A6A4</a></td>
+<td class="comment-1" rowspan="1">Code $16: <a href="42636.html#42660">A6A4</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42379"></span>A58B</td>
+<td class="instruction">DEFW <a href="42636.html#42668">$A6AC</a></td>
+<td class="comment-1" rowspan="1">Code $17: <a href="42636.html#42668">A6AC</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42381"></span>A58D</td>
+<td class="instruction">DEFW <a href="41824.html">$A360</a></td>
+<td class="comment-1" rowspan="1">Code $18: <a href="41824.html">A360</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42383"></span>A58F</td>
+<td class="instruction">DEFW <a href="42865.html">$A771</a></td>
+<td class="comment-1" rowspan="1">Code $19: <a href="42865.html">A771</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42385"></span>A591</td>
+<td class="instruction">DEFW <a href="42628.html">$A684</a></td>
+<td class="comment-1" rowspan="1">Code $1A: <a href="42628.html">A684</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42387"></span>A593</td>
+<td class="instruction">DEFW <a href="43090.html">$A852</a></td>
+<td class="comment-1" rowspan="1">Code $1B: <a href="43090.html">A852</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42389"></span>A595</td>
+<td class="instruction">DEFW <a href="42626.html">$A682</a></td>
+<td class="comment-1" rowspan="1">Code $1C: <a href="42626.html">A682</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42391"></span>A597</td>
+<td class="instruction">DEFW <a href="42559.html">$A63F</a></td>
+<td class="comment-1" rowspan="1">Code $1D: <a href="42559.html">A63F</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42393"></span>A599</td>
+<td class="instruction">DEFW <a href="42559.html#42563">$A643</a></td>
+<td class="comment-1" rowspan="1">Code $1E: <a href="42559.html#42563">A643</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42395"></span>A59B</td>
+<td class="instruction">DEFW <a href="42586.html">$A65A</a></td>
+<td class="comment-1" rowspan="1">Code $1F: <a href="42586.html">A65A</a></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="42294.html">A536</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#42333">Map</a></td>
+<td class="next">
+Next: <a href="42397.html">A59D</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

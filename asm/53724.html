@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at D1DC - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="53723.html">D1DB</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#53724">Map</a></td>
+<td class="next">
+Next: <a href="53766.html">D206</a>
+</td>
+</tr>
+</table>
+<div class="description">D1DC: Does this object list verb A in its own action list?</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+IX = an entity record, A = a verb number. Skips the record's fixed part (15 bytes plus the n location bytes, n being byte 0) to reach its own action list: two-byte (verb, shared action index) pairs ended by $FF or $00. Returns carry set with IX on the matching pair, or carry clear if the verb is not listed.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">An entity record</td>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">A verb number</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Carry set with IX on the verb's pair if listed; carry clear if not</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="53724"></span>D1DC</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Skip the record's fixed part: 15 + n bytes</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53725"></span>D1DD</td>
+<td class="instruction">LD D,A</td>
+<td class="comment-1" rowspan="1">Keep A in D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53726"></span>D1DE</td>
+<td class="instruction">LD A,(IX+$00)</td>
+<td class="comment-1" rowspan="1">E = the record's size byte + 15</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53729"></span>D1E1</td>
+<td class="instruction">ADD A,$0F</td>
+<td class="comment-1" rowspan="1">Add $0F to A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53731"></span>D1E3</td>
+<td class="instruction">LD E,A</td>
+<td class="comment-1" rowspan="1">Copy A into E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53732"></span>D1E4</td>
+<td class="instruction">LD A,D</td>
+<td class="comment-1" rowspan="1">Copy D into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53733"></span>D1E5</td>
+<td class="instruction">LD D,$00</td>
+<td class="comment-1" rowspan="1">D = 0; IX = IX + DE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53735"></span>D1E7</td>
+<td class="instruction">ADD IX,DE</td>
+<td class="comment-1" rowspan="1">Add DE to IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53737"></span>D1E9</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE</td>
+</tr>
+<tr>
+<td class="address-2"><span id="53738"></span>D1EA</td>
+<td class="instruction">CP (IX+$00)</td>
+<td class="comment-1" rowspan="1">Is this pair for our verb?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53741"></span>D1ED</td>
+<td class="instruction">JR Z,$D1FF</td>
+<td class="comment-1" rowspan="1">Yes: found</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53743"></span>D1EF</td>
+<td class="instruction">INC (IX+$00)</td>
+<td class="comment-1" rowspan="1">Is this byte the $FF terminator?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53746"></span>D1F2</td>
+<td class="instruction">JR Z,$D201</td>
+<td class="comment-1" rowspan="1">If the first byte of the record at IX has become zero, skip ahead to <a href="53724.html#53761">D201</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="53748"></span>D1F4</td>
+<td class="instruction">DEC (IX+$00)</td>
+<td class="comment-1" rowspan="1">...or the $00 terminator?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53751"></span>D1F7</td>
+<td class="instruction">JR Z,$D204</td>
+<td class="comment-1" rowspan="1">If the first byte of the record at IX has become zero, skip ahead to <a href="53724.html#53764">D204</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="53753"></span>D1F9</td>
+<td class="instruction">INC IX</td>
+<td class="comment-1" rowspan="1">Neither: next pair</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53755"></span>D1FB</td>
+<td class="instruction">INC IX</td>
+<td class="comment-1" rowspan="1">Step IX on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53757"></span>D1FD</td>
+<td class="instruction">JR $D1EA</td>
+<td class="comment-1" rowspan="1">Go back to <a href="53724.html#53738">D1EA</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="53759"></span>D1FF</td>
+<td class="instruction">SCF</td>
+<td class="comment-1" rowspan="1">Found: carry set, IX on the pair</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53760"></span>D200</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="53761"></span>D201</td>
+<td class="instruction">DEC (IX+$00)</td>
+<td class="comment-1" rowspan="1">Put the $FF back</td>
+</tr>
+<tr>
+<td class="address-2"><span id="53764"></span>D204</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Not listed: carry clear</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53765"></span>D205</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="53723.html">D1DB</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#53724">Map</a></td>
+<td class="next">
+Next: <a href="53766.html">D206</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

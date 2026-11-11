@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at DFCA - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="57270.html">DFB6</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#57290">Map</a></td>
+<td class="next">
+Next: <a href="57322.html">DFEA</a>
+</td>
+</tr>
+</table>
+<div class="description">DFCA: Action record: Basil shoots you (RUN at $EF99, and from $DFB6)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="60971.html#61337">EF99</a>, <a href="57270.html">DFB6</a>.
+</div>
+<div class="paragraph">
+Game over. If Basil (thing 6, Phipps) is not in the player's room it prints 'Basil enters and says " Holmes, your interference is becoming annoying. " ...' (<a href="30108.html">759C</a>), if he is it prints the version without 'enters' (<a href="30162.html">75D2</a>), then ends the game through <a href="40564.html">9E74</a>. Reached from the wall-safe script on Monday and from Phipps's wake-up routine <a href="61383.html">EFC7</a> when you are inside his house at that time. The three instructions at <a href="57290.html#57315">DFE3</a>-<a href="57290.html#57320">DFE8</a> belong to the pre-check of the next record (<a href="57322.html">DFEA</a>), not to this one.
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">The</td>
+<td class="register-desc">game ends through $9E74 with Basil's message</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="57290"></span>DFCA</td>
+<td class="instruction">DEFB $00,$00</td>
+<td class="comment-1" rowspan="1">Action record header: flags $00; byte 1 $00</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="57292"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routines at <a href="57270.html">DFB6</a> and <a href="61383.html">EFC7</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="57292"></span>DFCC</td>
+<td class="instruction">LD HL,$759C</td>
+<td class="comment-1" rowspan="1">Point HL at the message "BASIL ENTERS AND SAYS" HOLMES, YOUR INTERFERENCE... (<a href="30108.html">759C</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57295"></span>DFCF</td>
+<td class="instruction">LD A,$06</td>
+<td class="comment-1" rowspan="1">Load A with $06</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57297"></span>DFD1</td>
+<td class="instruction">CALL <a href="53815.html">$D237</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Resolve an id (in A) to its full entity record" (<a href="53815.html">D237</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57300"></span>DFD4</td>
+<td class="instruction">LD A,($A009)</td>
+<td class="comment-1" rowspan="1">Read the room the player is in, which decides what is shown (<a href="40918.html#40962">$A009</a>) into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57303"></span>DFD7</td>
+<td class="instruction">CP (IX+$0F)</td>
+<td class="comment-1" rowspan="1">Compare A with byte +15 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57306"></span>DFDA</td>
+<td class="instruction">JP NZ,<a href="40564.html">$9E74</a></td>
+<td class="comment-1" rowspan="1">If A differs from byte +15 of the record at IX, go back to the routine "End the game with the message in HL" (<a href="40564.html">9E74</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57309"></span>DFDD</td>
+<td class="instruction">LD HL,$75D2</td>
+<td class="comment-1" rowspan="1">Point HL at the message "BASIL SAYS" HOLMES, YOUR INTERFERENCE IS... (<a href="30162.html">75D2</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57312"></span>DFE0</td>
+<td class="instruction">JP <a href="40564.html">$9E74</a></td>
+<td class="comment-1" rowspan="1">Go back to the routine "End the game with the message in HL" (<a href="40564.html">9E74</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57315"></span>DFE3</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A036</a> in "Game variables" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57318"></span>DFE6</td>
+<td class="instruction">CP $64</td>
+<td class="comment-1" rowspan="1">Compare A with $64</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57320"></span>DFE8</td>
+<td class="instruction">JR <a href="57328.html#57341">$DFFD</a></td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="57328.html#57341">DFFD</a></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="57270.html">DFB6</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#57290">Map</a></td>
+<td class="next">
+Next: <a href="57322.html">DFEA</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

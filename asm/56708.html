@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at DD84 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="56673.html">DD61</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#56708">Map</a></td>
+<td class="next">
+Next: <a href="56734.html">DD9E</a>
+</td>
+</tr>
+</table>
+<div class="description">DD84: Action record: remember what holds the direct object (RUN at $E476, $E7CF)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="58450.html#58486">E476</a>, <a href="59290.html#59343">E7CF</a>.
+</div>
+<div class="paragraph">
+Puts the direct object's holder (+1) into plan register <a href="40918.html">9FD6</a>; the pre-check refuses if nothing holds it ($FF). Used by the follow loops of Watson (<a href="58450.html#58454">E456</a>) and Lestrade (<a href="59183.html">E72F</a>): when the person they follow is in a cab or train, the register holds that vehicle and the next step is DO CLIMB INTO it.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$A013</td>
+<td class="register-desc">The direct object's record</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">$9FD6</td>
+<td class="register-desc">Its holder</td>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ; the pre-check refuses if it is held by nothing</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56708"></span>DD84</td>
+<td class="instruction">DEFB $6D,$00,$91,$DD</td>
+<td class="comment-1" rowspan="1">Action record header: flags $6D; bit 5: test <a href="53368.html">D078</a> first; bit 6: pre-check at <a href="56708.html#56721">DD91</a>; byte 1 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56712"></span>DD88</td>
+<td class="instruction">LD A,(IX+$01)</td>
+<td class="comment-1" rowspan="1">Read byte +1 of the record at IX into A - The direct object's holder (+1) goes into plan register <a href="40918.html">9FD6</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="56715"></span>DD8B</td>
+<td class="instruction">LD ($9FD6),A</td>
+<td class="comment-1" rowspan="1">Store A in the plan's verb (<a href="40918.html">9FD6</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56718"></span>DD8E</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - Succeed</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56720"></span>DD90</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56721"></span>DD91</td>
+<td class="instruction">LD IX,($A013)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40978">$A013</a> in "Game variables" into IX - Pre-check: the direct object's holder...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56725"></span>DD95</td>
+<td class="instruction">LD A,(IX+$01)</td>
+<td class="comment-1" rowspan="1">Read byte +1 of the record at IX into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56728"></span>DD98</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry) - ...must not be $FF (held by nothing): refuse (<a href="56341.html">DC15</a>) if it is</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56729"></span>DD99</td>
+<td class="instruction">INC A</td>
+<td class="comment-1" rowspan="1">Add one to A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56730"></span>DD9A</td>
+<td class="instruction">JP Z,<a href="56341.html">$DC15</a></td>
+<td class="comment-1" rowspan="1">If A has become zero, go back to the routine "Fail: A = 0, HL = 0, Z set" (<a href="56341.html">DC15</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56733"></span>DD9D</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="56673.html">DD61</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#56708">Map</a></td>
+<td class="next">
+Next: <a href="56734.html">DD9E</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

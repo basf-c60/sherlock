@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at DF02 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="57049.html">DED9</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#57090">Map</a></td>
+<td class="next">
+Next: <a href="57152.html">DF40</a>
+</td>
+</tr>
+</table>
+<div class="description">DF02: Action record: default for verb 26 (GIVE TO): hand the object over</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The pre-check (<a href="57090.html#57124">DF24</a>) asks whether the receiver (<a href="40918.html#41010">$A035</a>) can carry the object as well as what it holds (<a href="51398.html">C8C6</a>). The body makes the receiver the object's holder (+1), puts the object in the receiver's room (+15) and moves everything inside it there too (<a href="53833.html">D249</a>).
+</div>
+<div class="paragraph">
+GIVE MONEY TO CABBIE hands over the entire purse (thing 27): INVENTORY shows no money afterwards and the cabbie keeps asking for his fare. Use PAY n TO instead (<a href="58224.html">E370</a>).
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$A013</td>
+<td class="register-desc">The object's record</td>
+</tr>
+<tr>
+<td class="register">$A015</td>
+<td class="register-desc">The receiver's record</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ; the receiver holds the object, in the receiver's room</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="57090"></span>DF02</td>
+<td class="instruction">DEFB $6A,$1D,$24,$DF</td>
+<td class="comment-1" rowspan="1">Action record header: flags $6A; bit 5: test <a href="53368.html">D078</a> first; bit 6: pre-check at <a href="57090.html#57124">DF24</a>; byte 1 $1D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57094"></span>DF06</td>
+<td class="instruction">LD IY,($A015)</td>
+<td class="comment-1" rowspan="1">Read the direct and indirect objects' records (<a href="40918.html#40978">$A015</a>) into IY - IY = the receiver's record, IX = the object's</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57098"></span>DF0A</td>
+<td class="instruction">LD IX,($A013)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40978">$A013</a> in "Game variables" into IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57102"></span>DF0E</td>
+<td class="instruction">LD A,($A035)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A035</a> in "Game variables" into A - The receiver holds it now</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57105"></span>DF11</td>
+<td class="instruction">LD (IX+$01),A</td>
+<td class="comment-1" rowspan="1">Store A in byte +1 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57108"></span>DF14</td>
+<td class="instruction">LD A,(IY+$0F)</td>
+<td class="comment-1" rowspan="1">Read byte +15 of the record at IY into A - and it is in the receiver's room</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57111"></span>DF17</td>
+<td class="instruction">LD (IX+$0F),A</td>
+<td class="comment-1" rowspan="1">Store A in byte +15 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57114"></span>DF1A</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">Copy A into B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57115"></span>DF1B</td>
+<td class="instruction">LD A,($A034)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A034</a> in "Game variables" into A - with everything inside it (<a href="53833.html">D249</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57118"></span>DF1E</td>
+<td class="instruction">CALL <a href="53833.html">$D249</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Move everything inside thing A, at any depth, to room..." (<a href="53833.html">D249</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57121"></span>DF21</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - Succeed</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57123"></span>DF23</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57124"></span>DF24</td>
+<td class="instruction">LD A,($A034)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A034</a> in "Game variables" into A - Pre-check: can the receiver carry it as well? (<a href="51398.html">C8C6</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57127"></span>DF27</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">Copy A into B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57128"></span>DF28</td>
+<td class="instruction">LD A,($A035)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A035</a> in "Game variables" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57131"></span>DF2B</td>
+<td class="instruction">JP <a href="51398.html">$C8C6</a></td>
+<td class="comment-1" rowspan="1">Go back to the routine "Can the actor carry object A as well as what it..." (<a href="51398.html">C8C6</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57134"></span>DF2E</td>
+<td class="instruction">LD A,($A034)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A034</a> in "Game variables" into A - Pre-check: is the object held by a person (<a href="51375.html">C8AF</a>)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57137"></span>DF31</td>
+<td class="instruction">CALL <a href="51375.html">$C8AF</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Is object A held, at any depth, by a person?" (<a href="51375.html">C8AF</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57140"></span>DF34</td>
+<td class="instruction">JR Z,$DF3D</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, skip ahead to <a href="57090.html#57149">DF3D</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="57142"></span>DF36</td>
+<td class="instruction">LD HL,$A036</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="40918.html#41010">$A036</a> in "Game variables" - By someone other than the actor: refuse</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57145"></span>DF39</td>
+<td class="instruction">CP (HL)</td>
+<td class="comment-1" rowspan="1">Compare A with the byte at <a href="40918.html#41010">$A036</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57146"></span>DF3A</td>
+<td class="instruction">JP NZ,<a href="56341.html">$DC15</a></td>
+<td class="comment-1" rowspan="1">If A differs from the byte at <a href="40918.html#41010">$A036</a> in "Game variables", go back to the routine "Fail: A = 0, HL = 0, Z set" (<a href="56341.html">DC15</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="57149"></span>DF3D</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - Pass</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57151"></span>DF3F</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="57049.html">DED9</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#57090">Map</a></td>
+<td class="next">
+Next: <a href="57152.html">DF40</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

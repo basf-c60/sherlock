@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at DDD0 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="56766.html">DDBE</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#56784">Map</a></td>
+<td class="next">
+Next: <a href="56943.html">DE6F</a>
+</td>
+</tr>
+</table>
+<div class="description">DDD0: Default action: WAIT UNTIL (verb 50)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Works out how many minutes there are from now until the time typed (the number at <a href="40918.html#41002">$A02F</a>: hour and minute in 6-bit fields, bit 6 of the hour marking am and bit 6 of the minute pm), converting both times to minutes past 12 o'clock (<a href="56784.html#56904">DE48</a>: hours x 60 + minutes, 12 counting as 0) and, when neither am nor pm was typed, taking whichever comes next; the result becomes the time the action takes (<a href="40918.html#40986">$A01F</a>), so the player's next turn simply comes that much later (see the main loop at <a href="41060.html">A064</a>, which also lets ENTER cut the wait short). <a href="56766.html#56779">DDCB</a>-<a href="56766.html#56783">DDCF</a> hold the two times and the am/pm letter.
+</div>
+<div class="paragraph">
+01am on Monday: WAIT UNTIL 9:00 sets the action time to 59 minutes ($89 $00 at <a href="40918.html#41002">$A02F</a>: bit 7 marks a time); WAIT UNTIL 8 to 719 (8pm, the next 8 o'clock); WAIT UNTIL 8:30PM ($88 $5E, bit 6 of the minutes) to 749; WAIT UNTIL 7AM ($C7 $00, bit 6 of the hour) to 1379, 7am the next day. All four waits are cut short at 8:34 by the news about Lestrade.
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. Take the time typed (<a href="40918.html#41002">$A02F</a>) and work out the minutes past twelve for it (<a href="56784.html#56904">DE48</a>) and for the clock now.
+</div>
+<div class="paragraph">
+2. If am or pm was typed, the target is in that half of the day; otherwise it is in the same half as now, or the next.
+</div>
+<div class="paragraph">
+3. The difference is how long the action takes (<a href="40918.html#40986">$A01F</a>).
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$A02F</td>
+<td class="register-desc">The time typed</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">$A01F</td>
+<td class="register-desc">The minutes to wait</td>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56784"></span>DDD0</td>
+<td class="instruction">DEFB $45,$00,$B8,$DD</td>
+<td class="comment-1" rowspan="1">Action record header: flags $45; bit 6: pre-check at <a href="56756.html#56760">DDB8</a>; byte 1 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56788"></span>DDD4</td>
+<td class="instruction">LD HL,($A02F)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41002">$A02F</a> in "Game variables" into HL - HL = the typed time (<a href="40918.html#41002">$A02F</a>); drop bit 7</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56791"></span>DDD7</td>
+<td class="instruction">RES 7,H</td>
+<td class="comment-1" rowspan="1">Clear bit 7 of H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56793"></span>DDD9</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56794"></span>DDDA</td>
+<td class="instruction">LD A,H</td>
+<td class="comment-1" rowspan="1">Copy H into A - Without the am/pm bits...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56795"></span>DDDB</td>
+<td class="instruction">AND $3F</td>
+<td class="comment-1" rowspan="1">Keep only bits 0, 1, 2, 3, 4, 5 of A (mask $3F)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56797"></span>DDDD</td>
+<td class="instruction">LD H,A</td>
+<td class="comment-1" rowspan="1">Copy A into H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56798"></span>DDDE</td>
+<td class="instruction">LD A,L</td>
+<td class="comment-1" rowspan="1">Copy L into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56799"></span>DDDF</td>
+<td class="instruction">AND $3F</td>
+<td class="comment-1" rowspan="1">Keep only bits 0, 1, 2, 3, 4, 5 of A (mask $3F)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56801"></span>DDE1</td>
+<td class="instruction">LD L,A</td>
+<td class="comment-1" rowspan="1">Copy A into L</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56802"></span>DDE2</td>
+<td class="instruction">CALL $DE48</td>
+<td class="comment-1" rowspan="1">Call <a href="56784.html#56904">DE48</a> (inside "Default action: WAIT UNTIL (verb <a href="56784.html">50</a>)") - ...in minutes past twelve (<a href="56784.html#56904">DE48</a>): the target, at <a href="56766.html#56781">DDCD</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="56805"></span>DDE5</td>
+<td class="instruction">LD ($DDCD),HL</td>
+<td class="comment-1" rowspan="1">Store HL in <a href="56766.html#56781">DDCD</a> in "Script helper: wait n minutes"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56808"></span>DDE8</td>
+<td class="instruction">LD HL,($9FDF)</td>
+<td class="comment-1" rowspan="1">Read the minute (<a href="40918.html#40927">9FDF</a>) into HL - The clock (<a href="40918.html#40927">9FDF</a>) in minutes: now, at <a href="56766.html#56779">DDCB</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="56811"></span>DDEB</td>
+<td class="instruction">CALL $DE48</td>
+<td class="comment-1" rowspan="1">Call <a href="56784.html#56904">DE48</a> (inside "Default action: WAIT UNTIL (verb <a href="56784.html">50</a>)")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56814"></span>DDEE</td>
+<td class="instruction">LD ($DDCB),HL</td>
+<td class="comment-1" rowspan="1">Store HL in <a href="56766.html#56779">DDCB</a> in "Script helper: wait n minutes"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56817"></span>DDF1</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56818"></span>DDF2</td>
+<td class="instruction">LD A,$61</td>
+<td class="comment-1" rowspan="1">Load A with $61 - am typed: the target is in the morning (<a href="56766.html#56783">DDCF</a> = 'a')</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56820"></span>DDF4</td>
+<td class="instruction">LD ($DDCF),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="56766.html#56783">DDCF</a> in "Script helper: wait n minutes"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56823"></span>DDF7</td>
+<td class="instruction">BIT 6,H</td>
+<td class="comment-1" rowspan="1">Test bit 6 of H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56825"></span>DDF9</td>
+<td class="instruction">JR NZ,$DE19</td>
+<td class="comment-1" rowspan="1">If bit 6 of H is set, skip ahead to <a href="56784.html#56857">DE19</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="56827"></span>DDFB</td>
+<td class="instruction">LD A,$70</td>
+<td class="comment-1" rowspan="1">Load A with $70 - pm typed: in the afternoon ('p')</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56829"></span>DDFD</td>
+<td class="instruction">LD ($DDCF),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="56766.html#56783">DDCF</a> in "Script helper: wait n minutes"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56832"></span>DE00</td>
+<td class="instruction">BIT 6,L</td>
+<td class="comment-1" rowspan="1">Test bit 6 of L</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56834"></span>DE02</td>
+<td class="instruction">JR NZ,$DE19</td>
+<td class="comment-1" rowspan="1">If bit 6 of L is set, skip ahead to <a href="56784.html#56857">DE19</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="56836"></span>DE04</td>
+<td class="instruction">CALL $DE60</td>
+<td class="comment-1" rowspan="1">Call <a href="56784.html#56928">DE60</a> (inside "Default action: WAIT UNTIL (verb <a href="56784.html">50</a>)") - Neither: the same half of the day as now (<a href="40918.html#40930">9FE2</a>)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56839"></span>DE07</td>
+<td class="instruction">LD A,($9FE2)</td>
+<td class="comment-1" rowspan="1">Read 'a' or 'p' (<a href="40918.html#40930">9FE2</a>) into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56842"></span>DE0A</td>
+<td class="instruction">JR C,$DE0E</td>
+<td class="comment-1" rowspan="1">If the carry flag is set, skip ahead to <a href="56784.html#56846">DE0E</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="56844"></span>DE0C</td>
+<td class="instruction">JR NZ,$DE16</td>
+<td class="comment-1" rowspan="1">If the zero flag is clear, skip ahead to <a href="56784.html#56854">DE16</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="56846"></span>DE0E</td>
+<td class="instruction">CP $61</td>
+<td class="comment-1" rowspan="1">Compare A with $61 - ...unless that time has gone (or is now): then the other half</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56848"></span>DE10</td>
+<td class="instruction">LD A,$70</td>
+<td class="comment-1" rowspan="1">Load A with $70</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56850"></span>DE12</td>
+<td class="instruction">JR Z,$DE16</td>
+<td class="comment-1" rowspan="1">If A equals $61, skip ahead to <a href="56784.html#56854">DE16</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="56852"></span>DE14</td>
+<td class="instruction">LD A,$61</td>
+<td class="comment-1" rowspan="1">Load A with $61</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56854"></span>DE16</td>
+<td class="instruction">LD ($DDCF),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="56766.html#56783">DDCF</a> in "Script helper: wait n minutes"</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56857"></span>DE19</td>
+<td class="instruction">LD HL,($DDCD)</td>
+<td class="comment-1" rowspan="1">Read <a href="56766.html#56781">DDCD</a> in "Script helper: wait n minutes" into HL - HL = target - now</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56860"></span>DE1C</td>
+<td class="instruction">LD DE,($DDCB)</td>
+<td class="comment-1" rowspan="1">Read <a href="56766.html#56779">DDCB</a> in "Script helper: wait n minutes" into DE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56864"></span>DE20</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Clear the carry flag, so that the subtraction that follows is a plain one (a compare)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56865"></span>DE21</td>
+<td class="instruction">SBC HL,DE</td>
+<td class="comment-1" rowspan="1">Subtract DE from HL (a compare: carry = HL was smaller, zero = equal)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56867"></span>DE23</td>
+<td class="instruction">LD DE,$02D0</td>
+<td class="comment-1" rowspan="1">Load DE with $02D0 - DE = twelve hours</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56870"></span>DE26</td>
+<td class="instruction">LD A,($9FE2)</td>
+<td class="comment-1" rowspan="1">Read 'a' or 'p' (<a href="40918.html#40930">9FE2</a>) into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56873"></span>DE29</td>
+<td class="instruction">LD C,A</td>
+<td class="comment-1" rowspan="1">Copy A into C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56874"></span>DE2A</td>
+<td class="instruction">LD A,($DDCF)</td>
+<td class="comment-1" rowspan="1">Read <a href="56766.html#56783">DDCF</a> in "Script helper: wait n minutes" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56877"></span>DE2D</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">Copy A into B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56878"></span>DE2E</td>
+<td class="instruction">CALL $DE60</td>
+<td class="comment-1" rowspan="1">Call <a href="56784.html#56928">DE60</a> (inside "Default action: WAIT UNTIL (verb <a href="56784.html">50</a>)") - Later than now: add twelve hours if it is in the other half</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56881"></span>DE31</td>
+<td class="instruction">JR C,$DE3C</td>
+<td class="comment-1" rowspan="1">If the carry flag is set, skip ahead to <a href="56784.html#56892">DE3C</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="56883"></span>DE33</td>
+<td class="instruction">JR Z,$DE3C</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, skip ahead to <a href="56784.html#56892">DE3C</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="56885"></span>DE35</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">Copy B into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56886"></span>DE36</td>
+<td class="instruction">CP C</td>
+<td class="comment-1" rowspan="1">Compare A with C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56887"></span>DE37</td>
+<td class="instruction">JR Z,$DE42</td>
+<td class="comment-1" rowspan="1">If A equals C, skip ahead to <a href="56784.html#56898">DE42</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="56889"></span>DE39</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1">Add DE to HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56890"></span>DE3A</td>
+<td class="instruction">JR $DE42</td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="56784.html#56898">DE42</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="56892"></span>DE3C</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1">Add DE to HL - Not later: add twelve hours, and twelve more for the same half</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56893"></span>DE3D</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">Copy B into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56894"></span>DE3E</td>
+<td class="instruction">CP C</td>
+<td class="comment-1" rowspan="1">Compare A with C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56895"></span>DE3F</td>
+<td class="instruction">JR NZ,$DE42</td>
+<td class="comment-1" rowspan="1">If A differs from C, skip ahead to <a href="56784.html#56898">DE42</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="56897"></span>DE41</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1">Add DE to HL</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56898"></span>DE42</td>
+<td class="instruction">LD ($A01F),HL</td>
+<td class="comment-1" rowspan="1">Store HL in <a href="40918.html#40986">$A01F</a> in "Game variables" - That is how long the wait takes (<a href="40918.html#40986">$A01F</a>); succeed</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56901"></span>DE45</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56903"></span>DE47</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56904"></span>DE48</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack - HL = hours x 60 + minutes, twelve o'clock counting as 0</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56905"></span>DE49</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Save BC on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56906"></span>DE4A</td>
+<td class="instruction">LD C,L</td>
+<td class="comment-1" rowspan="1">Copy L into C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56907"></span>DE4B</td>
+<td class="instruction">LD B,H</td>
+<td class="comment-1" rowspan="1">Copy H into B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56908"></span>DE4C</td>
+<td class="instruction">LD HL,$0000</td>
+<td class="comment-1" rowspan="1">Load HL with $0000</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56911"></span>DE4F</td>
+<td class="instruction">LD DE,$003C</td>
+<td class="comment-1" rowspan="1">Load DE with $003C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56914"></span>DE52</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">Copy B into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56915"></span>DE53</td>
+<td class="instruction">CP $0C</td>
+<td class="comment-1" rowspan="1">Compare A with $0C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56917"></span>DE55</td>
+<td class="instruction">JR Z,$DE5A</td>
+<td class="comment-1" rowspan="1">If A equals $0C, skip ahead to <a href="56784.html#56922">DE5A</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="56919"></span>DE57</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1">Add DE to HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56920"></span>DE58</td>
+<td class="instruction">DJNZ $DE57</td>
+<td class="comment-1" rowspan="1">Count B down and, while it is not zero, go back to <a href="56784.html#56919">DE57</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="56922"></span>DE5A</td>
+<td class="instruction">LD B,$00</td>
+<td class="comment-1" rowspan="1">Load B with $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56924"></span>DE5C</td>
+<td class="instruction">ADD HL,BC</td>
+<td class="comment-1" rowspan="1">Add BC to HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56925"></span>DE5D</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore BC from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56926"></span>DE5E</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56927"></span>DE5F</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56928"></span>DE60</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack - Compare the target with now (carry if earlier, Z if the same)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56929"></span>DE61</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56930"></span>DE62</td>
+<td class="instruction">LD HL,($DDCD)</td>
+<td class="comment-1" rowspan="1">Read <a href="56766.html#56781">DDCD</a> in "Script helper: wait n minutes" into HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56933"></span>DE65</td>
+<td class="instruction">LD DE,($DDCB)</td>
+<td class="comment-1" rowspan="1">Read <a href="56766.html#56779">DDCB</a> in "Script helper: wait n minutes" into DE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56937"></span>DE69</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Clear the carry flag, so that the subtraction that follows is a plain one (a compare)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56938"></span>DE6A</td>
+<td class="instruction">SBC HL,DE</td>
+<td class="comment-1" rowspan="1">Subtract DE from HL (a compare: carry = HL was smaller, zero = equal)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56940"></span>DE6C</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56941"></span>DE6D</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56942"></span>DE6E</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="56766.html">DDBE</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#56784">Map</a></td>
+<td class="next">
+Next: <a href="56943.html">DE6F</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

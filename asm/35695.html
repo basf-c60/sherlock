@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Data at 8B6F - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-b">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Data</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="34017.html">84E1</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#35695">Map</a></td>
+<td class="next">
+Next: <a href="36026.html">8CBA</a>
+</td>
+</tr>
+</table>
+<div class="description">8B6F: Entity index: id -&gt; record address</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Three-byte records (id, address of the entity's record), ended by $FF; searched by <a href="54094.html">D34E</a> from <a href="53815.html">D237</a>. 110 entries: people, objects, doors, and some topics of conversation (THE CASE, WHAT HAPPENED, YOUR ALIBI) - see the entity records at <a href="36026.html">8CBA</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35695"></span>8B6F</td>
+<td class="instruction">DEFB $00,$BA,$8C</td>
+<td class="comment-1" rowspan="1">0: you</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35698"></span>8B72</td>
+<td class="instruction">DEFB $01,$CB,$8C</td>
+<td class="comment-1" rowspan="1">1: china man</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35701"></span>8B75</td>
+<td class="instruction">DEFB $02,$DC,$8C</td>
+<td class="comment-1" rowspan="1">2: inspector lestrade</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35704"></span>8B78</td>
+<td class="instruction">DEFB $03,$ED,$8C</td>
+<td class="comment-1" rowspan="1">3: watson</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35707"></span>8B7B</td>
+<td class="instruction">DEFB $04,$FE,$8C</td>
+<td class="comment-1" rowspan="1">4: chief constable straker</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35710"></span>8B7E</td>
+<td class="instruction">DEFB $05,$0F,$8D</td>
+<td class="comment-1" rowspan="1">5: strachan</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35713"></span>8B81</td>
+<td class="instruction">DEFB $06,$20,$8D</td>
+<td class="comment-1" rowspan="1">6: phipps</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35716"></span>8B84</td>
+<td class="instruction">DEFB $07,$31,$8D</td>
+<td class="comment-1" rowspan="1">7: major percival ffoulkes</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35719"></span>8B87</td>
+<td class="instruction">DEFB $08,$42,$8D</td>
+<td class="comment-1" rowspan="1">8: gardener</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35722"></span>8B8A</td>
+<td class="instruction">DEFB $09,$53,$8D</td>
+<td class="comment-1" rowspan="1">9: cook</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35725"></span>8B8D</td>
+<td class="instruction">DEFB $0A,$64,$8D</td>
+<td class="comment-1" rowspan="1">10: maid</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35728"></span>8B90</td>
+<td class="instruction">DEFB $0B,$75,$8D</td>
+<td class="comment-1" rowspan="1">11: local police man</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35731"></span>8B93</td>
+<td class="instruction">DEFB $0C,$8C,$8D</td>
+<td class="comment-1" rowspan="1">12: local police man</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35734"></span>8B96</td>
+<td class="instruction">DEFB $0D,$9D,$8D</td>
+<td class="comment-1" rowspan="1">13: tricia fender</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35737"></span>8B99</td>
+<td class="instruction">DEFB $0E,$B4,$8D</td>
+<td class="comment-1" rowspan="1">14: china mans disguise</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35740"></span>8B9C</td>
+<td class="instruction">DEFB $0F,$C9,$8D</td>
+<td class="comment-1" rowspan="1">15: case</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35743"></span>8B9F</td>
+<td class="instruction">DEFB $10,$DA,$8D</td>
+<td class="comment-1" rowspan="1">16: what happened</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35746"></span>8BA2</td>
+<td class="instruction">DEFB $11,$EB,$8D</td>
+<td class="comment-1" rowspan="1">17: your alibi</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35749"></span>8BA5</td>
+<td class="instruction">DEFB $12,$FC,$8D</td>
+<td class="comment-1" rowspan="1">18: your address</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35752"></span>8BA8</td>
+<td class="instruction">DEFB $13,$0D,$8E</td>
+<td class="comment-1" rowspan="1">19: front door</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35755"></span>8BAB</td>
+<td class="instruction">DEFB $14,$27,$8E</td>
+<td class="comment-1" rowspan="1">20: stairway</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35758"></span>8BAE</td>
+<td class="instruction">DEFB $15,$3F,$8E</td>
+<td class="comment-1" rowspan="1">21: your door</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35761"></span>8BB1</td>
+<td class="instruction">DEFB $16,$55,$8E</td>
+<td class="comment-1" rowspan="1">22: oil lamp</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35764"></span>8BB4</td>
+<td class="instruction">DEFB $17,$66,$8E</td>
+<td class="comment-1" rowspan="1">23: your armchair</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35767"></span>8BB7</td>
+<td class="instruction">DEFB $18,$81,$8E</td>
+<td class="comment-1" rowspan="1">24: watsons armchair</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35770"></span>8BBA</td>
+<td class="instruction">DEFB $19,$9C,$8E</td>
+<td class="comment-1" rowspan="1">25: daily chronicle</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35773"></span>8BBD</td>
+<td class="instruction">DEFB $1A,$AD,$8E</td>
+<td class="comment-1" rowspan="1">26: note</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35776"></span>8BC0</td>
+<td class="instruction">DEFB $1B,$BE,$8E</td>
+<td class="comment-1" rowspan="1">27: ?960 your money</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35779"></span>8BC3</td>
+<td class="instruction">DEFB $1C,$D1,$8E</td>
+<td class="comment-1" rowspan="1">28: ?960 money</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35782"></span>8BC6</td>
+<td class="instruction">DEFB $1D,$E4,$8E</td>
+<td class="comment-1" rowspan="1">29: hidden door</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35785"></span>8BC9</td>
+<td class="instruction">DEFB $1E,$F6,$8E</td>
+<td class="comment-1" rowspan="1">30: hansom cab</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35788"></span>8BCC</td>
+<td class="instruction">DEFB $1F,$13,$8F</td>
+<td class="comment-1" rowspan="1">31: cabbie</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35791"></span>8BCF</td>
+<td class="instruction">DEFB $20,$2C,$8F</td>
+<td class="comment-1" rowspan="1">32: money</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35794"></span>8BD2</td>
+<td class="instruction">DEFB $21,$3D,$8F</td>
+<td class="comment-1" rowspan="1">33: hansom cab</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35797"></span>8BD5</td>
+<td class="instruction">DEFB $22,$5A,$8F</td>
+<td class="comment-1" rowspan="1">34: cabbie</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35800"></span>8BD8</td>
+<td class="instruction">DEFB $23,$73,$8F</td>
+<td class="comment-1" rowspan="1">35: money</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35803"></span>8BDB</td>
+<td class="instruction">DEFB $24,$84,$8F</td>
+<td class="comment-1" rowspan="1">36: steam train</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35806"></span>8BDE</td>
+<td class="instruction">DEFB $25,$9D,$8F</td>
+<td class="comment-1" rowspan="1">37: steam train</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35809"></span>8BE1</td>
+<td class="instruction">DEFB $26,$B6,$8F</td>
+<td class="comment-1" rowspan="1">38: steam train</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35812"></span>8BE4</td>
+<td class="instruction">DEFB $27,$CF,$8F</td>
+<td class="comment-1" rowspan="1">39: steam train</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35815"></span>8BE7</td>
+<td class="instruction">DEFB $28,$E8,$8F</td>
+<td class="comment-1" rowspan="1">40: steam train</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35818"></span>8BEA</td>
+<td class="instruction">DEFB $29,$01,$90</td>
+<td class="comment-1" rowspan="1">41: steam train</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35821"></span>8BED</td>
+<td class="instruction">DEFB $2A,$1A,$90</td>
+<td class="comment-1" rowspan="1">42: steam train</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35824"></span>8BF0</td>
+<td class="instruction">DEFB $2B,$33,$90</td>
+<td class="comment-1" rowspan="1">43: steam train</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35827"></span>8BF3</td>
+<td class="instruction">DEFB $2C,$4C,$90</td>
+<td class="comment-1" rowspan="1">44: wide stairway</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35830"></span>8BF6</td>
+<td class="instruction">DEFB $2D,$5E,$90</td>
+<td class="comment-1" rowspan="1">45: large oak door</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35833"></span>8BF9</td>
+<td class="instruction">DEFB $2E,$76,$90</td>
+<td class="comment-1" rowspan="1">46: female corpse</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35836"></span>8BFC</td>
+<td class="instruction">DEFB $2F,$87,$90</td>
+<td class="comment-1" rowspan="1">47: crumpled note</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35839"></span>8BFF</td>
+<td class="instruction">DEFB $30,$98,$90</td>
+<td class="comment-1" rowspan="1">48: heavy oak door</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35842"></span>8C02</td>
+<td class="instruction">DEFB $31,$B2,$90</td>
+<td class="comment-1" rowspan="1">49: diningroom door</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35845"></span>8C05</td>
+<td class="instruction">DEFB $32,$CC,$90</td>
+<td class="comment-1" rowspan="1">50: plain door</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35848"></span>8C08</td>
+<td class="instruction">DEFB $33,$EA,$90</td>
+<td class="comment-1" rowspan="1">51: ornate door</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35851"></span>8C0B</td>
+<td class="instruction">DEFB $34,$02,$91</td>
+<td class="comment-1" rowspan="1">52: daphnes door</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35854"></span>8C0E</td>
+<td class="instruction">DEFB $35,$18,$91</td>
+<td class="comment-1" rowspan="1">53: bedroom door</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35857"></span>8C11</td>
+<td class="instruction">DEFB $36,$2E,$91</td>
+<td class="comment-1" rowspan="1">54: wooden door</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35860"></span>8C14</td>
+<td class="instruction">DEFB $37,$44,$91</td>
+<td class="comment-1" rowspan="1">55: thick heavy door</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35863"></span>8C17</td>
+<td class="instruction">DEFB $38,$60,$91</td>
+<td class="comment-1" rowspan="1">56: side door</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35866"></span>8C1A</td>
+<td class="instruction">DEFB $39,$76,$91</td>
+<td class="comment-1" rowspan="1">57: sandstone bridge</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35869"></span>8C1D</td>
+<td class="instruction">DEFB $3A,$88,$91</td>
+<td class="comment-1" rowspan="1">58: footbridge</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35872"></span>8C20</td>
+<td class="instruction">DEFB $3B,$9A,$91</td>
+<td class="comment-1" rowspan="1">59: deep stream</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35875"></span>8C23</td>
+<td class="instruction">DEFB $3C,$B2,$91</td>
+<td class="comment-1" rowspan="1">60: plush sofa</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35878"></span>8C26</td>
+<td class="instruction">DEFB $3D,$CD,$91</td>
+<td class="comment-1" rowspan="1">61: large desk</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35881"></span>8C29</td>
+<td class="instruction">DEFB $3E,$DE,$91</td>
+<td class="comment-1" rowspan="1">62: drawer</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35884"></span>8C2C</td>
+<td class="instruction">DEFB $3F,$F5,$91</td>
+<td class="comment-1" rowspan="1">63: false bottom</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35887"></span>8C2F</td>
+<td class="instruction">DEFB $40,$0A,$92</td>
+<td class="comment-1" rowspan="1">64: bank account ?01d book</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35890"></span>8C32</td>
+<td class="instruction">DEFB $41,$1B,$92</td>
+<td class="comment-1" rowspan="1">65: note</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35893"></span>8C35</td>
+<td class="instruction">DEFB $42,$2C,$92</td>
+<td class="comment-1" rowspan="1">66: bookcase</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35896"></span>8C38</td>
+<td class="instruction">DEFB $43,$40,$92</td>
+<td class="comment-1" rowspan="1">67: bloodstained clothes</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35899"></span>8C3B</td>
+<td class="instruction">DEFB $44,$51,$92</td>
+<td class="comment-1" rowspan="1">68: solid door</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35902"></span>8C3E</td>
+<td class="instruction">DEFB $45,$67,$92</td>
+<td class="comment-1" rowspan="1">69: sittingroom door</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35905"></span>8C41</td>
+<td class="instruction">DEFB $46,$7F,$92</td>
+<td class="comment-1" rowspan="1">70: northern door</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35908"></span>8C44</td>
+<td class="instruction">DEFB $47,$95,$92</td>
+<td class="comment-1" rowspan="1">71: bloodstained sofa</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35911"></span>8C47</td>
+<td class="instruction">DEFB $48,$A6,$92</td>
+<td class="comment-1" rowspan="1">72: body</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35914"></span>8C4A</td>
+<td class="instruction">DEFB $49,$B7,$92</td>
+<td class="comment-1" rowspan="1">73: back gate</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35917"></span>8C4D</td>
+<td class="instruction">DEFB $4A,$CD,$92</td>
+<td class="comment-1" rowspan="1">74: back door</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35920"></span>8C50</td>
+<td class="instruction">DEFB $4B,$E5,$92</td>
+<td class="comment-1" rowspan="1">75: thick hedge</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35923"></span>8C53</td>
+<td class="instruction">DEFB $4C,$F7,$92</td>
+<td class="comment-1" rowspan="1">76: basils bed</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35926"></span>8C56</td>
+<td class="instruction">DEFB $4D,$08,$93</td>
+<td class="comment-1" rowspan="1">77: basils piano</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35929"></span>8C59</td>
+<td class="instruction">DEFB $4E,$19,$93</td>
+<td class="comment-1" rowspan="1">78: gramaphone</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35932"></span>8C5C</td>
+<td class="instruction">DEFB $4F,$2A,$93</td>
+<td class="comment-1" rowspan="1">79: window</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35935"></span>8C5F</td>
+<td class="instruction">DEFB $50,$40,$93</td>
+<td class="comment-1" rowspan="1">80: trash pile</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35938"></span>8C62</td>
+<td class="instruction">DEFB $51,$53,$93</td>
+<td class="comment-1" rowspan="1">81: torn coded ?0f8 note</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35941"></span>8C65</td>
+<td class="instruction">DEFB $52,$64,$93</td>
+<td class="comment-1" rowspan="1">82: small rubbish bin</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35944"></span>8C68</td>
+<td class="instruction">DEFB $53,$75,$93</td>
+<td class="comment-1" rowspan="1">83: ripped coded baker note</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35947"></span>8C6B</td>
+<td class="instruction">DEFB $54,$86,$93</td>
+<td class="comment-1" rowspan="1">84: fireplace</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35950"></span>8C6E</td>
+<td class="instruction">DEFB $55,$97,$93</td>
+<td class="comment-1" rowspan="1">85: burning note</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35953"></span>8C71</td>
+<td class="instruction">DEFB $56,$AE,$93</td>
+<td class="comment-1" rowspan="1">86: wall safe</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35956"></span>8C74</td>
+<td class="instruction">DEFB $57,$C3,$93</td>
+<td class="comment-1" rowspan="1">87: unfinished note</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35959"></span>8C77</td>
+<td class="instruction">DEFB $58,$D4,$93</td>
+<td class="comment-1" rowspan="1">88: folder</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35962"></span>8C7A</td>
+<td class="instruction">DEFB $59,$E5,$93</td>
+<td class="comment-1" rowspan="1">89: wall safe</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35965"></span>8C7D</td>
+<td class="instruction">DEFB $5A,$FA,$93</td>
+<td class="comment-1" rowspan="1">90: letters</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35968"></span>8C80</td>
+<td class="instruction">DEFB $5B,$0B,$94</td>
+<td class="comment-1" rowspan="1">91: front door</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35971"></span>8C83</td>
+<td class="instruction">DEFB $5C,$21,$94</td>
+<td class="comment-1" rowspan="1">92: gun</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35974"></span>8C86</td>
+<td class="instruction">DEFB $5D,$32,$94</td>
+<td class="comment-1" rowspan="1">93: large rock</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35977"></span>8C89</td>
+<td class="instruction">DEFB $5E,$43,$94</td>
+<td class="comment-1" rowspan="1">94: mrs brown</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35980"></span>8C8C</td>
+<td class="instruction">DEFB $5F,$54,$94</td>
+<td class="comment-1" rowspan="1">95: mrs jones</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35983"></span>8C8F</td>
+<td class="instruction">DEFB $60,$6B,$94</td>
+<td class="comment-1" rowspan="1">96: herself</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35986"></span>8C92</td>
+<td class="instruction">DEFB $61,$7C,$94</td>
+<td class="comment-1" rowspan="1">97: plans</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35989"></span>8C95</td>
+<td class="instruction">DEFB $62,$8D,$94</td>
+<td class="comment-1" rowspan="1">98: innocent</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35992"></span>8C98</td>
+<td class="instruction">DEFB $63,$9E,$94</td>
+<td class="comment-1" rowspan="1">99: opium den</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35995"></span>8C9B</td>
+<td class="instruction">DEFB $64,$AF,$94</td>
+<td class="comment-1" rowspan="1">100: old man</td>
+</tr>
+<tr>
+<td class="address-1"><span id="35998"></span>8C9E</td>
+<td class="instruction">DEFB $65,$C0,$94</td>
+<td class="comment-1" rowspan="1">101: old mans disguise</td>
+</tr>
+<tr>
+<td class="address-1"><span id="36001"></span>8CA1</td>
+<td class="instruction">DEFB $66,$D5,$94</td>
+<td class="comment-1" rowspan="1">102: window</td>
+</tr>
+<tr>
+<td class="address-1"><span id="36004"></span>8CA4</td>
+<td class="instruction">DEFB $67,$E6,$94</td>
+<td class="comment-1" rowspan="1">103: tricias front door</td>
+</tr>
+<tr>
+<td class="address-1"><span id="36007"></span>8CA7</td>
+<td class="instruction">DEFB $68,$FC,$94</td>
+<td class="comment-1" rowspan="1">104: german agent</td>
+</tr>
+<tr>
+<td class="address-1"><span id="36010"></span>8CAA</td>
+<td class="instruction">DEFB $69,$0D,$95</td>
+<td class="comment-1" rowspan="1">105: old mill road</td>
+</tr>
+<tr>
+<td class="address-1"><span id="36013"></span>8CAD</td>
+<td class="instruction">DEFB $6A,$1E,$95</td>
+<td class="comment-1" rowspan="1">106: sale location</td>
+</tr>
+<tr>
+<td class="address-1"><span id="36016"></span>8CB0</td>
+<td class="instruction">DEFB $6B,$2F,$95</td>
+<td class="comment-1" rowspan="1">107: guilty</td>
+</tr>
+<tr>
+<td class="address-1"><span id="36019"></span>8CB3</td>
+<td class="instruction">DEFB $6C,$40,$95</td>
+<td class="comment-1" rowspan="1">108: idiot</td>
+</tr>
+<tr>
+<td class="address-1"><span id="36022"></span>8CB6</td>
+<td class="instruction">DEFB $6D,$51,$95</td>
+<td class="comment-1" rowspan="1">109: police cab</td>
+</tr>
+<tr>
+<td class="address-1"><span id="36025"></span>8CB9</td>
+<td class="instruction">DEFB $FF</td>
+<td class="comment-1" rowspan="1">End marker</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="34017.html">84E1</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#35695">Map</a></td>
+<td class="next">
+Next: <a href="36026.html">8CBA</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

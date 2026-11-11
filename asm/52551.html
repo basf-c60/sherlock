@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at CD47 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="52516.html">CD24</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#52551">Map</a></td>
+<td class="next">
+Next: <a href="52610.html">CD82</a>
+</td>
+</tr>
+</table>
+<div class="description">CD47: Plan opcode 9, AWAIT: wait for a token from another actor</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Looks along the <a href="40918.html#40935">9FE7</a> list for a node left by the actor named in the argument for this actor. Fails if there is none (scripts give AWAIT a failure address pointing at itself, so the actor waits); otherwise unlinks the node, frees it and succeeds.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">The instruction (+1 the actor the token must come from)</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">The</td>
+<td class="register-desc">step succeeds if the token was there (and is removed), otherwise it fails</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="52551"></span>CD47</td>
+<td class="instruction">LD B,(IX+$01)</td>
+<td class="comment-1" rowspan="1">B = who the token must come from</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52554"></span>CD4A</td>
+<td class="instruction">LD IX,$9FE9</td>
+<td class="comment-1" rowspan="1">Point IX at sub-script call frames (<a href="40918.html#40937">9FE9</a>) - Walk the token list</td>
+</tr>
+<tr>
+<td class="address-2"><span id="52558"></span>CD4E</td>
+<td class="instruction">CALL <a href="41207.html">$A0F7</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Move IX to the next node of a list" (<a href="41207.html">A0F7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52561"></span>CD51</td>
+<td class="instruction">JP Z,<a href="52920.html">$CEB8</a></td>
+<td class="comment-1" rowspan="1">None left: fail</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52564"></span>CD54</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A036</a> in "Game variables" into A - Is this token for this actor...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52567"></span>CD57</td>
+<td class="instruction">CP (IX+$01)</td>
+<td class="comment-1" rowspan="1">Compare A with byte +1 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52570"></span>CD5A</td>
+<td class="instruction">JR NZ,$CD4E</td>
+<td class="comment-1" rowspan="1">If A differs from byte +1 of the record at IX, go back to <a href="52551.html#52558">CD4E</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="52572"></span>CD5C</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">Copy B into A - ...and from that actor?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52573"></span>CD5D</td>
+<td class="instruction">CP (IX+$00)</td>
+<td class="comment-1" rowspan="1">Compare A with the first byte of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52576"></span>CD60</td>
+<td class="instruction">JR NZ,$CD4E</td>
+<td class="comment-1" rowspan="1">If A differs from the first byte of the record at IX, go back to <a href="52551.html#52558">CD4E</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="52578"></span>CD62</td>
+<td class="instruction">PUSH IY</td>
+<td class="comment-1" rowspan="1">Save IY on the stack - Yes: unlink it...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52580"></span>CD64</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52582"></span>CD66</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52583"></span>CD67</td>
+<td class="instruction">LD IY,$9FE7</td>
+<td class="comment-1" rowspan="1">Point IY at SIGNAL tokens (<a href="40918.html#40935">9FE7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52587"></span>CD6B</td>
+<td class="instruction">CALL <a href="41220.html">$A104</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Find the node before node DE in the list at IY" (<a href="41220.html">A104</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52590"></span>CD6E</td>
+<td class="instruction">LD L,(IX-$02)</td>
+<td class="comment-1" rowspan="1">Read byte -2 of the record at IX into L</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52593"></span>CD71</td>
+<td class="instruction">LD H,(IX-$01)</td>
+<td class="comment-1" rowspan="1">Read byte -1 of the record at IX into H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52596"></span>CD74</td>
+<td class="instruction">LD (IY-$02),L</td>
+<td class="comment-1" rowspan="1">Store L in byte -2 of the record at IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52599"></span>CD77</td>
+<td class="instruction">LD (IY-$01),H</td>
+<td class="comment-1" rowspan="1">Store H in byte -1 of the record at IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52602"></span>CD7A</td>
+<td class="instruction">CALL <a href="41415.html">$A1C7</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Free node IX back to the heap" (<a href="41415.html">A1C7</a>) - ...and free it</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52605"></span>CD7D</td>
+<td class="instruction">POP IY</td>
+<td class="comment-1" rowspan="1">Restore IY from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52607"></span>CD7F</td>
+<td class="instruction">JP <a href="52879.html">$CE8F</a></td>
+<td class="comment-1" rowspan="1">Succeed</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="52516.html">CD24</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#52551">Map</a></td>
+<td class="next">
+Next: <a href="52610.html">CD82</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at BC46 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="47975.html">BB67</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#48198">Map</a></td>
+<td class="next">
+Next: <a href="48244.html">BC74</a>
+</td>
+</tr>
+</table>
+<div class="description">BC46: Check every statement that is waiting to be proven</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Walks the case table (<a href="39269.html">9965</a>) and, for each statement with bit 0 set and bit 5 clear, tries to prove it (<a href="48329.html">BCC9</a>).
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. Push every statement of the case table at <a href="39269.html">9965</a> that is waiting (bit 0 of +3 set) and is not one of the bit-5 kind, ending the list with a 0.
+</div>
+<div class="paragraph">
+2. Pop them one at a time and try to prove each (<a href="48329.html">BCC9</a>).
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">Each</td>
+<td class="register-desc">waiting statement of the case table checked and, if provable, marked</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="48198"></span>BC46</td>
+<td class="instruction">LD IX,$9965</td>
+<td class="comment-1" rowspan="1">Point IX at "The case: statements about the crime, and the..." (<a href="39269.html">9965</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48202"></span>BC4A</td>
+<td class="instruction">LD HL,$0000</td>
+<td class="comment-1" rowspan="1">Load HL with $0000 - A 0 on the stack marks the end of the list</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48205"></span>BC4D</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-2"><span id="48206"></span>BC4E</td>
+<td class="instruction">LD A,(IX+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IX into A - Walk the case table; $FF ends it</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48209"></span>BC51</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1">Compare A with $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48211"></span>BC53</td>
+<td class="instruction">JR Z,$BC68</td>
+<td class="comment-1" rowspan="1">If A equals $FF, skip ahead to <a href="48198.html#48232">BC68</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="48213"></span>BC55</td>
+<td class="instruction">BIT 0,(IX+$03)</td>
+<td class="comment-1" rowspan="1">Test bit 0 of byte +3 of the record at IX - Push each statement that is waiting (bit 0) and not of the bit-5 kind</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48217"></span>BC59</td>
+<td class="instruction">JR Z,$BC63</td>
+<td class="comment-1" rowspan="1">If bit 0 of byte +3 of the record at IX is clear, skip ahead to <a href="48198.html#48227">BC63</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="48219"></span>BC5B</td>
+<td class="instruction">BIT 5,(IX+$03)</td>
+<td class="comment-1" rowspan="1">Test bit 5 of byte +3 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48223"></span>BC5F</td>
+<td class="instruction">JR NZ,$BC63</td>
+<td class="comment-1" rowspan="1">If bit 5 of byte +3 of the record at IX is set, skip ahead to <a href="48198.html#48227">BC63</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="48225"></span>BC61</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack</td>
+</tr>
+<tr>
+<td class="address-2"><span id="48227"></span>BC63</td>
+<td class="instruction">CALL <a href="48730.html">$BE5A</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Step IX over one case record (4 bytes, or 6 with a..." (<a href="48730.html">BE5A</a>) - Next statement (<a href="48730.html">BE5A</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48230"></span>BC66</td>
+<td class="instruction">JR $BC4E</td>
+<td class="comment-1" rowspan="1">Go back to <a href="48198.html#48206">BC4E</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="48232"></span>BC68</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack - Then pop them one by one and try to prove each (<a href="48329.html">BCC9</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48233"></span>BC69</td>
+<td class="instruction">LD A,H</td>
+<td class="comment-1" rowspan="1">Copy H into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48234"></span>BC6A</td>
+<td class="instruction">OR L</td>
+<td class="comment-1" rowspan="1">Set in A the bits that are set in L</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48235"></span>BC6B</td>
+<td class="instruction">RET Z</td>
+<td class="comment-1" rowspan="1">If the result is zero, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48236"></span>BC6C</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48237"></span>BC6D</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48239"></span>BC6F</td>
+<td class="instruction">CALL <a href="48329.html">$BCC9</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Try to prove statement IX" (<a href="48329.html">BCC9</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48242"></span>BC72</td>
+<td class="instruction">JR $BC68</td>
+<td class="comment-1" rowspan="1">Go back to <a href="48198.html#48232">BC68</a></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="47975.html">BB67</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#48198">Map</a></td>
+<td class="next">
+Next: <a href="48244.html">BC74</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

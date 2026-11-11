@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at E0EB - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="57568.html">E0E0</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#57579">Map</a></td>
+<td class="next">
+Next: <a href="57586.html">E0F2</a>
+</td>
+</tr>
+</table>
+<div class="description">E0EB: Action record: the trash pile gives up the torn note (RUN at $E0E7)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="57568.html#57575">E0E7</a>.
+</div>
+<div class="paragraph">
+Run after EXAMINE CLOSELY TRASH PILE: sets bit 7 of thing 81's +5 (the torn coded note), making it visible.
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ; the torn note revealed ($9C56)</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="57579"></span>E0EB</td>
+<td class="instruction">DEFB $00,$00</td>
+<td class="comment-1" rowspan="1">Action record header: flags $00; byte 1 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57581"></span>E0ED</td>
+<td class="instruction">LD A,$51</td>
+<td class="comment-1" rowspan="1">Load A with $51</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57583"></span>E0EF</td>
+<td class="instruction">JP <a href="40022.html">$9C56</a></td>
+<td class="comment-1" rowspan="1">Go back to the routine "Set an object's 'revealed' flag (+5 bit 7)" (<a href="40022.html">9C56</a>)</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="57568.html">E0E0</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#57579">Map</a></td>
+<td class="next">
+Next: <a href="57586.html">E0F2</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

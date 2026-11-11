@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at BB46 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="47719.html">BA67</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#47942">Map</a></td>
+<td class="next">
+Next: <a href="47964.html">BB5C</a>
+</td>
+</tr>
+</table>
+<div class="description">BB46: Remember a choice (A) and the 3 bytes at $BA19</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="47635.html">$BA19</a>.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">The kind of match</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">$BA60</td>
+<td class="register-desc">The kind</td>
+</tr>
+<tr>
+<td class="register">$BA61</td>
+<td class="register-desc">1</td>
+</tr>
+<tr>
+<td class="register">BA62 The three bytes from </td>
+<td class="register-desc">BA19</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="47942"></span>BB46</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack - Entry used at <a href="47719.html#47740">BA7C</a>: set <a href="47712.html">$BA61</a> = 1 and store the kind in <a href="47712.html">BA60</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47943"></span>BB47</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="1">Load A with $01</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47945"></span>BB49</td>
+<td class="instruction">LD ($BA61),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="47712.html">$BA61</a> in "More variables for <a href="47719.html">BA67</a>-<a href="47964.html">BB5C</a>"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47948"></span>BB4C</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47949"></span>BB4D</td>
+<td class="instruction">LD ($BA60),A</td>
+<td class="comment-1" rowspan="1">The choice</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47952"></span>BB50</td>
+<td class="instruction">LD HL,$BA19</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="47635.html">$BA19</a> in "Variables used by the code at <a href="47648.html">BA20</a>-<a href="48965.html#48984">BF58</a>" - Copy 3 bytes to <a href="47712.html">$BA62</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47955"></span>BB53</td>
+<td class="instruction">LD DE,$BA62</td>
+<td class="comment-1" rowspan="1">Point DE at <a href="47712.html">$BA62</a> in "More variables for <a href="47719.html">BA67</a>-<a href="47964.html">BB5C</a>"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47958"></span>BB56</td>
+<td class="instruction">LD BC,$0003</td>
+<td class="comment-1" rowspan="1">Load BC with $0003</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47961"></span>BB59</td>
+<td class="instruction">LDIR</td>
+<td class="comment-1" rowspan="1">Copy BC bytes from where HL points to where DE points, counting up</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47963"></span>BB5B</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="47719.html">BA67</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#47942">Map</a></td>
+<td class="next">
+Next: <a href="47964.html">BB5C</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

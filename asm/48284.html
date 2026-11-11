@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at BC9C - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="48244.html">BC74</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#48284">Map</a></td>
+<td class="next">
+Next: <a href="48329.html">BCC9</a>
+</td>
+</tr>
+</table>
+<div class="description">BC9C: Find the first waiting statement that cannot be proven yet</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+IX (<a href="47635.html#47643">$BA1E</a>) = that statement; B = how many there are.
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">B</td>
+<td class="register-desc">How many waiting statements cannot be proven yet</td>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">The first of them ($BA1E)</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="48284"></span>BC9C</td>
+<td class="instruction">LD IX,$9965</td>
+<td class="comment-1" rowspan="1">Point IX at "The case: statements about the crime, and the..." (<a href="39269.html">9965</a>) - As <a href="48244.html">BC74</a>, but for the statements that cannot yet be proved</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48288"></span>BCA0</td>
+<td class="instruction">LD B,$00</td>
+<td class="comment-1" rowspan="1">Load B with $00</td>
+</tr>
+<tr>
+<td class="address-2"><span id="48290"></span>BCA2</td>
+<td class="instruction">LD A,(IX+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IX into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48293"></span>BCA5</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1">Compare A with $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48295"></span>BCA7</td>
+<td class="instruction">JR Z,$BCC4</td>
+<td class="comment-1" rowspan="1">If A equals $FF, skip ahead to <a href="48284.html#48324">BCC4</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="48297"></span>BCA9</td>
+<td class="instruction">BIT 0,(IX+$03)</td>
+<td class="comment-1" rowspan="1">Test bit 0 of byte +3 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48301"></span>BCAD</td>
+<td class="instruction">JR Z,$BCBD</td>
+<td class="comment-1" rowspan="1">If bit 0 of byte +3 of the record at IX is clear, skip ahead to <a href="48284.html#48317">BCBD</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="48303"></span>BCAF</td>
+<td class="instruction">CALL <a href="48329.html">$BCC9</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Try to prove statement IX" (<a href="48329.html">BCC9</a>) - Told but not provable...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48306"></span>BCB2</td>
+<td class="instruction">JR NZ,$BCBD</td>
+<td class="comment-1" rowspan="1">If the zero flag is clear, skip ahead to <a href="48284.html#48317">BCBD</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="48308"></span>BCB4</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">Copy B into A - ...the first one is remembered (<a href="47635.html#47643">$BA1E</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48309"></span>BCB5</td>
+<td class="instruction">INC B</td>
+<td class="comment-1" rowspan="1">Add one to B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48310"></span>BCB6</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48311"></span>BCB7</td>
+<td class="instruction">JR NZ,$BCBD</td>
+<td class="comment-1" rowspan="1">If A is not zero, skip ahead to <a href="48284.html#48317">BCBD</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="48313"></span>BCB9</td>
+<td class="instruction">LD ($BA1E),IX</td>
+<td class="comment-1" rowspan="1">Store IX in <a href="47635.html#47643">$BA1E</a> in "Variables used by the code at <a href="47648.html">BA20</a>-<a href="48965.html#48984">BF58</a>"</td>
+</tr>
+<tr>
+<td class="address-2"><span id="48317"></span>BCBD</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Save BC on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48318"></span>BCBE</td>
+<td class="instruction">CALL <a href="48754.html">$BE72</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Step IX over a whole group of case records" (<a href="48754.html">BE72</a>) - Next group of records (<a href="48754.html">BE72</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48321"></span>BCC1</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore BC from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48322"></span>BCC2</td>
+<td class="instruction">JR $BCA2</td>
+<td class="comment-1" rowspan="1">Go back to <a href="48284.html#48290">BCA2</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="48324"></span>BCC4</td>
+<td class="instruction">LD IX,($BA1E)</td>
+<td class="comment-1" rowspan="1">Read <a href="47635.html#47643">$BA1E</a> in "Variables used by the code at <a href="47648.html">BA20</a>-<a href="48965.html#48984">BF58</a>" into IX - IX = the first unprovable statement</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48328"></span>BCC8</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="48244.html">BC74</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#48284">Map</a></td>
+<td class="next">
+Next: <a href="48329.html">BCC9</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

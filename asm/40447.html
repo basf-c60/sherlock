@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at 9DFF - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="40408.html">9DD8</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#40447">Map</a></td>
+<td class="next">
+Next: <a href="40520.html">9E48</a>
+</td>
+</tr>
+</table>
+<div class="description">9DFF: Lestrade's after-turn routine, until the introduction</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Waits until Chief Constable Straker and the player are both with Lestrade, in sight of the player (<a href="40142.html">9CCE</a>); until then it does the same as <a href="40341.html">9D95</a>.
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">From $9D95 or $A59F</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="40447"></span>9DFF</td>
+<td class="instruction">LD C,$04</td>
+<td class="comment-1" rowspan="1">Load C with $04 - Is Straker here?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40449"></span>9E01</td>
+<td class="instruction">CALL <a href="40142.html">$9CCE</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Is thing C in the same room as the current actor, and..." (<a href="40142.html">9CCE</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40452"></span>9E04</td>
+<td class="instruction">JR NZ,<a href="40341.html">$9D95</a></td>
+<td class="comment-1" rowspan="1">No: the usual routine</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40454"></span>9E06</td>
+<td class="instruction">LD C,$00</td>
+<td class="comment-1" rowspan="1">Load C with $00 - Is the player here?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40456"></span>9E08</td>
+<td class="instruction">CALL <a href="40142.html">$9CCE</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Is thing C in the same room as the current actor, and..." (<a href="40142.html">9CCE</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40459"></span>9E0B</td>
+<td class="instruction">JR NZ,<a href="40341.html">$9D95</a></td>
+<td class="comment-1" rowspan="1">If the zero flag is clear, go back to the routine "Lestrade's after-turn routine, after the..." (<a href="40341.html">9D95</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40461"></span>9E0D</td>
+<td class="instruction">LD A,$04</td>
+<td class="comment-1" rowspan="1">Load A with $04 - Straker is the one speaking</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40463"></span>9E0F</td>
+<td class="instruction">LD ($A034),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41010">$A034</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40466"></span>9E12</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="1">Load A with $01 - Lestrade has been introduced</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40468"></span>9E14</td>
+<td class="instruction">LD ($9D90),A</td>
+<td class="comment-1" rowspan="1">Store A in "Lestrade's flags" (<a href="40336.html">9D90</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40471"></span>9E17</td>
+<td class="instruction">LD A,$5C</td>
+<td class="comment-1" rowspan="1">Load A with $5C - Room 92...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40473"></span>9E19</td>
+<td class="instruction">CALL <a href="53796.html">$D224</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Find a room record" (<a href="53796.html">D224</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40476"></span>9E1C</td>
+<td class="instruction">LD (IX+$0A),$00</td>
+<td class="comment-1" rowspan="1">Set byte +10 of the record at IX to $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40480"></span>9E20</td>
+<td class="instruction">LD A,$3E</td>
+<td class="comment-1" rowspan="1">Load A with $3E - ...and room 62: clear +$0A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40482"></span>9E22</td>
+<td class="instruction">CALL <a href="53796.html">$D224</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Find a room record" (<a href="53796.html">D224</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40485"></span>9E25</td>
+<td class="instruction">LD (IX+$0A),$00</td>
+<td class="comment-1" rowspan="1">Set byte +10 of the record at IX to $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40489"></span>9E29</td>
+<td class="instruction">LD HL,$9D95</td>
+<td class="comment-1" rowspan="1">Point HL at "Lestrade's after-turn routine, after the..." (<a href="40341.html">9D95</a>) - From now on run <a href="40341.html">9D95</a> after his turns</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40492"></span>9E2C</td>
+<td class="instruction">LD ($9C86),HL</td>
+<td class="comment-1" rowspan="1">Store HL in <a href="40069.html">$9C86</a> in "After-turn routines for nine characters"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40495"></span>9E2F</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="1">Load A with $01</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40497"></span>9E31</td>
+<td class="instruction">LD ($9D92),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40336.html#40337">$9D92</a> in "Lestrade's flags"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40500"></span>9E34</td>
+<td class="instruction">LD A,($9D91)</td>
+<td class="comment-1" rowspan="1">Read <a href="40336.html#40337">9D91</a> in "Lestrade's flags" into A - Which introduction?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40503"></span>9E37</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40504"></span>9E38</td>
+<td class="instruction">LD HL,$7207</td>
+<td class="comment-1" rowspan="1">Point HL at the message "YOU SAY" THE OIL LAMP I WOULD LIKE YOU TO MEET... (<a href="29191.html">7207</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40507"></span>9E3B</td>
+<td class="instruction">JR NZ,$9E44</td>
+<td class="comment-1" rowspan="1">If A is not zero, skip ahead to <a href="40447.html#40516">9E44</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40509"></span>9E3D</td>
+<td class="instruction">INC A</td>
+<td class="comment-1" rowspan="1">Add one to A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40510"></span>9E3E</td>
+<td class="instruction">LD ($9D91),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40336.html#40337">9D91</a> in "Lestrade's flags"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40513"></span>9E41</td>
+<td class="instruction">LD HL,$7224</td>
+<td class="comment-1" rowspan="1">"YOU SAY" WELL, HOLMES FANCY SEEING YOU HERE. THE OIL LAMP..."</td>
+</tr>
+<tr>
+<td class="address-2"><span id="40516"></span>9E44</td>
+<td class="instruction">CALL <a href="42399.html">$A59F</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print the message at HL" (<a href="42399.html">A59F</a>) - Print it</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40519"></span>9E47</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="40408.html">9DD8</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#40447">Map</a></td>
+<td class="next">
+Next: <a href="40520.html">9E48</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

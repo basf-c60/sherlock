@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Data at C481 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-w">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Data</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="50289.html">C471</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#50305">Map</a></td>
+<td class="next">
+Next: <a href="50321.html">C491</a>
+</td>
+</tr>
+</table>
+<div class="description">C481: Words for a +5 flag that is set but should not be</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Dictionary word references, one per bit of an object's +5 flags, printed by <a href="52091.html">CB7B</a> after 'THE &lt;object&gt; IS'. 0 = no word. Together the two tables name the flags: bit 0 locked, bit 2 full, bit 4 on (lit), bit 5 open, bit 6 alive; bit 7 is 'revealed' (<a href="40022.html">9C56</a>).
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50305"></span>C481</td>
+<td class="instruction">DEFW $0517</td>
+<td class="comment-1" rowspan="1">Bit 0: LOCKED</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50307"></span>C483</td>
+<td class="instruction">DEFW $0000</td>
+<td class="comment-1" rowspan="1">Bit 1: none</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50309"></span>C485</td>
+<td class="instruction">DEFW $035F</td>
+<td class="comment-1" rowspan="1">Bit 2: FULL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50311"></span>C487</td>
+<td class="instruction">DEFW $0000</td>
+<td class="comment-1" rowspan="1">Bit 3: none</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50313"></span>C489</td>
+<td class="instruction">DEFW $05FF</td>
+<td class="comment-1" rowspan="1">Bit 4: ON</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50315"></span>C48B</td>
+<td class="instruction">DEFW $060B</td>
+<td class="comment-1" rowspan="1">Bit 5: OPEN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50317"></span>C48D</td>
+<td class="instruction">DEFW $0000</td>
+<td class="comment-1" rowspan="1">Bit 6: none</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50319"></span>C48F</td>
+<td class="instruction">DEFW $0000</td>
+<td class="comment-1" rowspan="1">Bit 7: none</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="50289.html">C471</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#50305">Map</a></td>
+<td class="next">
+Next: <a href="50321.html">C491</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

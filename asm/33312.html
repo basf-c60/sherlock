@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Text at 8220 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-t">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Messages</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="33269.html">81F5</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#33312">Map</a></td>
+<td class="next">
+Next: <a href="33369.html">8259</a>
+</td>
+</tr>
+</table>
+<div class="description">8220: Message: "IT READS" MEET ME BY THE BRIDGE AT HALF PAST TWELVE. I HAVE SOME VE..."</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Text: "IT READS" MEET ME BY THE BRIDGE AT HALF PAST TWELVE. SIGNED. P. F."."
+</div>
+<div class="paragraph">
+No instruction loads it directly. Its address is stored as the word at <a href="36026.html#37007">$9094</a>, in the record of thing 47 (crumpled note).
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33312"></span>8220</td>
+<td class="instruction">DEFB $F4,$88,$C6,$FD,$02,$23,$F1,$64</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="33320"></span>8228</td>
+<td class="instruction">DEFB $74,$60,$81,$17,$65,$62,$89,$CA</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="33328"></span>8230</td>
+<td class="instruction">DEFB $89,$A6,$69,$87,$B4,$68,$60,$83</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="33336"></span>8238</td>
+<td class="instruction">DEFB $E6,$2E,$60,$82,$DD,$67,$7B,$20</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="33344"></span>8240</td>
+<td class="instruction">DEFB $48,$6D,$68,$96,$06,$85,$20,$20</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="33352"></span>8248</td>
+<td class="instruction">DEFB $45,$11,$72,$F7,$10,$20,$4A,$91</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="33360"></span>8250</td>
+<td class="instruction">DEFB $46,$F3,$B9,$34,$4B,$DC,$2E,$1F</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="33368"></span>8258</td>
+<td class="instruction">DEFB $7D</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="33269.html">81F5</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#33312">Map</a></td>
+<td class="next">
+Next: <a href="33369.html">8259</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

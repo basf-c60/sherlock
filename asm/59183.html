@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Data at E72F - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-b">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Data</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="59150.html">E70E</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#59183">Map</a></td>
+<td class="next">
+Next: <a href="59290.html">E79A</a>
+</td>
+</tr>
+</table>
+<div class="description">E72F: Plan script: watson (actor 3)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Entry points: <a href="59183.html">E72F</a> = watson (actor 3).
+</div>
+<div class="paragraph">
+Each sub-block is one instruction. Room and object numbers are as the game uses them (the reference pages list both).
+</div>
+<div class="paragraph">
+In an instruction, 'plan dobj' and 'plan iobj' are not fixed objects: they mean the direct and indirect object currently held in the actor's plan registers (bytes +4 and +5 of its actor record), so the same step works on whatever the actor is dealing with - for the player, the objects of the command just typed. 'plan verb' is the verb register (+3), 'self' is the acting character, and '-' means none.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59183"></span>E72F</td>
+<td class="instruction">DEFB $06,$EB,$6D</td>
+<td class="comment-1" rowspan="1">PRINT message <a href="28139.html">6DEB</a>: "WATSON LOOKS UP FROM THE PAPER AND SAYS' GOOD MORNING HOLMES.'"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59186"></span>E732</td>
+<td class="instruction">DEFB $07,$2F,$E5,$0D,$04</td>
+<td class="comment-1" rowspan="1">RUN <a href="58671.html">E52F</a> START COUNTDOWN of (dobj) plus a random number up to (iobj) (13, 4)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59191"></span>E737</td>
+<td class="instruction">DEFB $13,$9A,$E7,$B6,$E7</td>
+<td class="comment-1" rowspan="1">RUN <a href="59290.html">E79A</a> [fail <a href="59290.html#59318">E7B6</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59196"></span>E73C</td>
+<td class="instruction">DEFB $12,$81,$00,$FB,$51,$E7</td>
+<td class="comment-1" rowspan="1">DO 129 <a href="58840.html">IS WITH</a>: 0 you, self [fail <a href="59183.html#59217">E751</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59202"></span>E742</td>
+<td class="instruction">DEFB $06,$02,$6E</td>
+<td class="comment-1" rowspan="1">PRINT message <a href="28162.html">6E02</a>: "WITH AN EXCITED LOOK ON HIS FACE YOU SAYS' WELL HERE IS A CASE THAT..."</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59205"></span>E745</td>
+<td class="instruction">DEFB $07,$2F,$E5,$0F,$0A</td>
+<td class="comment-1" rowspan="1">RUN <a href="58671.html">E52F</a> START COUNTDOWN of (dobj) plus a random number up to (iobj) (15, 10)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59210"></span>E74A</td>
+<td class="instruction">DEFB $93,$9A,$E7,$7B,$E7,$B6,$E7</td>
+<td class="comment-1" rowspan="1">RUN <a href="59290.html">E79A</a> [ok <a href="59183.html#59259">E77B</a>; fail <a href="59290.html#59318">E7B6</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59217"></span>E751</td>
+<td class="instruction">DEFB $07,$2F,$E5,$0F,$0A</td>
+<td class="comment-1" rowspan="1">RUN <a href="58671.html">E52F</a> START COUNTDOWN of (dobj) plus a random number up to (iobj) (15, 10)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59222"></span>E756</td>
+<td class="instruction">DEFB $03,$A8,$E5</td>
+<td class="comment-1" rowspan="1">RUN <a href="58792.html">E5A8</a> IDLE (no checks; takes a minute)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59225"></span>E759</td>
+<td class="instruction">DEFB $12,$83,$FB,$08,$B6,$E7</td>
+<td class="comment-1" rowspan="1">DO 131 <a href="58797.html">IS IN</a>: self, room 8 (your room) [fail <a href="59290.html#59318">E7B6</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59231"></span>E75F</td>
+<td class="instruction">DEFB $17,$E2,$E7,$19,$FF,$B6,$E7</td>
+<td class="comment-1" rowspan="1">RUN <a href="59362.html">E7E2</a> HAS IT: is the actor carrying (dobj)? (25 daily chronicle, -) [fail <a href="59290.html#59318">E7B6</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59238"></span>E766</td>
+<td class="instruction">DEFB $82,$81,$00,$FB,$73,$E7</td>
+<td class="comment-1" rowspan="1">DO 129 <a href="58840.html">IS WITH</a>: 0 you, self [ok <a href="59183.html#59251">E773</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59244"></span>E76C</td>
+<td class="instruction">DEFB $93,$7A,$E5,$56,$E7,$7B,$E7</td>
+<td class="comment-1" rowspan="1">RUN <a href="58746.html">E57A</a> TICK the countdown (fails, and deletes it, when it runs out) [ok <a href="59183.html#59222">E756</a>; fail <a href="59183.html#59259">E77B</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59251"></span>E773</td>
+<td class="instruction">DEFB $06,$FC,$6E</td>
+<td class="comment-1" rowspan="1">PRINT message <a href="28412.html">6EFC</a>: "YOU LOOKS UP AS YOU ENTER SAYING' HELLO THERE HOLMES, JUST A MINUTE..."</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59254"></span>E776</td>
+<td class="instruction">DEFB $13,$9A,$E7,$B6,$E7</td>
+<td class="comment-1" rowspan="1">RUN <a href="59290.html">E79A</a> [fail <a href="59290.html#59318">E7B6</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59259"></span>E77B</td>
+<td class="instruction">DEFB $12,$83,$FB,$08,$B6,$E7</td>
+<td class="comment-1" rowspan="1">DO 131 <a href="58797.html">IS IN</a>: self, room 8 (your room) [fail <a href="59290.html#59318">E7B6</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59265"></span>E781</td>
+<td class="instruction">DEFB $13,$C1,$E5,$8C,$E7</td>
+<td class="comment-1" rowspan="1">RUN <a href="58817.html">E5C1</a> [fail <a href="59183.html#59276">E78C</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59270"></span>E786</td>
+<td class="instruction">DEFB $03,$A8,$E5</td>
+<td class="comment-1" rowspan="1">RUN <a href="58792.html">E5A8</a> IDLE (no checks; takes a minute)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59273"></span>E789</td>
+<td class="instruction">DEFB $0E,$7B,$E7</td>
+<td class="comment-1" rowspan="1">GOTO <a href="59183.html#59259">E77B</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="59276"></span>E78C</td>
+<td class="instruction">DEFB $02,$80,$1A,$08</td>
+<td class="comment-1" rowspan="1">DO 128 <a href="58519.html">PUT</a>: 26 note, room 8 (your room)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59280"></span>E790</td>
+<td class="instruction">DEFB $02,$80,$FB,$00</td>
+<td class="comment-1" rowspan="1">DO 128 <a href="58519.html">PUT</a>: self, room 0 (off stage)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59284"></span>E794</td>
+<td class="instruction">DEFB $03,$A8,$E5</td>
+<td class="comment-1" rowspan="1">RUN <a href="58792.html">E5A8</a> IDLE (no checks; takes a minute)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59287"></span>E797</td>
+<td class="instruction">DEFB $0E,$94,$E7</td>
+<td class="comment-1" rowspan="1">GOTO <a href="59183.html#59284">E794</a></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="59150.html">E70E</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#59183">Map</a></td>
+<td class="next">
+Next: <a href="59290.html">E79A</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

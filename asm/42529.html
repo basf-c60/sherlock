@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at A621 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="42445.html">A5CD</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#42529">Map</a></td>
+<td class="next">
+Next: <a href="42554.html">A63A</a>
+</td>
+</tr>
+</table>
+<div class="description">A621: Run control code A</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Through the table at <a href="42333.html">A55D</a> (see there).
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">The control code (below $20)</td>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">The message position</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Z to stop or NZ to go on, from the handler</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="42529"></span>A621</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack - Control code A: HL = the handler from the table at <a href="42333.html">A55D</a>, two bytes each</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42530"></span>A622</td>
+<td class="instruction">LD E,A</td>
+<td class="comment-1" rowspan="1">Copy A into E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42531"></span>A623</td>
+<td class="instruction">LD D,$00</td>
+<td class="comment-1" rowspan="1">Load D with $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42533"></span>A625</td>
+<td class="instruction">LD HL,$A55D</td>
+<td class="comment-1" rowspan="1">Point HL at "Routines for the message control codes $00-$1F" (<a href="42333.html">A55D</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42536"></span>A628</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1">Add DE to HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42537"></span>A629</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1">Add DE to HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42538"></span>A62A</td>
+<td class="instruction">LD E,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42539"></span>A62B</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42540"></span>A62C</td>
+<td class="instruction">LD D,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42541"></span>A62D</td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-1" rowspan="1">Swap DE and HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42542"></span>A62E</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42543"></span>A62F</td>
+<td class="instruction">CP $1D</td>
+<td class="comment-1" rowspan="1">Compare A with $1D - Codes below $1D: call it and carry on with the same message</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42545"></span>A631</td>
+<td class="instruction">JR NC,<a href="42399.html#42435">$A5C3</a></td>
+<td class="comment-1" rowspan="1">If A is $1D or more, go back to <a href="42399.html#42435">A5C3</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42547"></span>A633</td>
+<td class="instruction">CALL <a href="42399.html#42435">$A5C3</a></td>
+<td class="comment-1" rowspan="1">Call <a href="42399.html#42435">A5C3</a> (inside "Print the message at HL") - $1D and above end the message: call it, then Z goes on to <a href="42445.html#42477">A5ED</a>, NZ to <a href="42445.html#42474">A5EA</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42550"></span>A636</td>
+<td class="instruction">JR Z,<a href="42445.html#42477">$A5ED</a></td>
+<td class="comment-1" rowspan="1">If the zero flag is set, go back to <a href="42445.html#42477">A5ED</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42552"></span>A638</td>
+<td class="instruction">JR <a href="42445.html#42474">$A5EA</a></td>
+<td class="comment-1" rowspan="1">Go back to <a href="42445.html#42474">A5EA</a></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="42445.html">A5CD</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#42529">Map</a></td>
+<td class="next">
+Next: <a href="42554.html">A63A</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

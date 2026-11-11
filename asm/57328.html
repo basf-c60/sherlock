@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at DFF0 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="57322.html">DFEA</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#57328">Map</a></td>
+<td class="next">
+Next: <a href="57347.html">E003</a>
+</td>
+</tr>
+</table>
+<div class="description">DFF0: Action record: shared 23 (WEAR (used by the old man's disguise))</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Shared action 23: WEAR the old man's disguise: A = $64 (the old man, thing 100) and on to the common tail at <a href="57378.html#57384">E028</a>.
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">From $E028</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="57328"></span>DFF0</td>
+<td class="instruction">DEFB $48,$10,$1C,$E0</td>
+<td class="comment-1" rowspan="1">Action record header: flags $48; bit 6: pre-check at <a href="57347.html#57372">E01C</a>; byte 1 $10</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57332"></span>DFF4</td>
+<td class="instruction">LD A,$64</td>
+<td class="comment-1" rowspan="1">Load A with $64 - A = $64 and on to <a href="57378.html#57384">E028</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="57334"></span>DFF6</td>
+<td class="instruction">JR <a href="57378.html#57384">$E028</a></td>
+<td class="comment-1" rowspan="1">Jump on to <a href="57378.html#57384">E028</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="57336"></span>DFF8</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A036</a> in "Game variables" into A - The actor must be thing 1, else fail</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57339"></span>DFFB</td>
+<td class="instruction">CP $01</td>
+<td class="comment-1" rowspan="1">Compare A with $01</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="57341"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routines at <a href="57290.html">DFCA</a> and <a href="57347.html">E003</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="57341"></span>DFFD</td>
+<td class="instruction">JP NZ,<a href="56341.html">$DC15</a></td>
+<td class="comment-1" rowspan="1">If A differs from $01, go back to the routine "Fail: A = 0, HL = 0, Z set" (<a href="56341.html">DC15</a>)</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="57344"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routines at <a href="57227.html">DF8B</a> and <a href="57270.html">DFB6</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="57344"></span>E000</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - Return NZ</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57346"></span>E002</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="57322.html">DFEA</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#57328">Map</a></td>
+<td class="next">
+Next: <a href="57347.html">E003</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at B83C - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="46975.html">B77F</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#47164">Map</a></td>
+<td class="next">
+Next: <a href="47180.html">B84C</a>
+</td>
+</tr>
+</table>
+<div class="description">B83C: Push the three words at HL as message parameters</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Takes its own return address off the stack, pushes the three word references from HL, and returns under them, so that the message printed next (<a href="42399.html">A59F</a>) finds them as its parameters.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Three word references</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">The</td>
+<td class="register-desc">three words pushed as message parameters under the return address</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="47164"></span>B83C</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Pop the return address into IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47166"></span>B83E</td>
+<td class="instruction">LD B,$03</td>
+<td class="comment-1" rowspan="1">Load B with $03 - Push the three words at HL as message parameters (3 x 2 bytes)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="47168"></span>B840</td>
+<td class="instruction">LD E,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47169"></span>B841</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47170"></span>B842</td>
+<td class="instruction">LD D,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47171"></span>B843</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47172"></span>B844</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47173"></span>B845</td>
+<td class="instruction">DJNZ $B840</td>
+<td class="comment-1" rowspan="1">Count B down and, while it is not zero, go back to <a href="47164.html#47168">B840</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47175"></span>B847</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack - Re-order the stack so the first word is on top...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47176"></span>B848</td>
+<td class="instruction">EX (SP),HL</td>
+<td class="comment-1" rowspan="1">Swap HL with the word on top of the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47177"></span>B849</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47178"></span>B84A</td>
+<td class="instruction">JP (IX)</td>
+<td class="comment-1" rowspan="1">...and return to the caller through IX</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="46975.html">B77F</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#47164">Map</a></td>
+<td class="next">
+Next: <a href="47180.html">B84C</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

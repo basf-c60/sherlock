@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at AB91 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="43698.html">AAB2</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#43921">Map</a></td>
+<td class="next">
+Next: <a href="44068.html">AC24</a>
+</td>
+</tr>
+</table>
+<div class="description">AB91: Read a sentence's verb words into the node at IY</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Tokens (<a href="44671.html">AE7F</a>) of class $30 (a verb, see <a href="44671.html">AE7F</a>) go to IY+0/+1, class $00 to IY+2/+3, $40 and $20 to one or the other by the flags in E; $E0 tokens are skipped; anything else ends the verb (carry when a slot was wanted twice). In statement mode (<a href="40918.html#40994">$A024</a> = 2, while a case statement is being said) the verb must instead be one of the eleven relation words at <a href="39245.html">994D</a> - KILLED, HAD, ... - and NZ means it is not.
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. In statement mode (<a href="40918.html#40994">$A024</a> = 2) the words are matched against the relation words at <a href="39245.html">994D</a> instead (<a href="43921.html#44019">ABF3</a>).
+</div>
+<div class="paragraph">
+2. Otherwise take tokens (<a href="44671.html">AE7F</a>). A class $30 token goes in the verb slot (IY+0/+1), a class $00 token in the second word slot (IY+2/+3).
+</div>
+<div class="paragraph">
+3. A class $40 token clears E bit 0 and is treated as a verb; a class $20 token goes to whichever slot is free.
+</div>
+<div class="paragraph">
+4. A word for a slot already taken returns carry set. Any other class ends the verb: return Z if the verb slot has been filled.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IY</td>
+<td class="register-desc">The sentence node</td>
+</tr>
+<tr>
+<td class="register">E</td>
+<td class="register-desc">Slot flags (bit 0, 1, 2)</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Z if the verb slot was filled; NZ if not; carry set for a second word in a slot already taken</td>
+</tr>
+<tr>
+<td class="register">E</td>
+<td class="register-desc">Updated</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="43921"></span>AB91</td>
+<td class="instruction">LD A,($A024)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40994">$A024</a> in "Game variables" into A - Statement mode (<a href="40918.html#40994">$A024</a> = 2)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43924"></span>AB94</td>
+<td class="instruction">CP $02</td>
+<td class="comment-1" rowspan="1">Compare A with $02</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43926"></span>AB96</td>
+<td class="instruction">JR Z,$ABF3</td>
+<td class="comment-1" rowspan="1">Yes: the relation-word check at <a href="43921.html#44019">ABF3</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43928"></span>AB98</td>
+<td class="instruction">LD A,E</td>
+<td class="comment-1" rowspan="1">Copy E into A - E bits 0-2 set: ready for a verb slot (bit 1), an object-word slot (bit 2), and the direct-or-indirect choice (bit 0)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43929"></span>AB99</td>
+<td class="instruction">OR $07</td>
+<td class="comment-1" rowspan="1">Set bits 0, 1, 2 of A (mask $07)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43931"></span>AB9B</td>
+<td class="instruction">LD E,A</td>
+<td class="comment-1" rowspan="1">Copy A into E</td>
+</tr>
+<tr>
+<td class="address-2"><span id="43932"></span>AB9C</td>
+<td class="instruction">CALL <a href="44671.html">$AE7F</a></td>
+<td class="comment-1" rowspan="1">Next token (<a href="44671.html">AE7F</a>): class in A, word reference in BC</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43935"></span>AB9F</td>
+<td class="instruction">CP $E0</td>
+<td class="comment-1" rowspan="1">Compare A with $E0 - Class $E0: skipped</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43937"></span>ABA1</td>
+<td class="instruction">JR Z,$AB9C</td>
+<td class="comment-1" rowspan="1">If A equals $E0, go back to <a href="43921.html#43932">AB9C</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43939"></span>ABA3</td>
+<td class="instruction">CP $30</td>
+<td class="comment-1" rowspan="1">Compare A with $30 - Class $30 (verb word)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43941"></span>ABA5</td>
+<td class="instruction">JR NZ,$ABB7</td>
+<td class="comment-1" rowspan="1">If A differs from $30, skip ahead to <a href="43921.html#43959">ABB7</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="43943"></span>ABA7</td>
+<td class="instruction">BIT 1,E</td>
+<td class="comment-1" rowspan="1">Verb slot still free (E bit 1)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43945"></span>ABA9</td>
+<td class="instruction">JR Z,$ABB5</td>
+<td class="comment-1" rowspan="1">No: wanted twice, carry (<a href="43921.html#43957">ABB5</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="43947"></span>ABAB</td>
+<td class="instruction">RES 1,E</td>
+<td class="comment-1" rowspan="1">Fill the verb slot: mark it taken...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43949"></span>ABAD</td>
+<td class="instruction">LD (IY+$00),C</td>
+<td class="comment-1" rowspan="1">Store C in the first byte of the record at IY - ...and store the word reference at IY+0/+1</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43952"></span>ABB0</td>
+<td class="instruction">LD (IY+$01),B</td>
+<td class="comment-1" rowspan="1">Store B in byte +1 of the record at IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43955"></span>ABB3</td>
+<td class="instruction">JR $AB9C</td>
+<td class="comment-1" rowspan="1">Go back to <a href="43921.html#43932">AB9C</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="43957"></span>ABB5</td>
+<td class="instruction">SCF</td>
+<td class="comment-1" rowspan="1">Set the carry flag for the caller - Carry: a second word for a slot already taken</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43958"></span>ABB6</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="43959"></span>ABB7</td>
+<td class="instruction">CP $00</td>
+<td class="comment-1" rowspan="1">Compare A with $00 - Class $00 (second word)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43961"></span>ABB9</td>
+<td class="instruction">JR NZ,$ABC9</td>
+<td class="comment-1" rowspan="1">If A differs from $00, skip ahead to <a href="43921.html#43977">ABC9</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="43963"></span>ABBB</td>
+<td class="instruction">BIT 2,E</td>
+<td class="comment-1" rowspan="1">Test bit 2 of E - Its slot (E bit 2) free?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43965"></span>ABBD</td>
+<td class="instruction">JR Z,$ABB5</td>
+<td class="comment-1" rowspan="1">If bit 2 of E is clear, go back to <a href="43921.html#43957">ABB5</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43967"></span>ABBF</td>
+<td class="instruction">RES 2,E</td>
+<td class="comment-1" rowspan="1">Clear bit 2 of E - Mark taken and store at IY+2/+3</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43969"></span>ABC1</td>
+<td class="instruction">LD (IY+$02),C</td>
+<td class="comment-1" rowspan="1">Store C in byte +2 of the record at IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43972"></span>ABC4</td>
+<td class="instruction">LD (IY+$03),B</td>
+<td class="comment-1" rowspan="1">Store B in byte +3 of the record at IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43975"></span>ABC7</td>
+<td class="instruction">JR $AB9C</td>
+<td class="comment-1" rowspan="1">Go back to <a href="43921.html#43932">AB9C</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="43977"></span>ABC9</td>
+<td class="instruction">CP $40</td>
+<td class="comment-1" rowspan="1">Compare A with $40 - Class $40: clear E bit 0, then treat as a verb word</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43979"></span>ABCB</td>
+<td class="instruction">JR NZ,$ABD1</td>
+<td class="comment-1" rowspan="1">If A differs from $40, skip ahead to <a href="43921.html#43985">ABD1</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43981"></span>ABCD</td>
+<td class="instruction">RES 0,E</td>
+<td class="comment-1" rowspan="1">Clear bit 0 of E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43983"></span>ABCF</td>
+<td class="instruction">JR $ABA7</td>
+<td class="comment-1" rowspan="1">Go back to <a href="43921.html#43943">ABA7</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="43985"></span>ABD1</td>
+<td class="instruction">CP $20</td>
+<td class="comment-1" rowspan="1">Compare A with $20 - Class $20: goes to whichever slot is free:</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43987"></span>ABD3</td>
+<td class="instruction">JR NZ,$ABEF</td>
+<td class="comment-1" rowspan="1">If A differs from $20, skip ahead to <a href="43921.html#44015">ABEF</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43989"></span>ABD5</td>
+<td class="instruction">BIT 1,E</td>
+<td class="comment-1" rowspan="1">Test bit 1 of E - verb slot free: use it</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43991"></span>ABD7</td>
+<td class="instruction">JR NZ,$ABA7</td>
+<td class="comment-1" rowspan="1">If bit 1 of E is set, go back to <a href="43921.html#43943">ABA7</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43993"></span>ABD9</td>
+<td class="instruction">BIT 0,E</td>
+<td class="comment-1" rowspan="1">Test bit 0 of E - bit 0 still set: use the second slot</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43995"></span>ABDB</td>
+<td class="instruction">JR NZ,$ABBB</td>
+<td class="comment-1" rowspan="1">If bit 0 of E is set, go back to <a href="43921.html#43963">ABBB</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43997"></span>ABDD</td>
+<td class="instruction">RES 2,E</td>
+<td class="comment-1" rowspan="1">Clear bit 2 of E - else copy the verb word into the second slot and take the verb slot</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43999"></span>ABDF</td>
+<td class="instruction">SET 0,E</td>
+<td class="comment-1" rowspan="1">Set bit 0 of E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44001"></span>ABE1</td>
+<td class="instruction">LD A,(IY+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IY into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44004"></span>ABE4</td>
+<td class="instruction">LD (IY+$02),A</td>
+<td class="comment-1" rowspan="1">Store A in byte +2 of the record at IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44007"></span>ABE7</td>
+<td class="instruction">LD A,(IY+$01)</td>
+<td class="comment-1" rowspan="1">Read byte +1 of the record at IY into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44010"></span>ABEA</td>
+<td class="instruction">LD (IY+$03),A</td>
+<td class="comment-1" rowspan="1">Store A in byte +3 of the record at IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44013"></span>ABED</td>
+<td class="instruction">JR $ABAB</td>
+<td class="comment-1" rowspan="1">Go back to <a href="43921.html#43947">ABAB</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="44015"></span>ABEF</td>
+<td class="instruction">OR A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry) - Any other class ends the verb: Z if the verb slot has been filled (E bit 1 clear), NZ if not</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44016"></span>ABF0</td>
+<td class="instruction">BIT 1,E</td>
+<td class="comment-1" rowspan="1">Test bit 1 of E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44018"></span>ABF2</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="44019"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="43698.html">AAB2</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="44019"></span>ABF3</td>
+<td class="instruction">CALL <a href="44671.html">$AE7F</a></td>
+<td class="comment-1" rowspan="1">Statement mode: next token...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44022"></span>ABF6</td>
+<td class="instruction">CP $80</td>
+<td class="comment-1" rowspan="1">Compare A with $80 - ...skipping a class $80 one</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44024"></span>ABF8</td>
+<td class="instruction">CALL Z,<a href="44671.html">$AE7F</a></td>
+<td class="comment-1" rowspan="1">If A equals $80, call the routine "Read the next token of the typed line" (<a href="44671.html">AE7F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44027"></span>ABFB</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">Copy B into A - Keep the dictionary offset's high nibble out of the way</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44028"></span>ABFC</td>
+<td class="instruction">AND $0F</td>
+<td class="comment-1" rowspan="1">Keep only bits 0, 1, 2, 3 of A (mask $0F)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44030"></span>ABFE</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">Copy A into B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44031"></span>ABFF</td>
+<td class="instruction">LD HL,$994D</td>
+<td class="comment-1" rowspan="1">Point HL at "The case's relation words" (<a href="39245.html">994D</a>) - Search the relation words at <a href="39245.html">994D</a> (2 bytes each, 0 ends)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="44034"></span>AC02</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44035"></span>AC03</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44036"></span>AC04</td>
+<td class="instruction">OR (HL)</td>
+<td class="comment-1" rowspan="1">Set in A the bits that are set in the byte HL points at</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44037"></span>AC05</td>
+<td class="instruction">JR Z,$AC14</td>
+<td class="comment-1" rowspan="1">If the result is zero, skip ahead to <a href="43921.html#44052">AC14</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44039"></span>AC07</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">Copy B into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44040"></span>AC08</td>
+<td class="instruction">CP (HL)</td>
+<td class="comment-1" rowspan="1">Compare A with the byte HL points at</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44041"></span>AC09</td>
+<td class="instruction">JR NZ,$AC11</td>
+<td class="comment-1" rowspan="1">If A differs from the byte HL points at, skip ahead to <a href="43921.html#44049">AC11</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44043"></span>AC0B</td>
+<td class="instruction">DEC HL</td>
+<td class="comment-1" rowspan="1">Step HL back one byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44044"></span>AC0C</td>
+<td class="instruction">LD A,C</td>
+<td class="comment-1" rowspan="1">Copy C into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44045"></span>AC0D</td>
+<td class="instruction">CP (HL)</td>
+<td class="comment-1" rowspan="1">Compare A with the byte HL points at</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44046"></span>AC0E</td>
+<td class="instruction">JR Z,$AC17</td>
+<td class="comment-1" rowspan="1">If A equals the byte HL points at, skip ahead to <a href="43921.html#44055">AC17</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44048"></span>AC10</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-2"><span id="44049"></span>AC11</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44050"></span>AC12</td>
+<td class="instruction">JR $AC02</td>
+<td class="comment-1" rowspan="1">Go back to <a href="43921.html#44034">AC02</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="44052"></span>AC14</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - Not one of them: NZ</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44054"></span>AC16</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="44055"></span>AC17</td>
+<td class="instruction">LD (IY+$00),C</td>
+<td class="comment-1" rowspan="1">Store C in the first byte of the record at IY - Found: store its reference as the verb, take the slot, read on, return Z</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44058"></span>AC1A</td>
+<td class="instruction">LD (IY+$01),B</td>
+<td class="comment-1" rowspan="1">Store B in byte +1 of the record at IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44061"></span>AC1D</td>
+<td class="instruction">RES 1,E</td>
+<td class="comment-1" rowspan="1">Clear bit 1 of E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44063"></span>AC1F</td>
+<td class="instruction">CALL <a href="44671.html">$AE7F</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Read the next token of the typed line" (<a href="44671.html">AE7F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44066"></span>AC22</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Set A to zero, which sets the zero flag for the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44067"></span>AC23</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="43698.html">AAB2</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#43921">Map</a></td>
+<td class="next">
+Next: <a href="44068.html">AC24</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

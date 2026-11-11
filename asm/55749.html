@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at D9C5 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="55747.html">D9C3</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#55749">Map</a></td>
+<td class="next">
+Next: <a href="55858.html">DA32</a>
+</td>
+</tr>
+</table>
+<div class="description">D9C5: Tokenizer: read and classify the next word from input</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Abbreviations; but EXAMINE LA finds the LABEL and EXAMINE L, TA LAMP and T LAMP give 'WHAT ?', while words with letters added (EXAMINATION, EXAMINEXYZ) are not recognised. So a typed word is matched as the start of a dictionary word (<a href="55933.html">DA7D</a> counts the letters that agree, keeping the best in <a href="56339.html">$DC14</a>; the typed length is <a href="56339.html">DC13</a>), the first word under its letter winning a tie.
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. Skip spaces and remember where the word starts (<a href="40918.html#40994">$A029</a>).
+</div>
+<div class="paragraph">
+2. A carriage return gives an end-of-line token ($C0).
+</div>
+<div class="paragraph">
+3. Characters that are not letters (the pound sign, digits, full stop, comma, quote) are read as their own tokens (<a href="56006.html">DAC6</a>).
+</div>
+<div class="paragraph">
+4. Otherwise look up the dictionary words under the first letter (<a href="55860.html">DA34</a>), spell each one out (<a href="43341.html">A94D</a>) and compare it with the typed word (<a href="55933.html">DA7D</a>), keeping the best match.
+</div>
+<div class="paragraph">
+5. A word that matches returns its class and word reference; no match gives a $D0 token.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">The typed line</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">A,</td>
+<td class="register-desc">D The token class ($C0 end of line, $D0 not understood, $F0 number, and so on)</td>
+</tr>
+<tr>
+<td class="register">BC</td>
+<td class="register-desc">The token's value</td>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Past the word</td>
+</tr>
+<tr>
+<td class="register">$A029</td>
+<td class="register-desc">Where the word started</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="55749"></span>D9C5</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack</td>
+</tr>
+<tr>
+<td class="address-2"><span id="55750"></span>D9C6</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into A - Skip spaces</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55751"></span>D9C7</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55752"></span>D9C8</td>
+<td class="instruction">CP $20</td>
+<td class="comment-1" rowspan="1">Compare A with $20</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55754"></span>D9CA</td>
+<td class="instruction">JR Z,$D9C6</td>
+<td class="comment-1" rowspan="1">If A equals $20, go back to <a href="55749.html#55750">D9C6</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55756"></span>D9CC</td>
+<td class="instruction">DEC HL</td>
+<td class="comment-1" rowspan="1">Step HL back one byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55757"></span>D9CD</td>
+<td class="instruction">LD ($A029),HL</td>
+<td class="comment-1" rowspan="1">Remember where this word starts (<a href="40918.html#40994">$A029</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55760"></span>D9D0</td>
+<td class="instruction">CP $0D</td>
+<td class="comment-1" rowspan="1">Compare A with $0D - End of the line: a $C0 token</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55762"></span>D9D2</td>
+<td class="instruction">JR Z,$DA06</td>
+<td class="comment-1" rowspan="1">If A equals $0D, jump on to <a href="55749.html#55814">DA06</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55764"></span>D9D4</td>
+<td class="instruction">CALL <a href="56006.html">$DAC6</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Read a token that is not a word: money, a number or..." (<a href="56006.html">DAC6</a>) - A special character (<a href="56006.html">DAC6</a>)? Its own token</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55767"></span>D9D7</td>
+<td class="instruction">JR Z,$DA2F</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, jump on to <a href="55749.html#55855">DA2F</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55769"></span>D9D9</td>
+<td class="instruction">CALL <a href="55860.html">$DA34</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Look up this word's first letter in the dictionary..." (<a href="55860.html">DA34</a>) - Find the dictionary words under its first letter (<a href="55860.html">DA34</a>); none: a $D0 token (unknown word)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55772"></span>D9DC</td>
+<td class="instruction">JR Z,$DA0A</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, jump on to <a href="55749.html#55818">DA0A</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55774"></span>D9DE</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55776"></span>D9E0</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55777"></span>D9E1</td>
+<td class="instruction">LD ($DC14),A</td>
+<td class="comment-1" rowspan="1">Best match so far: none</td>
+</tr>
+<tr>
+<td class="address-2"><span id="55780"></span>D9E4</td>
+<td class="instruction">LD ($D9C3),DE</td>
+<td class="comment-1" rowspan="1">Store DE in "The tokenizer's current dictionary candidate" (<a href="55747.html">D9C3</a>) - Next candidate: spell it out (<a href="43341.html">A94D</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="55784"></span>D9E8</td>
+<td class="instruction">LD DE,($DA32)</td>
+<td class="comment-1" rowspan="1">Read "The tokenizer's word pointer" (<a href="55858.html">DA32</a>) into DE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55788"></span>D9EC</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55789"></span>D9ED</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55790"></span>D9EE</td>
+<td class="instruction">SBC HL,DE</td>
+<td class="comment-1" rowspan="1">Subtract DE and the carry from HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55792"></span>D9F0</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55793"></span>D9F1</td>
+<td class="instruction">JR Z,$DA12</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, skip ahead to <a href="55749.html#55826">DA12</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55795"></span>D9F3</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55796"></span>D9F4</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55797"></span>D9F5</td>
+<td class="instruction">CALL <a href="43341.html">$A94D</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Spell dictionary record HL into the buffer at <a href="../rom_symbols.html#a5C42">$5C42</a>" (<a href="43341.html">A94D</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55800"></span>D9F8</td>
+<td class="instruction">LD A,(DE)</td>
+<td class="comment-1" rowspan="1">Read the byte DE points at into A - Skip records of class $D0</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55801"></span>D9F9</td>
+<td class="instruction">AND $F0</td>
+<td class="comment-1" rowspan="1">Keep only bits 4, 5, 6, 7 of A (mask $F0)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55803"></span>D9FB</td>
+<td class="instruction">CP $D0</td>
+<td class="comment-1" rowspan="1">Compare A with $D0</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55805"></span>D9FD</td>
+<td class="instruction">JR Z,$D9E8</td>
+<td class="comment-1" rowspan="1">If A equals $D0, go back to <a href="55749.html#55784">D9E8</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55807"></span>D9FF</td>
+<td class="instruction">CALL <a href="55933.html">$DA7D</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Compare the typed word against one dictionary..." (<a href="55933.html">DA7D</a>) - Compare it with the typed word (<a href="55933.html">DA7D</a>); Z at the end of this letter's words</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55810"></span>DA02</td>
+<td class="instruction">JR Z,$DA12</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, skip ahead to <a href="55749.html#55826">DA12</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55812"></span>DA04</td>
+<td class="instruction">JR $D9E4</td>
+<td class="comment-1" rowspan="1">Go back to <a href="55749.html#55780">D9E4</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="55814"></span>DA06</td>
+<td class="instruction">LD A,$C0</td>
+<td class="comment-1" rowspan="1">Load A with $C0 - $C0: end of the line</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55816"></span>DA08</td>
+<td class="instruction">JR $DA0C</td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="55749.html#55820">DA0C</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="55818"></span>DA0A</td>
+<td class="instruction">LD A,$D0</td>
+<td class="comment-1" rowspan="1">Load A with $D0 - $D0: not a word the game knows</td>
+</tr>
+<tr>
+<td class="address-2"><span id="55820"></span>DA0C</td>
+<td class="instruction">LD BC,$0000</td>
+<td class="comment-1" rowspan="1">Load BC with $0000</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55823"></span>DA0F</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55824"></span>DA10</td>
+<td class="instruction">LD D,A</td>
+<td class="comment-1" rowspan="1">Copy A into D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55825"></span>DA11</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="55826"></span>DA12</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack - Fewer than four letters agree: they must be all the letters typed</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55827"></span>DA13</td>
+<td class="instruction">LD A,($DC14)</td>
+<td class="comment-1" rowspan="1">Read <a href="56339.html">$DC14</a> in "The number reader's working bytes" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55830"></span>DA16</td>
+<td class="instruction">CP $04</td>
+<td class="comment-1" rowspan="1">Compare A with $04</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55832"></span>DA18</td>
+<td class="instruction">JR NC,$DA21</td>
+<td class="comment-1" rowspan="1">If A is $04 or more, skip ahead to <a href="55749.html#55841">DA21</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55834"></span>DA1A</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">Copy A into B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55835"></span>DA1B</td>
+<td class="instruction">LD A,($DC13)</td>
+<td class="comment-1" rowspan="1">Read "The number reader's working bytes" (<a href="56339.html">DC13</a>) into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55838"></span>DA1E</td>
+<td class="instruction">CP B</td>
+<td class="comment-1" rowspan="1">Compare A with B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55839"></span>DA1F</td>
+<td class="instruction">JR NZ,$DA0A</td>
+<td class="comment-1" rowspan="1">If A differs from B, go back to <a href="55749.html#55818">DA0A</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="55841"></span>DA21</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack - BC = the chosen word's offset from the dictionary base <a href="23936.html#23998">$5DBF</a>, A = its class</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55842"></span>DA22</td>
+<td class="instruction">LD HL,($D9C3)</td>
+<td class="comment-1" rowspan="1">Read "The tokenizer's current dictionary candidate" (<a href="55747.html">D9C3</a>) into HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55845"></span>DA25</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55846"></span>DA26</td>
+<td class="instruction">AND $F0</td>
+<td class="comment-1" rowspan="1">Keep only bits 4, 5, 6, 7 of A (mask $F0)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55848"></span>DA28</td>
+<td class="instruction">LD BC,$5DBF</td>
+<td class="comment-1" rowspan="1">Point BC at <a href="23936.html#23998">$5DBF</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55851"></span>DA2B</td>
+<td class="instruction">SBC HL,BC</td>
+<td class="comment-1" rowspan="1">Subtract BC and the carry from HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55853"></span>DA2D</td>
+<td class="instruction">EX (SP),HL</td>
+<td class="comment-1" rowspan="1">Swap HL with the word on top of the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55854"></span>DA2E</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore BC from the stack</td>
+</tr>
+<tr>
+<td class="address-2"><span id="55855"></span>DA2F</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55856"></span>DA30</td>
+<td class="instruction">LD D,A</td>
+<td class="comment-1" rowspan="1">Copy A into D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55857"></span>DA31</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="55747.html">D9C3</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#55749">Map</a></td>
+<td class="next">
+Next: <a href="55858.html">DA32</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

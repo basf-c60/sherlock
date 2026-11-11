@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at E588 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="58746.html">E57A</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#58760">Map</a></td>
+<td class="next">
+Next: <a href="58792.html">E5A8</a>
+</td>
+</tr>
+</table>
+<div class="description">E588: Script helper: cancel the actor's countdown</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Unlinks the actor's countdown node from <a href="40918.html#40933">9FE5</a> and frees it; the pre-check refuses when there is none. <a href="58760.html#58764">E58C</a> is the shared tail also used by <a href="58746.html">E57A</a>.
+</div>
+<div class="paragraph">
+Used by: RUN at <a href="58450.html#58471">E467</a>; RUN at <a href="59290.html#59314">E7B2</a>; RUN at <a href="59290.html#59318">E7B6</a>; RUN at <a href="60971.html#61334">EF96</a>; RUN at <a href="62130.html#62160">F2D0</a>; RUN at <a href="62130.html#62204">F2FC</a>; RUN at <a href="62130.html#62254">F32E</a>; RUN at <a href="62130.html#62297">F359</a>; RUN at <a href="62130.html#62310">F366</a>; RUN at <a href="62370.html">F3A2</a>.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">The actor's countdown node</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ; the node unlinked and freed</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="58760"></span>E588</td>
+<td class="instruction">DEFB $40,$00,$73,$E5</td>
+<td class="comment-1" rowspan="1">Action record header: flags $40; bit 6: pre-check at <a href="58671.html#58739">E573</a>; byte 1 $00</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="58764"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="58746.html">E57A</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="58764"></span>E58C</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack - DE = the node</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58766"></span>E58E</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58767"></span>E58F</td>
+<td class="instruction">LD IY,$9FE5</td>
+<td class="comment-1" rowspan="1">Point IY at countdowns (<a href="40918.html#40933">9FE5</a>) - Find the node before it</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58771"></span>E593</td>
+<td class="instruction">CALL <a href="41220.html">$A104</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Find the node before node DE in the list at IY" (<a href="41220.html">A104</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58774"></span>E596</td>
+<td class="instruction">LD L,(IX-$02)</td>
+<td class="comment-1" rowspan="1">Read byte -2 of the record at IX into L - Unlink it</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58777"></span>E599</td>
+<td class="instruction">LD H,(IX-$01)</td>
+<td class="comment-1" rowspan="1">Read byte -1 of the record at IX into H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58780"></span>E59C</td>
+<td class="instruction">LD (IY-$02),L</td>
+<td class="comment-1" rowspan="1">Store L in byte -2 of the record at IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58783"></span>E59F</td>
+<td class="instruction">LD (IY-$01),H</td>
+<td class="comment-1" rowspan="1">Store H in byte -1 of the record at IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58786"></span>E5A2</td>
+<td class="instruction">CALL <a href="41415.html">$A1C7</a></td>
+<td class="comment-1" rowspan="1">Free it</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58789"></span>E5A5</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - Done</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58791"></span>E5A7</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="58746.html">E57A</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#58760">Map</a></td>
+<td class="next">
+Next: <a href="58792.html">E5A8</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

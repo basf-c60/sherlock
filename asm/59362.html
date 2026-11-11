@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at E7E2 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="59290.html">E79A</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#59362">Map</a></td>
+<td class="next">
+Next: <a href="59367.html">E7E7</a>
+</td>
+</tr>
+</table>
+<div class="description">E7E2: Script helper: is the actor carrying this?</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+A record with no code to speak of (OR 1 / RET): all the work is the requirement code 10 in its header - the direct object must be here and held by the actor - so RUN <a href="59362.html">E7E2</a> / thing simply fails unless the actor has the thing (Watson and his newspaper, Lestrade and the large rock).
+</div>
+<div class="paragraph">
+Used by: RUN at <a href="59183.html#59231">E75F</a>; RUN at <a href="59290.html#59301">E7A5</a>; RUN at <a href="59367.html#59808">E9A0</a>.
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="59362"></span>E7E2</td>
+<td class="instruction">DEFB $0A,$00</td>
+<td class="comment-1" rowspan="1">Action record header: flags $0A; byte 1 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59364"></span>E7E4</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - Nothing else to check: succeed</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59366"></span>E7E6</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="59290.html">E79A</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#59362">Map</a></td>
+<td class="next">
+Next: <a href="59367.html">E7E7</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

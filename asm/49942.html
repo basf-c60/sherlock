@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at C316 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="49926.html">C306</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#49942">Map</a></td>
+<td class="next">
+Next: <a href="50045.html">C37D</a>
+</td>
+</tr>
+</table>
+<div class="description">C316: Scroll the text up a line, printing the line that goes if printing is on</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Moves screen rows 1-17 up to rows 0-16, eight pixel lines at a time: all 32 bytes of each line in full-width mode, only the left 16 when a picture is showing (<a href="49448.html">C128</a> set). In full-width mode the colours of rows 1-17 move up too, and before anything moves the top row goes to the ZX Printer (<a href="50148.html">C3E4</a>) if printing is on. Then row 17 is cleared with 36 (or 18) spaces. Called by the character printer at <a href="49850.html#49887">C2DF</a> on every newline.
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. At full width, send the top row to the printer (<a href="50148.html">C3E4</a>) if printing is on.
+</div>
+<div class="paragraph">
+2. Move text rows 1 to 17 up to rows 0 to 16, eight pixel lines each, 32 bytes a line (16 beside a picture).
+</div>
+<div class="paragraph">
+3. Clear the bottom text row.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">The print position</td>
+</tr>
+<tr>
+<td class="register">C</td>
+<td class="register-desc">The pixel shift</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">The</td>
+<td class="register-desc">text rows moved up one line; the top row sent to the printer first when at full width</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="49942"></span>C316</td>
+<td class="instruction">LD A,($C128)</td>
+<td class="comment-1" rowspan="1">Read "Flag: text lines are narrow (a picture is showing)" (<a href="49448.html">C128</a>) into A - Full width: send the top row to the printer first</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49945"></span>C319</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49946"></span>C31A</td>
+<td class="instruction">CALL Z,<a href="50148.html">$C3E4</a></td>
+<td class="comment-1" rowspan="1">If A is zero, call the routine "Send the screen's top character row to the ZX..." (<a href="50148.html">C3E4</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49949"></span>C31D</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Save BC on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49950"></span>C31E</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49951"></span>C31F</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49952"></span>C320</td>
+<td class="instruction">LD HL,$4020</td>
+<td class="comment-1" rowspan="1">Load HL with $4020 - From row 1 to row 0, 17 rows</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49955"></span>C323</td>
+<td class="instruction">LD DE,$4000</td>
+<td class="comment-1" rowspan="1">Load DE with <a href="../rom_symbols.html#a4000">$4000</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="49958"></span>C326</td>
+<td class="instruction">LD BC,$0011</td>
+<td class="comment-1" rowspan="1">Load BC with $0011</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49961"></span>C329</td>
+<td class="instruction">LD A,($C128)</td>
+<td class="comment-1" rowspan="1">Read "Flag: text lines are narrow (a picture is showing)" (<a href="49448.html">C128</a>) into A - 32 bytes a line, or 16 beside a picture</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49964"></span>C32C</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49965"></span>C32D</td>
+<td class="instruction">LD A,$20</td>
+<td class="comment-1" rowspan="1">Load A with $20</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49967"></span>C32F</td>
+<td class="instruction">JR Z,$C333</td>
+<td class="comment-1" rowspan="1">If A is zero, skip ahead to <a href="49942.html#49971">C333</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="49969"></span>C331</td>
+<td class="instruction">LD A,$10</td>
+<td class="comment-1" rowspan="1">Load A with $10</td>
+</tr>
+<tr>
+<td class="address-2"><span id="49971"></span>C333</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49972"></span>C334</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49973"></span>C335</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Save BC on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49974"></span>C336</td>
+<td class="instruction">LD C,$08</td>
+<td class="comment-1" rowspan="1">Load C with $08 - Eight pixel lines</td>
+</tr>
+<tr>
+<td class="address-2"><span id="49976"></span>C338</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49977"></span>C339</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49978"></span>C33A</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Save BC on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49979"></span>C33B</td>
+<td class="instruction">LD C,A</td>
+<td class="comment-1" rowspan="1">Copy A into C - Move one pixel line of the row</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49980"></span>C33C</td>
+<td class="instruction">LDIR</td>
+<td class="comment-1" rowspan="1">Copy BC bytes from where HL points to where DE points, counting up</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49982"></span>C33E</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore BC from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49983"></span>C33F</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49984"></span>C340</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49985"></span>C341</td>
+<td class="instruction">INC H</td>
+<td class="comment-1" rowspan="1">Add one to H - Next pixel line</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49986"></span>C342</td>
+<td class="instruction">INC D</td>
+<td class="comment-1" rowspan="1">Add one to D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49987"></span>C343</td>
+<td class="instruction">DEC C</td>
+<td class="comment-1" rowspan="1">Subtract one from C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49988"></span>C344</td>
+<td class="instruction">JR NZ,$C338</td>
+<td class="comment-1" rowspan="1">If C is not zero, go back to <a href="49942.html#49976">C338</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="49990"></span>C346</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore BC from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49991"></span>C347</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49992"></span>C348</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49993"></span>C349</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack - Both pointers on a character row</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49994"></span>C34A</td>
+<td class="instruction">CALL <a href="50045.html">$C37D</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Swap DE and HL, then move HL down a character row" (<a href="50045.html">C37D</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49997"></span>C34D</td>
+<td class="instruction">CALL <a href="50045.html">$C37D</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Swap DE and HL, then move HL down a character row" (<a href="50045.html">C37D</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50000"></span>C350</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50001"></span>C351</td>
+<td class="instruction">DEC C</td>
+<td class="comment-1" rowspan="1">Subtract one from C - Next row</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50002"></span>C352</td>
+<td class="instruction">JR NZ,$C333</td>
+<td class="comment-1" rowspan="1">If C is not zero, go back to <a href="49942.html#49971">C333</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="50004"></span>C354</td>
+<td class="instruction">CP $10</td>
+<td class="comment-1" rowspan="1">Compare A with $10 - Full width: move the colours of rows 1-17 up too</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50006"></span>C356</td>
+<td class="instruction">JR Z,$C363</td>
+<td class="comment-1" rowspan="1">If A equals $10, skip ahead to <a href="49942.html#50019">C363</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="50008"></span>C358</td>
+<td class="instruction">LD HL,$5820</td>
+<td class="comment-1" rowspan="1">Load HL with $5820</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50011"></span>C35B</td>
+<td class="instruction">LD DE,$5800</td>
+<td class="comment-1" rowspan="1">Load DE with <a href="../rom_symbols.html#a5800">$5800</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="50014"></span>C35E</td>
+<td class="instruction">LD BC,$0220</td>
+<td class="comment-1" rowspan="1">Load BC with $0220</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50017"></span>C361</td>
+<td class="instruction">LDIR</td>
+<td class="comment-1" rowspan="1">Copy BC bytes from where HL points to where DE points, counting up</td>
+</tr>
+<tr>
+<td class="address-2"><span id="50019"></span>C363</td>
+<td class="instruction">LD A,($C128)</td>
+<td class="comment-1" rowspan="1">Read "Flag: text lines are narrow (a picture is showing)" (<a href="49448.html">C128</a>) into A - Clear row 17: 36 spaces, or 18</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50022"></span>C366</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50023"></span>C367</td>
+<td class="instruction">LD B,$24</td>
+<td class="comment-1" rowspan="1">Load B with $24</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50025"></span>C369</td>
+<td class="instruction">JR Z,$C36D</td>
+<td class="comment-1" rowspan="1">If A is zero, skip ahead to <a href="49942.html#50029">C36D</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="50027"></span>C36B</td>
+<td class="instruction">LD B,$12</td>
+<td class="comment-1" rowspan="1">Load B with $12</td>
+</tr>
+<tr>
+<td class="address-2"><span id="50029"></span>C36D</td>
+<td class="instruction">LD HL,$5020</td>
+<td class="comment-1" rowspan="1">Load HL with $5020 - from pixel shift 2</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50032"></span>C370</td>
+<td class="instruction">LD C,$02</td>
+<td class="comment-1" rowspan="1">Load C with $02</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50034"></span>C372</td>
+<td class="instruction">LD A,$20</td>
+<td class="comment-1" rowspan="1">Load A with $20</td>
+</tr>
+<tr>
+<td class="address-2"><span id="50036"></span>C374</td>
+<td class="instruction">CALL <a href="50056.html">$C388</a></td>
+<td class="comment-1" rowspan="1">Call the routine "PLOT-CHAR: draw one character glyph at HL, shifted by..." (<a href="50056.html">C388</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50039"></span>C377</td>
+<td class="instruction">DJNZ $C374</td>
+<td class="comment-1" rowspan="1">Count B down and, while it is not zero, go back to <a href="49942.html#50036">C374</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="50041"></span>C379</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50042"></span>C37A</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50043"></span>C37B</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore BC from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50044"></span>C37C</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="49926.html">C306</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#49942">Map</a></td>
+<td class="next">
+Next: <a href="50045.html">C37D</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

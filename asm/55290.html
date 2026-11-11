@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at D7FA - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="55265.html">D7E1</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#55290">Map</a></td>
+<td class="next">
+Next: <a href="55421.html">D87D</a>
+</td>
+</tr>
+</table>
+<div class="description">D7FA: Player's turn: turn the sentence into a command (RUN at $993C)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="39201.html#39228">993C</a>.
+</div>
+<div class="paragraph">
+Part of the player's own script (see <a href="39201.html#39228">993C</a>): parses the sentence at <a href="40918.html#40946">9FF2</a> into a verb and objects (<a href="45457.html">B191</a>) and copies them into the plan registers (<a href="40918.html">9FD6</a>-<a href="40918.html#40920">9FD8</a>), where the script's DO picks them up. With ALL (<a href="40918.html#40986">$A01C</a>, kept in <a href="54968.html">D6B8</a> between turns) the sentence is kept so that the next turn takes the next thing; otherwise its node is freed, with any BUT nodes after it. If the sentence does not parse, an ALL that has run out of things fails quietly (<a href="56341.html">DC15</a>, with <a href="40918.html#41010">$A033</a> = $FF); anything else sets <a href="55264.html">D7E0</a> so that the rest of the line is thrown away (<a href="55265.html">D7E1</a>).
+</div>
+<div class="paragraph">
+This record is one step of the loop in the player's own plan script at <a href="39201.html">9921</a>: DO LOOK once, then read a line (<a href="54975.html">D6BF</a>), split it into words (<a href="55061.html">D715</a>), check there is a word (<a href="55145.html">D769</a>), parse a sentence (<a href="55166.html">D77E</a>), check there is a sentence (<a href="55257.html">D7D9</a>), turn it into a command (<a href="55290.html">D7FA</a>) and DO it. When you wear the china man's disguise the same script runs for him; the counts below include both.
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. Carry the ALL flag over from the last turn and take the sentence at <a href="40918.html#40946">9FF2</a>.
+</div>
+<div class="paragraph">
+2. Parse it into a verb and objects (<a href="45457.html">B191</a>). If that fails, set the failure flag and finish.
+</div>
+<div class="paragraph">
+3. Put the verb and objects in the plan registers (<a href="40918.html">9FD6</a>, <a href="40918.html#40919">9FD7</a>), and note where the ALL search got to.
+</div>
+<div class="paragraph">
+4. If ALL is still going keep the sentence; otherwise unhook and free its node.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$9FF2</td>
+<td class="register-desc">The sentence</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">$9FD6</td>
+<td class="register-desc">The verb</td>
+</tr>
+<tr>
+<td class="register">$9FD7</td>
+<td class="register-desc">The objects</td>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Z if the sentence could not be made into a command</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="55290"></span>D7FA</td>
+<td class="instruction">DEFB $00,$00</td>
+<td class="comment-1" rowspan="1">Action record header: flags $00; byte 1 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55292"></span>D7FC</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55293"></span>D7FD</td>
+<td class="instruction">LD A,($D6B8)</td>
+<td class="comment-1" rowspan="1">Read "A flag of the player's script step, and spare..." (<a href="54968.html">D6B8</a>) into A - Carry the ALL flag over from the last turn</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55296"></span>D800</td>
+<td class="instruction">LD ($A01C),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#40986">$A01C</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55299"></span>D803</td>
+<td class="instruction">LD IY,($9FF2)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40946">9FF2</a> in "Game variables" into IY - IY = the sentence; where the ALL search had got to (<a href="54968.html#54971">D6BB</a> -&gt; <a href="45421.html#45437">$B17E</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55303"></span>D807</td>
+<td class="instruction">LD HL,($D6BB)</td>
+<td class="comment-1" rowspan="1">Read <a href="54968.html#54971">D6BB</a> in "A flag of the player's script step, and..." into HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55306"></span>D80A</td>
+<td class="instruction">LD ($B17E),HL</td>
+<td class="comment-1" rowspan="1">Store HL in <a href="45421.html#45437">$B17E</a> in "Parser variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55309"></span>D80D</td>
+<td class="instruction">CALL <a href="45457.html">$B191</a></td>
+<td class="comment-1" rowspan="1">Parse it into a verb and objects (<a href="45457.html">B191</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55312"></span>D810</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="1">Load A with $01 - (failures now count: <a href="40918.html#40970">$A00B</a> = 1)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55314"></span>D812</td>
+<td class="instruction">LD ($A00B),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#40970">$A00B</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55317"></span>D815</td>
+<td class="instruction">JP Z,$D85B</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, jump on to <a href="55290.html#55387">D85B</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55320"></span>D818</td>
+<td class="instruction">LD A,($A01C)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40986">$A01C</a> in "Game variables" into A - Parsed: keep the ALL flag for next turn</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55323"></span>D81B</td>
+<td class="instruction">LD ($D6B8),A</td>
+<td class="comment-1" rowspan="1">Store A in "A flag of the player's script step, and spare..." (<a href="54968.html">D6B8</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55326"></span>D81E</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="1">Load A with $01 - The next letter printed is a capital (<a href="40918.html#40994">$A026</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55328"></span>D820</td>
+<td class="instruction">LD ($A026),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#40994">$A026</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55331"></span>D823</td>
+<td class="instruction">LD A,($A033)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A033</a> in "Game variables" into A - The verb and objects into the plan registers</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55334"></span>D826</td>
+<td class="instruction">LD ($9FD6),A</td>
+<td class="comment-1" rowspan="1">Store A in the plan's verb (<a href="40918.html">9FD6</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55337"></span>D829</td>
+<td class="instruction">LD HL,($A034)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A034</a> in "Game variables" into HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55340"></span>D82C</td>
+<td class="instruction">LD ($9FD7),HL</td>
+<td class="comment-1" rowspan="1">Store HL in the plan's direct object (<a href="40918.html#40919">9FD7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55343"></span>D82F</td>
+<td class="instruction">LD HL,($B17E)</td>
+<td class="comment-1" rowspan="1">Read <a href="45421.html#45437">$B17E</a> in "Parser variables" into HL - Note where the ALL search got to</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55346"></span>D832</td>
+<td class="instruction">LD ($D6BB),HL</td>
+<td class="comment-1" rowspan="1">Store HL in <a href="54968.html#54971">D6BB</a> in "A flag of the player's script step, and..."</td>
+</tr>
+<tr>
+<td class="address-2"><span id="55349"></span>D835</td>
+<td class="instruction">LD A,($D6B8)</td>
+<td class="comment-1" rowspan="1">Read "A flag of the player's script step, and spare..." (<a href="54968.html">D6B8</a>) into A - ALL still going: keep the sentence</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55352"></span>D838</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55353"></span>D839</td>
+<td class="instruction">JR NZ,$D858</td>
+<td class="comment-1" rowspan="1">If A is not zero, skip ahead to <a href="55290.html#55384">D858</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55355"></span>D83B</td>
+<td class="instruction">LD IX,($9FF2)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40946">9FF2</a> in "Game variables" into IX - Otherwise unhook and free its node...</td>
+</tr>
+<tr>
+<td class="address-2"><span id="55359"></span>D83F</td>
+<td class="instruction">LD L,(IX-$02)</td>
+<td class="comment-1" rowspan="1">Read byte -2 of the record at IX into L</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55362"></span>D842</td>
+<td class="instruction">LD H,(IX-$01)</td>
+<td class="comment-1" rowspan="1">Read byte -1 of the record at IX into H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55365"></span>D845</td>
+<td class="instruction">LD ($9FF2),HL</td>
+<td class="comment-1" rowspan="1">Store HL in <a href="40918.html#40946">9FF2</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55368"></span>D848</td>
+<td class="instruction">CALL <a href="41415.html">$A1C7</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Free node IX back to the heap" (<a href="41415.html">A1C7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55371"></span>D84B</td>
+<td class="instruction">LD A,L</td>
+<td class="comment-1" rowspan="1">Copy L into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55372"></span>D84C</td>
+<td class="instruction">OR H</td>
+<td class="comment-1" rowspan="1">Set in A the bits that are set in H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55373"></span>D84D</td>
+<td class="instruction">JR Z,$D858</td>
+<td class="comment-1" rowspan="1">If the result is zero, skip ahead to <a href="55290.html#55384">D858</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55375"></span>D84F</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack - ...and any nodes after it marked with bit 6 (BUT)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55376"></span>D850</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55378"></span>D852</td>
+<td class="instruction">BIT 6,(IX+$01)</td>
+<td class="comment-1" rowspan="1">Test bit 6 of byte +1 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55382"></span>D856</td>
+<td class="instruction">JR NZ,$D83F</td>
+<td class="comment-1" rowspan="1">If bit 6 of byte +1 of the record at IX is set, go back to <a href="55290.html#55359">D83F</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="55384"></span>D858</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - Succeed</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55386"></span>D85A</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="55387"></span>D85B</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag) - Did not parse: the ALL is over</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55388"></span>D85C</td>
+<td class="instruction">LD ($D6B8),A</td>
+<td class="comment-1" rowspan="1">Store A in "A flag of the player's script step, and spare..." (<a href="54968.html">D6B8</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55391"></span>D85F</td>
+<td class="instruction">LD A,($A01C)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40986">$A01C</a> in "Game variables" into A - It was an ALL: no verb (<a href="40918.html#41010">$A033</a> = $FF), drop the sentence and fail quietly</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55394"></span>D862</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55395"></span>D863</td>
+<td class="instruction">JR Z,$D870</td>
+<td class="comment-1" rowspan="1">If A is zero, skip ahead to <a href="55290.html#55408">D870</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55397"></span>D865</td>
+<td class="instruction">LD A,$FF</td>
+<td class="comment-1" rowspan="1">Load A with $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55399"></span>D867</td>
+<td class="instruction">LD ($A033),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41010">$A033</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55402"></span>D86A</td>
+<td class="instruction">CALL $D835</td>
+<td class="comment-1" rowspan="1">Call <a href="55290.html#55349">D835</a> (inside "Player's turn: turn the sentence into a...")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55405"></span>D86D</td>
+<td class="instruction">JP <a href="56341.html">$DC15</a></td>
+<td class="comment-1" rowspan="1">Jump on to the routine "Fail: A = 0, HL = 0, Z set" (<a href="56341.html">DC15</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="55408"></span>D870</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="1">Load A with $01 - Otherwise drop the rest of the line (<a href="55264.html">D7E0</a>) and end the word list there</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55410"></span>D872</td>
+<td class="instruction">LD ($D7E0),A</td>
+<td class="comment-1" rowspan="1">Store A in "A flag for <a href="55265.html">D7E1</a>" (<a href="55264.html">D7E0</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55413"></span>D875</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55414"></span>D876</td>
+<td class="instruction">LD HL,($D6BD)</td>
+<td class="comment-1" rowspan="1">Read <a href="54968.html#54973">D6BD</a> in "A flag of the player's script step, and..." into HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55417"></span>D879</td>
+<td class="instruction">LD (HL),$C0</td>
+<td class="comment-1" rowspan="1">Store $C0 at the address HL points to</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55419"></span>D87B</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55420"></span>D87C</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="55265.html">D7E1</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#55290">Map</a></td>
+<td class="next">
+Next: <a href="55421.html">D87D</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

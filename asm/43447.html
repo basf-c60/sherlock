@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at A9B7 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="43445.html">A9B5</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#43447">Map</a></td>
+<td class="next">
+Next: <a href="43540.html">AA14</a>
+</td>
+</tr>
+</table>
+<div class="description">A9B7: Print character A, a word at a time (word wrap)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Every character the message interpreter prints comes here. Unless quoted printing is on (<a href="40918.html#40994">$A027</a>: straight to <a href="49633.html">C1E1</a>), characters are collected in the buffer at <a href="../rom_symbols.html#a5C0B">$5C0B</a>, a backspace (8) taking the last one off again - which is how suffixes such as '&lt;delete&gt;IES' work. A space, a carriage return or a quote mark ends the word: if the word is longer than the count at <a href="49652.html#49653">C1F5</a> allows, a new line is started first, and then the word is sent to <a href="43540.html">AA14</a> character by character. <a href="43540.html">AA14</a> turns letters to lower case and drops spaces at the start of a line (<a href="40918.html#40994">$A025</a> = 0 there).
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. If quoted printing is on (<a href="40918.html#40994">$A027</a>), send the character straight out (<a href="49633.html">C1E1</a>).
+</div>
+<div class="paragraph">
+2. A space, carriage return or quote ends a word. Any other character is added to the word buffer at <a href="../rom_symbols.html#a5C0B">$5C0B</a>; a delete removes the last letter.
+</div>
+<div class="paragraph">
+3. When a word ends: if it does not fit on the rest of the line (<a href="49652.html#49653">C1F5</a>), start a new line first. Then print the word, and then the character that ended it.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">The character to print</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">All</td>
+<td class="register-desc">registers kept</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="43447"></span>A9B7</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack - Quoted printing on?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43448"></span>A9B8</td>
+<td class="instruction">LD A,($A027)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40994">$A027</a> in "Game variables" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43451"></span>A9BB</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43452"></span>A9BC</td>
+<td class="instruction">JR NZ,$AA10</td>
+<td class="comment-1" rowspan="1">If A is not zero, jump on to <a href="43447.html#43536">AA10</a> - Yes: print it as it is</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43454"></span>A9BE</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43455"></span>A9BF</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43456"></span>A9C0</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43457"></span>A9C1</td>
+<td class="instruction">LD HL,($A9B5)</td>
+<td class="comment-1" rowspan="1">The end of the word so far</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43460"></span>A9C4</td>
+<td class="instruction">CP $20</td>
+<td class="comment-1" rowspan="1">Compare A with $20 - A space...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43462"></span>A9C6</td>
+<td class="instruction">JR Z,$A9DF</td>
+<td class="comment-1" rowspan="1">If A equals $20, skip ahead to <a href="43447.html#43487">A9DF</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43464"></span>A9C8</td>
+<td class="instruction">CP $0D</td>
+<td class="comment-1" rowspan="1">Compare A with $0D - ...a carriage return...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43466"></span>A9CA</td>
+<td class="instruction">JR Z,$A9DF</td>
+<td class="comment-1" rowspan="1">If A equals $0D, skip ahead to <a href="43447.html#43487">A9DF</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43468"></span>A9CC</td>
+<td class="instruction">CP $22</td>
+<td class="comment-1" rowspan="1">Compare A with $22 - ...or a quote mark ends the word</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43470"></span>A9CE</td>
+<td class="instruction">JR Z,$A9DF</td>
+<td class="comment-1" rowspan="1">If A equals $22, skip ahead to <a href="43447.html#43487">A9DF</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43472"></span>A9D0</td>
+<td class="instruction">CP $08</td>
+<td class="comment-1" rowspan="1">Compare A with $08 - A delete...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43474"></span>A9D2</td>
+<td class="instruction">JR NZ,$A9D7</td>
+<td class="comment-1" rowspan="1">If A differs from $08, skip ahead to <a href="43447.html#43479">A9D7</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43476"></span>A9D4</td>
+<td class="instruction">DEC HL</td>
+<td class="comment-1" rowspan="1">Step HL back one byte - ...takes the last letter back</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43477"></span>A9D5</td>
+<td class="instruction">JR $A9D9</td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="43447.html#43481">A9D9</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="43479"></span>A9D7</td>
+<td class="instruction">LD (HL),A</td>
+<td class="comment-1" rowspan="1">Store A at the address HL points to - Otherwise add the letter</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43480"></span>A9D8</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-2"><span id="43481"></span>A9D9</td>
+<td class="instruction">LD ($A9B5),HL</td>
+<td class="comment-1" rowspan="1">Store HL in "Word buffer pointer for <a href="43447.html">A9B7</a>" (<a href="43445.html">A9B5</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43484"></span>A9DC</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43485"></span>A9DD</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43486"></span>A9DE</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="43487"></span>A9DF</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack - An empty word?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43488"></span>A9E0</td>
+<td class="instruction">LD DE,$5C0B</td>
+<td class="comment-1" rowspan="1">Point DE at the tape header workspace (<a href="../rom_symbols.html#a5C0B">$5C0B</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43491"></span>A9E3</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Clear the carry flag, so that the subtraction that follows is a plain one (a compare)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43492"></span>A9E4</td>
+<td class="instruction">SBC HL,DE</td>
+<td class="comment-1" rowspan="1">Subtract DE from HL (a compare: carry = HL was smaller, zero = equal)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43494"></span>A9E6</td>
+<td class="instruction">JR Z,$AA0B</td>
+<td class="comment-1" rowspan="1">If the two values are equal, skip ahead to <a href="43447.html#43531">AA0B</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43496"></span>A9E8</td>
+<td class="instruction">LD A,($C1F5)</td>
+<td class="comment-1" rowspan="1">Read the characters left on the line (<a href="49652.html#49653">C1F5</a>) into A - Does the word fit?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43499"></span>A9EB</td>
+<td class="instruction">CP L</td>
+<td class="comment-1" rowspan="1">Compare A with L</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43500"></span>A9EC</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43501"></span>A9ED</td>
+<td class="instruction">JR NC,$A9F4</td>
+<td class="comment-1" rowspan="1">If A is L or more, skip ahead to <a href="43447.html#43508">A9F4</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43503"></span>A9EF</td>
+<td class="instruction">LD A,$0D</td>
+<td class="comment-1" rowspan="1">Load A with $0D - No: new line first</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43505"></span>A9F1</td>
+<td class="instruction">CALL <a href="43540.html">$AA14</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Send one character to the screen layer" (<a href="43540.html">AA14</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="43508"></span>A9F4</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Save BC on the stack - Send the word out</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43509"></span>A9F5</td>
+<td class="instruction">LD B,L</td>
+<td class="comment-1" rowspan="1">Copy L into B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43510"></span>A9F6</td>
+<td class="instruction">LD HL,$5C0B</td>
+<td class="comment-1" rowspan="1">Point HL at the tape header workspace (<a href="../rom_symbols.html#a5C0B">$5C0B</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43513"></span>A9F9</td>
+<td class="instruction">LD ($A9B5),HL</td>
+<td class="comment-1" rowspan="1">Store HL in "Word buffer pointer for <a href="43447.html">A9B7</a>" (<a href="43445.html">A9B5</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="43516"></span>A9FC</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43517"></span>A9FD</td>
+<td class="instruction">CALL <a href="43540.html">$AA14</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Send one character to the screen layer" (<a href="43540.html">AA14</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43520"></span>AA00</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43521"></span>AA01</td>
+<td class="instruction">DJNZ $A9FC</td>
+<td class="comment-1" rowspan="1">Count B down and, while it is not zero, go back to <a href="43447.html#43516">A9FC</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43523"></span>AA03</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore BC from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43524"></span>AA04</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43525"></span>AA05</td>
+<td class="instruction">JR NZ,$AA0B</td>
+<td class="comment-1" rowspan="1">If the zero flag is clear, skip ahead to <a href="43447.html#43531">AA0B</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43527"></span>AA07</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43528"></span>AA08</td>
+<td class="instruction">LD ($A025),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#40994">$A025</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-2"><span id="43531"></span>AA0B</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack - ...then the character that ended it</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43532"></span>AA0C</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43533"></span>AA0D</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43534"></span>AA0E</td>
+<td class="instruction">JR <a href="43540.html">$AA14</a></td>
+<td class="comment-1" rowspan="1">Skip ahead to the routine "Send one character to the screen layer" (<a href="43540.html">AA14</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="43536"></span>AA10</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43537"></span>AA11</td>
+<td class="instruction">JP <a href="49633.html">$C1E1</a></td>
+<td class="comment-1" rowspan="1">Jump on to the routine "Print gatekeeper: check two flags, then dispatch" (<a href="49633.html">C1E1</a>)</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="43445.html">A9B5</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#43447">Map</a></td>
+<td class="next">
+Next: <a href="43540.html">AA14</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

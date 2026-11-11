@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at 9A7E - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="39549.html">9A7D</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#39550">Map</a></td>
+<td class="next">
+Next: <a href="39552.html">9A80</a>
+</td>
+</tr>
+</table>
+<div class="description">9A7E: Action record: default for verb 32 (HELLO)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The record is only its two header bytes: HELLO has no body of its own, and the code that follows at <a href="39552.html">9A80</a> is what runs. HELLO by itself prints 'HI.' and takes no time; SAY TO WATSON "HELLO" makes Watson answer 'Watson says " Good morning "'.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="39550"></span>9A7E</td>
+<td class="instruction">DEFB $00,$00</td>
+<td class="comment-1" rowspan="1">Action record header: flags $00; byte 1 $00</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="39549.html">9A7D</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#39550">Map</a></td>
+<td class="next">
+Next: <a href="39552.html">9A80</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Data at E22A - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-b">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Data</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="57814.html">E1D6</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#57898">Map</a></td>
+<td class="next">
+Next: <a href="57997.html">E28D</a>
+</td>
+</tr>
+</table>
+<div class="description">E22A: A table searched by $E207 (part of TELL)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="57814.html#57863">E207</a>.
+</div>
+<div class="paragraph">
+The table is a list of groups, one per person: the person's id, then pairs of (topic id, message address) until $FF. The loop at <a href="57814.html#57863">E207</a> finds the person, then <a href="57814.html#57857">E201</a> finds the topic in that group; the message is printed through <a href="26672.html">6830</a> as the person's reply. A group that starts with $FE matches any person (the fallback), and a second $FF ends the table. Topic ids are things: $10 what happened, $11 your alibi, $12 your address, $0F the case, $43 the bloodstained clothes, and the people $05 Strachan, $06 Phipps, $07 the Major, $0D Tricia Fender.
+</div>
+<div class="paragraph">
+Gardener ($08): what happened and alibi share one reply (a gun shot woke him, he found Mrs Brown), and the Major gets another ('such a nice fellow... fighting'). Cook ($09): what happened/alibi (one reply), Phipps (overheard Basil and Daphne arguing about the will). Maid ($0A): what happened/alibi (Basil must have something to do with it). Phipps ($06): what happened/alibi (playing Chopin), address (Camden Street in London, Cobden Lane at Leatherhead). Strachan ($05): what happened/alibi (knows nothing), Tricia (she was Mr Brown's secretary), the Major (a friend of Mrs Jones). Straker ($04): the case (<a href="29553.html">7371</a>, his report). The Major ($07): alibi (not at liberty to say; in London), address (Sidmouth Street). Tricia ($0D) and Mrs Jones ($5F): the bloodstained clothes (the confession 'you found out, I am really Mrs Jones'); Mrs Jones also gives the confession for what happened/alibi and a short reply about Tricia ('blackmailing Mrs Brown'). The $FE fallback answers your address, what happened and your alibi with 'DON'T BE SILLY.' (<a href="26693.html">6845</a>).
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57898"></span>E22A</td>
+<td class="instruction">DEFB $08,$10,$46,$78,$11,$46,$78,$07</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="57906"></span>E232</td>
+<td class="instruction">DEFB $F8,$78,$FF,$09,$10,$4F,$79,$11</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="57914"></span>E23A</td>
+<td class="instruction">DEFB $4F,$79,$06,$C4,$79,$FF,$0A,$10</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="57922"></span>E242</td>
+<td class="instruction">DEFB $35,$7A,$11,$35,$7A,$FF,$06,$10</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="57930"></span>E24A</td>
+<td class="instruction">DEFB $B9,$7A,$11,$B9,$7A,$12,$2C,$77</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="57938"></span>E252</td>
+<td class="instruction">DEFB $FF,$05,$10,$F6,$7A,$11,$F6,$7A</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="57946"></span>E25A</td>
+<td class="instruction">DEFB $0D,$A4,$76,$07,$D4,$78,$FF,$04</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="57954"></span>E262</td>
+<td class="instruction">DEFB $0F,$71,$73,$FF,$07,$11,$0C,$78</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="57962"></span>E26A</td>
+<td class="instruction">DEFB $12,$22,$77,$FF,$0D,$43,$87,$76</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="57970"></span>E272</td>
+<td class="instruction">DEFB $FF,$5F,$43,$87,$76,$10,$44,$76</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="57978"></span>E27A</td>
+<td class="instruction">DEFB $11,$44,$76,$0D,$2D,$76,$FF,$FE</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="57986"></span>E282</td>
+<td class="instruction">DEFB $12,$45,$68,$10,$45,$68,$11,$45</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="57994"></span>E28A</td>
+<td class="instruction">DEFB $68,$FF,$FF</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="57814.html">E1D6</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#57898">Map</a></td>
+<td class="next">
+Next: <a href="57997.html">E28D</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

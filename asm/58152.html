@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at E328 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="58140.html">E31C</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#58152">Map</a></td>
+<td class="next">
+Next: <a href="58218.html">E36A</a>
+</td>
+</tr>
+</table>
+<div class="description">E328: Action record: shared 10 (COUNT the money)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+COUNT: prints 'It totals' and the sum held in the money thing (+9/+10), in pounds, shillings and pence. It totals £5 4/-' (the game's pound sign is character $60, which my capture shows as a backquote).
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$A013</td>
+<td class="register-desc">The money thing's record</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ; "IT TOTALS" and the sum printed</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="58152"></span>E328</td>
+<td class="instruction">DEFB $6A,$10,$1C,$E3</td>
+<td class="comment-1" rowspan="1">Action record header: flags $6A; bit 5: test <a href="53368.html">D078</a> first; bit 6: pre-check at <a href="58140.html">E31C</a>; byte 1 $10</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58156"></span>E32C</td>
+<td class="instruction">LD HL,$6836</td>
+<td class="comment-1" rowspan="1">Point HL at the message "IT TOTALS" (<a href="26678.html">6836</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58159"></span>E32F</td>
+<td class="instruction">CALL <a href="42399.html">$A59F</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print the message at HL" (<a href="42399.html">A59F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58162"></span>E332</td>
+<td class="instruction">LD IX,($A013)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40978">$A013</a> in "Game variables" into IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58166"></span>E336</td>
+<td class="instruction">LD L,(IX+$09)</td>
+<td class="comment-1" rowspan="1">Read byte +9 of the record at IX into L</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58169"></span>E339</td>
+<td class="instruction">LD H,(IX+$0A)</td>
+<td class="comment-1" rowspan="1">Read byte +10 of the record at IX into H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58172"></span>E33C</td>
+<td class="instruction">CALL <a href="42009.html">$A419</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print an amount of money" (<a href="42009.html">A419</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58175"></span>E33F</td>
+<td class="instruction">CALL <a href="41634.html">$A2A2</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print a newline (A kept)" (<a href="41634.html">A2A2</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58178"></span>E342</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58180"></span>E344</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58181"></span>E345</td>
+<td class="instruction">CALL $E34F</td>
+<td class="comment-1" rowspan="1">Call <a href="58152.html#58191">E34F</a> (inside "Action record: shared 10 (COUNT the money)")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58184"></span>E348</td>
+<td class="instruction">RET Z</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58185"></span>E349</td>
+<td class="instruction">LD A,$25</td>
+<td class="comment-1" rowspan="1">Load A with $25</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58187"></span>E34B</td>
+<td class="instruction">LD ($A033),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41010">$A033</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58190"></span>E34E</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="58191"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="58224.html">E370</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="58191"></span>E34F</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A036</a> in "Game variables" into A - The current actor's purse (<a href="58877.html#58905">E619</a>); none (Z): cannot pay</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58194"></span>E352</td>
+<td class="instruction">CALL <a href="58877.html#58905">$E619</a></td>
+<td class="comment-1" rowspan="1">Call <a href="58877.html#58905">E619</a> (inside "Action record: RUN at <a href="57485.html#57487">E08F</a>; RUN at <a href="58450.html#58475">E46B</a>;...")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58197"></span>E355</td>
+<td class="instruction">JR Z,$E365</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, skip ahead to <a href="58152.html#58213">E365</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="58199"></span>E357</td>
+<td class="instruction">CALL <a href="58268.html">$E39C</a></td>
+<td class="comment-1" rowspan="1">Call the routine "HL = the money a thing holds (+9/+10)" (<a href="58268.html">E39C</a>) - HL = its money, DE = the sum in the command</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58202"></span>E35A</td>
+<td class="instruction">CALL <a href="58281.html">$E3A9</a></td>
+<td class="comment-1" rowspan="1">Call the routine "DE = the sum of money in the command (<a href="40918.html#41002">$A02F</a>)" (<a href="58281.html">E3A9</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58205"></span>E35D</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Clear the carry flag, so that the subtraction that follows is a plain one (a compare)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58206"></span>E35E</td>
+<td class="instruction">SBC HL,DE</td>
+<td class="comment-1" rowspan="1">Subtract DE from HL (a compare: carry = HL was smaller, zero = equal) - HL - DE: less than nothing? (carry): cannot pay</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58208"></span>E360</td>
+<td class="instruction">JR C,$E365</td>
+<td class="comment-1" rowspan="1">If it went below zero (carry), skip ahead to <a href="58152.html#58213">E365</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="58210"></span>E362</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58212"></span>E364</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="58213"></span>E365</td>
+<td class="instruction">LD HL,$E36A</td>
+<td class="comment-1" rowspan="1">Point HL at "Refusal: "YOU DO NOT HAVE ENOUGH."" (<a href="58218.html">E36A</a>) - Message <a href="26687.html">683F</a> and fail</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58216"></span>E368</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Set A to zero, which sets the zero flag for the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58217"></span>E369</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="58140.html">E31C</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#58152">Map</a></td>
+<td class="next">
+Next: <a href="58218.html">E36A</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

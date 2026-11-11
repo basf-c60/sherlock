@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Data at 9965 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-b">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Data</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="39245.html">994D</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#39269">Map</a></td>
+<td class="next">
+Next: <a href="39420.html">99FC</a>
+</td>
+</tr>
+</table>
+<div class="description">9965: The case: statements about the crime, and the evidence each needs</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Eleven groups. Each starts with a statement record: +0 a thing or person, +1 a relation number, +2 another thing; +3 flags; and, with bit 4 or 5 of the flags, +4/+5 a routine run when it is proven. Bit 2 of the flags opens a group of evidence records (+0 and +2 are things, +1 is 0) and bit 3 closes it; <a href="48730.html">BE5A</a> steps over one record and <a href="48754.html">BE72</a> over a whole group. In the state bits, bit 0 means the statement is waiting to be proven and bit 1 that it has been (<a href="48329.html">BCC9</a> sets bit 1 and runs the routine once the evidence checks out through <a href="48904.html">BF08</a>; <a href="39420.html#39540">9A74</a> does the same from a routine).
+</div>
+<div class="paragraph">
+With the relation words filled in (<a href="39245.html">994D</a>) the statements read as sentences: MAJOR PERCIVAL FFOULKES IS INNOCENT, MRS BROWN KILLED HERSELF, MRS JONES KILLED TRICIA FENDER, PHIPPS HAS PLANS, SALE LOCATION IS OLD MILL ROAD, TRICIA FENDER HAD PLANS, TRICIA FENDER BLACKMAILED MRS BROWN, and four with no evidence and no routine (flags $B4: bit 5 set) saying that Tricia Fender or Phipps killed one of the two victims. The order is as stored (first thing, verb, second thing), which is also the order the player's words are matched in (<a href="48465.html#48489">BD69</a>). Some groups also hold a statement as evidence (MAJOR PERCIVAL FFOULKES VISITED OPIUM DEN, under the Major's innocence). An evidence record with relation 0 is a pair of things that the player must have seen (<a href="48785.html">BE91</a>: flags $00, both things' +6 bit 7) or examined (flags $40, +6 bit 6).
+</div>
+<div class="paragraph">
+So nothing visible yet separates the bit-5 statements.
+</div>
+<div class="paragraph">
+How a piece of evidence is checked: the top two bits of its flags choose the test. $00: both things seen (+6 bit 7); $40: both examined (+6 bit 6); $80: never true by itself - it only counts once something else has marked it done (bit 1), as the statement routines do through <a href="39420.html#39540">9A74</a>, so a nested statement such as MAJOR PERCIVAL FFOULKES VISITED OPIUM DEN ($8C) has to be established first; $C0: no test of its own, only its group. A record with children (bit 2) also needs all of them (<a href="48904.html">BF08</a>). Once a piece of evidence passes it is marked done and stays so.
+</div>
+<div class="paragraph">
+With bit 1 of <a href="39269.html#39279">$9972</a> set first - as <a href="61699.html">F103</a> does when the Major confesses - the opium-den statement is proven, the waiting innocence statement is proven with it (<a href="39269.html">$9968</a> $A5 -&gt; $A6), <a href="39420.html#39485">9A3D</a> sets <a href="40581.html#40583">$9E88</a> and Lestrade says 'Very good Holmes, I shall return to Leather head tomorrow to have another look around.'
+</div>
+<div class="paragraph">
+This is what Lestrade's 'WELL CAN YOU PROVE THAT ...
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39269"></span>9965</td>
+<td class="instruction">DEFB $07,$04,$62,$A4,$3D,$9A</td>
+<td class="comment-1" rowspan="1">Statement: 7 major percival ffoulkes / IS / 98 innocent; flags $A4; when proven <a href="39420.html#39485">9A3D</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="39275"></span>996B</td>
+<td class="instruction">DEFB $07,$06,$63,$8C</td>
+<td class="comment-1" rowspan="1">Evidence statement: 7 major percival ffoulkes / VISITED / 99 opium den; flags $8C (last of the group)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39279"></span>996F</td>
+<td class="instruction">DEFB $00,$00,$00,$08</td>
+<td class="comment-1" rowspan="1">(empty; flags $08) (last of the group)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39283"></span>9973</td>
+<td class="instruction">DEFB $5E,$05,$60,$A4,$4B,$9A</td>
+<td class="comment-1" rowspan="1">Statement: 94 mrs brown / KILLED / 96 herself; flags $A4; when proven <a href="39420.html#39499">9A4B</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="39289"></span>9979</td>
+<td class="instruction">DEFB $2E,$00,$39,$40</td>
+<td class="comment-1" rowspan="1">Evidence: 46 female corpse / 57 sandstone bridge; flags $40</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39293"></span>997D</td>
+<td class="instruction">DEFB $5D,$00,$5D,$08</td>
+<td class="comment-1" rowspan="1">Evidence: 93 large rock / 93 large rock; flags $08 (last of the group)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39297"></span>9981</td>
+<td class="instruction">DEFB $5F,$05,$0D,$A4,$59,$9A</td>
+<td class="comment-1" rowspan="1">Statement: 95 mrs jones / KILLED / 13 tricia fender; flags $A4; when proven <a href="39420.html#39513">9A59</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="39303"></span>9987</td>
+<td class="instruction">DEFB $48,$00,$42,$40</td>
+<td class="comment-1" rowspan="1">Evidence: 72 body / 66 bookcase; flags $40</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39307"></span>998B</td>
+<td class="instruction">DEFB $43,$00,$43,$40</td>
+<td class="comment-1" rowspan="1">Evidence: 67 bloodstained clothes / 67 bloodstained clothes; flags $40</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39311"></span>998F</td>
+<td class="instruction">DEFB $00,$00,$00,$00</td>
+<td class="comment-1" rowspan="1">(empty; flags $00)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39315"></span>9993</td>
+<td class="instruction">DEFB $00,$00,$00,$08</td>
+<td class="comment-1" rowspan="1">(empty; flags $08) (last of the group)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39319"></span>9997</td>
+<td class="instruction">DEFB $06,$03,$61,$A4,$13,$9A</td>
+<td class="comment-1" rowspan="1">Statement: 6 phipps / HAS / 97 plans; flags $A4; when proven <a href="39420.html#39443">9A13</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="39325"></span>999D</td>
+<td class="instruction">DEFB $57,$00,$58,$40</td>
+<td class="comment-1" rowspan="1">Evidence: 87 unfinished note / 88 folder; flags $40</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39329"></span>99A1</td>
+<td class="instruction">DEFB $5A,$00,$53,$40</td>
+<td class="comment-1" rowspan="1">Evidence: 90 letters / 83 ripped coded baker note; flags $40</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39333"></span>99A5</td>
+<td class="instruction">DEFB $51,$00,$51,$48</td>
+<td class="comment-1" rowspan="1">Evidence: 81 torn coded ?0f8 note / 81 torn coded ?0f8 note; flags $48 (last of the group)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39337"></span>99A9</td>
+<td class="instruction">DEFB $6A,$04,$69,$A4,$FC,$99</td>
+<td class="comment-1" rowspan="1">Statement: 106 sale location / IS / 105 old mill road; flags $A4; when proven <a href="39420.html">99FC</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="39343"></span>99AF</td>
+<td class="instruction">DEFB $00,$00,$00,$00</td>
+<td class="comment-1" rowspan="1">(empty; flags $00)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39347"></span>99B3</td>
+<td class="instruction">DEFB $55,$00,$55,$40</td>
+<td class="comment-1" rowspan="1">Evidence: 85 burning note / 85 burning note; flags $40</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39351"></span>99B7</td>
+<td class="instruction">DEFB $00,$00,$00,$0A</td>
+<td class="comment-1" rowspan="1">(empty; flags $0A) (last of the group)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39355"></span>99BB</td>
+<td class="instruction">DEFB $0D,$05,$5E,$B4,$00,$00</td>
+<td class="comment-1" rowspan="1">Statement: 13 tricia fender / KILLED / 94 mrs brown; flags $B4</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39361"></span>99C1</td>
+<td class="instruction">DEFB $00,$00,$00,$08</td>
+<td class="comment-1" rowspan="1">(empty; flags $08) (last of the group)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39365"></span>99C5</td>
+<td class="instruction">DEFB $0D,$05,$5F,$B4,$00,$00</td>
+<td class="comment-1" rowspan="1">Statement: 13 tricia fender / KILLED / 95 mrs jones; flags $B4</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39371"></span>99CB</td>
+<td class="instruction">DEFB $00,$00,$00,$08</td>
+<td class="comment-1" rowspan="1">(empty; flags $08) (last of the group)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39375"></span>99CF</td>
+<td class="instruction">DEFB $06,$05,$5E,$B4,$00,$00</td>
+<td class="comment-1" rowspan="1">Statement: 6 phipps / KILLED / 94 mrs brown; flags $B4</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39381"></span>99D5</td>
+<td class="instruction">DEFB $00,$00,$00,$08</td>
+<td class="comment-1" rowspan="1">(empty; flags $08) (last of the group)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39385"></span>99D9</td>
+<td class="instruction">DEFB $06,$05,$5F,$B4,$00,$00</td>
+<td class="comment-1" rowspan="1">Statement: 6 phipps / KILLED / 95 mrs jones; flags $B4</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39391"></span>99DF</td>
+<td class="instruction">DEFB $00,$00,$00,$08</td>
+<td class="comment-1" rowspan="1">(empty; flags $08) (last of the group)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39395"></span>99E3</td>
+<td class="instruction">DEFB $0D,$02,$61,$A4,$05,$9A</td>
+<td class="comment-1" rowspan="1">Statement: 13 tricia fender / HAD / 97 plans; flags $A4; when proven <a href="39420.html#39429">9A05</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="39401"></span>99E9</td>
+<td class="instruction">DEFB $40,$00,$41,$40</td>
+<td class="comment-1" rowspan="1">Evidence: 64 bank account ?01d book / 65 note; flags $40</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39405"></span>99ED</td>
+<td class="instruction">DEFB $57,$00,$58,$48</td>
+<td class="comment-1" rowspan="1">Evidence: 87 unfinished note / 88 folder; flags $48 (last of the group)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39409"></span>99F1</td>
+<td class="instruction">DEFB $0D,$01,$5E,$A4,$0A,$9A</td>
+<td class="comment-1" rowspan="1">Statement: 13 tricia fender / BLACKMAILED / 94 mrs brown; flags $A4; when proven <a href="39420.html#39434">9A0A</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="39415"></span>99F7</td>
+<td class="instruction">DEFB $00,$00,$00,$08</td>
+<td class="comment-1" rowspan="1">(empty; flags $08) (last of the group)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39419"></span>99FB</td>
+<td class="instruction">DEFB $FF</td>
+<td class="comment-1" rowspan="1">End marker</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="39245.html">994D</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#39269">Map</a></td>
+<td class="next">
+Next: <a href="39420.html">99FC</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

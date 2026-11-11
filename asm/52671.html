@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at CDBF - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="52641.html">CDA1</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#52671">Map</a></td>
+<td class="next">
+Next: <a href="52760.html">CE18</a>
+</td>
+</tr>
+</table>
+<div class="description">CDBF: Plan opcode 4, ASK: order another character to do something</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Verb <a href="56734.html">46</a> (TALK TO) with the person as the direct object; queues an 8-byte node on the list at <a href="40918.html#40942">9FEE</a> (person, $FF, verb, dobj, iobj) and prints <a href="26666.html">682A</a>, which quotes the order: the cabbie is told 'HAIL THE HANSOM CAB' this way, for example. The person carries the order out on its next turn (<a href="52344.html#52391">CCA7</a>).
+</div>
+<div class="paragraph">
+With the player moved to Inspector Lestrade at the start, his script hails a hansom cab, climbs in, and at 8:04 runs ASK (bytes 44 FA 1D FC FF: the person is the plan's remembered thing, here the cabbie; verb <a href="39668.html">29</a> GO TO; the plan's indirect object, a room); <a href="52671.html#52752">CE10</a> then prints 'Inspector Lestrade remarks to the cabbie " Go to Kings Cross Road. "'.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">The instruction (+1 the person, +2 verb, +3 and +4 objects)</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">The</td>
+<td class="register-desc">order queued at $9FEE; the step succeeds</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="52671"></span>CDBF</td>
+<td class="instruction">LD A,$2E</td>
+<td class="comment-1" rowspan="1">Load A with $2E - Verb <a href="56734.html">46</a>, TALK TO</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52673"></span>CDC1</td>
+<td class="instruction">LD ($A033),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41010">$A033</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52676"></span>CDC4</td>
+<td class="instruction">LD A,(IX+$01)</td>
+<td class="comment-1" rowspan="1">Read byte +1 of the record at IX into A - Who is ordered</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52679"></span>CDC7</td>
+<td class="instruction">CALL <a href="52958.html">$CEDE</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Resolve a plan argument byte" (<a href="52958.html">CEDE</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52682"></span>CDCA</td>
+<td class="instruction">LD ($A034),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41010">$A034</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52685"></span>CDCD</td>
+<td class="instruction">LD A,(IX+$02)</td>
+<td class="comment-1" rowspan="1">Read byte +2 of the record at IX into A - The verb ordered</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52688"></span>CDD0</td>
+<td class="instruction">LD ($A35D),A</td>
+<td class="comment-1" rowspan="1">Store A in "A remembered command: verb, direct object,..." (<a href="41821.html">A35D</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52691"></span>CDD3</td>
+<td class="instruction">LD A,(IX+$03)</td>
+<td class="comment-1" rowspan="1">Read byte +3 of the record at IX into A - Its direct object</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52694"></span>CDD6</td>
+<td class="instruction">CALL <a href="52958.html">$CEDE</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Resolve a plan argument byte" (<a href="52958.html">CEDE</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52697"></span>CDD9</td>
+<td class="instruction">LD ($A35E),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="41821.html#41822">A35E</a> in "A remembered command: verb, direct object,..."</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52700"></span>CDDC</td>
+<td class="instruction">LD A,(IX+$04)</td>
+<td class="comment-1" rowspan="1">Read byte +4 of the record at IX into A - Its indirect object</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52703"></span>CDDF</td>
+<td class="instruction">CALL <a href="52958.html">$CEDE</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Resolve a plan argument byte" (<a href="52958.html">CEDE</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52706"></span>CDE2</td>
+<td class="instruction">LD ($A35F),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="41821.html#41823">A35F</a> in "A remembered command: verb, direct object,..."</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52709"></span>CDE5</td>
+<td class="instruction">LD A,$08</td>
+<td class="comment-1" rowspan="1">Load A with $08 - Allocate an 8-byte order node</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52711"></span>CDE7</td>
+<td class="instruction">CALL <a href="41244.html">$A11C</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Allocate A + 3 bytes from the free list, cleared" (<a href="41244.html">A11C</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52714"></span>CDEA</td>
+<td class="instruction">LD A,($A034)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A034</a> in "Game variables" into A - Fill it in</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52717"></span>CDED</td>
+<td class="instruction">LD (IX+$00),A</td>
+<td class="comment-1" rowspan="1">Store A in the first byte of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52720"></span>CDF0</td>
+<td class="instruction">LD (IX+$01),$FF</td>
+<td class="comment-1" rowspan="1">Set byte +1 of the record at IX to $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52724"></span>CDF4</td>
+<td class="instruction">LD A,($A35D)</td>
+<td class="comment-1" rowspan="1">Read "A remembered command: verb, direct object,..." (<a href="41821.html">A35D</a>) into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52727"></span>CDF7</td>
+<td class="instruction">LD (IX+$02),A</td>
+<td class="comment-1" rowspan="1">Store A in byte +2 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52730"></span>CDFA</td>
+<td class="instruction">LD HL,($A35E)</td>
+<td class="comment-1" rowspan="1">Read <a href="41821.html#41822">A35E</a> in "A remembered command: verb, direct object,..." into HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52733"></span>CDFD</td>
+<td class="instruction">LD (IX+$03),L</td>
+<td class="comment-1" rowspan="1">Store L in byte +3 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52736"></span>CE00</td>
+<td class="instruction">LD (IX+$04),H</td>
+<td class="comment-1" rowspan="1">Store H in byte +4 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52739"></span>CE03</td>
+<td class="instruction">LD HL,($9FEE)</td>
+<td class="comment-1" rowspan="1">Read orders and remarks (<a href="40918.html#40942">9FEE</a>) into HL - Link it in at the head of the <a href="40918.html#40942">9FEE</a> list</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52742"></span>CE06</td>
+<td class="instruction">LD ($9FEE),IX</td>
+<td class="comment-1" rowspan="1">Store IX in orders and remarks (<a href="40918.html#40942">9FEE</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52746"></span>CE0A</td>
+<td class="instruction">LD (IX-$02),L</td>
+<td class="comment-1" rowspan="1">Store L in byte -2 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52749"></span>CE0D</td>
+<td class="instruction">LD (IX-$01),H</td>
+<td class="comment-1" rowspan="1">Store H in byte -1 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52752"></span>CE10</td>
+<td class="instruction">LD HL,$682A</td>
+<td class="comment-1" rowspan="1">Point HL at the message "YOU SAY TO THE OIL LAMP" HAIL THE HANSOM CAB."." (<a href="26666.html">682A</a>) - Quote the order</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52755"></span>CE13</td>
+<td class="instruction">CALL <a href="42399.html">$A59F</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print the message at HL" (<a href="42399.html">A59F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52758"></span>CE16</td>
+<td class="instruction">JR <a href="52879.html">$CE8F</a></td>
+<td class="comment-1" rowspan="1">Succeed</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="52641.html">CDA1</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#52671">Map</a></td>
+<td class="next">
+Next: <a href="52760.html">CE18</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

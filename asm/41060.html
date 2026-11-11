@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at A064 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="41024.html">A040</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#41060">Map</a></td>
+<td class="next">
+Next: <a href="41207.html">A0F7</a>
+</td>
+</tr>
+</table>
+<div class="description">A064: The main loop: one minute of game time per pass</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Each pass is one minute. The clock moves on (<a href="49113.html">BFD9</a>) and is printed (<a href="49017.html">BF79</a>); then every actor in the table at <a href="39008.html">9860</a> whose next-turn time (+6/+7) has come takes its turn. A turn starts with <a href="52279.html">CC37</a> (find the actor, check for orders or remarks waiting for it) and then runs plan-script steps (<a href="52344.html">CC78</a>) until one takes time (<a href="40918.html#40986">$A01F</a> non-zero); that many minutes are added to the actor's next-turn time, and the actor's own after-turn routine, if it has one, runs (<a href="40055.html">9C77</a>). The player is an actor like the rest: the player's script step is the one that waits for a typed command.
+</div>
+<div class="paragraph">
+Before the walk, if the player is in the middle of WAIT UNTIL (plan verb <a href="56784.html">50</a>) and ENTER is pressed, the player's next-turn time is pulled back to now, so a long wait can be cut short.
+</div>
+<div class="paragraph">
+The player's +6/+7 equals the minute counter (<a href="40918.html#40925">9FDD</a>) whenever the game waits for a command, and moves on by 5 for WAIT and by 1 for TAKE LAMP or EXAMINE LAMP; Watson's and Lestrade's move on in step. The per-actor call counts in the <a href="47391.html">B91F</a> note (<a href="52279.html">CC37</a> once per actor per turn) agree.
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. Clear the ending flag <a href="41060.html#41177">$A0DA</a>. If it is set on a later pass, go to the ending code at <a href="41060.html#41191">A0E7</a>.
+</div>
+<div class="paragraph">
+2. Move the clock on one minute (<a href="49113.html">BFD9</a>) and print it (<a href="49017.html">BF79</a>).
+</div>
+<div class="paragraph">
+3. If the player is waiting until a time (plan verb <a href="56784.html">50</a>) and ENTER is held down, make the player's next turn now.
+</div>
+<div class="paragraph">
+4. Walk the actor table from <a href="39008.html">9860</a> in 8-byte steps until the $FF marker. For each actor whose time has come (<a href="41060.html#41179">A0DB</a>): start its turn (<a href="52279.html">CC37</a>), then run plan steps (<a href="52344.html">CC78</a>) until one takes time (<a href="40918.html#40986">$A01F</a> non-zero).
+</div>
+<div class="paragraph">
+5. Add that time to the actor's next-turn time and run the actor's after-turn routine (<a href="40055.html">9C77</a>).
+</div>
+<div class="paragraph">
+6. At the end of the table, loop for the next minute. When the ending flag is 2 the game is saved (<a href="45271.html#45284">B0E4</a>) and the loop continues; otherwise it is loaded (<a href="45271.html">B0D7</a>) and the game restarts at <a href="41024.html">A040</a>.
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">None: the loop never ends by itself; $A0DA stops it</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="41060"></span>A064</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag) - Not ending yet</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41061"></span>A065</td>
+<td class="instruction">LD ($A0DA),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="41060.html#41177">$A0DA</a> in "The main loop: one minute of game time per..."</td>
+</tr>
+<tr>
+<td class="address-2"><span id="41064"></span>A068</td>
+<td class="instruction">LD A,($A0DA)</td>
+<td class="comment-1" rowspan="1">Read <a href="41060.html#41177">$A0DA</a> in "The main loop: one minute of game time per..." into A - Is the game ending?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41067"></span>A06B</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41068"></span>A06C</td>
+<td class="instruction">JR NZ,$A0E7</td>
+<td class="comment-1" rowspan="1">Yes: restart or reload</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41070"></span>A06E</td>
+<td class="instruction">CALL <a href="49113.html">$BFD9</a></td>
+<td class="comment-1" rowspan="1">A minute passes</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41073"></span>A071</td>
+<td class="instruction">CALL <a href="49017.html">$BF79</a></td>
+<td class="comment-1" rowspan="1">Print the clock</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41076"></span>A074</td>
+<td class="instruction">LD IY,$9860</td>
+<td class="comment-1" rowspan="1">The player (first actor)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41080"></span>A078</td>
+<td class="instruction">LD A,(IY+$03)</td>
+<td class="comment-1" rowspan="1">Read byte +3 of the record at IY into A - ...waiting until a time (plan verb <a href="56784.html">50</a>)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41083"></span>A07B</td>
+<td class="instruction">CP $32</td>
+<td class="comment-1" rowspan="1">Compare A with $32</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41085"></span>A07D</td>
+<td class="instruction">JR NZ,$A093</td>
+<td class="comment-1" rowspan="1">If A differs from $32, skip ahead to <a href="41060.html#41107">A093</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="41087"></span>A07F</td>
+<td class="instruction">CALL <a href="50207.html">$C41F</a></td>
+<td class="comment-1" rowspan="1">Call the routine "GET-KEY: has the player pressed a key?" (<a href="50207.html">C41F</a>) - Is a key down...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41090"></span>A082</td>
+<td class="instruction">BIT 7,A</td>
+<td class="comment-1" rowspan="1">Test bit 7 of A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41092"></span>A084</td>
+<td class="instruction">JR Z,$A093</td>
+<td class="comment-1" rowspan="1">If bit 7 of A is clear, skip ahead to <a href="41060.html#41107">A093</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="41094"></span>A086</td>
+<td class="instruction">CP $8D</td>
+<td class="comment-1" rowspan="1">Compare A with $8D - ...and is it ENTER?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41096"></span>A088</td>
+<td class="instruction">JR NZ,$A093</td>
+<td class="comment-1" rowspan="1">If A differs from $8D, skip ahead to <a href="41060.html#41107">A093</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="41098"></span>A08A</td>
+<td class="instruction">LD HL,($9FDD)</td>
+<td class="comment-1" rowspan="1">Read minutes since the start (<a href="40918.html#40925">9FDD</a>) into HL - Then the player acts now: next-turn time = this minute</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41101"></span>A08D</td>
+<td class="instruction">LD (IY+$06),L</td>
+<td class="comment-1" rowspan="1">Store L in byte +6 of the record at IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41104"></span>A090</td>
+<td class="instruction">LD (IY+$07),H</td>
+<td class="comment-1" rowspan="1">Store H in byte +7 of the record at IY</td>
+</tr>
+<tr>
+<td class="address-2"><span id="41107"></span>A093</td>
+<td class="instruction">LD IY,$9860</td>
+<td class="comment-1" rowspan="1">Walk the actor table</td>
+</tr>
+<tr>
+<td class="address-2"><span id="41111"></span>A097</td>
+<td class="instruction">LD A,(IY+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IY into A - End of the table?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41114"></span>A09A</td>
+<td class="instruction">INC A</td>
+<td class="comment-1" rowspan="1">Add one to A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41115"></span>A09B</td>
+<td class="instruction">JR Z,$A068</td>
+<td class="comment-1" rowspan="1">Yes: the next minute</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41117"></span>A09D</td>
+<td class="instruction">LD HL,($9FDD)</td>
+<td class="comment-1" rowspan="1">Read minutes since the start (<a href="40918.html#40925">9FDD</a>) into HL - Has this actor's time come?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41120"></span>A0A0</td>
+<td class="instruction">CALL $A0DB</td>
+<td class="comment-1" rowspan="1">Call <a href="41060.html#41179">A0DB</a> (inside "The main loop: one minute of game time per...")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41123"></span>A0A3</td>
+<td class="instruction">JR C,$A0D1</td>
+<td class="comment-1" rowspan="1">Not yet: next actor</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41125"></span>A0A5</td>
+<td class="instruction">LD A,(IY+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IY into A - Start its turn</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41128"></span>A0A8</td>
+<td class="instruction">PUSH IY</td>
+<td class="comment-1" rowspan="1">Save IY on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41130"></span>A0AA</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41131"></span>A0AB</td>
+<td class="instruction">CALL <a href="52279.html">$CC37</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Start an actor's turn" (<a href="52279.html">CC37</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="41134"></span>A0AE</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack - One plan step</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41135"></span>A0AF</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41136"></span>A0B0</td>
+<td class="instruction">CALL <a href="52344.html">$CC78</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Run one step of the current actor's plan script" (<a href="52344.html">CC78</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41139"></span>A0B3</td>
+<td class="instruction">LD HL,($A01F)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40986">$A01F</a> in "Game variables" into HL - Did it take any time?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41142"></span>A0B6</td>
+<td class="instruction">LD A,L</td>
+<td class="comment-1" rowspan="1">Copy L into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41143"></span>A0B7</td>
+<td class="instruction">OR H</td>
+<td class="comment-1" rowspan="1">Set in A the bits that are set in H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41144"></span>A0B8</td>
+<td class="instruction">JR Z,$A0AE</td>
+<td class="comment-1" rowspan="1">If the result is zero, go back to <a href="41060.html#41134">A0AE</a> - No: another step</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41146"></span>A0BA</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41147"></span>A0BB</td>
+<td class="instruction">POP IY</td>
+<td class="comment-1" rowspan="1">Restore IY from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41149"></span>A0BD</td>
+<td class="instruction">LD E,(IY+$06)</td>
+<td class="comment-1" rowspan="1">Read byte +6 of the record at IY into E - Add the time to its next-turn time</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41152"></span>A0C0</td>
+<td class="instruction">LD D,(IY+$07)</td>
+<td class="comment-1" rowspan="1">Read byte +7 of the record at IY into D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41155"></span>A0C3</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1">Add DE to HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41156"></span>A0C4</td>
+<td class="instruction">LD (IY+$06),L</td>
+<td class="comment-1" rowspan="1">Store L in byte +6 of the record at IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41159"></span>A0C7</td>
+<td class="instruction">LD (IY+$07),H</td>
+<td class="comment-1" rowspan="1">Store H in byte +7 of the record at IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41162"></span>A0CA</td>
+<td class="instruction">PUSH IY</td>
+<td class="comment-1" rowspan="1">Save IY on the stack - Its own after-turn routine, if any</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41164"></span>A0CC</td>
+<td class="instruction">CALL <a href="40055.html">$9C77</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Run the current actor's own after-turn routine" (<a href="40055.html">9C77</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41167"></span>A0CF</td>
+<td class="instruction">POP IY</td>
+<td class="comment-1" rowspan="1">Restore IY from the stack</td>
+</tr>
+<tr>
+<td class="address-2"><span id="41169"></span>A0D1</td>
+<td class="instruction">LD DE,$0008</td>
+<td class="comment-1" rowspan="1">Load DE with $0008, the amount that is added next - Next actor (8 bytes on)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41172"></span>A0D4</td>
+<td class="instruction">ADD IY,DE</td>
+<td class="comment-1" rowspan="1">Add DE to IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41174"></span>A0D6</td>
+<td class="instruction">JR $A097</td>
+<td class="comment-1" rowspan="1">Go back to <a href="41060.html#41111">A097</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="41176"></span>A0D8</td>
+<td class="instruction">INC C</td>
+<td class="comment-1" rowspan="1">Add one to C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41177"></span>A0D9</td>
+<td class="instruction">OR $00</td>
+<td class="comment-1" rowspan="1">Set bits  of A (mask $00)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="41179"></span>A0DB</td>
+<td class="instruction">LD E,(IY+$06)</td>
+<td class="comment-1" rowspan="1">Read byte +6 of the record at IY into E - Compare the minute counter (HL) with the actor's next-turn time</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41182"></span>A0DE</td>
+<td class="instruction">LD D,(IY+$07)</td>
+<td class="comment-1" rowspan="1">Read byte +7 of the record at IY into D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41185"></span>A0E1</td>
+<td class="instruction">LD A,H</td>
+<td class="comment-1" rowspan="1">Copy H into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41186"></span>A0E2</td>
+<td class="instruction">CP D</td>
+<td class="comment-1" rowspan="1">Compare A with D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41187"></span>A0E3</td>
+<td class="instruction">RET NZ</td>
+<td class="comment-1" rowspan="1">If A differs from D, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41188"></span>A0E4</td>
+<td class="instruction">LD A,L</td>
+<td class="comment-1" rowspan="1">Copy L into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41189"></span>A0E5</td>
+<td class="instruction">CP E</td>
+<td class="comment-1" rowspan="1">Compare A with E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41190"></span>A0E6</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="41191"></span>A0E7</td>
+<td class="instruction">CP $02</td>
+<td class="comment-1" rowspan="1">Compare A with $02 - Ending: 2 = carry on (reloaded?), 1 = start again</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41193"></span>A0E9</td>
+<td class="instruction">JR Z,$A0F1</td>
+<td class="comment-1" rowspan="1">If A equals $02, skip ahead to <a href="41060.html#41201">A0F1</a></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="41195"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="49611.html">C1CB</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="41195"></span>A0EB</td>
+<td class="instruction">CALL <a href="45271.html">$B0D7</a></td>
+<td class="comment-1" rowspan="1">Load: restore the saved game (<a href="45271.html">B0D7</a>)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41198"></span>A0EE</td>
+<td class="instruction">JP <a href="41024.html">$A040</a></td>
+<td class="comment-1" rowspan="1">...and carry on at <a href="41024.html">A040</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="41201"></span>A0F1</td>
+<td class="instruction">CALL <a href="45271.html#45284">$B0E4</a></td>
+<td class="comment-1" rowspan="1">Save: write the game out (<a href="45271.html#45284">B0E4</a>)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41204"></span>A0F4</td>
+<td class="instruction">JP $A064</td>
+<td class="comment-1" rowspan="1">...and carry on at <a href="41060.html">A064</a></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="41024.html">A040</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#41060">Map</a></td>
+<td class="next">
+Next: <a href="41207.html">A0F7</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

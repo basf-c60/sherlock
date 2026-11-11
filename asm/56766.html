@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at DDBE - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="56756.html">DDB4</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#56766">Map</a></td>
+<td class="next">
+Next: <a href="56784.html">DDD0</a>
+</td>
+</tr>
+</table>
+<div class="description">DDBE: Script helper: wait n minutes</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+RUN <a href="56766.html">DDBE</a> / n: the action takes n minutes (<a href="40918.html#40986">$A01F</a> = n), so the actor's next turn comes n minutes later. Pre-check <a href="56756.html#56760">DDB8</a> as for WAIT HERE.
+</div>
+<div class="paragraph">
+Used by: RUN at <a href="60971.html#61118">EEBE</a>; RUN at <a href="60971.html#61156">EEE4</a>; RUN at <a href="60971.html#61188">EF04</a>; RUN at <a href="60971.html#61268">EF54</a>; RUN at <a href="60971.html#61301">EF75</a>; RUN at <a href="61538.html#61673">F0E9</a>; RUN at <a href="61997.html">F22D</a>; RUN at <a href="62022.html">F246</a>; RUN at <a href="62043.html">F25B</a>; RUN at <a href="62056.html">F268</a>; RUN at <a href="62072.html">F278</a>; RUN at <a href="62093.html">F28D</a>; RUN at <a href="62117.html#62124">F2AC</a>.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$A034</td>
+<td class="register-desc">The number of minutes</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">$A01F</td>
+<td class="register-desc">The minutes</td>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56766"></span>DDBE</td>
+<td class="instruction">DEFB $40,$00,$B8,$DD</td>
+<td class="comment-1" rowspan="1">Action record header: flags $40; bit 6: pre-check at <a href="56756.html#56760">DDB8</a>; byte 1 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56770"></span>DDC2</td>
+<td class="instruction">LD A,($A034)</td>
+<td class="comment-1" rowspan="1">n...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56773"></span>DDC5</td>
+<td class="instruction">LD ($A01F),A</td>
+<td class="comment-1" rowspan="1">...is how long this takes</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56776"></span>DDC8</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - Done</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56778"></span>DDCA</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56779"></span>DDCB</td>
+<td class="instruction">NOP</td>
+<td class="comment-1" rowspan="1">Do nothing (padding)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56780"></span>DDCC</td>
+<td class="instruction">NOP</td>
+<td class="comment-1" rowspan="1">Do nothing (padding)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56781"></span>DDCD</td>
+<td class="instruction">NOP</td>
+<td class="comment-1" rowspan="1">Do nothing (padding)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56782"></span>DDCE</td>
+<td class="instruction">NOP</td>
+<td class="comment-1" rowspan="1">Do nothing (padding)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56783"></span>DDCF</td>
+<td class="instruction">NOP</td>
+<td class="comment-1" rowspan="1">Do nothing (padding)</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="56756.html">DDB4</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#56766">Map</a></td>
+<td class="next">
+Next: <a href="56784.html">DDD0</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

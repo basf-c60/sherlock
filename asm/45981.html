@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at B39D - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="45980.html">B39C</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#45981">Map</a></td>
+<td class="next">
+Next: <a href="46085.html">B405</a>
+</td>
+</tr>
+</table>
+<div class="description">B39D: Look the typed verb up in the verb table ($8259)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="33369.html">8259</a>.
+</div>
+<div class="paragraph">
+Takes the verb's two word references from IY (bit 7 of the first kept in <a href="45980.html">B39C</a>), clears and fills a match pattern at <a href="45421.html#45445">$B186</a>-<a href="45421.html#45453">B18D</a> (<a href="46211.html">B483</a>), then walks the 8-byte verb records from <a href="33369.html">8259</a> comparing each (<a href="42189.html">A4CD</a>) until one matches - then <a href="46085.html">B405</a> and NZ - or the zero record that ends the table (Z).
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. Take the verb's word reference from the parse node. Bit 7 of it says ALL was typed with the verb; keep that in <a href="45980.html">B39C</a> and clear it.
+</div>
+<div class="paragraph">
+2. Build the pattern to match at <a href="45421.html#45445">$B186</a>-<a href="45421.html#45453">B18D</a>: the verb word, the particle at node +2 (CLOSELY, FURIOUSLY, a direction), and up to two more words from the node's other slots (<a href="46211.html">B483</a>).
+</div>
+<div class="paragraph">
+3. Walk the eight-byte verb records from <a href="33369.html">8259</a>, comparing each with the pattern (<a href="42189.html">A4CD</a>).
+</div>
+<div class="paragraph">
+4. On a match, fill the object slots (<a href="46085.html">B405</a>) and return NZ. If the zero record that ends the table is reached, return Z.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IY</td>
+<td class="register-desc">The parse node</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ if a verb record matched, Z if none did</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="45981"></span>B39D</td>
+<td class="instruction">PUSH IY</td>
+<td class="comment-1" rowspan="1">Save IY on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45983"></span>B39F</td>
+<td class="instruction">LD L,(IY+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IY into L - The verb word, from the node's +0</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45986"></span>B3A2</td>
+<td class="instruction">LD H,(IY+$01)</td>
+<td class="comment-1" rowspan="1">Read byte +1 of the record at IY into H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45989"></span>B3A5</td>
+<td class="instruction">LD A,H</td>
+<td class="comment-1" rowspan="1">Copy H into A - Its bit 7 (ALL was typed with it) goes to <a href="45980.html">B39C</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45990"></span>B3A6</td>
+<td class="instruction">AND $80</td>
+<td class="comment-1" rowspan="1">Isolate bit 7 of A (mask $80)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45992"></span>B3A8</td>
+<td class="instruction">LD ($B39C),A</td>
+<td class="comment-1" rowspan="1">Store A in "<a href="45981.html">B39D</a>: bit 7 of the verb's first word reference" (<a href="45980.html">B39C</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45995"></span>B3AB</td>
+<td class="instruction">RES 7,H</td>
+<td class="comment-1" rowspan="1">Clear bit 7 of H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45997"></span>B3AD</td>
+<td class="instruction">LD ($B186),HL</td>
+<td class="comment-1" rowspan="1">Pattern word 1 (<a href="45421.html#45445">$B186</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46000"></span>B3B0</td>
+<td class="instruction">LD L,(IY+$02)</td>
+<td class="comment-1" rowspan="1">Read byte +2 of the record at IY into L - The node's +2 (CLOSELY, FURIOUSLY, GO...) is pattern word 4 (<a href="45421.html#45445">$B18C</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46003"></span>B3B3</td>
+<td class="instruction">LD H,(IY+$03)</td>
+<td class="comment-1" rowspan="1">Read byte +3 of the record at IY into H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46006"></span>B3B6</td>
+<td class="instruction">LD ($B18C),HL</td>
+<td class="comment-1" rowspan="1">Store HL in <a href="45421.html#45445">$B18C</a> in "Parser variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46009"></span>B3B9</td>
+<td class="instruction">LD HL,$B188</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="45421.html#45445">$B188</a> in "Parser variables" - Clear pattern words 2 and 3 (<a href="45421.html#45445">$B188</a>, <a href="45421.html#45445">$B18A</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46012"></span>B3BC</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46013"></span>B3BD</td>
+<td class="instruction">LD B,$04</td>
+<td class="comment-1" rowspan="1">Load B with $04</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46015"></span>B3BF</td>
+<td class="instruction">CALL <a href="41643.html">$A2AB</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Fill B bytes at HL with zero (or, from <a href="41643.html#41644">A2AC</a>, with A)" (<a href="41643.html">A2AB</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46018"></span>B3C2</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46019"></span>B3C3</td>
+<td class="instruction">LD B,$02</td>
+<td class="comment-1" rowspan="1">Load B with $02 - Fill them with the first two of the node's words at +4, +14, +6 and +16 that are there (<a href="46211.html">B483</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46021"></span>B3C5</td>
+<td class="instruction">LD E,$04</td>
+<td class="comment-1" rowspan="1">Load E with $04</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46023"></span>B3C7</td>
+<td class="instruction">CALL <a href="46211.html">$B483</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Copy the word pair at IY + E to HL, if B is not 0" (<a href="46211.html">B483</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46026"></span>B3CA</td>
+<td class="instruction">LD E,$0E</td>
+<td class="comment-1" rowspan="1">Load E with $0E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46028"></span>B3CC</td>
+<td class="instruction">CALL <a href="46211.html">$B483</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Copy the word pair at IY + E to HL, if B is not 0" (<a href="46211.html">B483</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46031"></span>B3CF</td>
+<td class="instruction">LD E,$06</td>
+<td class="comment-1" rowspan="1">Load E with $06</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46033"></span>B3D1</td>
+<td class="instruction">CALL <a href="46211.html">$B483</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Copy the word pair at IY + E to HL, if B is not 0" (<a href="46211.html">B483</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46036"></span>B3D4</td>
+<td class="instruction">LD E,$10</td>
+<td class="comment-1" rowspan="1">Load E with $10</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46038"></span>B3D6</td>
+<td class="instruction">CALL <a href="46211.html">$B483</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Copy the word pair at IY + E to HL, if B is not 0" (<a href="46211.html">B483</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46041"></span>B3D9</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag) - <a href="40918.html#41002">$A02E</a> = 0</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46042"></span>B3DA</td>
+<td class="instruction">LD ($A02E),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41002">$A02E</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46045"></span>B3DD</td>
+<td class="instruction">LD HL,$B186</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="45421.html#45445">$B186</a> in "Parser variables" - Try each 8-byte verb record from <a href="33369.html">8259</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46048"></span>B3E0</td>
+<td class="instruction">LD DE,$0008</td>
+<td class="comment-1" rowspan="1">Load DE with $0008</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46051"></span>B3E3</td>
+<td class="instruction">LD IX,$8259</td>
+<td class="comment-1" rowspan="1">Point IX at "Verb patterns: the verb number is the position in..." (<a href="33369.html">8259</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="46055"></span>B3E7</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46057"></span>B3E9</td>
+<td class="instruction">POP IY</td>
+<td class="comment-1" rowspan="1">Restore IY from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46059"></span>B3EB</td>
+<td class="instruction">CALL <a href="42189.html">$A4CD</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Do the pattern words at IY name the words at HL?..." (<a href="42189.html">A4CD</a>) - Does it match the pattern (<a href="42189.html">A4CD</a>)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46062"></span>B3EE</td>
+<td class="instruction">JR Z,$B3FD</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, skip ahead to <a href="45981.html#46077">B3FD</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46064"></span>B3F0</td>
+<td class="instruction">ADD IX,DE</td>
+<td class="comment-1" rowspan="1">Add DE to IX - No: next record, until the zero one at the end</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46066"></span>B3F2</td>
+<td class="instruction">LD A,(IX+$01)</td>
+<td class="comment-1" rowspan="1">Read byte +1 of the record at IX into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46069"></span>B3F5</td>
+<td class="instruction">OR (IX+$00)</td>
+<td class="comment-1" rowspan="1">Set in A the bits that are set in the first byte of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46072"></span>B3F8</td>
+<td class="instruction">JR NZ,$B3E7</td>
+<td class="comment-1" rowspan="1">If the result is not zero, go back to <a href="45981.html#46055">B3E7</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46074"></span>B3FA</td>
+<td class="instruction">POP IY</td>
+<td class="comment-1" rowspan="1">Restore IY from the stack - None matched: Z</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46076"></span>B3FC</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="46077"></span>B3FD</td>
+<td class="instruction">POP IY</td>
+<td class="comment-1" rowspan="1">Restore IY from the stack - Matched: fill the object slots (<a href="46085.html">B405</a>) and return NZ</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46079"></span>B3FF</td>
+<td class="instruction">CALL <a href="46085.html">$B405</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Copy the typed objects into the two object slots, in..." (<a href="46085.html">B405</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46082"></span>B402</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46084"></span>B404</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="45980.html">B39C</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#45981">Map</a></td>
+<td class="next">
+Next: <a href="46085.html">B405</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

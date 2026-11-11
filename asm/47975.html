@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at BB67 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="47964.html">BB5C</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#47975">Map</a></td>
+<td class="next">
+Next: <a href="48198.html">BC46</a>
+</td>
+</tr>
+</table>
+<div class="description">BB67: Lestrade's reply to something the player says</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Parses the remark into a statement the same way as Watson's reply (<a href="47719.html">BA67</a>) and checks it against the case table: a statement whose evidence is complete is proven (<a href="48329.html">BCC9</a>) and Lestrade says so; otherwise it is marked as waiting and he says he does not believe the player has the evidence (<a href="29350.html">72A6</a>, <a href="29373.html">72BD</a>).
+</div>
+<div class="paragraph">
+A plain HELLO does not come here at all: Lestrade answers 'Good afternoon' through <a href="39552.html">9A80</a>.
+</div>
+<div class="paragraph">
+the player put in Lestrade's room, then remarks typed): BASIL KILLED - a statement that stops after the verb - goes to <a href="47975.html#48062">BBBE</a> and Lestrade says 'What' (<a href="29251.html">7243</a>). After MAJOR FFOULKES IS INNOCENT is left waiting the same remark proves it and Lestrade says 'Very good Holmes, I shall return to Leather head tomorrow...', through <a href="47975.html#48101">BBE5</a>.
+</div>
+<div class="paragraph">
+<a href="47975.html#48123">BBFB</a>-<a href="47975.html#48151">BC17</a>, which names a statement with flags bit 4 that is still waiting. Only the four flags-$B4 statements (Tricia Fender or Phipps killed Mrs Brown or Mrs Jones) have that bit, and each has a child record that asks only that thing 0, the player, has been seen.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IY</td>
+<td class="register-desc">The remark's sentence node</td>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">0</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">reply printed</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="47975"></span>BB67</td>
+<td class="instruction">LD ($BA1D),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="47635.html#47643">$BA1D</a> in "Variables used by the code at <a href="47648.html">BA20</a>-<a href="48965.html#48984">BF58</a>" - A = 0 on entry: clear <a href="47635.html#47643">$BA1D</a> and <a href="47635.html#47643">$BA1C</a> (the count of statements matched)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47978"></span>BB6A</td>
+<td class="instruction">LD ($BA1C),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="47635.html#47643">$BA1C</a> in "Variables used by the code at <a href="47648.html">BA20</a>-<a href="48965.html#48984">BF58</a>"</td>
+</tr>
+<tr>
+<td class="address-2"><span id="47981"></span>BB6D</td>
+<td class="instruction">CALL <a href="48465.html#48510">$BD7E</a></td>
+<td class="comment-1" rowspan="1">Parse the next statement out of the remark (<a href="48465.html#48510">BD7E</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47984"></span>BB70</td>
+<td class="instruction">JP C,$BBBE</td>
+<td class="comment-1" rowspan="1">Carry: no sense, reply <a href="29251.html">7243</a> (<a href="47975.html#48062">BBBE</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47987"></span>BB73</td>
+<td class="instruction">CALL $BC21</td>
+<td class="comment-1" rowspan="1">Call <a href="47975.html#48161">BC21</a> (inside "Lestrade's reply to something the player...") - Look it up and try to prove it (<a href="47975.html#48161">BC21</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47990"></span>BB76</td>
+<td class="instruction">JR Z,$BB7C</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, skip ahead to <a href="47975.html#47996">BB7C</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47992"></span>BB78</td>
+<td class="instruction">LD HL,$BA1C</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="47635.html#47643">$BA1C</a> in "Variables used by the code at <a href="47648.html">BA20</a>-<a href="48965.html#48984">BF58</a>" - Count one more in <a href="47635.html#47643">$BA1C</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47995"></span>BB7B</td>
+<td class="instruction">INC (HL)</td>
+<td class="comment-1" rowspan="1">Add one to the byte at <a href="47635.html#47643">$BA1C</a> in "Variables used by the code at <a href="47648.html">BA20</a>-<a href="48965.html#48984">BF58</a>"</td>
+</tr>
+<tr>
+<td class="address-2"><span id="47996"></span>BB7C</td>
+<td class="instruction">CALL <a href="44713.html">$AEA9</a></td>
+<td class="comment-1" rowspan="1">Call the routine "IY = the next node in the list (Z at the end)" (<a href="44713.html">AEA9</a>) - Next part of the remark (<a href="44713.html">AEA9</a>); more: loop</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47999"></span>BB7F</td>
+<td class="instruction">JR NZ,$BB6D</td>
+<td class="comment-1" rowspan="1">If the zero flag is clear, go back to <a href="47975.html#47981">BB6D</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="48001"></span>BB81</td>
+<td class="instruction">LD A,($BA1C)</td>
+<td class="comment-1" rowspan="1">Read <a href="47635.html#47643">$BA1C</a> in "Variables used by the code at <a href="47648.html">BA20</a>-<a href="48965.html#48984">BF58</a>" into A - Matched nothing at all?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48004"></span>BB84</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48005"></span>BB85</td>
+<td class="instruction">JR NZ,$BB8E</td>
+<td class="comment-1" rowspan="1">If A is not zero, skip ahead to <a href="47975.html#48014">BB8E</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="48007"></span>BB87</td>
+<td class="instruction">LD HL,$725F</td>
+<td class="comment-1" rowspan="1">Point HL at the message "YOU SAY" THAT MAY WELL BE, HOLMES, I WILL THINK... (<a href="29279.html">725F</a>) - Then the stock reply <a href="29279.html">725F</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="48010"></span>BB8A</td>
+<td class="instruction">CALL <a href="42399.html">$A59F</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print the message at HL" (<a href="42399.html">A59F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48013"></span>BB8D</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="48014"></span>BB8E</td>
+<td class="instruction">LD A,($BA1D)</td>
+<td class="comment-1" rowspan="1">Read <a href="47635.html#47643">$BA1D</a> in "Variables used by the code at <a href="47648.html">BA20</a>-<a href="48965.html#48984">BF58</a>" into A - <a href="47635.html#47643">$BA1D</a> zero: go to the summary at <a href="47975.html#48073">BBC9</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="48017"></span>BB91</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48018"></span>BB92</td>
+<td class="instruction">JR Z,$BBC9</td>
+<td class="comment-1" rowspan="1">If A is zero, jump on to <a href="47975.html#48073">BBC9</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="48020"></span>BB94</td>
+<td class="instruction">LD IX,($BA1E)</td>
+<td class="comment-1" rowspan="1">Read <a href="47635.html#47643">$BA1E</a> in "Variables used by the code at <a href="47648.html">BA20</a>-<a href="48965.html#48984">BF58</a>" into IX - Otherwise IX = the last record found (<a href="47635.html#47643">$BA1E</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48024"></span>BB98</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48026"></span>BB9A</td>
+<td class="instruction">CALL <a href="48730.html">$BE5A</a></td>
+<td class="comment-1" rowspan="1">Step over it (<a href="48730.html">BE5A</a>)...</td>
+</tr>
+<tr>
+<td class="address-2"><span id="48029"></span>BB9D</td>
+<td class="instruction">LD A,(IX+$03)</td>
+<td class="comment-1" rowspan="1">Read byte +3 of the record at IX into A - ...and look at what follows for records with flags bits 7-6 = 10 or bit 3 set; otherwise skip a group (<a href="48754.html">BE72</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48032"></span>BBA0</td>
+<td class="instruction">AND $C0</td>
+<td class="comment-1" rowspan="1">Keep only bits 6, 7 of A (mask $C0)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48034"></span>BBA2</td>
+<td class="instruction">CP $80</td>
+<td class="comment-1" rowspan="1">Compare A with $80</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48036"></span>BBA4</td>
+<td class="instruction">JR Z,$BBB1</td>
+<td class="comment-1" rowspan="1">If A equals $80, skip ahead to <a href="47975.html#48049">BBB1</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="48038"></span>BBA6</td>
+<td class="instruction">BIT 3,(IX+$03)</td>
+<td class="comment-1" rowspan="1">Test bit 3 of byte +3 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48042"></span>BBAA</td>
+<td class="instruction">JR NZ,$BBB1</td>
+<td class="comment-1" rowspan="1">If bit 3 of byte +3 of the record at IX is set, skip ahead to <a href="47975.html#48049">BBB1</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="48044"></span>BBAC</td>
+<td class="instruction">CALL <a href="48754.html">$BE72</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Step IX over a whole group of case records" (<a href="48754.html">BE72</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48047"></span>BBAF</td>
+<td class="instruction">JR $BB9D</td>
+<td class="comment-1" rowspan="1">Go back to <a href="47975.html#48029">BB9D</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="48049"></span>BBB1</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack - Restore IX; NZ: the 'do not believe you have the evidence' reply <a href="29350.html">72A6</a> (<a href="47975.html#48068">BBC4</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48051"></span>BBB3</td>
+<td class="instruction">JR NZ,$BBC4</td>
+<td class="comment-1" rowspan="1">If the zero flag is clear, skip ahead to <a href="47975.html#48068">BBC4</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="48053"></span>BBB5</td>
+<td class="instruction">LD HL,$7295</td>
+<td class="comment-1" rowspan="1">Z: reply <a href="29333.html">7295</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="48056"></span>BBB8</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack - Print the reply with IX as the subject</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48058"></span>BBBA</td>
+<td class="instruction">CALL <a href="42399.html">$A59F</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print the message at HL" (<a href="42399.html">A59F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48061"></span>BBBD</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="48062"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="47719.html">BA67</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="48062"></span>BBBE</td>
+<td class="instruction">LD HL,$7243</td>
+<td class="comment-1" rowspan="1">Point HL at the message "YOU SAY" WHAT"." (<a href="29251.html">7243</a>) - Reply <a href="29251.html">7243</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="48065"></span>BBC1</td>
+<td class="instruction">JP <a href="42399.html">$A59F</a></td>
+<td class="comment-1" rowspan="1">Go back to the routine "Print the message at HL" (<a href="42399.html">A59F</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="48068"></span>BBC4</td>
+<td class="instruction">LD HL,$72A6</td>
+<td class="comment-1" rowspan="1">(<a href="29350.html">72A6</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48071"></span>BBC7</td>
+<td class="instruction">JR $BBB8</td>
+<td class="comment-1" rowspan="1">Go back to <a href="47975.html#48056">BBB8</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="48073"></span>BBC9</td>
+<td class="instruction">CALL <a href="48198.html">$BC46</a></td>
+<td class="comment-1" rowspan="1">Summary: try to prove every waiting statement (<a href="48198.html">BC46</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48076"></span>BBCC</td>
+<td class="instruction">CALL <a href="48284.html">$BC9C</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Find the first waiting statement that cannot be..." (<a href="48284.html">BC9C</a>) - Find the first still unprovable one (<a href="48284.html">BC9C</a>): B = how many</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48079"></span>BBCF</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">Copy B into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48080"></span>BBD0</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48081"></span>BBD1</td>
+<td class="instruction">JR NZ,$BBE5</td>
+<td class="comment-1" rowspan="1">Some: <a href="47975.html#48101">BBE5</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="48083"></span>BBD3</td>
+<td class="instruction">CALL <a href="48244.html">$BC74</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Count the waiting statements that can now be proven" (<a href="48244.html">BC74</a>) - None: count those that can now be proven (<a href="48244.html">BC74</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48086"></span>BBD6</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48087"></span>BBD7</td>
+<td class="instruction">JR Z,$BBDE</td>
+<td class="comment-1" rowspan="1">If A is zero, skip ahead to <a href="47975.html#48094">BBDE</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="48089"></span>BBD9</td>
+<td class="instruction">LD HL,$72BD</td>
+<td class="comment-1" rowspan="1">(<a href="29373.html">72BD</a>) - Some: reply <a href="29373.html">72BD</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="48092"></span>BBDC</td>
+<td class="instruction">JR $BBB8</td>
+<td class="comment-1" rowspan="1">Go back to <a href="47975.html#48056">BBB8</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="48094"></span>BBDE</td>
+<td class="instruction">LD HL,$727E</td>
+<td class="comment-1" rowspan="1">Point HL at the message "YOU SAY" THATS FINE HOLMES BUT WHAT DOES IT... (<a href="29310.html">727E</a>) - None: reply <a href="29310.html">727E</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="48097"></span>BBE1</td>
+<td class="instruction">CALL <a href="42399.html">$A59F</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print the message at HL" (<a href="42399.html">A59F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48100"></span>BBE4</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="48101"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="40408.html">9DD8</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="48101"></span>BBE5</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Print <a href="26623.html">67FF</a>, then <a href="29398.html">72D6</a> unless exactly one...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48102"></span>BBE6</td>
+<td class="instruction">LD HL,$67FF</td>
+<td class="comment-1" rowspan="1">Point HL at the message "YOU SAY"" (<a href="26623.html">67FF</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48105"></span>BBE9</td>
+<td class="instruction">CALL <a href="42399.html">$A59F</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print the message at HL" (<a href="42399.html">A59F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48108"></span>BBEC</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48109"></span>BBED</td>
+<td class="instruction">CP $01</td>
+<td class="comment-1" rowspan="1">Compare A with $01</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48111"></span>BBEF</td>
+<td class="instruction">LD HL,$72D6</td>
+<td class="comment-1" rowspan="1">Point HL at the message "ONE THING AT A TIME HOLMES" (<a href="29398.html">72D6</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48114"></span>BBF2</td>
+<td class="instruction">CALL NZ,<a href="42399.html">$A59F</a></td>
+<td class="comment-1" rowspan="1">If A differs from $01, call the routine "Print the message at HL" (<a href="42399.html">A59F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48117"></span>BBF5</td>
+<td class="instruction">BIT 4,(IX+$03)</td>
+<td class="comment-1" rowspan="1">Test bit 4 of byte +3 of the record at IX - Statement flags bit 4 clear: jump to the address at +4/+5 (<a href="47975.html#48154">BC1A</a>). Bit 4 set: take back the proven bit (1), print <a href="29409.html">72E1</a>, then the message at +4/+5 (or a Save the statement record</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48121"></span>BBF9</td>
+<td class="instruction">JR Z,$BC1A</td>
+<td class="comment-1" rowspan="1">If bit 4 of byte +3 of the record at IX is clear, skip ahead to <a href="47975.html#48154">BC1A</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="48123"></span>BBFB</td>
+<td class="instruction">RES 1,(IX+$03)</td>
+<td class="comment-1" rowspan="1">Clear bit 1 of byte +3 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48127"></span>BBFF</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48129"></span>BC01</td>
+<td class="instruction">LD HL,$72E1</td>
+<td class="comment-1" rowspan="1">Point HL at the message "I CANNOT ACCEPT THAT YOU AND YOU." (<a href="29409.html">72E1</a>) - Print <a href="29409.html">72E1</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="48132"></span>BC04</td>
+<td class="instruction">CALL <a href="42399.html">$A59F</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print the message at HL" (<a href="42399.html">A59F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48135"></span>BC07</td>
+<td class="instruction">LD L,(IX+$04)</td>
+<td class="comment-1" rowspan="1">Read byte +4 of the record at IX into L - HL = the word at +4/+5</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48138"></span>BC0A</td>
+<td class="instruction">LD H,(IX+$05)</td>
+<td class="comment-1" rowspan="1">Read byte +5 of the record at IX into H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48141"></span>BC0D</td>
+<td class="instruction">LD A,L</td>
+<td class="comment-1" rowspan="1">Copy L into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48142"></span>BC0E</td>
+<td class="instruction">OR H</td>
+<td class="comment-1" rowspan="1">Set in A the bits that are set in H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48143"></span>BC0F</td>
+<td class="instruction">JP NZ,<a href="42399.html">$A59F</a></td>
+<td class="comment-1" rowspan="1">Non-zero: print the message it points to and finish (<a href="42399.html">A59F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48146"></span>BC12</td>
+<td class="instruction">LD A,$22</td>
+<td class="comment-1" rowspan="1">Load A with $22 - Zero: print a quote mark (A = $22) (<a href="43447.html">A9B7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48148"></span>BC14</td>
+<td class="instruction">CALL <a href="43447.html">$A9B7</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print character A, a word at a time (word wrap)" (<a href="43447.html">A9B7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48151"></span>BC17</td>
+<td class="instruction">JP <a href="41853.html#42004">$A414</a></td>
+<td class="comment-1" rowspan="1">...and end the line (<a href="41853.html#42004">A414</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="48154"></span>BC1A</td>
+<td class="instruction">LD L,(IX+$04)</td>
+<td class="comment-1" rowspan="1">Read byte +4 of the record at IX into L - Bit 4 clear: jump to the routine at +4/+5</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48157"></span>BC1D</td>
+<td class="instruction">LD H,(IX+$05)</td>
+<td class="comment-1" rowspan="1">Read byte +5 of the record at IX into H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48160"></span>BC20</td>
+<td class="instruction">JP (HL)</td>
+<td class="comment-1" rowspan="1">Jump to the address in HL</td>
+</tr>
+<tr>
+<td class="address-2"><span id="48161"></span>BC21</td>
+<td class="instruction">CALL <a href="48465.html">$BD51</a></td>
+<td class="comment-1" rowspan="1">Look the statement up in the case table (<a href="48465.html">BD51</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48164"></span>BC24</td>
+<td class="instruction">JR NZ,$BC2F</td>
+<td class="comment-1" rowspan="1">Not there: return 0</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48166"></span>BC26</td>
+<td class="instruction">LD A,(IX+$03)</td>
+<td class="comment-1" rowspan="1">Read byte +3 of the record at IX into A - Only if its flags bits 7-6 are 10</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48169"></span>BC29</td>
+<td class="instruction">AND $C0</td>
+<td class="comment-1" rowspan="1">Keep only bits 6, 7 of A (mask $C0)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48171"></span>BC2B</td>
+<td class="instruction">CP $80</td>
+<td class="comment-1" rowspan="1">Compare A with $80</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48173"></span>BC2D</td>
+<td class="instruction">JR Z,$BC31</td>
+<td class="comment-1" rowspan="1">If A equals $80, skip ahead to <a href="47975.html#48177">BC31</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="48175"></span>BC2F</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Set A to zero, which sets the zero flag for the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48176"></span>BC30</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="48177"></span>BC31</td>
+<td class="instruction">LD ($BA1E),IX</td>
+<td class="comment-1" rowspan="1">Remember the record in <a href="47635.html#47643">$BA1E</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="48181"></span>BC35</td>
+<td class="instruction">CALL <a href="48329.html">$BCC9</a></td>
+<td class="comment-1" rowspan="1">Try to prove it (<a href="48329.html">BCC9</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48184"></span>BC38</td>
+<td class="instruction">JR Z,$BC43</td>
+<td class="comment-1" rowspan="1">Proven: return NZ</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48186"></span>BC3A</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="1">Load A with $01 - Not proven: <a href="47635.html#47643">$BA1D</a> = 1...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48188"></span>BC3C</td>
+<td class="instruction">LD ($BA1D),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="47635.html#47643">$BA1D</a> in "Variables used by the code at <a href="47648.html">BA20</a>-<a href="48965.html#48984">BF58</a>"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48191"></span>BC3F</td>
+<td class="instruction">SET 0,(IX+$03)</td>
+<td class="comment-1" rowspan="1">...and mark it waiting (bit 0)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="48195"></span>BC43</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - Return NZ</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48197"></span>BC45</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="47964.html">BB5C</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#47975">Map</a></td>
+<td class="next">
+Next: <a href="48198.html">BC46</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

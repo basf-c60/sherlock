@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at B303 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="45791.html">B2DF</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#45827">Map</a></td>
+<td class="next">
+Next: <a href="45832.html">B308</a>
+</td>
+</tr>
+</table>
+<div class="description">B303: HL = $B6AE (ask which one), Z</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="46766.html">B6AE</a>.
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">$B6AE, the routine that asks which one</td>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Z</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="45827"></span>B303</td>
+<td class="instruction">LD HL,$B6AE</td>
+<td class="comment-1" rowspan="1">Point HL at "No indirect object: DON'T BE SILLY, or YOU CANNOT..." (<a href="46766.html">B6AE</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45830"></span>B306</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Set A to zero, which sets the zero flag for the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45831"></span>B307</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="45791.html">B2DF</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#45827">Map</a></td>
+<td class="next">
+Next: <a href="45832.html">B308</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

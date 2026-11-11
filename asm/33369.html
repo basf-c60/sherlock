@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Data at 8259 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-b">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Data</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="33312.html">8220</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#33369">Map</a></td>
+<td class="next">
+Next: <a href="33803.html">840B</a>
+</td>
+</tr>
+</table>
+<div class="description">8259: Verb patterns: the verb number is the position in this table</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+54 eight-byte records, one per verb phrase the parser accepts, ended by $0000. Bytes 0-5 are up to three word slots: the low 12 bits are a dictionary offset (see the dictionary at <a href="24000.html">5DC0</a>), the high 4 bits are flags (see below). Bytes 6-7 are a fourth word slot, laid out the same way: GO for the ten directions (so GO NORTH works), CLOSELY for verb <a href="57653.html">20</a> (EXAMINE CLOSELY) and FURIOUSLY for verb <a href="39649.html">30</a> (GO FURIOUSLY TO); the narrator prints this word first ('Furiously go to the old mill road'). The high nibbles of the four slots are the record's flags, gathered by <a href="41661.html">A2BD</a> into <a href="40918.html#40986">$A01D</a>/<a href="40918.html#40986">$A01E</a>.
+</div>
+<div class="paragraph">
+The verb number is not stored anywhere: <a href="45457.html#45483">B1AB</a> computes it from which record the parser matched, as (record - <a href="33369.html">8259</a>) / 8 + 1, and stores it in <a href="40918.html#41010">$A033</a>. DOWN=10, CARRY=11, CLOSE=14, DROP=16, ENTER=18, EXAMINE=19, FOLLOW=21, GET=23, GIVE TO=26, HAIL=31, INVENTORY=33, LOOK=34, SIT IN=40, TAKE=41, TELL=47, WAIT=49, WEAR=51, KILL=52, LOCK=53, UNLOCK=54).
+</div>
+<div class="paragraph">
+GO NORTH works like NORTH, and EXAMINE CLOSELY LAMP is narrated 'You closely examine the oil lamp.' - the fourth word first - and takes five minutes; EXAMINE LAMP CAREFULLY (the adverb after the object) gets 'WHAT ?'.
+</div>
+<div class="paragraph">
+The flag nibbles, as far as the code and the 54 records show. <a href="41661.html">A2BD</a> packs the first two slots' nibbles into <a href="40918.html#40986">$A01D</a> and the last two into <a href="40918.html#40986">$A01E</a>. <a href="40918.html#40986">$A01D</a> bit 3 (first word, nibble bit 3): the verb takes a direct object - set for every transitive verb and for none of the directions, LOOK, INVENTORY, HELLO or WAIT HERE; the narrator prints a direct object only then (<a href="41853.html#41893">A3A5</a>), and it is also bit 7 of the first word's reference, which is what <a href="45980.html">B39C</a>/<a href="40918.html#40986">$A01C</a> copy, so ALL can only be used with such verbs. <a href="40918.html#40986">$A01D</a> bit 2: the verb takes an indirect object - DROP IN, GIVE TO, PAY TO, PUT IN, PUT ON, TAKE FROM, TAKE OUT OF, TAKE TO, TELL, TELL ABOUT (<a href="41853.html#41961">A3E9</a>). <a href="40918.html#40986">$A01D</a> bit 5 (second word, nibble bit 1): the phrase's second word goes before the direct object - CLIMB INTO, GET OUT OF, GO TO, LOOK THROUGH, SIT IN, TALK TO, WAIT UNTIL and others (<a href="41853.html#41897">A3A9</a>). <a href="40918.html#40986">$A01E</a> bit 7 (fourth word, nibble bit 3, only CLIMB OUT OF and GET OUT OF): one more word before the object in the narration (<a href="41853.html#41902">A3AE</a>). <a href="40918.html#40986">$A01D</a> bit 0: the object need not be here - FOLLOW, COME WITH, the GO TOs, HAIL, TAKE OFF, TAKE TO, TELL - copied to <a href="40918.html#41010">$A038</a>, which lets the thing search <a href="54122.html">D36A</a> skip its is-it-here test (<a href="46273.html#46298">B4DA</a>, <a href="46440.html#46465">B581</a>). <a href="40918.html#40986">$A01D</a> bit 4: no 'You ...' narration at all (<a href="41700.html#41766">A326</a> jumps over it) - LOOK, INVENTORY, HELLO, ENTER, FOLLOW, COME WITH, GO INTO, the GO TOs, TAKE TO, TELL and WAIT UNTIL, whose own code says what happens. <a href="40918.html#40986">$A01E</a> bits 2-3 both set (third word's nibble 12 or 13: WAIT UNTIL, PAY TO): the direct object is a number, requirement code 5 rather than 7 (<a href="50323.html#50337">C4A1</a>); <a href="40918.html#40986">$A01E</a> bits 0-1 both set do the same for the indirect object (<a href="50354.html#50368">C4C0</a>), though no verb sets them. <a href="40918.html#40986">$A01E</a> bit 4 (HAIL, CLIMB INTO): try every candidate for the second object rather than the first that fits (<a href="45421.html#45453">$B190</a>, <a href="45791.html">B2DF</a>), and no ALL. <a href="40918.html#40986">$A01E</a> bit 5 (GIVE TO, PAY TO): with no preposition typed, the second noun phrase is the direct object (<a href="46085.html#46113">B421</a>) - so GIVE WATSON LAMP gives the lamp to Watson.
+</div>
+<div class="paragraph">
+The indirect object is the same with bit 2, bit 6 and <a href="40918.html#40986">$A01E</a> bits 0-1. So bit 7 (ENTER, GO INTO, the GO TOs) and bit 6 (TAKE TO) make that object's requirement code 4 - the code <a href="50878.html">C6BE</a> treats after the room codes - instead of an ordinary thing (7). Only bit 6 of <a href="40918.html#40986">$A01E</a> is still unread.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33369"></span>8259</td>
+<td class="instruction">DEFB $C3,$05,$00,$00,$00,$00,$8D,$03</td>
+<td class="comment-1" rowspan="1">Verb <a href="56579.html">1</a>: NORTH</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33377"></span>8261</td>
+<td class="instruction">DEFB $1A,$08,$00,$00,$00,$00,$8D,$03</td>
+<td class="comment-1" rowspan="1">Verb <a href="56579.html">2</a>: SOUTH</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33385"></span>8269</td>
+<td class="instruction">DEFB $84,$02,$00,$00,$00,$00,$8D,$03</td>
+<td class="comment-1" rowspan="1">Verb <a href="56579.html">3</a>: EAST</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33393"></span>8271</td>
+<td class="instruction">DEFB $92,$09,$00,$00,$00,$00,$8D,$03</td>
+<td class="comment-1" rowspan="1">Verb <a href="56579.html">4</a>: WEST</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33401"></span>8279</td>
+<td class="instruction">DEFB $C7,$05,$00,$00,$00,$00,$8D,$03</td>
+<td class="comment-1" rowspan="1">Verb <a href="56579.html">5</a>: NORTHEAST</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33409"></span>8281</td>
+<td class="instruction">DEFB $D0,$05,$00,$00,$00,$00,$8D,$03</td>
+<td class="comment-1" rowspan="1">Verb <a href="56579.html">6</a>: NORTHWEST</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33417"></span>8289</td>
+<td class="instruction">DEFB $1E,$08,$00,$00,$00,$00,$8D,$03</td>
+<td class="comment-1" rowspan="1">Verb <a href="56579.html">7</a>: SOUTHEAST</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33425"></span>8291</td>
+<td class="instruction">DEFB $27,$08,$00,$00,$00,$00,$8D,$03</td>
+<td class="comment-1" rowspan="1">Verb <a href="56579.html">8</a>: SOUTHWEST</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33433"></span>8299</td>
+<td class="instruction">DEFB $3C,$09,$00,$00,$00,$00,$8D,$03</td>
+<td class="comment-1" rowspan="1">Verb <a href="56579.html">9</a>: UP</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33441"></span>82A1</td>
+<td class="instruction">DEFB $72,$02,$00,$00,$00,$00,$8D,$03</td>
+<td class="comment-1" rowspan="1">Verb <a href="56579.html">10</a>: DOWN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33449"></span>82A9</td>
+<td class="instruction">DEFB $8B,$81,$00,$00,$00,$80,$00,$40</td>
+<td class="comment-1" rowspan="1">Verb <a href="56513.html">11</a>: CARRY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33457"></span>82B1</td>
+<td class="instruction">DEFB $B2,$81,$77,$24,$00,$00,$00,$50</td>
+<td class="comment-1" rowspan="1">Verb <a href="58378.html">12</a>: CLIMB INTO</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33465"></span>82B9</td>
+<td class="instruction">DEFB $B2,$81,$20,$26,$EC,$05,$00,$C0</td>
+<td class="comment-1" rowspan="1">Verb <a href="58418.html">13</a>: CLIMB OUT OF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33473"></span>82C1</td>
+<td class="instruction">DEFB $B7,$81,$00,$00,$00,$00,$00,$40</td>
+<td class="comment-1" rowspan="1">Verb <a href="57007.html">14</a>: CLOSE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33481"></span>82C9</td>
+<td class="instruction">DEFB $F7,$81,$00,$00,$00,$00,$00,$40</td>
+<td class="comment-1" rowspan="1">Verb <a href="58152.html">15</a>: COUNT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33489"></span>82D1</td>
+<td class="instruction">DEFB $7C,$82,$00,$00,$00,$80,$00,$00</td>
+<td class="comment-1" rowspan="1">Verb <a href="56461.html">16</a>: DROP</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33497"></span>82D9</td>
+<td class="instruction">DEFB $7C,$C2,$50,$04,$00,$00,$00,$40</td>
+<td class="comment-1" rowspan="1">Verb <a href="57025.html">17</a>: DROP IN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33505"></span>82E1</td>
+<td class="instruction">DEFB $98,$82,$00,$90,$00,$00,$00,$00</td>
+<td class="comment-1" rowspan="1">Verb <a href="56658.html">18</a>: ENTER</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33513"></span>82E9</td>
+<td class="instruction">DEFB $CA,$82,$00,$00,$00,$00,$00,$40</td>
+<td class="comment-1" rowspan="1">Verb <a href="57152.html">19</a>: EXAMINE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33521"></span>82F1</td>
+<td class="instruction">DEFB $CA,$82,$00,$00,$00,$00,$BE,$41</td>
+<td class="comment-1" rowspan="1">Verb <a href="57653.html">20</a>: EXAMINE CLOSELY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33529"></span>82F9</td>
+<td class="instruction">DEFB $33,$93,$00,$10,$00,$40,$00,$00</td>
+<td class="comment-1" rowspan="1">Verb <a href="58450.html">21</a>: FOLLOW</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33537"></span>8301</td>
+<td class="instruction">DEFB $D4,$91,$BF,$39,$00,$40,$00,$00</td>
+<td class="comment-1" rowspan="1">Verb <a href="58450.html">22</a>: COME WITH</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33545"></span>8309</td>
+<td class="instruction">DEFB $81,$83,$00,$00,$00,$00,$00,$40</td>
+<td class="comment-1" rowspan="1">Verb <a href="56513.html">23</a>: GET</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33553"></span>8311</td>
+<td class="instruction">DEFB $81,$83,$77,$24,$00,$00,$00,$40</td>
+<td class="comment-1" rowspan="1">Verb <a href="58378.html">24</a>: GET INTO</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33561"></span>8319</td>
+<td class="instruction">DEFB $81,$83,$20,$26,$EC,$05,$00,$C0</td>
+<td class="comment-1" rowspan="1">Verb <a href="58418.html">25</a>: GET OUT OF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33569"></span>8321</td>
+<td class="instruction">DEFB $89,$C3,$DB,$08,$00,$10,$00,$60</td>
+<td class="comment-1" rowspan="1">Verb <a href="57090.html">26</a>: GIVE TO</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33577"></span>8329</td>
+<td class="instruction">DEFB $8D,$83,$77,$B4,$00,$00,$00,$00</td>
+<td class="comment-1" rowspan="1">Verb <a href="56658.html">27</a>: GO INTO</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33585"></span>8331</td>
+<td class="instruction">DEFB $8D,$83,$CE,$28,$00,$00,$00,$00</td>
+<td class="comment-1" rowspan="1">Verb <a href="56407.html">28</a>: GO THROUGH</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33593"></span>8339</td>
+<td class="instruction">DEFB $8D,$93,$DB,$B8,$00,$00,$00,$40</td>
+<td class="comment-1" rowspan="1">Verb <a href="39668.html">29</a>: GO TO</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33601"></span>8341</td>
+<td class="instruction">DEFB $8D,$93,$DB,$B8,$00,$00,$63,$43</td>
+<td class="comment-1" rowspan="1">Verb <a href="39649.html">30</a>: GO FURIOUSLY TO</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33609"></span>8349</td>
+<td class="instruction">DEFB $BE,$93,$00,$00,$00,$00,$00,$10</td>
+<td class="comment-1" rowspan="1">Verb <a href="58055.html">31</a>: HAIL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33617"></span>8351</td>
+<td class="instruction">DEFB $F5,$03,$00,$10,$00,$00,$00,$00</td>
+<td class="comment-1" rowspan="1">Verb <a href="39550.html">32</a>: HELLO</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33625"></span>8359</td>
+<td class="instruction">DEFB $7A,$04,$00,$10,$00,$00,$00,$40</td>
+<td class="comment-1" rowspan="1">Verb <a href="56943.html">33</a>: INVENTORY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33633"></span>8361</td>
+<td class="instruction">DEFB $23,$05,$00,$10,$00,$00,$00,$00</td>
+<td class="comment-1" rowspan="1">Verb <a href="56443.html">34</a>: LOOK</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33641"></span>8369</td>
+<td class="instruction">DEFB $23,$85,$CE,$28,$00,$00,$00,$00</td>
+<td class="comment-1" rowspan="1">Verb <a href="56345.html">35</a>: LOOK THROUGH</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33649"></span>8371</td>
+<td class="instruction">DEFB $0B,$86,$00,$00,$00,$00,$00,$40</td>
+<td class="comment-1" rowspan="1">Verb <a href="56989.html">36</a>: OPEN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33657"></span>8379</td>
+<td class="instruction">DEFB $64,$C6,$DB,$08,$00,$D0,$00,$20</td>
+<td class="comment-1" rowspan="1">Verb <a href="58224.html">37</a>: PAY TO</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33665"></span>8381</td>
+<td class="instruction">DEFB $E8,$C6,$50,$04,$00,$00,$00,$40</td>
+<td class="comment-1" rowspan="1">Verb <a href="57025.html">38</a>: PUT IN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33673"></span>8389</td>
+<td class="instruction">DEFB $E8,$C6,$FF,$05,$00,$00,$00,$40</td>
+<td class="comment-1" rowspan="1">Verb <a href="57025.html">39</a>: PUT ON</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33681"></span>8391</td>
+<td class="instruction">DEFB $DD,$87,$50,$24,$00,$00,$00,$40</td>
+<td class="comment-1" rowspan="1">Verb <a href="58378.html">40</a>: SIT IN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33689"></span>8399</td>
+<td class="instruction">DEFB $87,$88,$00,$00,$00,$00,$00,$40</td>
+<td class="comment-1" rowspan="1">Verb <a href="56513.html">41</a>: TAKE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33697"></span>83A1</td>
+<td class="instruction">DEFB $87,$C8,$51,$03,$00,$00,$00,$40</td>
+<td class="comment-1" rowspan="1">Verb <a href="56513.html">42</a>: TAKE FROM</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33705"></span>83A9</td>
+<td class="instruction">DEFB $87,$98,$EF,$25,$00,$00,$00,$40</td>
+<td class="comment-1" rowspan="1">Verb 43: TAKE OFF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33713"></span>83B1</td>
+<td class="instruction">DEFB $87,$C8,$20,$06,$EC,$05,$00,$40</td>
+<td class="comment-1" rowspan="1">Verb <a href="56513.html">44</a>: TAKE OUT OF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33721"></span>83B9</td>
+<td class="instruction">DEFB $87,$D8,$DB,$58,$00,$40,$00,$00</td>
+<td class="comment-1" rowspan="1">Verb 45: TAKE TO</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33729"></span>83C1</td>
+<td class="instruction">DEFB $8B,$88,$DB,$28,$00,$40,$00,$00</td>
+<td class="comment-1" rowspan="1">Verb <a href="56734.html">46</a>: TALK TO</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33737"></span>83C9</td>
+<td class="instruction">DEFB $8F,$D8,$00,$10,$00,$40,$00,$00</td>
+<td class="comment-1" rowspan="1">Verb <a href="57814.html">47</a>: TELL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33745"></span>83D1</td>
+<td class="instruction">DEFB $8F,$D8,$05,$10,$00,$40,$00,$00</td>
+<td class="comment-1" rowspan="1">Verb <a href="57814.html">48</a>: TELL ABOUT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33753"></span>83D9</td>
+<td class="instruction">DEFB $5E,$09,$FF,$03,$00,$00,$00,$00</td>
+<td class="comment-1" rowspan="1">Verb <a href="56756.html">49</a>: WAIT HERE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33761"></span>83E1</td>
+<td class="instruction">DEFB $5E,$89,$38,$39,$00,$C0,$00,$00</td>
+<td class="comment-1" rowspan="1">Verb <a href="56784.html">50</a>: WAIT UNTIL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33769"></span>83E9</td>
+<td class="instruction">DEFB $83,$89,$00,$00,$00,$00,$00,$40</td>
+<td class="comment-1" rowspan="1">Verb 51: WEAR</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33777"></span>83F1</td>
+<td class="instruction">DEFB $94,$04,$00,$00,$00,$00,$00,$00</td>
+<td class="comment-1" rowspan="1">Verb <a href="40901.html">52</a>: KILL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33785"></span>83F9</td>
+<td class="instruction">DEFB $14,$85,$00,$00,$00,$00,$00,$40</td>
+<td class="comment-1" rowspan="1">Verb 53: LOCK</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33793"></span>8401</td>
+<td class="instruction">DEFB $2B,$89,$00,$00,$00,$00,$00,$40</td>
+<td class="comment-1" rowspan="1">Verb 54: UNLOCK</td>
+</tr>
+<tr>
+<td class="address-1"><span id="33801"></span>8409</td>
+<td class="instruction">DEFB $00,$00</td>
+<td class="comment-1" rowspan="1">End marker</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="33312.html">8220</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#33369">Map</a></td>
+<td class="next">
+Next: <a href="33803.html">840B</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

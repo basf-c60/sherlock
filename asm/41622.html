@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at A296 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="41591.html">A277</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#41622">Map</a></td>
+<td class="next">
+Next: <a href="41634.html">A2A2</a>
+</td>
+</tr>
+</table>
+<div class="description">A296: Print 18 newlines</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Clears the text window by scrolling it: 18 newlines (<a href="41634.html">A2A2</a>), clearing <a href="40918.html#40978">$A019</a> after each. Used by <a href="40564.html#40575">$9E80</a> (the end of the game), <a href="41591.html#41601">$A282</a> and <a href="45050.html#45070">$B00F</a>.
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">A,</td>
+<td class="register-desc">B Changed</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="41622"></span>A296</td>
+<td class="instruction">LD B,$12</td>
+<td class="comment-1" rowspan="1">18 times...</td>
+</tr>
+<tr>
+<td class="address-2"><span id="41624"></span>A298</td>
+<td class="instruction">CALL <a href="41634.html">$A2A2</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print a newline (A kept)" (<a href="41634.html">A2A2</a>) - ...start a new line (<a href="41634.html">A2A2</a>) and clear <a href="40918.html#40978">$A019</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="41627"></span>A29B</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41628"></span>A29C</td>
+<td class="instruction">LD ($A019),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#40978">$A019</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41631"></span>A29F</td>
+<td class="instruction">DJNZ $A298</td>
+<td class="comment-1" rowspan="1">Count B down and, while it is not zero, go back to <a href="41622.html#41624">A298</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="41633"></span>A2A1</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="41591.html">A277</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#41622">Map</a></td>
+<td class="next">
+Next: <a href="41634.html">A2A2</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

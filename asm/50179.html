@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at C403 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="50176.html">C400</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#50179">Map</a></td>
+<td class="next">
+Next: <a href="50197.html">C415</a>
+</td>
+</tr>
+</table>
+<div class="description">C403: Print one pixel line on the ZX Printer</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Port $FB is the ZX Printer's. Sets the printer speed (slower for the last two of the eight lines: the B &lt; 3 test at <a href="50179.html">C403</a>-<a href="50179.html#50183">C407</a>), waits until the printer is ready (IN A,($FB), RET M / JR NC) and joins the 48K ROM's COPY-LINE code at <a href="../rom_symbols.html#a0F12">$0F12</a>, which prints one pixel line. Called eight times by <a href="50148.html">C3E4</a> for each character row sent to the printer, so it is reached only when printing is on (PRINT special word).
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">B</td>
+<td class="register-desc">The pixel line number</td>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">The screen address of the line</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">The</td>
+<td class="register-desc">line sent to the printer through the ROM at $0F12</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="50179"></span>C403</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">Copy B into A - Slow the motor for the last two lines (B &lt; 3): the start of the ROM's COPY-LINE ($0EF4), copied without its BREAK test</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50180"></span>C404</td>
+<td class="instruction">CP $03</td>
+<td class="comment-1" rowspan="1">Compare A with $03</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50182"></span>C406</td>
+<td class="instruction">SBC A,A</td>
+<td class="comment-1" rowspan="1">Subtract A and the carry from A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50183"></span>C407</td>
+<td class="instruction">AND $02</td>
+<td class="comment-1" rowspan="1">Isolate bit 1 of A (mask $02)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50185"></span>C409</td>
+<td class="instruction">OUT ($FB),A</td>
+<td class="comment-1" rowspan="1">Write A to port ($FB)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50187"></span>C40B</td>
+<td class="instruction">LD D,A</td>
+<td class="comment-1" rowspan="1">Copy A into D</td>
+</tr>
+<tr>
+<td class="address-2"><span id="50188"></span>C40C</td>
+<td class="instruction">IN A,($FB)</td>
+<td class="comment-1" rowspan="1">Read port ($FB) into A - Wait for the printer: bit 6 set (no printer) returns, bit 7 is the stylus</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50190"></span>C40E</td>
+<td class="instruction">ADD A,A</td>
+<td class="comment-1" rowspan="1">Double A (shift it left one bit)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50191"></span>C40F</td>
+<td class="instruction">RET M</td>
+<td class="comment-1" rowspan="1">If the last result was negative (sign flag set), return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50192"></span>C410</td>
+<td class="instruction">JR NC,$C40C</td>
+<td class="comment-1" rowspan="1">If it did not overflow, go back to <a href="50179.html#50188">C40C</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="50194"></span>C412</td>
+<td class="instruction">JP $0F12</td>
+<td class="comment-1" rowspan="1">Join the ROM's COPY-LINE where it starts sending the 32 bytes</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="50176.html">C400</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#50179">Map</a></td>
+<td class="next">
+Next: <a href="50197.html">C415</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

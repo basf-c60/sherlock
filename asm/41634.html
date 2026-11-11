@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at A2A2 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="41622.html">A296</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#41634">Map</a></td>
+<td class="next">
+Next: <a href="41642.html">A2AA</a>
+</td>
+</tr>
+</table>
+<div class="description">A2A2: Print a newline (A kept)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Prints character $0D through the word-wrapping printer (<a href="43447.html">A9B7</a>). Fifteen callers.
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">Kept</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="41634"></span>A2A2</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack - New line: print a carriage return (13) (<a href="43447.html">A9B7</a>), keeping A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41635"></span>A2A3</td>
+<td class="instruction">LD A,$0D</td>
+<td class="comment-1" rowspan="1">Load A with $0D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41637"></span>A2A5</td>
+<td class="instruction">CALL <a href="43447.html">$A9B7</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print character A, a word at a time (word wrap)" (<a href="43447.html">A9B7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41640"></span>A2A8</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41641"></span>A2A9</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="41622.html">A296</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#41634">Map</a></td>
+<td class="next">
+Next: <a href="41642.html">A2AA</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

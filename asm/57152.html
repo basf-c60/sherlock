@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at DF40 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="57090.html">DF02</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#57152">Map</a></td>
+<td class="next">
+Next: <a href="57214.html">DF7E</a>
+</td>
+</tr>
+</table>
+<div class="description">DF40: Action record: default for verb 19 (EXAMINE)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The pre-check (<a href="57090.html#57134">DF2E</a>, shared with <a href="57653.html">E135</a>) refuses an object that a person other than the actor holds (<a href="51375.html">C8AF</a>). Watson holds the Daily Chronicle at the start, and EXAMINE CHRONICLE gets I SEE NO CHRONICLE THAT YOU CAN EXAMINE.
+</div>
+<div class="paragraph">
+Body: sets <a href="51886.html">CAAE</a> = 1, and for the actors <a href="56407.html#56428">DC6C</a> accepts (0, 1 and $64) prints the description (<a href="57152.html#57179">DF5B</a>) and a newline. EXAMINE LAMP -&gt; 'You examine the oil lamp. You see an oil lamp.' - a thing with no description message (+13/+14 empty) gets 'You see' + its name + '.'.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$A034</td>
+<td class="register-desc">The direct object</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ; $CAAE 1; the description printed</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="57152"></span>DF40</td>
+<td class="instruction">DEFB $78,$10,$2E,$DF,$80,$40,$00,$00</td>
+<td class="comment-1" rowspan="2">Action record header: flags $78; bit 5: test <a href="53368.html">D078</a> first; bit 6: pre-check at <a href="57090.html#57134">DF2E</a>; bit 4: five extra bytes; byte 1 $10</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57160"></span>DF48</td>
+<td class="instruction">DEFB $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57161"></span>DF49</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="1">Load A with $01 - <a href="51886.html">CAAE</a> = 1</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57163"></span>DF4B</td>
+<td class="instruction">LD ($CAAE),A</td>
+<td class="comment-1" rowspan="1">Store A in "Flag: the player's view has changed" (<a href="51886.html">CAAE</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57166"></span>DF4E</td>
+<td class="instruction">CALL <a href="56407.html#56428">$DC6C</a></td>
+<td class="comment-1" rowspan="1">Call <a href="56407.html#56428">DC6C</a> (inside "Action record: default for verb <a href="56407.html">28</a> (GO...") - Only for the actors <a href="56407.html#56428">DC6C</a> accepts (Z): anyone else passes Print the description (<a href="57152.html#57179">DF5B</a>) Newline</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57169"></span>DF51</td>
+<td class="instruction">RET NZ</td>
+<td class="comment-1" rowspan="1">If the zero flag is clear, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57170"></span>DF52</td>
+<td class="instruction">CALL $DF5B</td>
+<td class="comment-1" rowspan="1">Call <a href="57152.html#57179">DF5B</a> (inside "Action record: default for verb <a href="57152.html">19</a> (EXAMINE)")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57173"></span>DF55</td>
+<td class="instruction">CALL <a href="41634.html">$A2A2</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print a newline (A kept)" (<a href="41634.html">A2A2</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57176"></span>DF58</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - Succeed</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57178"></span>DF5A</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="57179"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routines at <a href="57604.html">E104</a> and <a href="57653.html">E135</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="57179"></span>DF5B</td>
+<td class="instruction">LD A,($A034)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A034</a> in "Game variables" into A - IX = the direct object's record</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57182"></span>DF5E</td>
+<td class="instruction">CALL <a href="53815.html">$D237</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Resolve an id (in A) to its full entity record" (<a href="53815.html">D237</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57185"></span>DF61</td>
+<td class="instruction">SET 6,(IX+$06)</td>
+<td class="comment-1" rowspan="1">Mark it as seen (+6 bit 6)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57189"></span>DF65</td>
+<td class="instruction">LD L,(IX+$0D)</td>
+<td class="comment-1" rowspan="1">Read byte +13 of the record at IX into L - Its description message (+13/+14): print it if there is one</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57192"></span>DF68</td>
+<td class="instruction">LD H,(IX+$0E)</td>
+<td class="comment-1" rowspan="1">Read byte +14 of the record at IX into H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57195"></span>DF6B</td>
+<td class="instruction">LD A,H</td>
+<td class="comment-1" rowspan="1">Copy H into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57196"></span>DF6C</td>
+<td class="instruction">OR L</td>
+<td class="comment-1" rowspan="1">Set in A the bits that are set in L</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57197"></span>DF6D</td>
+<td class="instruction">JP NZ,<a href="42399.html">$A59F</a></td>
+<td class="comment-1" rowspan="1">If the result is not zero, go back to the routine "Print the message at HL" (<a href="42399.html">A59F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57200"></span>DF70</td>
+<td class="instruction">LD HL,$68E1</td>
+<td class="comment-1" rowspan="1">Point HL at the message "YOU SEE" (<a href="26849.html">68E1</a>) - None: 'You see' (<a href="26849.html">68E1</a>)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57203"></span>DF73</td>
+<td class="instruction">CALL <a href="42399.html">$A59F</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print the message at HL" (<a href="42399.html">A59F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57206"></span>DF76</td>
+<td class="instruction">CALL <a href="54229.html">$D3D5</a></td>
+<td class="comment-1" rowspan="1">...its name (<a href="54229.html">D3D5</a>)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57209"></span>DF79</td>
+<td class="instruction">LD A,$2E</td>
+<td class="comment-1" rowspan="1">Load A with $2E - ...and a full stop</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57211"></span>DF7B</td>
+<td class="instruction">JP <a href="43447.html">$A9B7</a></td>
+<td class="comment-1" rowspan="1">Go back to the routine "Print character A, a word at a time (word wrap)" (<a href="43447.html">A9B7</a>)</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="57090.html">DF02</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#57152">Map</a></td>
+<td class="next">
+Next: <a href="57214.html">DF7E</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

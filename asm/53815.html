@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at D237 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="53796.html">D224</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#53815">Map</a></td>
+<td class="next">
+Next: <a href="53833.html">D249</a>
+</td>
+</tr>
+</table>
+<div class="description">D237: Resolve an id (in A) to its full entity record</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Looks the id up in the 3-byte index table at <a href="35695.html">8B6F</a> (via <a href="54094.html">D34E</a> above), which gives back a *pointer* to the entity's real, full record - one level of indirection past the compact index.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">A thing number</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">The thing's record</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="53815"></span>D237</td>
+<td class="instruction">LD IX,$8B6F</td>
+<td class="comment-1" rowspan="1">The thing index at <a href="35695.html">8B6F</a>: three-byte entries (id, record address)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53819"></span>D23B</td>
+<td class="instruction">CALL <a href="54094.html">$D34E</a></td>
+<td class="comment-1" rowspan="1">Find id A in it (<a href="54094.html">D34E</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53822"></span>D23E</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack - IX = that entry's record address (+1/+2)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53823"></span>D23F</td>
+<td class="instruction">LD L,(IX+$01)</td>
+<td class="comment-1" rowspan="1">Read byte +1 of the record at IX into L</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53826"></span>D242</td>
+<td class="instruction">LD H,(IX+$02)</td>
+<td class="comment-1" rowspan="1">Read byte +2 of the record at IX into H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53829"></span>D245</td>
+<td class="instruction">EX (SP),HL</td>
+<td class="comment-1" rowspan="1">Swap HL with the word on top of the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53830"></span>D246</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53832"></span>D248</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="53796.html">D224</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#53815">Map</a></td>
+<td class="next">
+Next: <a href="53833.html">D249</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

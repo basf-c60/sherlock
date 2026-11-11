@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at A51B - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="42189.html">A4CD</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#42267">Map</a></td>
+<td class="next">
+Next: <a href="42294.html">A536</a>
+</td>
+</tr>
+</table>
+<div class="description">A51B: Does the word reference at HL match the one at IY? (Z)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+An empty one (0) at HL matches anything. Otherwise compares the low byte and the low nibble of the high byte. HL and IY both move on two bytes.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">A word reference of the command (0 matches anything)</td>
+</tr>
+<tr>
+<td class="register">IY</td>
+<td class="register-desc">A word reference of the pattern</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Z when they match</td>
+</tr>
+<tr>
+<td class="register">HL,</td>
+<td class="register-desc">IY Both moved on two bytes</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="42267"></span>A51B</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack - A zero word at HL ends the comparison (Z unset)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42268"></span>A51C</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42269"></span>A51D</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42270"></span>A51E</td>
+<td class="instruction">OR (HL)</td>
+<td class="comment-1" rowspan="1">Set in A the bits that are set in the byte HL points at</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42271"></span>A51F</td>
+<td class="instruction">JR Z,$A52E</td>
+<td class="comment-1" rowspan="1">If the result is zero, skip ahead to <a href="42267.html#42286">A52E</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42273"></span>A521</td>
+<td class="instruction">LD A,(IY+$01)</td>
+<td class="comment-1" rowspan="1">Read byte +1 of the record at IY into A - The low nibbles of the two high bytes must agree...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42276"></span>A524</td>
+<td class="instruction">XOR (HL)</td>
+<td class="comment-1" rowspan="1">Flip in A the bits that are set in the byte HL points at</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42277"></span>A525</td>
+<td class="instruction">AND $0F</td>
+<td class="comment-1" rowspan="1">Keep only bits 0, 1, 2, 3 of A (mask $0F)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42279"></span>A527</td>
+<td class="instruction">JR NZ,$A52E</td>
+<td class="comment-1" rowspan="1">If any of bits 0, 1, 2, 3 of A was set, skip ahead to <a href="42267.html#42286">A52E</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42281"></span>A529</td>
+<td class="instruction">DEC HL</td>
+<td class="comment-1" rowspan="1">Step HL back one byte - ...and the low bytes: a 12-bit match</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42282"></span>A52A</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42283"></span>A52B</td>
+<td class="instruction">CP (IY+$00)</td>
+<td class="comment-1" rowspan="1">Compare A with the first byte of the record at IY</td>
+</tr>
+<tr>
+<td class="address-2"><span id="42286"></span>A52E</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack - Either way both pointers move on two bytes</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42287"></span>A52F</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42288"></span>A530</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42289"></span>A531</td>
+<td class="instruction">INC IY</td>
+<td class="comment-1" rowspan="1">Step IY on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42291"></span>A533</td>
+<td class="instruction">INC IY</td>
+<td class="comment-1" rowspan="1">Step IY on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42293"></span>A535</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="42189.html">A4CD</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#42267">Map</a></td>
+<td class="next">
+Next: <a href="42294.html">A536</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

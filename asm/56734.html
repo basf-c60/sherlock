@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at DD9E - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="56708.html">DD84</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#56734">Map</a></td>
+<td class="next">
+Next: <a href="56756.html">DDB4</a>
+</td>
+</tr>
+</table>
+<div class="description">DD9E: Action record: default for verb 46 (TALK TO)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+TALK TO: passes the quoted words to <a href="47210.html">B86A</a> with A = 1 when the person spoken to is an actor with a record, 0 otherwise, and succeeds.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$A034</td>
+<td class="register-desc">The person spoken to</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56734"></span>DD9E</td>
+<td class="instruction">DEFB $0D,$10</td>
+<td class="comment-1" rowspan="1">Action record header: flags $0D; byte 1 $10</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56736"></span>DDA0</td>
+<td class="instruction">LD A,($A034)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A034</a> in "Game variables" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56739"></span>DDA3</td>
+<td class="instruction">CALL <a href="52238.html">$CC0E</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Find the actor record whose id matches C" (<a href="52238.html">CC0E</a>) - Is the direct object an actor with a record (<a href="52238.html">CC0E</a>)? A = 0 if not, 1 if so</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56742"></span>DDA6</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1">Compare A with $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56744"></span>DDA8</td>
+<td class="instruction">LD A,$00</td>
+<td class="comment-1" rowspan="1">Load A with $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56746"></span>DDAA</td>
+<td class="instruction">JR Z,$DDAE</td>
+<td class="comment-1" rowspan="1">If A equals $FF, skip ahead to <a href="56734.html#56750">DDAE</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="56748"></span>DDAC</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="1">Load A with $01</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56750"></span>DDAE</td>
+<td class="instruction">CALL <a href="47210.html">$B86A</a></td>
+<td class="comment-1" rowspan="1">Hand the quoted words on (<a href="47210.html">B86A</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56753"></span>DDB1</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - Succeed</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56755"></span>DDB3</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="56708.html">DD84</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#56734">Map</a></td>
+<td class="next">
+Next: <a href="56756.html">DDB4</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

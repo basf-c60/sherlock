@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at E003 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="57328.html">DFF0</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#57347">Map</a></td>
+<td class="next">
+Next: <a href="57378.html">E022</a>
+</td>
+</tr>
+</table>
+<div class="description">E003: Shared TAKE OFF action ($AA71 entry #5)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="43633.html">AA71</a>.
+</div>
+<div class="paragraph">
+Used by the China man's disguise (object 14). The body calls <a href="57402.html">E03A</a> with A = 0, then clears the disguise's container and sets its room to <a href="40918.html#40970">A00A</a>.
+</div>
+<div class="paragraph">
+The object records show how it is reached: through the disguise's own TAKE OFF entry.
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ; the actor is itself again and the disguise lies in the player's room</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="57347"></span>E003</td>
+<td class="instruction">DEFB $47,$10,$F8,$DF</td>
+<td class="comment-1" rowspan="1">Action record header: flags $47; bit 6: pre-check at <a href="57328.html#57336">DFF8</a>; byte 1 $10</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="57351"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="57322.html">DFEA</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="57351"></span>E007</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag) - A = 0: the actor turns back into thing 0 (<a href="57402.html">E03A</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57352"></span>E008</td>
+<td class="instruction">CALL <a href="57402.html">$E03A</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Set the worn state of the actor (A = 1 wear, 0 take..." (<a href="57402.html">E03A</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57355"></span>E00B</td>
+<td class="instruction">LD IX,($A013)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40978">$A013</a> in "Game variables" into IX - The disguise (the direct object) is no longer held by anyone (+1 = 0)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57359"></span>E00F</td>
+<td class="instruction">LD (IX+$01),$00</td>
+<td class="comment-1" rowspan="1">Set byte +1 of the record at IX to $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57363"></span>E013</td>
+<td class="instruction">LD A,($A00A)</td>
+<td class="comment-1" rowspan="1">Read the current actor's room (<a href="40918.html#40970">A00A</a>) into A - ...and lies in the room the player is in (+15)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57366"></span>E016</td>
+<td class="instruction">LD (IX+$0F),A</td>
+<td class="comment-1" rowspan="1">Store A in byte +15 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57369"></span>E019</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57371"></span>E01B</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57372"></span>E01C</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A036</a> in "Game variables" into A - Pre-check for TAKE OFF: the actor must be the player (A = 0)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57375"></span>E01F</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57376"></span>E020</td>
+<td class="instruction">JR <a href="57328.html#57341">$DFFD</a></td>
+<td class="comment-1" rowspan="1">Go back to <a href="57328.html#57341">DFFD</a></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="57328.html">DFF0</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#57347">Map</a></td>
+<td class="next">
+Next: <a href="57378.html">E022</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

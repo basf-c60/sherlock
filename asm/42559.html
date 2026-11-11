@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at A63F - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="42554.html">A63A</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#42559">Map</a></td>
+<td class="next">
+Next: <a href="42586.html">A65A</a>
+</td>
+</tr>
+</table>
+<div class="description">A63F: Codes $1D and $1E (and $A647): finish a sentence</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="42559.html#42567">A647</a>.
+</div>
+<div class="paragraph">
+Jumped to rather than called (<a href="42529.html#42543">A62F</a>). D = $60 ($1D) or $30 ($1E), or, entered at <a href="42559.html#42567">A647</a>, D from a word reference just printed by <a href="43136.html#43143">A887</a>. Then: with D bit 6 set, a newline (<a href="41634.html">A2A2</a>); with bit 4 set, a full stop and a newline.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">D</td>
+<td class="register-desc">Bit 6: no full stop; bit 4: full stop and new line</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">From the new line</td>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">Changed</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="42559"></span>A63F</td>
+<td class="instruction">LD D,$60</td>
+<td class="comment-1" rowspan="1">Load D with $60 - Code $1D: D = $60 (end of sentence, new line)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42561"></span>A641</td>
+<td class="instruction">JR $A64A</td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="42559.html#42570">A64A</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42563"></span>A643</td>
+<td class="instruction">LD D,$30</td>
+<td class="comment-1" rowspan="1">Load D with $30 - Code $1E: D = $30 (full stop and new line)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42565"></span>A645</td>
+<td class="instruction">JR $A64A</td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="42559.html#42570">A64A</a></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="42567"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="42445.html">A5CD</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="42567"></span>A647</td>
+<td class="instruction">CALL <a href="43136.html#43143">$A887</a></td>
+<td class="comment-1" rowspan="1">Entry: print the word at DE (<a href="43136.html#43143">A887</a>), D left as it was</td>
+</tr>
+<tr>
+<td class="address-2"><span id="42570"></span>A64A</td>
+<td class="instruction">LD A,$2E</td>
+<td class="comment-1" rowspan="1">A = '.'</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42572"></span>A64C</td>
+<td class="instruction">BIT 6,D</td>
+<td class="comment-1" rowspan="1">Test bit 6 of D - D bit 6 set: no full stop, straight to the new line</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42574"></span>A64E</td>
+<td class="instruction">JR NZ,$A657</td>
+<td class="comment-1" rowspan="1">If bit 6 of D is set, skip ahead to <a href="42559.html#42583">A657</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42576"></span>A650</td>
+<td class="instruction">BIT 4,D</td>
+<td class="comment-1" rowspan="1">Test bit 4 of D - D bit 4 set: print the full stop (<a href="43447.html">A9B7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42578"></span>A652</td>
+<td class="instruction">CALL NZ,<a href="43447.html">$A9B7</a></td>
+<td class="comment-1" rowspan="1">If bit 4 of D is set, call the routine "Print character A, a word at a time (word wrap)" (<a href="43447.html">A9B7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42581"></span>A655</td>
+<td class="instruction">BIT 4,D</td>
+<td class="comment-1" rowspan="1">...and a newline (<a href="41634.html">A2A2</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="42583"></span>A657</td>
+<td class="instruction">CALL NZ,<a href="41634.html">$A2A2</a></td>
+<td class="comment-1" rowspan="1">Then start a new line (<a href="41634.html">A2A2</a>) if the bit was set</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="42554.html">A63A</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#42559">Map</a></td>
+<td class="next">
+Next: <a href="42586.html">A65A</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

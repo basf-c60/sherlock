@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at DE6F - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="56784.html">DDD0</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#56943">Map</a></td>
+<td class="next">
+Next: <a href="56989.html">DE9D</a>
+</td>
+</tr>
+</table>
+<div class="description">DE6F: Action record: default for verb 33 (INVENTORY)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+INVENTORY: prints 'You are carrying' and the list of what the actor holds (<a href="54476.html">D4CC</a>, <a href="54554.html">D51A</a>), or 'nothing'. After DROP ALL, 'You are carrying nothing' (the <a href="56943.html#56966">DE86</a> branch); in the old man's disguise, 'An old man is carrying nothing'.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$A036</td>
+<td class="register-desc">The actor</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ; "YOU ARE CARRYING" and the list, or NOTHING, printed</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56943"></span>DE6F</td>
+<td class="instruction">DEFB $20,$10</td>
+<td class="comment-1" rowspan="1">Action record header: flags $20; bit 5: test <a href="53368.html">D078</a> first; byte 1 $10</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56945"></span>DE71</td>
+<td class="instruction">CALL <a href="41634.html">$A2A2</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print a newline (A kept)" (<a href="41634.html">A2A2</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56948"></span>DE74</td>
+<td class="instruction">LD HL,$68AD</td>
+<td class="comment-1" rowspan="1">Point HL at the message "YOU ARE CARRYING" (<a href="26797.html">68AD</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56951"></span>DE77</td>
+<td class="instruction">CALL <a href="42399.html">$A59F</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print the message at HL" (<a href="42399.html">A59F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56954"></span>DE7A</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A036</a> in "Game variables" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56957"></span>DE7D</td>
+<td class="instruction">CALL <a href="54476.html">$D4CC</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Count the things in place B that should be listed (B)" (<a href="54476.html">D4CC</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56960"></span>DE80</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56961"></span>DE81</td>
+<td class="instruction">LD HL,$6900</td>
+<td class="comment-1" rowspan="1">Point HL at the message "NOTHING" (<a href="26880.html">6900</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56964"></span>DE84</td>
+<td class="instruction">JR NZ,$DE8C</td>
+<td class="comment-1" rowspan="1">If A is not zero, skip ahead to <a href="56943.html#56972">DE8C</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="56966"></span>DE86</td>
+<td class="instruction">CALL <a href="42399.html">$A59F</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print the message at HL" (<a href="42399.html">A59F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56969"></span>DE89</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56971"></span>DE8B</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56972"></span>DE8C</td>
+<td class="instruction">LD C,A</td>
+<td class="comment-1" rowspan="1">Copy A into C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56973"></span>DE8D</td>
+<td class="instruction">LD A,($A00A)</td>
+<td class="comment-1" rowspan="1">Read the current actor's room (<a href="40918.html#40970">A00A</a>) into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56976"></span>DE90</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">Copy A into B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56977"></span>DE91</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A036</a> in "Game variables" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56980"></span>DE94</td>
+<td class="instruction">CALL <a href="54554.html">$D51A</a></td>
+<td class="comment-1" rowspan="1">Call the routine "List the things in a place, with commas and AND" (<a href="54554.html">D51A</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56983"></span>DE97</td>
+<td class="instruction">CALL <a href="41634.html">$A2A2</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print a newline (A kept)" (<a href="41634.html">A2A2</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56986"></span>DE9A</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56988"></span>DE9C</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="56784.html">DDD0</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#56943">Map</a></td>
+<td class="next">
+Next: <a href="56989.html">DE9D</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

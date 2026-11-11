@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at F1A8 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="61848.html">F198</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#61864">Map</a></td>
+<td class="next">
+Next: <a href="61889.html">F1C1</a>
+</td>
+</tr>
+</table>
+<div class="description">F1A8: Action record: the Major knocks the policeman out (RUN at $F097)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="61538.html#61591">F097</a>.
+</div>
+<div class="paragraph">
+Prints 'You knocks the police man unconscious from behind.' (<a href="27997.html">6D5D</a>) and sets the policeman (thing 11) to UNCONSCIOUS ($0910), high nibble 2 of +8, and clears bit 6 of +5.
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ; the policeman knocked out</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="61864"></span>F1A8</td>
+<td class="instruction">DEFB $00,$00</td>
+<td class="comment-1" rowspan="1">Action record header: flags $00; byte 1 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61866"></span>F1AA</td>
+<td class="instruction">LD HL,$6D5D</td>
+<td class="comment-1" rowspan="1">Point HL at the message "YOU KNOCKS THE POLICE MAN UNCONSCIOUS FROM... (<a href="27997.html">6D5D</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61869"></span>F1AD</td>
+<td class="instruction">LD DE,$0910</td>
+<td class="comment-1" rowspan="1">Load DE with $0910</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61872"></span>F1B0</td>
+<td class="instruction">LD B,$20</td>
+<td class="comment-1" rowspan="1">Load B with $20</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="61874"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="60729.html">ED39</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="61874"></span>F1B2</td>
+<td class="instruction">LD A,$0B</td>
+<td class="comment-1" rowspan="1">Load A with $0B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61876"></span>F1B4</td>
+<td class="instruction">CALL <a href="61889.html">$F1C1</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Set a thing's state word and state bits" (<a href="61889.html">F1C1</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61879"></span>F1B7</td>
+<td class="instruction">RES 6,(IX+$05)</td>
+<td class="comment-1" rowspan="1">Clear bit 6 of byte +5 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61883"></span>F1BB</td>
+<td class="instruction">CALL <a href="42399.html">$A59F</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print the message at HL" (<a href="42399.html">A59F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61886"></span>F1BE</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61888"></span>F1C0</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="61848.html">F198</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#61864">Map</a></td>
+<td class="next">
+Next: <a href="61889.html">F1C1</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

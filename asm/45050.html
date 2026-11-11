@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at AFFA - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="45025.html">AFE1</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#45050">Map</a></td>
+<td class="next">
+Next: <a href="45084.html">B01C</a>
+</td>
+</tr>
+</table>
+<div class="description">AFFA: Handlers for BECAUSE / THEREFORE, PRINT and NOPRINT</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+TAKE LAMP BECAUSE EXAMINE LAMP and DROP LAMP THEREFORE INVENTORY both give 'WHAT ?' - the guards at <a href="45025.html">AFE1</a>/<a href="45025.html#45032">AFE8</a> turn them away in a command - while TAKE LAMP, EXAMINE LAMP does both commands, the comma being the sentence break (<a href="44236.html">ACCC</a>).
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">E</td>
+<td class="register-desc">Parse flags</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">Carries</td>
+<td class="register-desc">on in the parser</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="45050"></span>AFFA</td>
+<td class="instruction">LD D,$A0</td>
+<td class="comment-1" rowspan="1">Load D with $A0 - BECAUSE / THEREFORE: D = $A0 (the comma class), continue as a comma (<a href="44236.html">ACCC</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45052"></span>AFFC</td>
+<td class="instruction">JP <a href="44236.html">$ACCC</a></td>
+<td class="comment-1" rowspan="1">Go back to the routine "Note where this sentence started, so it can be..." (<a href="44236.html">ACCC</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45055"></span>AFFF</td>
+<td class="instruction">CALL <a href="45025.html">$AFE1</a></td>
+<td class="comment-1" rowspan="1">PRINT: the sentence-start guard (<a href="45025.html">AFE1</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45058"></span>B002</td>
+<td class="instruction">CALL <a href="49211.html">$C03B</a></td>
+<td class="comment-1" rowspan="1">Read the printer status (<a href="49211.html">C03B</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45061"></span>B005</td>
+<td class="instruction">JR NZ,$B015</td>
+<td class="comment-1" rowspan="1">NZ: leave <a href="40918.html#40962">$A008</a> alone</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45063"></span>B007</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="1">Load A with $01 - Printer there: <a href="40918.html#40962">$A008</a> = 1 (printing on)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45065"></span>B009</td>
+<td class="instruction">JR $B012</td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="45050.html#45074">B012</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45067"></span>B00B</td>
+<td class="instruction">CALL <a href="45025.html">$AFE1</a></td>
+<td class="comment-1" rowspan="1">NOPRINT: the same guard</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45070"></span>B00E</td>
+<td class="instruction">CALL <a href="41622.html">$A296</a></td>
+<td class="comment-1" rowspan="1">Clear the text window (<a href="41622.html">A296</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45073"></span>B011</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag) - <a href="40918.html#40962">$A008</a> = 0 (printing off)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="45074"></span>B012</td>
+<td class="instruction">LD ($A008),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#40962">$A008</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="45077"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routines at <a href="45084.html">B01C</a> and <a href="45254.html">B0C6</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="45077"></span>B015</td>
+<td class="instruction">LD A,($A02D)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41002">$A02D</a> in "Game variables" into A - Carry on with the sentence: D = <a href="40918.html#41002">$A02D</a>, back into the parser (<a href="43698.html#43716">AAC4</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45080"></span>B018</td>
+<td class="instruction">LD D,A</td>
+<td class="comment-1" rowspan="1">Copy A into D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45081"></span>B019</td>
+<td class="instruction">JP <a href="43698.html#43716">$AAC4</a></td>
+<td class="comment-1" rowspan="1">Go back to <a href="43698.html#43716">AAC4</a></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="45025.html">AFE1</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#45050">Map</a></td>
+<td class="next">
+Next: <a href="45084.html">B01C</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

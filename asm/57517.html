@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at E0AD - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="57504.html">E0A0</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#57517">Map</a></td>
+<td class="next">
+Next: <a href="57568.html">E0E0</a>
+</td>
+</tr>
+</table>
+<div class="description">E0AD: Action record: Lestrade finds the large rock in the stream (RUN at $E0A2)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="57504.html#57506">E0A2</a>.
+</div>
+<div class="paragraph">
+The extra step of EXAMINE CLOSELY DEEP STREAM. If the player is in room 88 (the east side of the stream) on Tuesday, the large rock (indirect object, thing 93) is made visible (+5 and +6 bit 7), put in the player's room and held by Inspector Lestrade (the direct object): 'As you search the river Lestrade comes over to help. He stumbles and slid...' (<a href="31578.html">7B5A</a>).
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$A034</td>
+<td class="register-desc">The direct object</td>
+</tr>
+<tr>
+<td class="register">$A015</td>
+<td class="register-desc">The indirect object's record</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ; the rock revealed in room 88 on Tuesday</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="57517"></span>E0AD</td>
+<td class="instruction">DEFB $4D,$07,$1C,$E0</td>
+<td class="comment-1" rowspan="1">Action record header: flags $4D; bit 6: pre-check at <a href="57347.html#57372">E01C</a>; byte 1 $07</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57521"></span>E0B1</td>
+<td class="instruction">LD A,($A00A)</td>
+<td class="comment-1" rowspan="1">Read the current actor's room (<a href="40918.html#40970">A00A</a>) into A - Player in room 88 (east side)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57524"></span>E0B4</td>
+<td class="instruction">CP $58</td>
+<td class="comment-1" rowspan="1">Compare A with $58</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57526"></span>E0B6</td>
+<td class="instruction">JR NZ,$E0DD</td>
+<td class="comment-1" rowspan="1">No: nothing happens (<a href="57517.html#57565">E0DD</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57528"></span>E0B8</td>
+<td class="instruction">LD A,($9FE1)</td>
+<td class="comment-1" rowspan="1">Read the day (<a href="40918.html#40929">9FE1</a>) into A - Day 1 (Tuesday)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57531"></span>E0BB</td>
+<td class="instruction">CP $01</td>
+<td class="comment-1" rowspan="1">Compare A with $01</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57533"></span>E0BD</td>
+<td class="instruction">JR NZ,$E0DD</td>
+<td class="comment-1" rowspan="1">If A differs from $01, skip ahead to <a href="57517.html#57565">E0DD</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="57535"></span>E0BF</td>
+<td class="instruction">LD IX,($A015)</td>
+<td class="comment-1" rowspan="1">IX = the indirect object's record (<a href="40918.html#40978">$A015</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57539"></span>E0C3</td>
+<td class="instruction">SET 7,(IX+$06)</td>
+<td class="comment-1" rowspan="1">Set bit 7 of byte +6 of the record at IX - Mark it as seen and visible (+6 and +5 bit 7)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57543"></span>E0C7</td>
+<td class="instruction">SET 7,(IX+$05)</td>
+<td class="comment-1" rowspan="1">Set bit 7 of byte +5 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57547"></span>E0CB</td>
+<td class="instruction">LD A,($A00A)</td>
+<td class="comment-1" rowspan="1">Read the current actor's room (<a href="40918.html#40970">A00A</a>) into A - Move it into the player's room (+15)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57550"></span>E0CE</td>
+<td class="instruction">LD (IX+$0F),A</td>
+<td class="comment-1" rowspan="1">Store A in byte +15 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57553"></span>E0D1</td>
+<td class="instruction">LD A,($A034)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A034</a> in "Game variables" into A - And make the direct object its holder (+1)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57556"></span>E0D4</td>
+<td class="instruction">LD (IX+$01),A</td>
+<td class="comment-1" rowspan="1">Store A in byte +1 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57559"></span>E0D7</td>
+<td class="instruction">LD HL,$7B5A</td>
+<td class="comment-1" rowspan="1">Point HL at the message "AS YOU SEARCH THE RIVER LESTRADE COMES OVER TO... (<a href="31578.html">7B5A</a>) - Print the message <a href="31578.html">7B5A</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="57562"></span>E0DA</td>
+<td class="instruction">CALL <a href="42399.html">$A59F</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print the message at HL" (<a href="42399.html">A59F</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="57565"></span>E0DD</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - Return NZ</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57567"></span>E0DF</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="57504.html">E0A0</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#57517">Map</a></td>
+<td class="next">
+Next: <a href="57568.html">E0E0</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

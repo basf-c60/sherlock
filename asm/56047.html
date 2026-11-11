@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at DAEF - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="56040.html">DAE8</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#56047">Map</a></td>
+<td class="next">
+Next: <a href="56150.html">DB56</a>
+</td>
+</tr>
+</table>
+<div class="description">DAEF: Read a time, or a number that may turn out to be money</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+A number followed by ':' (minutes), 'A' or 'P' (then 'M') is a time: B = the hour with bit 7 set and bit 6 for AM, C = the minutes with bit 6 for PM. Anything else goes to the money reader at <a href="56167.html#56196">DB84</a> (so '2/6' and '3S' need no '£'). Returns A = $F0 for a number token, or $D0 and BC = 0 if it makes no sense.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">The number</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">$F0 (a number) or $D0 (not understood)</td>
+</tr>
+<tr>
+<td class="register">B,</td>
+<td class="register-desc">C The time, or 0</td>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Past it</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56047"></span>DAEF</td>
+<td class="instruction">CALL <a href="56311.html">$DBF7</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Read a decimal number at HL into A" (<a href="56311.html">DBF7</a>) - B = the first number (<a href="56311.html">DBF7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56050"></span>DAF2</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">Copy A into B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56051"></span>DAF3</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into A - Followed by ':', 'A' or 'P' it is a time; otherwise money (<a href="56150.html">DB56</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56052"></span>DAF4</td>
+<td class="instruction">CP $3A</td>
+<td class="comment-1" rowspan="1">Compare A with $3A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56054"></span>DAF6</td>
+<td class="instruction">JR Z,$DB05</td>
+<td class="comment-1" rowspan="1">If A equals $3A, skip ahead to <a href="56047.html#56069">DB05</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="56056"></span>DAF8</td>
+<td class="instruction">CP $41</td>
+<td class="comment-1" rowspan="1">Compare A with $41</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56058"></span>DAFA</td>
+<td class="instruction">JR Z,$DB05</td>
+<td class="comment-1" rowspan="1">If A equals $41, skip ahead to <a href="56047.html#56069">DB05</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="56060"></span>DAFC</td>
+<td class="instruction">CP $50</td>
+<td class="comment-1" rowspan="1">Compare A with $50</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56062"></span>DAFE</td>
+<td class="instruction">JR Z,$DB05</td>
+<td class="comment-1" rowspan="1">If A equals $50, skip ahead to <a href="56047.html#56069">DB05</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="56064"></span>DB00</td>
+<td class="instruction">CALL <a href="56150.html">$DB56</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Is A a separator (full stop, comma or space)? Z if so" (<a href="56150.html">DB56</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56067"></span>DB03</td>
+<td class="instruction">JR NZ,<a href="56167.html#56196">$DB84</a></td>
+<td class="comment-1" rowspan="1">If the zero flag is clear, jump on to <a href="56167.html#56196">DB84</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="56069"></span>DB05</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">Copy B into A - The hour must be below 60 - the same test as the minutes; bit 7 marks it as a time</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56070"></span>DB06</td>
+<td class="instruction">CP $3C</td>
+<td class="comment-1" rowspan="1">Compare A with $3C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56072"></span>DB08</td>
+<td class="instruction">JR NC,$DB4F</td>
+<td class="comment-1" rowspan="1">If A is $3C or more, jump on to <a href="56047.html#56143">DB4F</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="56074"></span>DB0A</td>
+<td class="instruction">SET 7,B</td>
+<td class="comment-1" rowspan="1">Set bit 7 of B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56076"></span>DB0C</td>
+<td class="instruction">LD C,$00</td>
+<td class="comment-1" rowspan="1">Load C with $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56078"></span>DB0E</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into A - ':' and the minutes in C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56079"></span>DB0F</td>
+<td class="instruction">CALL <a href="56150.html">$DB56</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Is A a separator (full stop, comma or space)? Z if so" (<a href="56150.html">DB56</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56082"></span>DB12</td>
+<td class="instruction">JR Z,<a href="56159.html#56160">$DB60</a></td>
+<td class="comment-1" rowspan="1">If the zero flag is set, jump on to <a href="56159.html#56160">DB60</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="56084"></span>DB14</td>
+<td class="instruction">CP $3A</td>
+<td class="comment-1" rowspan="1">Compare A with $3A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56086"></span>DB16</td>
+<td class="instruction">JR NZ,$DB21</td>
+<td class="comment-1" rowspan="1">If A differs from $3A, skip ahead to <a href="56047.html#56097">DB21</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="56088"></span>DB18</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56089"></span>DB19</td>
+<td class="instruction">CALL <a href="56311.html">$DBF7</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Read a decimal number at HL into A" (<a href="56311.html">DBF7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56092"></span>DB1C</td>
+<td class="instruction">LD C,A</td>
+<td class="comment-1" rowspan="1">Copy A into C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56093"></span>DB1D</td>
+<td class="instruction">CP $3C</td>
+<td class="comment-1" rowspan="1">Compare A with $3C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56095"></span>DB1F</td>
+<td class="instruction">JR NC,$DB4F</td>
+<td class="comment-1" rowspan="1">If A is $3C or more, jump on to <a href="56047.html#56143">DB4F</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="56097"></span>DB21</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into A - 'A': bit 6 of the hour; 'P': bit 6 of the minutes</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56098"></span>DB22</td>
+<td class="instruction">CALL <a href="56150.html">$DB56</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Is A a separator (full stop, comma or space)? Z if so" (<a href="56150.html">DB56</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56101"></span>DB25</td>
+<td class="instruction">JR Z,<a href="56159.html#56160">$DB60</a></td>
+<td class="comment-1" rowspan="1">If the zero flag is set, jump on to <a href="56159.html#56160">DB60</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="56103"></span>DB27</td>
+<td class="instruction">CP $41</td>
+<td class="comment-1" rowspan="1">Compare A with $41</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56105"></span>DB29</td>
+<td class="instruction">JR NZ,$DB30</td>
+<td class="comment-1" rowspan="1">If A differs from $41, skip ahead to <a href="56047.html#56112">DB30</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="56107"></span>DB2B</td>
+<td class="instruction">SET 6,B</td>
+<td class="comment-1" rowspan="1">Set bit 6 of B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56109"></span>DB2D</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56110"></span>DB2E</td>
+<td class="instruction">JR $DB37</td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="56047.html#56119">DB37</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="56112"></span>DB30</td>
+<td class="instruction">CP $50</td>
+<td class="comment-1" rowspan="1">Compare A with $50</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56114"></span>DB32</td>
+<td class="instruction">JR NZ,$DB4F</td>
+<td class="comment-1" rowspan="1">If A differs from $50, skip ahead to <a href="56047.html#56143">DB4F</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="56116"></span>DB34</td>
+<td class="instruction">SET 6,C</td>
+<td class="comment-1" rowspan="1">Set bit 6 of C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56118"></span>DB36</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56119"></span>DB37</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into A - then 'M'</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56120"></span>DB38</td>
+<td class="instruction">CP $4D</td>
+<td class="comment-1" rowspan="1">Compare A with $4D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56122"></span>DB3A</td>
+<td class="instruction">JR NZ,$DB4F</td>
+<td class="comment-1" rowspan="1">If A differs from $4D, skip ahead to <a href="56047.html#56143">DB4F</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="56124"></span>DB3C</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte - Skip full stops; the time must end the word</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="56125"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="56167.html">DB67</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56125"></span>DB3D</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56126"></span>DB3E</td>
+<td class="instruction">CP $2E</td>
+<td class="comment-1" rowspan="1">Compare A with $2E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56128"></span>DB40</td>
+<td class="instruction">JR Z,$DB3C</td>
+<td class="comment-1" rowspan="1">If A equals $2E, go back to <a href="56047.html#56124">DB3C</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="56130"></span>DB42</td>
+<td class="instruction">CALL <a href="56150.html#56153">$DB59</a></td>
+<td class="comment-1" rowspan="1">Call <a href="56150.html#56153">DB59</a> (inside "Is A a separator (full stop, comma or...")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56133"></span>DB45</td>
+<td class="instruction">JR Z,<a href="56159.html#56160">$DB60</a></td>
+<td class="comment-1" rowspan="1">If the zero flag is set, skip ahead to <a href="56159.html#56160">DB60</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="56135"></span>DB47</td>
+<td class="instruction">CP $0D</td>
+<td class="comment-1" rowspan="1">Compare A with $0D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56137"></span>DB49</td>
+<td class="instruction">JR Z,<a href="56159.html">$DB5F</a></td>
+<td class="comment-1" rowspan="1">If A equals $0D, skip ahead to the routine "Step HL back one and return Z with A = $F0" (<a href="56159.html">DB5F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56139"></span>DB4B</td>
+<td class="instruction">CP $22</td>
+<td class="comment-1" rowspan="1">Compare A with $22</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56141"></span>DB4D</td>
+<td class="instruction">JR Z,<a href="56159.html">$DB5F</a></td>
+<td class="comment-1" rowspan="1">If A equals $22, skip ahead to the routine "Step HL back one and return Z with A = $F0" (<a href="56159.html">DB5F</a>)</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="56143"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="56167.html">DB67</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56143"></span>DB4F</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag) - Not a time: a $D0 token (not understood)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56144"></span>DB50</td>
+<td class="instruction">LD A,$D0</td>
+<td class="comment-1" rowspan="1">Load A with $D0</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56146"></span>DB52</td>
+<td class="instruction">LD BC,$0000</td>
+<td class="comment-1" rowspan="1">Load BC with $0000</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56149"></span>DB55</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="56040.html">DAE8</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#56047">Map</a></td>
+<td class="next">
+Next: <a href="56150.html">DB56</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

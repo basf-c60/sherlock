@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Data at AA71 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-w">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Data</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="43540.html">AA14</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#43633">Map</a></td>
+<td class="next">
+Next: <a href="43698.html">AAB2</a>
+</td>
+</tr>
+</table>
+<div class="description">AA71: Shared action records, used through objects' own action lists</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+24 addresses of action records, ended by $0000. An object's own action list (see the entity records at <a href="36026.html">8CBA</a>) maps a verb number to an index here; <a href="51552.html">C960</a> looks the index up when the target object has an entry for the verb being carried out. That lets every door share one OPEN and one CLOSE, every chair one SIT IN, and so on.
+</div>
+<div class="paragraph">
+Entry 5 is in fact TAKE OFF.
+</div>
+<div class="paragraph">
+People have action lists too, after a 00 entry in their records (see <a href="51507.html">C933</a>): the local police man maps GO TO and GO FURIOUSLY TO to entries 1 and 2, the cabbies TAKE TO, GO TO and GO FURIOUSLY TO to 13, 14 and 15, Tricia Fender has entry 3 and Mrs Jones has entry 22 - which is how the entries no object uses are reached.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43633"></span>AA71</td>
+<td class="instruction">DEFW <a href="39577.html">$9A99</a></td>
+<td class="comment-1" rowspan="1">Shared action 1: GO TO for the police cab (the local police man's own list)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43635"></span>AA73</td>
+<td class="instruction">DEFW <a href="39627.html">$9ACB</a></td>
+<td class="comment-1" rowspan="1">Shared action 2: GO FURIOUSLY TO for the police cab (the local police man's own list)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43637"></span>AA75</td>
+<td class="instruction">DEFW <a href="57763.html">$E1A3</a></td>
+<td class="comment-1" rowspan="1">Shared action 3: not used by any object list</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43639"></span>AA77</td>
+<td class="instruction">DEFW <a href="57378.html">$E022</a></td>
+<td class="comment-1" rowspan="1">Shared action 4: WEAR (used by the China man's disguise)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43641"></span>AA79</td>
+<td class="instruction">DEFW <a href="57347.html">$E003</a></td>
+<td class="comment-1" rowspan="1">Shared action 5: TAKE OFF (used by the China man's disguise)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43643"></span>AA7B</td>
+<td class="instruction">DEFW <a href="56989.html">$DE9D</a></td>
+<td class="comment-1" rowspan="1">Shared action 6: OPEN (used by every door)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43645"></span>AA7D</td>
+<td class="instruction">DEFW <a href="57007.html">$DEAF</a></td>
+<td class="comment-1" rowspan="1">Shared action 7: CLOSE (used by every door)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43647"></span>AA7F</td>
+<td class="instruction">DEFW <a href="58418.html">$E432</a></td>
+<td class="comment-1" rowspan="1">Shared action 8: GET OUT OF / CLIMB OUT OF (armchairs, sofa, cabs, trains)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43649"></span>AA81</td>
+<td class="instruction">DEFW <a href="58378.html">$E40A</a></td>
+<td class="comment-1" rowspan="1">Shared action 9: GET INTO / CLIMB INTO / SIT IN (armchairs, sofa, trains)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43651"></span>AA83</td>
+<td class="instruction">DEFW <a href="58152.html">$E328</a></td>
+<td class="comment-1" rowspan="1">Shared action 10: COUNT (the money objects)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43653"></span>AA85</td>
+<td class="instruction">DEFW <a href="58055.html">$E2C7</a></td>
+<td class="comment-1" rowspan="1">Shared action 11: HAIL / GET (the two hansom cabs)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43655"></span>AA87</td>
+<td class="instruction">DEFW <a href="58346.html">$E3EA</a></td>
+<td class="comment-1" rowspan="1">Shared action 12: GET INTO / CLIMB INTO a cab (reuses the SIT IN body)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43657"></span>AA89</td>
+<td class="instruction">DEFW <a href="57485.html">$E08D</a></td>
+<td class="comment-1" rowspan="1">Shared action 13: TAKE TO for a hansom cab (the cabbies' own lists)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43659"></span>AA8B</td>
+<td class="instruction">DEFW <a href="39668.html">$9AF4</a></td>
+<td class="comment-1" rowspan="1">Shared action 14: GO TO for a hansom cab (the cabbies' own lists)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43661"></span>AA8D</td>
+<td class="instruction">DEFW <a href="39649.html">$9AE1</a></td>
+<td class="comment-1" rowspan="1">Shared action 15: GO FURIOUSLY TO for a hansom cab (the cabbies' own lists)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43663"></span>AA8F</td>
+<td class="instruction">DEFW <a href="57504.html">$E0A0</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43665"></span>AA91</td>
+<td class="instruction">DEFW <a href="57586.html">$E0F2</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43667"></span>AA93</td>
+<td class="instruction">DEFW <a href="57604.html">$E104</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43669"></span>AA95</td>
+<td class="instruction">DEFW <a href="57568.html">$E0E0</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43671"></span>AA97</td>
+<td class="instruction">DEFW <a href="57214.html">$DF7E</a></td>
+<td class="comment-1" rowspan="1">Shared action 20: TAKE / GET / TAKE OUT OF the burnt note</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43673"></span>AA99</td>
+<td class="instruction">DEFW <a href="57255.html">$DFA7</a></td>
+<td class="comment-1" rowspan="1">Shared action 21: OPEN a wall safe</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43675"></span>AA9B</td>
+<td class="instruction">DEFW <a href="57723.html">$E17B</a></td>
+<td class="comment-1" rowspan="1">Shared action 22: not used by any object list</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43677"></span>AA9D</td>
+<td class="instruction">DEFW <a href="57328.html">$DFF0</a></td>
+<td class="comment-1" rowspan="1">Shared action 23: WEAR (used by the old man's disguise)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43679"></span>AA9F</td>
+<td class="instruction">DEFW <a href="57322.html">$DFEA</a></td>
+<td class="comment-1" rowspan="1">Shared action 24: TAKE OFF (used by the old man's disguise)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43681"></span>AAA1</td>
+<td class="instruction">DEFW $0000</td>
+<td class="comment-1" rowspan="1">End marker</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43683"></span>AAA3</td>
+<td class="instruction">DEFB $00,$00,$00,$00,$00,$00,$00,$00</td>
+<td class="comment-1" rowspan="2">Unused (zeros)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43691"></span>AAAB</td>
+<td class="instruction">DEFB $00,$00,$00,$00,$00,$00,$00</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="43540.html">AA14</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#43633">Map</a></td>
+<td class="next">
+Next: <a href="43698.html">AAB2</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

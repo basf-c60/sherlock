@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at B32D - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="45832.html">B308</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#45869">Map</a></td>
+<td class="next">
+Next: <a href="45903.html">B34F</a>
+</td>
+</tr>
+</table>
+<div class="description">B32D: Count the candidates for the indirect object</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+As <a href="45832.html">B308</a>, with <a href="45931.html">B36B</a>, <a href="46440.html">B568</a> and <a href="45421.html">$B171</a>.
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">The number of candidates for the indirect object</td>
+</tr>
+<tr>
+<td class="register">Search</td>
+<td class="register-desc">state kept</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="45869"></span>B32D</td>
+<td class="instruction">LD HL,($B180)</td>
+<td class="comment-1" rowspan="1">Read <a href="45421.html#45437">$B180</a> in "Parser variables" into HL - Save the search position <a href="45421.html#45437">$B180</a> (this is a counting pass that must not disturb it)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45872"></span>B330</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45873"></span>B331</td>
+<td class="instruction">CALL <a href="45931.html">$B36B</a></td>
+<td class="comment-1" rowspan="1">Restart the indirect-object search (<a href="45931.html">B36B</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45876"></span>B334</td>
+<td class="instruction">LD A,($B549)</td>
+<td class="comment-1" rowspan="1">Read "<a href="46440.html">B568</a>: $FF until the number in the..." (<a href="46409.html">B549</a>) into A - Save the number flag <a href="46409.html">B549</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45879"></span>B337</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack</td>
+</tr>
+<tr>
+<td class="address-2"><span id="45880"></span>B338</td>
+<td class="instruction">CALL <a href="46440.html">$B568</a></td>
+<td class="comment-1" rowspan="1">Call the routine "The next candidate for the indirect object (<a href="40918.html#41010">$A035</a>)" (<a href="46440.html">B568</a>) - Count every candidate (<a href="46440.html">B568</a>) into <a href="45421.html">$B171</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45883"></span>B33B</td>
+<td class="instruction">JR Z,$B343</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, skip ahead to <a href="45869.html#45891">B343</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45885"></span>B33D</td>
+<td class="instruction">LD HL,$B171</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="45421.html">$B171</a> in "Parser variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45888"></span>B340</td>
+<td class="instruction">INC (HL)</td>
+<td class="comment-1" rowspan="1">Add one to the byte at <a href="45421.html">$B171</a> in "Parser variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45889"></span>B341</td>
+<td class="instruction">JR $B338</td>
+<td class="comment-1" rowspan="1">Go back to <a href="45869.html#45880">B338</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="45891"></span>B343</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack - Restore the flag and the position</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45892"></span>B344</td>
+<td class="instruction">LD ($B549),A</td>
+<td class="comment-1" rowspan="1">Store A in "<a href="46440.html">B568</a>: $FF until the number in the..." (<a href="46409.html">B549</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45895"></span>B347</td>
+<td class="instruction">LD A,($B171)</td>
+<td class="comment-1" rowspan="1">Read <a href="45421.html">$B171</a> in "Parser variables" into A - Return the count in A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45898"></span>B34A</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45899"></span>B34B</td>
+<td class="instruction">LD ($B180),HL</td>
+<td class="comment-1" rowspan="1">Store HL in <a href="45421.html#45437">$B180</a> in "Parser variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45902"></span>B34E</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="45832.html">B308</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#45869">Map</a></td>
+<td class="next">
+Next: <a href="45903.html">B34F</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

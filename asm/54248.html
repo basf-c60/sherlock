@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at D3E8 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="54229.html">D3D5</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#54248">Map</a></td>
+<td class="next">
+Next: <a href="54277.html">D405</a>
+</td>
+</tr>
+</table>
+<div class="description">D3E8: Print the name words at IY</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Checks for YOU (<a href="42960.html">A7D0</a>) and, by the record's flag bits just before IY, joins <a href="54277.html">D405</a>'s printing with or without its adjectives. Used by the message code that names things (<a href="42949.html">A7C5</a>) and by the statement printer <a href="48924.html">BF1C</a>.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IY</td>
+<td class="register-desc">A thing's name words</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">The</td>
+<td class="register-desc">name printed; A and DE kept</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="54248"></span>D3E8</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack - Save A and DE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54249"></span>D3E9</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54250"></span>D3EA</td>
+<td class="instruction">LD D,(IY+$01)</td>
+<td class="comment-1" rowspan="1">Read byte +1 of the record at IY into D - DE = the first name word at IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54253"></span>D3ED</td>
+<td class="instruction">LD E,(IY+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IY into E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54256"></span>D3F0</td>
+<td class="instruction">CALL <a href="42960.html">$A7D0</a></td>
+<td class="comment-1" rowspan="1">Print it (<a href="42960.html">A7D0</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54259"></span>D3F3</td>
+<td class="instruction">BIT 6,(IY-$02)</td>
+<td class="comment-1" rowspan="1">Test bit 6 of byte -2 of the record at IY - Flag in IY-2 bit 6 clear: reset <a href="42986.html">A7EA</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="54263"></span>D3F7</td>
+<td class="instruction">JR NZ,$D3FD</td>
+<td class="comment-1" rowspan="1">If bit 6 of byte -2 of the record at IY is set, skip ahead to <a href="54248.html#54269">D3FD</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="54265"></span>D3F9</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54266"></span>D3FA</td>
+<td class="instruction">LD ($A7EA),A</td>
+<td class="comment-1" rowspan="1">Store A in "<a href="42960.html">A7D0</a>: set when the word was not YOU" (<a href="42986.html">A7EA</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="54269"></span>D3FD</td>
+<td class="instruction">BIT 5,(IY-$01)</td>
+<td class="comment-1" rowspan="1">Test bit 5 of byte -1 of the record at IY - Flag in IY-1 bit 5 set: continue at <a href="54277.html#54311">D427</a>, otherwise at <a href="54277.html#54294">D416</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="54273"></span>D401</td>
+<td class="instruction">JR NZ,<a href="54277.html#54311">$D427</a></td>
+<td class="comment-1" rowspan="1">If bit 5 of byte -1 of the record at IY is set, skip ahead to <a href="54277.html#54311">D427</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="54275"></span>D403</td>
+<td class="instruction">JR <a href="54277.html#54294">$D416</a></td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="54277.html#54294">D416</a></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="54229.html">D3D5</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#54248">Map</a></td>
+<td class="next">
+Next: <a href="54277.html">D405</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

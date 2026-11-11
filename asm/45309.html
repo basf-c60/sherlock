@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at B0FD - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="45294.html">B0EE</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#45309">Map</a></td>
+<td class="next">
+Next: <a href="45421.html">B16D</a>
+</td>
+</tr>
+</table>
+<div class="description">B0FD: Handlers for THATS, HE, IT and THEY</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Pronouns: HE sets bit 7 and IT/THEY bit 6 of the current parse record's +$19 (used only when Watson or Lestrade weigh a statement: <a href="48465.html#48510">BD7E</a> then takes the statement's subject from <a href="40918.html#40946">$9FF6</a>, the last person a statement named, for HE, or from <a href="40918.html#40954">$9FFC</a>, the last thing, for IT/THEY); the first-word versions (<a href="45309.html#45365">B135</a>, <a href="45309.html#45393">B151</a>) also mark the sentence as a statement to a character (<a href="40918.html#40994">$A024</a> = 2). THATS (<a href="45309.html">B0FD</a>) rearranges the parse record's object slots.
+</div>
+<div class="paragraph">
+So pronouns are for statements, not commands.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">E</td>
+<td class="register-desc">Parse flags (bit 3: a clause has finished)</td>
+</tr>
+<tr>
+<td class="register">IY</td>
+<td class="register-desc">The sentence node</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">E</td>
+<td class="register-desc">Bits 0 to 2, 6 and 7 set</td>
+</tr>
+<tr>
+<td class="register">IY</td>
+<td class="register-desc">The node that took the pronoun's words</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="45309"></span>B0FD</td>
+<td class="instruction">LD BC,$0008</td>
+<td class="comment-1" rowspan="1">Load BC with $0008 - THATS: E bit 3 clear - the noun phrase before it belongs to the last node</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45312"></span>B100</td>
+<td class="instruction">BIT 3,E</td>
+<td class="comment-1" rowspan="1">Test bit 3 of E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45314"></span>B102</td>
+<td class="instruction">JR NZ,$B107</td>
+<td class="comment-1" rowspan="1">If bit 3 of E is set, skip ahead to <a href="45309.html#45319">B107</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45316"></span>B104</td>
+<td class="instruction">CALL <a href="44741.html#44742">$AEC6</a></td>
+<td class="comment-1" rowspan="1">(step back to it, <a href="44741.html#44742">AEC6</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="45319"></span>B107</td>
+<td class="instruction">PUSH IY</td>
+<td class="comment-1" rowspan="1">Save IY on the stack - HL = that node's first group (+8)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45321"></span>B109</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45322"></span>B10A</td>
+<td class="instruction">ADD HL,BC</td>
+<td class="comment-1" rowspan="1">Add BC to HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45323"></span>B10B</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45324"></span>B10C</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45325"></span>B10D</td>
+<td class="instruction">BIT 3,E</td>
+<td class="comment-1" rowspan="1">Test bit 3 of E - Then move on to the next node, and set E bit 3</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45327"></span>B10F</td>
+<td class="instruction">JR NZ,$B118</td>
+<td class="comment-1" rowspan="1">If bit 3 of E is set, skip ahead to <a href="45309.html#45336">B118</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45329"></span>B111</td>
+<td class="instruction">SET 3,E</td>
+<td class="comment-1" rowspan="1">Set bit 3 of E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45331"></span>B113</td>
+<td class="instruction">CALL <a href="44713.html">$AEA9</a></td>
+<td class="comment-1" rowspan="1">Call the routine "IY = the next node in the list (Z at the end)" (<a href="44713.html">AEA9</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45334"></span>B116</td>
+<td class="instruction">JR $B11F</td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="45309.html#45343">B11F</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="45336"></span>B118</td>
+<td class="instruction">LD HL,$A012</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="40918.html#40978">A012</a> in "Game variables" - E bit 3 set: count a sentence and start a new node (<a href="44650.html">AE6A</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45339"></span>B11B</td>
+<td class="instruction">INC (HL)</td>
+<td class="comment-1" rowspan="1">Add one to the byte at <a href="40918.html#40978">A012</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45340"></span>B11C</td>
+<td class="instruction">CALL <a href="44650.html">$AE6A</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Add a new node to the end of the sentence list" (<a href="44650.html">AE6A</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="45343"></span>B11F</td>
+<td class="instruction">PUSH IY</td>
+<td class="comment-1" rowspan="1">Save IY on the stack - Copy the first group into the new node's third group (+24)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45345"></span>B121</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45346"></span>B122</td>
+<td class="instruction">LD BC,$0018</td>
+<td class="comment-1" rowspan="1">Load BC with $0018, the amount that is added next</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45349"></span>B125</td>
+<td class="instruction">ADD HL,BC</td>
+<td class="comment-1" rowspan="1">Add BC to HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45350"></span>B126</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45351"></span>B127</td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-1" rowspan="1">Swap DE and HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45352"></span>B128</td>
+<td class="instruction">LD BC,$0006</td>
+<td class="comment-1" rowspan="1">Load BC with $0006</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45355"></span>B12B</td>
+<td class="instruction">LDIR</td>
+<td class="comment-1" rowspan="1">Copy BC bytes from where HL points to where DE points, counting up</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45357"></span>B12D</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-2"><span id="45358"></span>B12E</td>
+<td class="instruction">LD A,E</td>
+<td class="comment-1" rowspan="1">Copy E into A - Back to the parser with E bits 0-2, 6 and 7 set</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45359"></span>B12F</td>
+<td class="instruction">OR $C7</td>
+<td class="comment-1" rowspan="1">Set bits 0, 1, 2, 6, 7 of A (mask $C7)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45361"></span>B131</td>
+<td class="instruction">LD E,A</td>
+<td class="comment-1" rowspan="1">Copy A into E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45362"></span>B132</td>
+<td class="instruction">JP <a href="43698.html#43729">$AAD1</a></td>
+<td class="comment-1" rowspan="1">Go back to <a href="43698.html#43729">AAD1</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45365"></span>B135</td>
+<td class="instruction">CALL <a href="45025.html">$AFE1</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Handler guards: only at the start of a sentence (not..." (<a href="45025.html">AFE1</a>) - HE as the first word: a statement (<a href="40918.html#40994">$A024</a> = 2)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45368"></span>B138</td>
+<td class="instruction">LD A,$02</td>
+<td class="comment-1" rowspan="1">Load A with $02</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45370"></span>B13A</td>
+<td class="instruction">LD ($A024),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#40994">$A024</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45373"></span>B13D</td>
+<td class="instruction">JR $B14B</td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="45309.html#45387">B14B</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45375"></span>B13F</td>
+<td class="instruction">BIT 3,E</td>
+<td class="comment-1" rowspan="1">Test bit 3 of E - HE later on: after a finished clause (E bit 3), a new node</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45377"></span>B141</td>
+<td class="instruction">JR Z,$B14B</td>
+<td class="comment-1" rowspan="1">If bit 3 of E is clear, skip ahead to <a href="45309.html#45387">B14B</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45379"></span>B143</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45380"></span>B144</td>
+<td class="instruction">CALL <a href="44713.html">$AEA9</a></td>
+<td class="comment-1" rowspan="1">Call the routine "IY = the next node in the list (Z at the end)" (<a href="44713.html">AEA9</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45383"></span>B147</td>
+<td class="instruction">CALL <a href="44650.html">$AE6A</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Add a new node to the end of the sentence list" (<a href="44650.html">AE6A</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45386"></span>B14A</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-2"><span id="45387"></span>B14B</td>
+<td class="instruction">SET 7,(IY+$19)</td>
+<td class="comment-1" rowspan="1">Set bit 7 of byte +25 of the record at IY - Mark the node: HE (+25 bit 7)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45391"></span>B14F</td>
+<td class="instruction">JR $B12E</td>
+<td class="comment-1" rowspan="1">Go back to <a href="45309.html#45358">B12E</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45393"></span>B151</td>
+<td class="instruction">CALL <a href="45025.html">$AFE1</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Handler guards: only at the start of a sentence (not..." (<a href="45025.html">AFE1</a>) - IT or THEY as the first word: a statement</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45396"></span>B154</td>
+<td class="instruction">LD A,$02</td>
+<td class="comment-1" rowspan="1">Load A with $02</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45398"></span>B156</td>
+<td class="instruction">LD ($A024),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#40994">$A024</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45401"></span>B159</td>
+<td class="instruction">JR $B167</td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="45309.html#45415">B167</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45403"></span>B15B</td>
+<td class="instruction">BIT 3,E</td>
+<td class="comment-1" rowspan="1">Test bit 3 of E - Later on: a new node after a finished clause</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45405"></span>B15D</td>
+<td class="instruction">JR Z,$B167</td>
+<td class="comment-1" rowspan="1">If bit 3 of E is clear, skip ahead to <a href="45309.html#45415">B167</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45407"></span>B15F</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45408"></span>B160</td>
+<td class="instruction">CALL <a href="44713.html">$AEA9</a></td>
+<td class="comment-1" rowspan="1">Call the routine "IY = the next node in the list (Z at the end)" (<a href="44713.html">AEA9</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45411"></span>B163</td>
+<td class="instruction">CALL <a href="44650.html">$AE6A</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Add a new node to the end of the sentence list" (<a href="44650.html">AE6A</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45414"></span>B166</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-2"><span id="45415"></span>B167</td>
+<td class="instruction">SET 6,(IY+$19)</td>
+<td class="comment-1" rowspan="1">Set bit 6 of byte +25 of the record at IY - Mark the node: IT or THEY (+25 bit 6)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45419"></span>B16B</td>
+<td class="instruction">JR $B12E</td>
+<td class="comment-1" rowspan="1">Go back to <a href="45309.html#45358">B12E</a></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="45294.html">B0EE</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#45309">Map</a></td>
+<td class="next">
+Next: <a href="45421.html">B16D</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

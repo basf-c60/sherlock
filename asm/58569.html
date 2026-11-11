@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at E4C9 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="58519.html">E497</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#58569">Map</a></td>
+<td class="next">
+Next: <a href="58630.html">E506</a>
+</td>
+</tr>
+</table>
+<div class="description">E4C9: Action record: put a train in a room (internal verb 140, RUN at $F2A7)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="62117.html#62119">F2A7</a>, verb 140: <a href="62117.html">F2A5</a>.
+</div>
+<div class="paragraph">
+The direct object is a room number. The train (the actor) is moved there (<a href="56579.html#56590">DD0E</a>) and the room record at <a href="56530.html#56575">DCFF</a> gets bit 6 cleared. If the room is 2, 3 or 4 (the stretch between stations) 'THE TRAIN PULLS OUT OF THE STATION.' is printed first. In the sampled runs (the first three of each kind) each of the train things 37 to 41 went from room 2 to a room of its own (30, 26, 21, 27 and 31) with its +5 bit 7 set; the timetable's later moves (<a href="62072.html">F278</a>, <a href="62093.html">F28D</a>) were not sampled.
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. The direct object is a room number. If it is Lestrade, Watson or Straker (things 2, 3, 4), print 'THE TRAIN PULLS OUT OF THE STATION.' and use the routine that clears the revealed flag (<a href="40032.html">9C60</a>); otherwise the one that sets it (<a href="40022.html">9C56</a>).
+</div>
+<div class="paragraph">
+2. Run that routine on the train, move the train to the room (<a href="56579.html#56590">DD0E</a>) and clear the visited bit of the room's record.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$A034</td>
+<td class="register-desc">The room number</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ; the train moved there and the room's visited bit cleared</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="58569"></span>E4C9</td>
+<td class="instruction">DEFB $04,$00</td>
+<td class="comment-1" rowspan="1">Action record header: flags $04; byte 1 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58571"></span>E4CB</td>
+<td class="instruction">LD HL,$9C56</td>
+<td class="comment-1" rowspan="1">HL = <a href="40022.html">9C56</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="58574"></span>E4CE</td>
+<td class="instruction">LD A,($A034)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A034</a> in "Game variables" into A - The direct object (<a href="40918.html#41010">$A034</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58577"></span>E4D1</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58578"></span>E4D2</td>
+<td class="instruction">CP $02</td>
+<td class="comment-1" rowspan="1">Compare A with $02 - Thing 2, 3 or 4 (Lestrade, Watson, Straker)? Otherwise <a href="58569.html#58599">E4E7</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="58580"></span>E4D4</td>
+<td class="instruction">JR Z,$E4DE</td>
+<td class="comment-1" rowspan="1">If A equals $02, skip ahead to <a href="58569.html#58590">E4DE</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="58582"></span>E4D6</td>
+<td class="instruction">CP $03</td>
+<td class="comment-1" rowspan="1">Compare A with $03</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58584"></span>E4D8</td>
+<td class="instruction">JR Z,$E4DE</td>
+<td class="comment-1" rowspan="1">If A equals $03, skip ahead to <a href="58569.html#58590">E4DE</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="58586"></span>E4DA</td>
+<td class="instruction">CP $04</td>
+<td class="comment-1" rowspan="1">Compare A with $04</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58588"></span>E4DC</td>
+<td class="instruction">JR NZ,$E4E7</td>
+<td class="comment-1" rowspan="1">If A differs from $04, skip ahead to <a href="58569.html#58599">E4E7</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="58590"></span>E4DE</td>
+<td class="instruction">LD HL,$7611</td>
+<td class="comment-1" rowspan="1">"THE TRAIN PULLS OUT OF THE STATION."</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58593"></span>E4E1</td>
+<td class="instruction">CALL <a href="42399.html">$A59F</a></td>
+<td class="comment-1" rowspan="1">Print the message in HL (<a href="42399.html">A59F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58596"></span>E4E4</td>
+<td class="instruction">LD HL,$9C60</td>
+<td class="comment-1" rowspan="1">HL = <a href="40032.html">9C60</a>, a routine to run</td>
+</tr>
+<tr>
+<td class="address-2"><span id="58599"></span>E4E7</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A036</a> in "Game variables" into A - Keep the current actor</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58602"></span>E4EA</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58603"></span>E4EB</td>
+<td class="instruction">CALL $E4FB</td>
+<td class="comment-1" rowspan="1">Call (HL) (<a href="58569.html#58619">E4FB</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58606"></span>E4EE</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack - Restore the actor</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58607"></span>E4EF</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore BC from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58608"></span>E4F0</td>
+<td class="instruction">CALL <a href="56579.html#56590">$DD0E</a></td>
+<td class="comment-1" rowspan="1">Reset the actor's state (<a href="56579.html#56590">DD0E</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58611"></span>E4F3</td>
+<td class="instruction">LD HL,($DCFF)</td>
+<td class="comment-1" rowspan="1">Read <a href="56530.html#56575">DCFF</a> in "Pre-check for moving in a direction (verbs..." into HL - Clear bit 6 of the record at (<a href="56530.html#56575">DCFF</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58614"></span>E4F6</td>
+<td class="instruction">RES 6,(HL)</td>
+<td class="comment-1" rowspan="1">Clear bit 6 of the byte HL points at</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58616"></span>E4F8</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - Return NZ</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58618"></span>E4FA</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="58619"></span>E4FB</td>
+<td class="instruction">JP (HL)</td>
+<td class="comment-1" rowspan="1">Jump to the address in HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58620"></span>E4FC</td>
+<td class="instruction">LD A,($A034)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A034</a> in "Game variables" into A - (Next record) the direct object (<a href="40918.html#41010">$A034</a>): is anything held by it (<a href="58877.html#58905">E619</a>)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58623"></span>E4FF</td>
+<td class="instruction">CALL <a href="58877.html#58905">$E619</a></td>
+<td class="comment-1" rowspan="1">Call <a href="58877.html#58905">E619</a> (inside "Action record: RUN at <a href="57485.html#57487">E08F</a>; RUN at <a href="58450.html#58475">E46B</a>;...")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58626"></span>E502</td>
+<td class="instruction">JP Z,<a href="56341.html">$DC15</a></td>
+<td class="comment-1" rowspan="1">If the zero flag is set, go back to the routine "Fail: A = 0, HL = 0, Z set" (<a href="56341.html">DC15</a>) - None: fail</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58629"></span>E505</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="58519.html">E497</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#58569">Map</a></td>
+<td class="next">
+Next: <a href="58630.html">E506</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

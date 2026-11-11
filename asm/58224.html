@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at E370 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="58218.html">E36A</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#58224">Map</a></td>
+<td class="next">
+Next: <a href="58255.html">E38F</a>
+</td>
+</tr>
+</table>
+<div class="description">E370: Action record: RUN at $E510; default for verb 37 (PAY TO)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="58630.html#58640">E510</a>.
+</div>
+<div class="paragraph">
+PAY 10D TO CABBIE takes 10d from the purse (thing 27) and the cabbie pays the change back ('You pay 10d. To the cabbie. The cabbie pays 8d. To you.'); a paid cab then leaves, an unpaid one waits. The default GIVE TO (<a href="57090.html">DF02</a>) moves the whole purse instead.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$A036</td>
+<td class="register-desc">The payer</td>
+</tr>
+<tr>
+<td class="register">$A035</td>
+<td class="register-desc">The payee</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ; the payer's money reduced and the payee's increased by the sum</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="58224"></span>E370</td>
+<td class="instruction">DEFB $66,$1D,$45,$E3</td>
+<td class="comment-1" rowspan="1">Action record header: flags $66; bit 5: test <a href="53368.html">D078</a> first; bit 6: pre-check at <a href="58152.html#58181">E345</a>; byte 1 $1D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58228"></span>E374</td>
+<td class="instruction">CALL <a href="58152.html#58191">$E34F</a></td>
+<td class="comment-1" rowspan="1">Can the actor afford it? (<a href="58152.html#58191">E34F</a>; if not, message <a href="26687.html">683F</a> and fail) HL = what is left</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58231"></span>E377</td>
+<td class="instruction">CALL <a href="58255.html">$E38F</a></td>
+<td class="comment-1" rowspan="1">Store it as the actor's money (<a href="58255.html">E38F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58234"></span>E37A</td>
+<td class="instruction">LD A,($A035)</td>
+<td class="comment-1" rowspan="1">The indirect object (<a href="40918.html#41010">$A035</a>), the payee...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58237"></span>E37D</td>
+<td class="instruction">CALL <a href="58877.html#58905">$E619</a></td>
+<td class="comment-1" rowspan="1">Call <a href="58877.html#58905">E619</a> (inside "Action record: RUN at <a href="57485.html#57487">E08F</a>; RUN at <a href="58450.html#58475">E46B</a>;...") - ...does it hold money? (<a href="58877.html#58905">E619</a>, IX = its purse; Z: no, nothing to add)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58240"></span>E380</td>
+<td class="instruction">JR Z,$E38C</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, skip ahead to <a href="58224.html#58252">E38C</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="58242"></span>E382</td>
+<td class="instruction">CALL <a href="58268.html">$E39C</a></td>
+<td class="comment-1" rowspan="1">Call the routine "HL = the money a thing holds (+9/+10)" (<a href="58268.html">E39C</a>) - HL = its money (<a href="58268.html">E39C</a>), DE = the sum (<a href="58281.html">E3A9</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58245"></span>E385</td>
+<td class="instruction">CALL <a href="58281.html">$E3A9</a></td>
+<td class="comment-1" rowspan="1">Call the routine "DE = the sum of money in the command (<a href="40918.html#41002">$A02F</a>)" (<a href="58281.html">E3A9</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58248"></span>E388</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1">Add DE to HL - Add and store (<a href="58255.html">E38F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58249"></span>E389</td>
+<td class="instruction">CALL <a href="58255.html">$E38F</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Store HL as the money a thing holds (+9/+10)" (<a href="58255.html">E38F</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="58252"></span>E38C</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58254"></span>E38E</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="58218.html">E36A</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#58224">Map</a></td>
+<td class="next">
+Next: <a href="58255.html">E38F</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

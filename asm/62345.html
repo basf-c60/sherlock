@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at F389 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="62336.html">F380</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#62345">Map</a></td>
+<td class="next">
+Next: <a href="62370.html">F3A2</a>
+</td>
+</tr>
+</table>
+<div class="description">F389: Code after a plan script ($F389)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The pre-check of the checks-only record at <a href="62336.html">F380</a> (flags $C8, bit 6). It tests the direct object (<a href="40918.html#40978">$A013</a>): its holder (+1) must equal the actor's id less 1, and the actor must not be the direct object itself; otherwise it refuses (<a href="56341.html">DC15</a>).
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$A013</td>
+<td class="register-desc">The direct object's record</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ if it is held by the actor's number less 1 and is not the actor; otherwise $DC15</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="62345"></span>F389</td>
+<td class="instruction">LD IX,($A013)</td>
+<td class="comment-1" rowspan="1">IX = the direct object's record</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62349"></span>F38D</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A036</a> in "Game variables" into A - Its holder (+1) must be the actor's number less 1; else refuse (<a href="56341.html">DC15</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62352"></span>F390</td>
+<td class="instruction">DEC A</td>
+<td class="comment-1" rowspan="1">Subtract one from A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62353"></span>F391</td>
+<td class="instruction">CP (IX+$01)</td>
+<td class="comment-1" rowspan="1">Compare A with byte +1 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62356"></span>F394</td>
+<td class="instruction">JP NZ,<a href="56341.html">$DC15</a></td>
+<td class="comment-1" rowspan="1">If A differs from byte +1 of the record at IX, go back to the routine "Fail: A = 0, HL = 0, Z set" (<a href="56341.html">DC15</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62359"></span>F397</td>
+<td class="instruction">LD HL,$A034</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="40918.html#41010">$A034</a> in "Game variables" - And the actor must not be the direct object itself</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62362"></span>F39A</td>
+<td class="instruction">INC A</td>
+<td class="comment-1" rowspan="1">Add one to A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62363"></span>F39B</td>
+<td class="instruction">CP (HL)</td>
+<td class="comment-1" rowspan="1">Compare A with the byte at <a href="40918.html#41010">$A034</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62364"></span>F39C</td>
+<td class="instruction">JP Z,<a href="56341.html">$DC15</a></td>
+<td class="comment-1" rowspan="1">If A equals the byte at <a href="40918.html#41010">$A034</a> in "Game variables", go back to the routine "Fail: A = 0, HL = 0, Z set" (<a href="56341.html">DC15</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62367"></span>F39F</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - Pass</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62369"></span>F3A1</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="62336.html">F380</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#62345">Map</a></td>
+<td class="next">
+Next: <a href="62370.html">F3A2</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

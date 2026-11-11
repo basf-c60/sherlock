@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at B98C - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="47414.html">B936</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#47500">Map</a></td>
+<td class="next">
+Next: <a href="47610.html">B9FA</a>
+</td>
+</tr>
+</table>
+<div class="description">B98C: Take the command out of an ASK order</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The order's verb and objects (+2, +3, +4, resolved by <a href="52958.html">CEDE</a>) become the command; <a href="47610.html">B9FA</a> removes the node.
+</div>
+<div class="paragraph">
+<a href="47500.html#47532">B9AC</a>-<a href="47500.html#47609">B9F9</a> belong to the remark path of <a href="47414.html">B936</a>: <a href="47500.html#47562">B9CA</a> hands the remark's remaining words back (node +5/+6) one sentence at a time, freeing what has been used.
+</div>
+<div class="paragraph">
+Reached from <a href="47414.html">B936</a> when an actor has been given an order (ASK): the order's verb and objects are turned into the command the actor will run and the order is removed from the list.
+</div>
+<div class="paragraph">
+The tail from <a href="47500.html#47532">B9AC</a> drops an order's sentences when the order cannot be parsed or an ALL has run out, and <a href="47500.html#47562">B9CA</a> hands back the remark's remaining words one sentence at a time.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">The ASK order</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">$A033</td>
+<td class="register-desc">The verb</td>
+</tr>
+<tr>
+<td class="register">A034 The direct object, </td>
+<td class="register-desc">A035 the indirect object</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="47500"></span>B98C</td>
+<td class="instruction">LD A,(IX+$02)</td>
+<td class="comment-1" rowspan="1">Read byte +2 of the record at IX into A - The ordered verb</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47503"></span>B98F</td>
+<td class="instruction">CALL <a href="52958.html">$CEDE</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Resolve a plan argument byte" (<a href="52958.html">CEDE</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47506"></span>B992</td>
+<td class="instruction">LD ($A033),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41010">$A033</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47509"></span>B995</td>
+<td class="instruction">LD A,(IX+$03)</td>
+<td class="comment-1" rowspan="1">Read byte +3 of the record at IX into A - Its direct object</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47512"></span>B998</td>
+<td class="instruction">CALL <a href="52958.html">$CEDE</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Resolve a plan argument byte" (<a href="52958.html">CEDE</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47515"></span>B99B</td>
+<td class="instruction">LD ($A034),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41010">$A034</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47518"></span>B99E</td>
+<td class="instruction">LD A,(IX+$04)</td>
+<td class="comment-1" rowspan="1">Read byte +4 of the record at IX into A - Its indirect object</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47521"></span>B9A1</td>
+<td class="instruction">CALL <a href="52958.html">$CEDE</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Resolve a plan argument byte" (<a href="52958.html">CEDE</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47524"></span>B9A4</td>
+<td class="instruction">LD ($A035),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41010">$A035</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47527"></span>B9A7</td>
+<td class="instruction">CALL <a href="47610.html">$B9FA</a></td>
+<td class="comment-1" rowspan="1">Remove the order from the list</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47530"></span>B9AA</td>
+<td class="instruction">JR <a href="47414.html#47491">$B983</a></td>
+<td class="comment-1" rowspan="1">Go back to <a href="47414.html#47491">B983</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="47532"></span>B9AC</td>
+<td class="instruction">CALL $B9CA</td>
+<td class="comment-1" rowspan="1">Call <a href="47500.html#47562">B9CA</a> (inside "Take the command out of an ASK order") - Unparsable: drop the order's sentences one by one...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47535"></span>B9AF</td>
+<td class="instruction">JR NZ,$B9AC</td>
+<td class="comment-1" rowspan="1">If the zero flag is clear, go back to <a href="47500.html#47532">B9AC</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="47537"></span>B9B1</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag) - ...and return Z: nothing to do</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47538"></span>B9B2</td>
+<td class="instruction">JR <a href="47414.html#47493">$B985</a></td>
+<td class="comment-1" rowspan="1">Go back to <a href="47414.html#47493">B985</a></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="47540"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="47414.html">B936</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="47540"></span>B9B4</td>
+<td class="instruction">LD A,($A01C)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40986">$A01C</a> in "Game variables" into A - An ALL that has run out: clear the flag, drop the sentence...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47543"></span>B9B7</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47544"></span>B9B8</td>
+<td class="instruction">JR Z,$B9AC</td>
+<td class="comment-1" rowspan="1">If A is zero, go back to <a href="47500.html#47532">B9AC</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47546"></span>B9BA</td>
+<td class="instruction">LD IX,($B866)</td>
+<td class="comment-1" rowspan="1">Read "Speech hand-over variables" (<a href="47206.html">B866</a>) into IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47550"></span>B9BE</td>
+<td class="instruction">LD (IX+$02),$00</td>
+<td class="comment-1" rowspan="1">Set byte +2 of the record at IX to $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47554"></span>B9C2</td>
+<td class="instruction">CALL $B9CA</td>
+<td class="comment-1" rowspan="1">Call <a href="47500.html#47562">B9CA</a> (inside "Take the command out of an ASK order")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47557"></span>B9C5</td>
+<td class="instruction">JR Z,$B9B1</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, go back to <a href="47500.html#47537">B9B1</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47559"></span>B9C7</td>
+<td class="instruction">JP <a href="47414.html#47422">$B93E</a></td>
+<td class="comment-1" rowspan="1">...and try the next one</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="47562"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="47414.html">B936</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="47562"></span>B9CA</td>
+<td class="instruction">LD IX,($B866)</td>
+<td class="comment-1" rowspan="1">Read "Speech hand-over variables" (<a href="47206.html">B866</a>) into IX - Drop the order's current sentence (IY) and any BUT nodes after it</td>
+</tr>
+<tr>
+<td class="address-2"><span id="47566"></span>B9CE</td>
+<td class="instruction">LD L,(IY-$02)</td>
+<td class="comment-1" rowspan="1">Read byte -2 of the record at IY into L</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47569"></span>B9D1</td>
+<td class="instruction">LD H,(IY-$01)</td>
+<td class="comment-1" rowspan="1">Read byte -1 of the record at IY into H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47572"></span>B9D4</td>
+<td class="instruction">LD (IX+$05),L</td>
+<td class="comment-1" rowspan="1">Store L in byte +5 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47575"></span>B9D7</td>
+<td class="instruction">LD (IX+$06),H</td>
+<td class="comment-1" rowspan="1">Store H in byte +6 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47578"></span>B9DA</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47580"></span>B9DC</td>
+<td class="instruction">PUSH IY</td>
+<td class="comment-1" rowspan="1">Save IY on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47582"></span>B9DE</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47584"></span>B9E0</td>
+<td class="instruction">CALL <a href="41415.html">$A1C7</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Free node IX back to the heap" (<a href="41415.html">A1C7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47587"></span>B9E3</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47589"></span>B9E5</td>
+<td class="instruction">LD A,L</td>
+<td class="comment-1" rowspan="1">Copy L into A - None left: remove the order and return Z</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47590"></span>B9E6</td>
+<td class="instruction">OR H</td>
+<td class="comment-1" rowspan="1">Set in A the bits that are set in H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47591"></span>B9E7</td>
+<td class="instruction">JR Z,$B9F5</td>
+<td class="comment-1" rowspan="1">If the result is zero, skip ahead to <a href="47500.html#47605">B9F5</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47593"></span>B9E9</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47594"></span>B9EA</td>
+<td class="instruction">POP IY</td>
+<td class="comment-1" rowspan="1">Restore IY from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47596"></span>B9EC</td>
+<td class="instruction">BIT 6,(IY+$01)</td>
+<td class="comment-1" rowspan="1">Test bit 6 of byte +1 of the record at IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47600"></span>B9F0</td>
+<td class="instruction">JR NZ,$B9CE</td>
+<td class="comment-1" rowspan="1">If bit 6 of byte +1 of the record at IY is set, go back to <a href="47500.html#47566">B9CE</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47602"></span>B9F2</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - More to come: NZ</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47604"></span>B9F4</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="47605"></span>B9F5</td>
+<td class="instruction">CALL <a href="47610.html">$B9FA</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Remove node IX from the order/remark list and free it" (<a href="47610.html">B9FA</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47608"></span>B9F8</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Set A to zero, which sets the zero flag for the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47609"></span>B9F9</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="47414.html">B936</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#47500">Map</a></td>
+<td class="next">
+Next: <a href="47610.html">B9FA</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

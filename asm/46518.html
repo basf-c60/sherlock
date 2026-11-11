@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at B5B6 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="46500.html">B5A4</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#46518">Map</a></td>
+<td class="next">
+Next: <a href="46547.html">B5D3</a>
+</td>
+</tr>
+</table>
+<div class="description">B5B6: Move on to the next sentence of the typed line</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+<a href="40918.html#40986">$A01B</a> = A; the sentence list <a href="40918.html#40944">9FF0</a> becomes what was the rest of the line (<a href="40918.html#40946">9FF2</a>), and <a href="40918.html#40946">9FF2</a> the rest after that, the link being cut.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">The value for $A01B</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">$9FF0</td>
+<td class="register-desc">The rest of the typed line as the current sentence</td>
+</tr>
+<tr>
+<td class="register">$9FF2</td>
+<td class="register-desc">What follows it</td>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">The new sentence node</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="46518"></span>B5B6</td>
+<td class="instruction">LD ($A01B),A</td>
+<td class="comment-1" rowspan="1">Remember A in <a href="40918.html#40986">$A01B</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46521"></span>B5B9</td>
+<td class="instruction">LD IX,($9FF2)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40946">9FF2</a> in "Game variables" into IX - The rest of the typed line (<a href="40918.html#40946">9FF2</a>) becomes the current sentence (<a href="40918.html#40944">9FF0</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46525"></span>B5BD</td>
+<td class="instruction">LD ($9FF0),IX</td>
+<td class="comment-1" rowspan="1">Store IX in words the player has (<a href="40918.html#40944">9FF0</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46529"></span>B5C1</td>
+<td class="instruction">LD L,(IX-$02)</td>
+<td class="comment-1" rowspan="1">Read byte -2 of the record at IX into L - Its link (the two bytes before it) becomes the new rest</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46532"></span>B5C4</td>
+<td class="instruction">LD H,(IX-$01)</td>
+<td class="comment-1" rowspan="1">Read byte -1 of the record at IX into H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46535"></span>B5C7</td>
+<td class="instruction">LD ($9FF2),HL</td>
+<td class="comment-1" rowspan="1">Store HL in <a href="40918.html#40946">9FF2</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46538"></span>B5CA</td>
+<td class="instruction">LD (IX-$02),$00</td>
+<td class="comment-1" rowspan="1">Set byte -2 of the record at IX to $00 - Cut the sentence's own link</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46542"></span>B5CE</td>
+<td class="instruction">LD (IX-$01),$00</td>
+<td class="comment-1" rowspan="1">Set byte -1 of the record at IX to $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46546"></span>B5D2</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="46500.html">B5A4</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#46518">Map</a></td>
+<td class="next">
+Next: <a href="46547.html">B5D3</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

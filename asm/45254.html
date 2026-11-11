@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at B0C6 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="45228.html">B0AC</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#45254">Map</a></td>
+<td class="next">
+Next: <a href="45271.html">B0D7</a>
+</td>
+</tr>
+</table>
+<div class="description">B0C6: Handler for SAVE</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+<a href="41060.html#41177">$A0DA</a> = 2: at the end of the minute the main loop saves the game (<a href="45271.html#45284">B0E4</a>) and carries on.
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">Carries</td>
+<td class="register-desc">on in the parser at $B015</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="45254"></span>B0C6</td>
+<td class="instruction">CALL <a href="45025.html">$AFE1</a></td>
+<td class="comment-1" rowspan="1">Only at the start of a sentence (<a href="45025.html">AFE1</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45257"></span>B0C9</td>
+<td class="instruction">LD HL,$0001</td>
+<td class="comment-1" rowspan="1">Load HL with $0001 - The action takes 1 minute</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45260"></span>B0CC</td>
+<td class="instruction">LD ($A01F),HL</td>
+<td class="comment-1" rowspan="1">Store HL in <a href="40918.html#40986">$A01F</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45263"></span>B0CF</td>
+<td class="instruction">LD A,$02</td>
+<td class="comment-1" rowspan="1">Load A with $02 - <a href="41060.html#41177">$A0DA</a> = 2: save the game at the end of the minute's walk</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45265"></span>B0D1</td>
+<td class="instruction">LD ($A0DA),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="41060.html#41177">$A0DA</a> in "The main loop: one minute of game time per..."</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45268"></span>B0D4</td>
+<td class="instruction">JP <a href="45050.html#45077">$B015</a></td>
+<td class="comment-1" rowspan="1">Carry on parsing (<a href="45050.html#45077">B015</a>)</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="45228.html">B0AC</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#45254">Map</a></td>
+<td class="next">
+Next: <a href="45271.html">B0D7</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

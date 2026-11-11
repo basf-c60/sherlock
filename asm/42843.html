@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at A75B - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="42821.html">A745</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#42843">Map</a></td>
+<td class="next">
+Next: <a href="42865.html">A771</a>
+</td>
+</tr>
+</table>
+<div class="description">A75B: Code $0B: print a message at an offset from here</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+HL = IX + the two-byte offset that follows; prints the message there (<a href="42436.html">A5C4</a>) and steps over the offset: a sub-message.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">The position of the code ($0B), followed by a 16-bit offset</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">Past the offset</td>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">0</td>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Z</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="42843"></span>A75B</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack - Code $0B: IX is the control code; HL = IX + the offset in its next two bytes</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42845"></span>A75D</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42846"></span>A75E</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42847"></span>A75F</td>
+<td class="instruction">LD E,(IX+$01)</td>
+<td class="comment-1" rowspan="1">Read byte +1 of the record at IX into E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42850"></span>A762</td>
+<td class="instruction">LD D,(IX+$02)</td>
+<td class="comment-1" rowspan="1">Read byte +2 of the record at IX into D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42853"></span>A765</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1">Add DE to HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42854"></span>A766</td>
+<td class="instruction">CALL <a href="42436.html">$A5C4</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Interpret message bytes until the end of the message" (<a href="42436.html">A5C4</a>) - Print that message (<a href="42436.html">A5C4</a>), then move IX past the operand</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42857"></span>A769</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42859"></span>A76B</td>
+<td class="instruction">INC IX</td>
+<td class="comment-1" rowspan="1">Step IX on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42861"></span>A76D</td>
+<td class="instruction">INC IX</td>
+<td class="comment-1" rowspan="1">Step IX on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42863"></span>A76F</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Set A to zero, which sets the zero flag for the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42864"></span>A770</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="42821.html">A745</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#42843">Map</a></td>
+<td class="next">
+Next: <a href="42865.html">A771</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at D045 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="53256.html">D008</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#53317">Map</a></td>
+<td class="next">
+Next: <a href="53327.html">D04F</a>
+</td>
+</tr>
+</table>
+<div class="description">D045: Note the room the player is in ($A009)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="40918.html#40962">$A009</a>.
+</div>
+<div class="paragraph">
+Called at the start of every actor's turn (<a href="52279.html#52317">$CC5E</a>): the room everything shown is judged against.
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">$A009</td>
+<td class="register-desc">The room the player is in</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="53317"></span>D045</td>
+<td class="instruction">LD A,($9860)</td>
+<td class="comment-1" rowspan="1">The player (first actor, <a href="39008.html">9860</a>)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53320"></span>D048</td>
+<td class="instruction">CALL <a href="54421.html">$D495</a></td>
+<td class="comment-1" rowspan="1">...its room (<a href="54421.html">D495</a>)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53323"></span>D04B</td>
+<td class="instruction">LD ($A009),A</td>
+<td class="comment-1" rowspan="1">Store A in the room the player is in, which decides what is shown (<a href="40918.html#40962">$A009</a>) - ...stored as the room the player sees (<a href="40918.html#40962">$A009</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53326"></span>D04E</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="53256.html">D008</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#53317">Map</a></td>
+<td class="next">
+Next: <a href="53327.html">D04F</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

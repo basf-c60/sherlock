@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Data at AF6B - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-b">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Data</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="44903.html">AF67</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#44907">Map</a></td>
+<td class="next">
+Next: <a href="44979.html">AFB3</a>
+</td>
+</tr>
+</table>
+<div class="description">AF6B: Special words and their handlers</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Four-byte entries (word reference, handler). <a href="44979.html">AFB3</a> searches the first twelve for an ordinary sentence, and only the last six - THATS, HE, IT, THEY, BECAUSE, THEREFORE - inside something said to a character (<a href="40918.html#40994">$A024</a> = 2). HE, IT and THEY appear twice with different handlers, one per search.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44907"></span>AF6B</td>
+<td class="instruction">DEFB $00,$00,$49,$B0</td>
+<td class="comment-1" rowspan="1">a quote mark -&gt; <a href="45084.html#45129">B049</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44911"></span>AF6F</td>
+<td class="instruction">DEFB $40,$00,$33,$B0</td>
+<td class="comment-1" rowspan="1">ALL -&gt; <a href="45084.html#45107">B033</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44915"></span>AF73</td>
+<td class="instruction">DEFB $5E,$01,$1C,$B0</td>
+<td class="comment-1" rowspan="1">BUT -&gt; <a href="45084.html">B01C</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44919"></span>AF77</td>
+<td class="instruction">DEFB $D5,$06,$FF,$AF</td>
+<td class="comment-1" rowspan="1">PRINT -&gt; <a href="45050.html#45055">AFFF</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44923"></span>AF7B</td>
+<td class="instruction">DEFB $BD,$05,$0B,$B0</td>
+<td class="comment-1" rowspan="1">NOPRINT -&gt; <a href="45050.html#45067">B00B</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44927"></span>AF7F</td>
+<td class="instruction">DEFB $07,$05,$A3,$B0</td>
+<td class="comment-1" rowspan="1">LOAD -&gt; <a href="45084.html#45219">B0A3</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44931"></span>AF83</td>
+<td class="instruction">DEFB $75,$07,$C6,$B0</td>
+<td class="comment-1" rowspan="1">SAVE -&gt; <a href="45254.html">B0C6</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44935"></span>AF87</td>
+<td class="instruction">DEFB $60,$06,$9A,$B0</td>
+<td class="comment-1" rowspan="1">PAUSE -&gt; <a href="45084.html#45210">B09A</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44939"></span>AF8B</td>
+<td class="instruction">DEFB $E3,$03,$35,$B1</td>
+<td class="comment-1" rowspan="1">HE -&gt; <a href="45309.html#45365">B135</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44943"></span>AF8F</td>
+<td class="instruction">DEFB $88,$04,$51,$B1</td>
+<td class="comment-1" rowspan="1">IT -&gt; <a href="45309.html#45393">B151</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44947"></span>AF93</td>
+<td class="instruction">DEFB $F6,$06,$A3,$B0</td>
+<td class="comment-1" rowspan="1">QUIT -&gt; <a href="45084.html#45219">B0A3</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44951"></span>AF97</td>
+<td class="instruction">DEFB $B3,$08,$51,$B1</td>
+<td class="comment-1" rowspan="1">THEY -&gt; <a href="45309.html#45393">B151</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44955"></span>AF9B</td>
+<td class="instruction">DEFB $99,$08,$FD,$B0</td>
+<td class="comment-1" rowspan="1">THATS -&gt; <a href="45309.html">B0FD</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44959"></span>AF9F</td>
+<td class="instruction">DEFB $E3,$03,$3F,$B1</td>
+<td class="comment-1" rowspan="1">HE -&gt; <a href="45309.html#45375">B13F</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44963"></span>AFA3</td>
+<td class="instruction">DEFB $88,$04,$5B,$B1</td>
+<td class="comment-1" rowspan="1">IT -&gt; <a href="45309.html#45403">B15B</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44967"></span>AFA7</td>
+<td class="instruction">DEFB $B3,$08,$5B,$B1</td>
+<td class="comment-1" rowspan="1">THEY -&gt; <a href="45309.html#45403">B15B</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44971"></span>AFAB</td>
+<td class="instruction">DEFB $C5,$00,$FA,$AF</td>
+<td class="comment-1" rowspan="1">BECAUSE -&gt; <a href="45050.html">AFFA</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44975"></span>AFAF</td>
+<td class="instruction">DEFB $AE,$08,$FA,$AF</td>
+<td class="comment-1" rowspan="1">THEREFORE -&gt; <a href="45050.html">AFFA</a></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="44903.html">AF67</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#44907">Map</a></td>
+<td class="next">
+Next: <a href="44979.html">AFB3</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

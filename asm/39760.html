@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at 9B50 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="39717.html">9B25</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#39760">Map</a></td>
+<td class="next">
+Next: <a href="39807.html">9B7F</a>
+</td>
+</tr>
+</table>
+<div class="description">9B50: A cabbie told where to go: can he get there from here?</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Sets up the cab (<a href="40918.html#40978">$A017</a>) for the journey - its +1 from the actor in <a href="40918.html#41010">$A036</a>, its room (+15) and <a href="40918.html#40970">A00A</a> from the cabbie's - and looks for a journey from here to the destination in <a href="40918.html#41010">$A034</a> (<a href="39943.html">9C07</a>). If there is one, returns Z. If not, the cabbie replies 'SORRY GUV'NOR I CANNOT GET THERE FROM 'ERE' (<a href="27700.html">6C34</a>) and this returns NZ to its caller's caller (it drops its own return address). Asked for Old Mill Road from Baker Street, 'The cabbie replies " Sorry guv'nor I cannot get there from'ere ".'
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">The cabbie's record (found from $A036)</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Z when a journey exists; otherwise the caller is abandoned after the apology is printed</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="39760"></span>9B50</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A036</a> in "Game variables" into A - The cab is the cabbie's number less one (cabbie 31 drives cab 30, 34 drives 33)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39763"></span>9B53</td>
+<td class="instruction">DEC A</td>
+<td class="comment-1" rowspan="1">Subtract one from A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39764"></span>9B54</td>
+<td class="instruction">LD IY,($A017)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40978">$A017</a> in "Game variables" into IY - The cabbie is in the cab; remember the cab at <a href="58054.html">E2C6</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="39768"></span>9B58</td>
+<td class="instruction">LD (IY+$01),A</td>
+<td class="comment-1" rowspan="1">Store A in byte +1 of the record at IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39771"></span>9B5B</td>
+<td class="instruction">LD ($E2C6),A</td>
+<td class="comment-1" rowspan="1">Store A in "HAIL: the cab hailed, plus one" (<a href="58054.html">E2C6</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39774"></span>9B5E</td>
+<td class="instruction">CALL <a href="53815.html">$D237</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Resolve an id (in A) to its full entity record" (<a href="53815.html">D237</a>) - The cabbie's room becomes the cab's room, and the current room</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39777"></span>9B61</td>
+<td class="instruction">LD A,(IX+$0F)</td>
+<td class="comment-1" rowspan="1">Read byte +15 of the record at IX into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39780"></span>9B64</td>
+<td class="instruction">LD (IY+$0F),A</td>
+<td class="comment-1" rowspan="1">Store A in byte +15 of the record at IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39783"></span>9B67</td>
+<td class="instruction">LD ($A00A),A</td>
+<td class="comment-1" rowspan="1">Store A in the current actor's room (<a href="40918.html#40970">A00A</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39786"></span>9B6A</td>
+<td class="instruction">LD A,($A034)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A034</a> in "Game variables" into A - Is there a journey from here to the destination (<a href="40918.html#41010">$A034</a>)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39789"></span>9B6D</td>
+<td class="instruction">LD C,A</td>
+<td class="comment-1" rowspan="1">Copy A into C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39790"></span>9B6E</td>
+<td class="instruction">LD A,($A00A)</td>
+<td class="comment-1" rowspan="1">Read the current actor's room (<a href="40918.html#40970">A00A</a>) into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39793"></span>9B71</td>
+<td class="instruction">CALL <a href="39943.html">$9C07</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Find the cab journey between two rooms" (<a href="39943.html">9C07</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39796"></span>9B74</td>
+<td class="instruction">RET Z</td>
+<td class="comment-1" rowspan="1">Yes: Z</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39797"></span>9B75</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">No: drop the return address, so the record stops here,</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39798"></span>9B76</td>
+<td class="instruction">LD HL,$6C34</td>
+<td class="comment-1" rowspan="1">Point HL at the message "YOU REPLIES" SORRY GUV'NOR I CANNOT GET THERE... (<a href="27700.html">6C34</a>) - and say SORRY GUV'NOR I CANNOT GET THERE FROM 'ERE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39801"></span>9B79</td>
+<td class="instruction">CALL <a href="42399.html">$A59F</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print the message at HL" (<a href="42399.html">A59F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39804"></span>9B7C</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39806"></span>9B7E</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="39717.html">9B25</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#39760">Map</a></td>
+<td class="next">
+Next: <a href="39807.html">9B7F</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

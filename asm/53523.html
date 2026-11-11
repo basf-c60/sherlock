@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at D113 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="53506.html">D102</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#53523">Map</a></td>
+<td class="next">
+Next: <a href="53634.html">D182</a>
+</td>
+</tr>
+</table>
+<div class="description">D113: Describe room A in full</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The picture, if pictures are on and the room has one (<a href="41591.html">A277</a>); 'YOU ARE IN &lt;thing&gt;' when the actor is inside something (<a href="51299.html">C863</a>); the room's own text or 'YOU ARE ON/IN ... &lt;name&gt;' (<a href="53634.html">D182</a>); the exits (<a href="54795.html">D60B</a>); the things here (<a href="54924.html">D68C</a>); the people here (<a href="54439.html">D4A7</a>); end of line. To the north there is the front door.').
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. Draw the room's picture if pictures are on and the room has one (<a href="41591.html">A277</a>).
+</div>
+<div class="paragraph">
+2. If the actor is inside something (a cab, say), print 'YOU ARE IN' and how it is held (<a href="54739.html">D5D3</a>) and its name (<a href="54229.html">D3D5</a>).
+</div>
+<div class="paragraph">
+3. Print the room's own description (<a href="53634.html">D182</a>), then list what can be seen.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">A room number</td>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">The opening message</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">The</td>
+<td class="register-desc">room described, with its picture if shown</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="53523"></span>D113</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">B = the room number</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53524"></span>D114</td>
+<td class="instruction">CALL <a href="53796.html">$D224</a></td>
+<td class="comment-1" rowspan="1">Room record into IX (<a href="53796.html">D224</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53527"></span>D117</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">Copy B into A - Draw the room's picture if pictures are on (<a href="41591.html">A277</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53528"></span>D118</td>
+<td class="instruction">CALL <a href="41591.html">$A277</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Describe a room's picture" (<a href="41591.html">A277</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53531"></span>D11B</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack - Save the room record, B and HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53533"></span>D11D</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Save BC on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53534"></span>D11E</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53535"></span>D11F</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A036</a> in "Game variables" into A - Is the actor inside something (<a href="51299.html">C863</a>)? A' = the container, or $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53538"></span>D122</td>
+<td class="instruction">CALL <a href="51299.html">$C863</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Is thing number A here? (<a href="51310.html">C86E</a>)" (<a href="51299.html">C863</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53541"></span>D125</td>
+<td class="instruction">EX AF,AF'</td>
+<td class="comment-1" rowspan="1">Swap AF with the shadow copy</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53542"></span>D126</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1">Compare A with $FF - $FF: not inside anything, skip</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53544"></span>D128</td>
+<td class="instruction">JR Z,$D167</td>
+<td class="comment-1" rowspan="1">If A equals $FF, jump on to <a href="53523.html#53607">D167</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="53546"></span>D12A</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Inside something: build 'YOU ARE IN &lt;thing&gt;':</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53547"></span>D12B</td>
+<td class="instruction">LD HL,($68DE)</td>
+<td class="comment-1" rowspan="1">Read <a href="26845.html">$68DE</a> in "Message: "YOU ARE IN"" into HL - save the word at <a href="26845.html">$68DE</a>...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53550"></span>D12E</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53551"></span>D12F</td>
+<td class="instruction">LD HL,$8000</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="32761.html">$8000</a> in "Message: "AS YOU RUN YOUR HANDS OVER THE..." - ...put the word for IN (<a href="32761.html">$8000</a>) into the message (<a href="53456.html">D0D0</a>)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53554"></span>D132</td>
+<td class="instruction">CALL <a href="53456.html">$D0D0</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Put word HL into the 'YOU ARE ...' message" (<a href="53456.html">D0D0</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53557"></span>D135</td>
+<td class="instruction">LD HL,$68DD</td>
+<td class="comment-1" rowspan="1">Point HL at the message "YOU ARE IN" (<a href="26845.html">68DD</a>) - ...and print <a href="26845.html">68DD</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="53560"></span>D138</td>
+<td class="instruction">CALL <a href="42399.html">$A59F</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print the message at HL" (<a href="42399.html">A59F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53563"></span>D13B</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack - Put the old word back</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53564"></span>D13C</td>
+<td class="instruction">LD ($68DE),HL</td>
+<td class="comment-1" rowspan="1">Store HL in <a href="26845.html">$68DE</a> in "Message: "YOU ARE IN""</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53567"></span>D13F</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53568"></span>D140</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53569"></span>D141</td>
+<td class="instruction">CALL <a href="53815.html">$D237</a></td>
+<td class="comment-1" rowspan="1">Container's record (<a href="53815.html">D237</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53572"></span>D144</td>
+<td class="instruction">CALL <a href="54739.html">$D5D3</a></td>
+<td class="comment-1" rowspan="1">Print how it is held (IN, ON, BEHIND...) (<a href="54739.html">D5D3</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53575"></span>D147</td>
+<td class="instruction">CALL <a href="54229.html">$D3D5</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print thing IX's name" (<a href="54229.html">D3D5</a>) - Print its name (<a href="54229.html">D3D5</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53578"></span>D14A</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53579"></span>D14B</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53580"></span>D14C</td>
+<td class="instruction">CALL <a href="54476.html">$D4CC</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Count the things in place B that should be listed (B)" (<a href="54476.html">D4CC</a>) - Count the other things in the container that should be listed (<a href="54476.html">D4CC</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53583"></span>D14F</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53584"></span>D150</td>
+<td class="instruction">JR Z,$D163</td>
+<td class="comment-1" rowspan="1">If A is zero, skip ahead to <a href="53523.html#53603">D163</a> - None: just end the sentence (<a href="41853.html#42004">A414</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53586"></span>D152</td>
+<td class="instruction">LD C,A</td>
+<td class="comment-1" rowspan="1">Copy A into C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53587"></span>D153</td>
+<td class="instruction">LD DE,$09BF</td>
+<td class="comment-1" rowspan="1">Load DE with $09BF - Some: print the lead-in $09BF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53590"></span>D156</td>
+<td class="instruction">CALL <a href="43136.html#43143">$A887</a></td>
+<td class="comment-1" rowspan="1">Call <a href="43136.html#43143">A887</a> (inside "Print the dictionary word that HL refers to")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53593"></span>D159</td>
+<td class="instruction">LD A,($A00A)</td>
+<td class="comment-1" rowspan="1">Read the current actor's room (<a href="40918.html#40970">A00A</a>) into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53596"></span>D15C</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">Copy A into B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53597"></span>D15D</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53598"></span>D15E</td>
+<td class="instruction">CALL <a href="54554.html">$D51A</a></td>
+<td class="comment-1" rowspan="1">Call the routine "List the things in a place, with commas and AND" (<a href="54554.html">D51A</a>) - List them with commas and AND (<a href="54554.html">D51A</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53601"></span>D161</td>
+<td class="instruction">JR $D167</td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="53523.html#53607">D167</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="53603"></span>D163</td>
+<td class="instruction">CALL <a href="41853.html#42004">$A414</a></td>
+<td class="comment-1" rowspan="1">Call <a href="41853.html#42004">A414</a> (inside "Print the rest of a narrated command: verb...")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53606"></span>D166</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-2"><span id="53607"></span>D167</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack - Back to the room record</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53608"></span>D168</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore BC from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53609"></span>D169</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53611"></span>D16B</td>
+<td class="instruction">LD L,(IX+$07)</td>
+<td class="comment-1" rowspan="1">Read byte +7 of the record at IX into L - HL = the room's own description word</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53614"></span>D16E</td>
+<td class="instruction">LD H,(IX+$08)</td>
+<td class="comment-1" rowspan="1">Read byte +8 of the record at IX into H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53617"></span>D171</td>
+<td class="instruction">CALL <a href="53634.html">$D182</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print a room's description" (<a href="53634.html">D182</a>) - Print it, or 'YOU ARE ON/IN ... &lt;name&gt;' if it has none (<a href="53634.html">D182</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53620"></span>D174</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">Copy B into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53621"></span>D175</td>
+<td class="instruction">CALL <a href="54795.html">$D60B</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Describe the ways out through things: 'TO THE NORTH..." (<a href="54795.html">D60B</a>) - The exits (<a href="54795.html">D60B</a>)</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="53624"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="53682.html">D1B2</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="53624"></span>D178</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">Copy B into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53625"></span>D179</td>
+<td class="instruction">CALL <a href="54924.html">$D68C</a></td>
+<td class="comment-1" rowspan="1">The things here (<a href="54924.html">D68C</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53628"></span>D17C</td>
+<td class="instruction">CALL <a href="54439.html">$D4A7</a></td>
+<td class="comment-1" rowspan="1">The people here (<a href="54439.html">D4A7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53631"></span>D17F</td>
+<td class="instruction">JP <a href="41634.html">$A2A2</a></td>
+<td class="comment-1" rowspan="1">End the line (<a href="41634.html">A2A2</a>)</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="53506.html">D102</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#53523">Map</a></td>
+<td class="next">
+Next: <a href="53634.html">D182</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

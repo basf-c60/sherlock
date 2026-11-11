@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at C240 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="49660.html">C1FC</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#49728">Map</a></td>
+<td class="next">
+Next: <a href="49737.html">C249</a>
+</td>
+</tr>
+</table>
+<div class="description">C240: Upper-case A if it is a lower-case letter</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routines at <a href="49660.html">C1FC</a> and <a href="50207.html">C41F</a>.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">A character</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">The character, in capitals if it was a lower-case letter</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="49728"></span>C240</td>
+<td class="instruction">CP $61</td>
+<td class="comment-1" rowspan="1">Compare A with $61 - Lower-case letter (a-z)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49730"></span>C242</td>
+<td class="instruction">RET C</td>
+<td class="comment-1" rowspan="1">If A is below $61, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49731"></span>C243</td>
+<td class="instruction">CP $7B</td>
+<td class="comment-1" rowspan="1">Compare A with $7B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49733"></span>C245</td>
+<td class="instruction">RET NC</td>
+<td class="comment-1" rowspan="1">If A is $7B or more, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49734"></span>C246</td>
+<td class="instruction">AND $5F</td>
+<td class="comment-1" rowspan="1">Keep only bits 0, 1, 2, 3, 4, 6 of A (mask $5F) - Make it upper case (AND $5F)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49736"></span>C248</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="49660.html">C1FC</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#49728">Map</a></td>
+<td class="next">
+Next: <a href="49737.html">C249</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

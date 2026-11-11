@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at D6E5 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="54990.html">D6CE</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#55013">Map</a></td>
+<td class="next">
+Next: <a href="55060.html">D714</a>
+</td>
+</tr>
+</table>
+<div class="description">D6E5: Say 'I DO NOT KNOW THE WORD "..."'</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Quotes the unknown word from the typed line (<a href="26713.html">6859</a>).
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">The</td>
+<td class="register-desc">message "I DO NOT KNOW THE WORD" printed with the word</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="55013"></span>D6E5</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="1">Load A with $01 - Quoted printing on (<a href="40918.html#40994">$A027</a> = 1)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55015"></span>D6E7</td>
+<td class="instruction">LD ($A027),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#40994">$A027</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55018"></span>D6EA</td>
+<td class="instruction">LD HL,$6859</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55021"></span>D6ED</td>
+<td class="instruction">CALL <a href="42399.html">$A59F</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55024"></span>D6F0</td>
+<td class="instruction">LD HL,($D6BD)</td>
+<td class="comment-1" rowspan="1">Read <a href="54968.html#54973">D6BD</a> in "A flag of the player's script step, and..." into HL - Mark the word's token (<a href="54968.html#54973">D6BD</a>) as class $C0</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55027"></span>D6F3</td>
+<td class="instruction">LD (HL),$C0</td>
+<td class="comment-1" rowspan="1">Store $C0 at the address HL points to</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55029"></span>D6F5</td>
+<td class="instruction">LD HL,($A029)</td>
+<td class="comment-1" rowspan="1">HL = the unknown word in the typed line (<a href="40918.html#40994">$A029</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="55032"></span>D6F8</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into A - Print it a character at a time, a '.' as a space...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55033"></span>D6F9</td>
+<td class="instruction">CP $2E</td>
+<td class="comment-1" rowspan="1">Compare A with $2E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55035"></span>D6FB</td>
+<td class="instruction">JR NZ,$D6FF</td>
+<td class="comment-1" rowspan="1">If A differs from $2E, skip ahead to <a href="55013.html#55039">D6FF</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55037"></span>D6FD</td>
+<td class="instruction">LD A,$20</td>
+<td class="comment-1" rowspan="1">Load A with $20</td>
+</tr>
+<tr>
+<td class="address-2"><span id="55039"></span>D6FF</td>
+<td class="instruction">CALL <a href="43447.html">$A9B7</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print character A, a word at a time (word wrap)" (<a href="43447.html">A9B7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55042"></span>D702</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55043"></span>D703</td>
+<td class="instruction">CP $20</td>
+<td class="comment-1" rowspan="1">Compare A with $20 - ...up to the next space</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55045"></span>D705</td>
+<td class="instruction">JR NZ,$D6F8</td>
+<td class="comment-1" rowspan="1">If A differs from $20, go back to <a href="55013.html#55032">D6F8</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55047"></span>D707</td>
+<td class="instruction">LD A,$22</td>
+<td class="comment-1" rowspan="1">Load A with $22 - Closing quote</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55049"></span>D709</td>
+<td class="instruction">CALL <a href="43447.html">$A9B7</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print character A, a word at a time (word wrap)" (<a href="43447.html">A9B7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55052"></span>D70C</td>
+<td class="instruction">CALL <a href="41634.html">$A2A2</a></td>
+<td class="comment-1" rowspan="1">End the line (<a href="41634.html">A2A2</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55055"></span>D70F</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag) - Quoted printing off (<a href="40918.html#40994">$A027</a> = 0)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55056"></span>D710</td>
+<td class="instruction">LD ($A027),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#40994">$A027</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55059"></span>D713</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="54990.html">D6CE</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#55013">Map</a></td>
+<td class="next">
+Next: <a href="55060.html">D714</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

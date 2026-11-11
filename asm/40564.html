@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at 9E74 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="40554.html">9E6A</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#40564">Map</a></td>
+<td class="next">
+Next: <a href="40581.html">9E85</a>
+</td>
+</tr>
+</table>
+<div class="description">9E74: End the game with the message in HL</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Prints HL's message, waits for a key (<a href="49926.html">C306</a>), calls <a href="41622.html">A296</a> and restarts the game (<a href="45228.html">B0AC</a>). Reached from the game-over records at <a href="40520.html">9E48</a>-<a href="40610.html#40638">$9EBF</a> and from <a href="57290.html">DFCA</a>.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">The message to print</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">None: the game restarts through $B0AC</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="40564"></span>9E74</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="1">Load A with $01 - Output on (<a href="../rom_symbols.html#a5C3C">$5C3C</a> = 1)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40566"></span>9E76</td>
+<td class="instruction">LD ($5C3C),A</td>
+<td class="comment-1" rowspan="1">Store A in the output-switch byte (TV_FLAG) (<a href="../rom_symbols.html#a5C3C">$5C3C</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40569"></span>9E79</td>
+<td class="instruction">CALL <a href="42399.html">$A59F</a></td>
+<td class="comment-1" rowspan="1">Print the message in HL (<a href="42399.html">A59F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40572"></span>9E7C</td>
+<td class="instruction">CALL <a href="49926.html">$C306</a></td>
+<td class="comment-1" rowspan="1">Wait for a key (<a href="49926.html">C306</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40575"></span>9E7F</td>
+<td class="instruction">CALL <a href="41622.html">$A296</a></td>
+<td class="comment-1" rowspan="1">Clear the text window: 18 newlines (<a href="41622.html">A296</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40578"></span>9E82</td>
+<td class="instruction">JP <a href="45228.html">$B0AC</a></td>
+<td class="comment-1" rowspan="1">Get ready to load a saved game (<a href="45228.html">B0AC</a>)</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="40554.html">9E6A</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#40564">Map</a></td>
+<td class="next">
+Next: <a href="40581.html">9E85</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at D4EF - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="54476.html">D4CC</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#54511">Map</a></td>
+<td class="next">
+Next: <a href="54554.html">D51A</a>
+</td>
+</tr>
+</table>
+<div class="description">D4EF: Should this thing be listed here?</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+In the place, not the actor itself, visible to the player (<a href="51233.html">C821</a>), and in exactly one location (so not a door).
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">A place</td>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">A thing's list entry</td>
+</tr>
+<tr>
+<td class="register">IY</td>
+<td class="register-desc">Its record</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Carry set if it should be listed</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="54511"></span>D4EF</td>
+<td class="instruction">CP (IY+$01)</td>
+<td class="comment-1" rowspan="1">Compare A with the holder byte (+1) of the thing record at IY - Is the thing's holder (IX+1) the one this listing is for?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54514"></span>D4F2</td>
+<td class="instruction">JR NZ,$D518</td>
+<td class="comment-1" rowspan="1">If A differs from the holder byte (+1) of the thing record at IY, skip ahead to <a href="54511.html#54552">D518</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="54516"></span>D4F4</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A036</a> in "Game variables" into A - Not the actor's own record</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54519"></span>D4F7</td>
+<td class="instruction">CP (IX+$00)</td>
+<td class="comment-1" rowspan="1">Compare A with the number byte (+0) of the thing record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54522"></span>D4FA</td>
+<td class="instruction">JR Z,$D518</td>
+<td class="comment-1" rowspan="1">If A equals the number byte (+0) of the thing record at IX, skip ahead to <a href="54511.html#54552">D518</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="54524"></span>D4FC</td>
+<td class="instruction">LD A,(IX+$00)</td>
+<td class="comment-1" rowspan="1">Read the number byte (+0) of the thing record at IX into A - And the actor can see it (<a href="51233.html">C821</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54527"></span>D4FF</td>
+<td class="instruction">CALL <a href="51233.html">$C821</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Can the current actor (<a href="40918.html#41010">$A036</a>) see thing A?" (<a href="51233.html">C821</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54530"></span>D502</td>
+<td class="instruction">JR Z,$D518</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, skip ahead to <a href="54511.html#54552">D518</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="54532"></span>D504</td>
+<td class="instruction">LD A,(IY+$00)</td>
+<td class="comment-1" rowspan="1">Read the number byte (+0) of the thing record at IY into A - Its room count (+0) below 2: only a thing in one or no room</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54535"></span>D507</td>
+<td class="instruction">CP $02</td>
+<td class="comment-1" rowspan="1">Compare A with $02</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54537"></span>D509</td>
+<td class="instruction">JR NC,$D518</td>
+<td class="comment-1" rowspan="1">If A is $02 or more, skip ahead to <a href="54511.html#54552">D518</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="54539"></span>D50B</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A036</a> in "Game variables" into A - Is the actor inside the thing, at any depth? (<a href="53877.html#53880">D278</a>: carry if so)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54542"></span>D50E</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54544"></span>D510</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54545"></span>D511</td>
+<td class="instruction">CALL <a href="53877.html#53880">$D278</a></td>
+<td class="comment-1" rowspan="1">Call <a href="53877.html#53880">D278</a> (inside "Is thing A carried by the actor, perhaps...")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54548"></span>D514</td>
+<td class="instruction">JR C,$D518</td>
+<td class="comment-1" rowspan="1">If the carry flag is set, skip ahead to <a href="54511.html#54552">D518</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="54550"></span>D516</td>
+<td class="instruction">SCF</td>
+<td class="comment-1" rowspan="1">Set the carry flag for the caller - Not inside it: list it (carry set)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54551"></span>D517</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="54552"></span>D518</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Clear the carry flag for the caller (A is unchanged) - No (carry clear)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54553"></span>D519</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="54476.html">D4CC</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#54511">Map</a></td>
+<td class="next">
+Next: <a href="54554.html">D51A</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

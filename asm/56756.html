@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at DDB4 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="56734.html">DD9E</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#56756">Map</a></td>
+<td class="next">
+Next: <a href="56766.html">DDBE</a>
+</td>
+</tr>
+</table>
+<div class="description">DDB4: Action record: default for verb 49 (WAIT HERE)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+WAIT HERE: byte 1 is $50, and the player's WAIT moves the clock on by five minutes. Body and pre-check are the same three instructions at <a href="56756.html#56760">DDB8</a>: refuse if the actor is busy (<a href="52135.html">CBA7</a>), otherwise succeed. The record at <a href="56766.html">DDBE</a> (wait a given number of minutes) uses this code as its pre-check as well.
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56756"></span>DDB4</td>
+<td class="instruction">DEFB $40,$50,$B8,$DD</td>
+<td class="comment-1" rowspan="1">Action record header: flags $40; bit 6: pre-check at <a href="56756.html#56760">DDB8</a>; byte 1 $50</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56760"></span>DDB8</td>
+<td class="instruction">CALL <a href="52135.html">$CBA7</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Refuse if the character is busy: 'SORRY, I CANNOT DO..." (<a href="52135.html">CBA7</a>) - (Next record's pre-check) only if the actor is not busy (<a href="52135.html">CBA7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56763"></span>DDBB</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56765"></span>DDBD</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="56734.html">DD9E</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#56756">Map</a></td>
+<td class="next">
+Next: <a href="56766.html">DDBE</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

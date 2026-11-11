@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Data at D05A - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-w">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Data</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="53327.html">D04F</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#53338">Map</a></td>
+<td class="next">
+Next: <a href="53354.html">D06A</a>
+</td>
+</tr>
+</table>
+<div class="description">D05A: How a room is entered in words: 'You are ON Baker Street'</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Indexed by bits 1-3 of the room record's first byte (<a href="53469.html">D0DD</a>): OUTSIDE, INSIDE, IN, ON, AT, NORTH, SOUTH, EAST. The word is written into the message 'YOU ARE IN' at <a href="26845.html">68DD</a> itself (its second word, at <a href="26845.html">$68DE</a>) before it is printed - self-modifying message data.
+</div>
+<div class="paragraph">
+Kinds 5-7 are really the start of the next table: the direction words at <a href="53338.html#53348">D064</a> (NORTH, SOUTH, EAST, then WEST to DOWN at <a href="53354.html">D06A</a>), which <a href="54779.html">D5FB</a> indexes by direction number. No room uses kinds 0, 1 or 5-7: 65 rooms are IN, 32 ON and 9 AT (counted from the room records).
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53338"></span>D05A</td>
+<td class="instruction">DEFW $0624</td>
+<td class="comment-1" rowspan="1">Room kind 0: OUTSIDE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53340"></span>D05C</td>
+<td class="instruction">DEFW $0466</td>
+<td class="comment-1" rowspan="1">Room kind 1: INSIDE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53342"></span>D05E</td>
+<td class="instruction">DEFW $0450</td>
+<td class="comment-1" rowspan="1">Room kind 2: IN</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53344"></span>D060</td>
+<td class="instruction">DEFW $05FF</td>
+<td class="comment-1" rowspan="1">Room kind 3: ON</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53346"></span>D062</td>
+<td class="instruction">DEFW $009A</td>
+<td class="comment-1" rowspan="1">Room kind 4: AT</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53348"></span>D064</td>
+<td class="instruction">DEFW $05C3</td>
+<td class="comment-1" rowspan="1">Room kind 5: NORTH</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53350"></span>D066</td>
+<td class="instruction">DEFW $081A</td>
+<td class="comment-1" rowspan="1">Room kind 6: SOUTH</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53352"></span>D068</td>
+<td class="instruction">DEFW $0284</td>
+<td class="comment-1" rowspan="1">Room kind 7: EAST</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="53327.html">D04F</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#53338">Map</a></td>
+<td class="next">
+Next: <a href="53354.html">D06A</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

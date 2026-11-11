@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Data at F60C - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-b">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Data</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="62987.html">F60B</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#62988">Map</a></td>
+<td class="next">
+Next: <a href="63032.html">F638</a>
+</td>
+</tr>
+</table>
+<div class="description">F60C: Which rooms have a picture</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+14 three-byte entries (room, address of its picture), ended by $FF; <a href="41060.html#41176">A0D8</a> points here and <a href="41565.html">A25D</a> searches it (<a href="54094.html">D34E</a>) when a room is described with pictures switched on (<a href="40918.html#40970">$A011</a>). Rooms 54 and 55 share one picture.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62988"></span>F60C</td>
+<td class="instruction">DEFB $05,$47,$FF</td>
+<td class="comment-1" rowspan="1">Room 5 (baker street): <a href="65351.html">FF47</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="62991"></span>F60F</td>
+<td class="instruction">DEFB $4A,$82,$FE</td>
+<td class="comment-1" rowspan="1">Room 74 (daphnes room): <a href="65154.html">FE82</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="62994"></span>F612</td>
+<td class="instruction">DEFB $47,$A8,$FD</td>
+<td class="comment-1" rowspan="1">Room 71 (browns library): <a href="64936.html">FDA8</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="62997"></span>F615</td>
+<td class="instruction">DEFB $59,$ED,$FC</td>
+<td class="comment-1" rowspan="1">Room 89 (west side): <a href="64749.html">FCED</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="63000"></span>F618</td>
+<td class="instruction">DEFB $58,$3A,$FC</td>
+<td class="comment-1" rowspan="1">Room 88 (east side): <a href="64570.html">FC3A</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="63003"></span>F61B</td>
+<td class="instruction">DEFB $36,$6E,$FB</td>
+<td class="comment-1" rowspan="1">Room 54 (platform one): <a href="64366.html">FB6E</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="63006"></span>F61E</td>
+<td class="instruction">DEFB $37,$6E,$FB</td>
+<td class="comment-1" rowspan="1">Room 55 (platform two): <a href="64366.html">FB6E</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="63009"></span>F621</td>
+<td class="instruction">DEFB $0B,$AA,$FA</td>
+<td class="comment-1" rowspan="1">Room 11 (scotland yard): <a href="64170.html">FAAA</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="63012"></span>F624</td>
+<td class="instruction">DEFB $3E,$F0,$F9</td>
+<td class="comment-1" rowspan="1">Room 62 (browns front gate): <a href="63984.html">F9F0</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="63015"></span>F627</td>
+<td class="instruction">DEFB $06,$28,$F9</td>
+<td class="comment-1" rowspan="1">Room 6 (entrance hallway): <a href="63784.html">F928</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="63018"></span>F62A</td>
+<td class="instruction">DEFB $5C,$68,$F8</td>
+<td class="comment-1" rowspan="1">Room 92 (jones front gate): <a href="63592.html">F868</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="63021"></span>F62D</td>
+<td class="instruction">DEFB $5F,$BE,$F7</td>
+<td class="comment-1" rowspan="1">Room 95 (small room): <a href="63422.html">F7BE</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="63024"></span>F630</td>
+<td class="instruction">DEFB $3D,$ED,$F6</td>
+<td class="comment-1" rowspan="1">Room 61 (basils bedroom): <a href="63213.html">F6ED</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="63027"></span>F633</td>
+<td class="instruction">DEFB $0C,$38,$F6</td>
+<td class="comment-1" rowspan="1">Room 12 (slater street): <a href="63032.html">F638</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="63030"></span>F636</td>
+<td class="instruction">DEFB $FF,$00</td>
+<td class="comment-1" rowspan="1">End marker, and a spare byte</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="62987.html">F60B</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#62988">Map</a></td>
+<td class="next">
+Next: <a href="63032.html">F638</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

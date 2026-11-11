@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at BD51 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="48329.html">BCC9</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#48465">Map</a></td>
+<td class="next">
+Next: <a href="48578.html">BDC2</a>
+</td>
+</tr>
+</table>
+<div class="description">BD51: Find the statement $BA19-$BA1B in the case table</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="47635.html">$BA19</a>, <a href="47635.html#47643">BA1B</a>.
+</div>
+<div class="paragraph">
+Z with IX = the statement if found (<a href="48465.html#48489">BD69</a> compares subject, relation and object in that order). <a href="48329.html#48459">BD4B</a> searches Watson's own list at <a href="39549.html">9A7D</a> the same way.
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. Start at the first record of the case table (<a href="39269.html">9965</a>), or - from <a href="48329.html#48459">BD4B</a> - at Watson's own list (<a href="39549.html">9A7D</a>).
+</div>
+<div class="paragraph">
+2. A first byte of $FF ends the table: return NZ.
+</div>
+<div class="paragraph">
+3. Compare the record with the statement being looked for: its relation (<a href="47635.html">$BA1A</a>) with byte +1, then its subject (<a href="47635.html">$BA19</a>) with +0, then its object (<a href="47635.html#47643">BA1B</a>) with +2. All three must match.
+</div>
+<div class="paragraph">
+4. On a match return Z with IX at the record; otherwise step to the next record (<a href="48730.html">BE5A</a>), skipping any evidence records that belong to this one, and repeat.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$BA19</td>
+<td class="register-desc">The statement's subject</td>
+</tr>
+<tr>
+<td class="register">$BA1A</td>
+<td class="register-desc">Its relation</td>
+</tr>
+<tr>
+<td class="register">$BA1B</td>
+<td class="register-desc">Its object</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Z if found, NZ if not</td>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">The record, if found</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="48465"></span>BD51</td>
+<td class="instruction">LD IX,$9965</td>
+<td class="comment-1" rowspan="1">The case table (<a href="39269.html">9965</a>)</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="48469"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="48329.html">BCC9</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="48469"></span>BD55</td>
+<td class="instruction">LD A,(IX+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IX into A - First byte $FF ends the table</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48472"></span>BD58</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1">Compare A with $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48474"></span>BD5A</td>
+<td class="instruction">JR Z,$BD66</td>
+<td class="comment-1" rowspan="1">If A equals $FF, skip ahead to <a href="48465.html#48486">BD66</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="48476"></span>BD5C</td>
+<td class="instruction">CALL $BD69</td>
+<td class="comment-1" rowspan="1">Does this record match the statement (<a href="48465.html#48489">BD69</a>)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48479"></span>BD5F</td>
+<td class="instruction">JR Z,$BD68</td>
+<td class="comment-1" rowspan="1">Yes: Z, IX = the record</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48481"></span>BD61</td>
+<td class="instruction">CALL <a href="48730.html">$BE5A</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Step IX over one case record (4 bytes, or 6 with a..." (<a href="48730.html">BE5A</a>) - Step to the next record (<a href="48730.html">BE5A</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48484"></span>BD64</td>
+<td class="instruction">JR $BD55</td>
+<td class="comment-1" rowspan="1">Go back to <a href="48465.html#48469">BD55</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="48486"></span>BD66</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - End of table: NZ</td>
+</tr>
+<tr>
+<td class="address-2"><span id="48488"></span>BD68</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="48489"></span>BD69</td>
+<td class="instruction">LD A,($BA1A)</td>
+<td class="comment-1" rowspan="1">Read <a href="47635.html">$BA1A</a> in "Variables used by the code at <a href="47648.html">BA20</a>-<a href="48965.html#48984">BF58</a>" into A - Compare the relation (<a href="47635.html">$BA1A</a>) with +1...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48492"></span>BD6C</td>
+<td class="instruction">CP (IX+$01)</td>
+<td class="comment-1" rowspan="1">Compare A with byte +1 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48495"></span>BD6F</td>
+<td class="instruction">RET NZ</td>
+<td class="comment-1" rowspan="1">If A differs from byte +1 of the record at IX, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48496"></span>BD70</td>
+<td class="instruction">LD A,($BA19)</td>
+<td class="comment-1" rowspan="1">Read <a href="47635.html">$BA19</a> in "Variables used by the code at <a href="47648.html">BA20</a>-<a href="48965.html#48984">BF58</a>" into A - ...then the subject (<a href="47635.html">$BA19</a>) with +0...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48499"></span>BD73</td>
+<td class="instruction">CP (IX+$00)</td>
+<td class="comment-1" rowspan="1">Compare A with the first byte of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48502"></span>BD76</td>
+<td class="instruction">RET NZ</td>
+<td class="comment-1" rowspan="1">If A differs from the first byte of the record at IX, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48503"></span>BD77</td>
+<td class="instruction">LD A,($BA1B)</td>
+<td class="comment-1" rowspan="1">Read <a href="47635.html#47643">BA1B</a> in "Variables used by the code at <a href="47648.html">BA20</a>-<a href="48965.html#48984">BF58</a>" into A - ...then the object (<a href="47635.html#47643">BA1B</a>) with +2; Z if all three agree</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48506"></span>BD7A</td>
+<td class="instruction">CP (IX+$02)</td>
+<td class="comment-1" rowspan="1">Compare A with byte +2 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48509"></span>BD7D</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="48510"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routines at <a href="47719.html">BA67</a> and <a href="47975.html">BB67</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="48510"></span>BD7E</td>
+<td class="instruction">PUSH IY</td>
+<td class="comment-1" rowspan="1">Save IY on the stack - The statement's subject: the node's words at +$18...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48512"></span>BD80</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48513"></span>BD81</td>
+<td class="instruction">LD DE,$0018</td>
+<td class="comment-1" rowspan="1">Load DE with $0018, the amount that is added next</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48516"></span>BD84</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1">Add DE to HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48517"></span>BD85</td>
+<td class="instruction">BIT 7,(IY+$19)</td>
+<td class="comment-1" rowspan="1">Test bit 7 of byte +25 of the record at IY - ...or for HE the last person named (<a href="40918.html#40946">$9FF6</a>)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48521"></span>BD89</td>
+<td class="instruction">JR Z,$BD8E</td>
+<td class="comment-1" rowspan="1">If bit 7 of byte +25 of the record at IY is clear, skip ahead to <a href="48465.html#48526">BD8E</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="48523"></span>BD8B</td>
+<td class="instruction">LD HL,$9FF6</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="40918.html#40946">$9FF6</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-2"><span id="48526"></span>BD8E</td>
+<td class="instruction">BIT 6,(IY+$19)</td>
+<td class="comment-1" rowspan="1">Test bit 6 of byte +25 of the record at IY - ...or for IT/THEY the last thing (<a href="40918.html#40954">$9FFC</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48530"></span>BD92</td>
+<td class="instruction">JR Z,$BD97</td>
+<td class="comment-1" rowspan="1">If bit 6 of byte +25 of the record at IY is clear, skip ahead to <a href="48465.html#48535">BD97</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="48532"></span>BD94</td>
+<td class="instruction">LD HL,$9FFC</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="40918.html#40954">$9FFC</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-2"><span id="48535"></span>BD97</td>
+<td class="instruction">LD DE,$B172</td>
+<td class="comment-1" rowspan="1">Point DE at <a href="45421.html">$B172</a> in "Parser variables" - into the first object slot; the words at +8 into the second</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48538"></span>BD9A</td>
+<td class="instruction">LD BC,$0006</td>
+<td class="comment-1" rowspan="1">Load BC with $0006</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48541"></span>BD9D</td>
+<td class="instruction">LDIR</td>
+<td class="comment-1" rowspan="1">Copy BC bytes from where HL points to where DE points, counting up</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48543"></span>BD9F</td>
+<td class="instruction">PUSH IY</td>
+<td class="comment-1" rowspan="1">Save IY on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48545"></span>BDA1</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48546"></span>BDA2</td>
+<td class="instruction">LD DE,$0008</td>
+<td class="comment-1" rowspan="1">Load DE with $0008, the amount that is added next</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48549"></span>BDA5</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1">Add DE to HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48550"></span>BDA6</td>
+<td class="instruction">LD DE,$B178</td>
+<td class="comment-1" rowspan="1">Point DE at <a href="45421.html#45429">$B178</a> in "Parser variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48553"></span>BDA9</td>
+<td class="instruction">LD BC,$0006</td>
+<td class="comment-1" rowspan="1">Load BC with $0006</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48556"></span>BDAC</td>
+<td class="instruction">LDIR</td>
+<td class="comment-1" rowspan="1">Copy BC bytes from where HL points to where DE points, counting up</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48558"></span>BDAE</td>
+<td class="instruction">LD L,(IY+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IY into L - <a href="47635.html">$BA17</a> = the verb word; then make the statement (<a href="48578.html">BDC2</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48561"></span>BDB1</td>
+<td class="instruction">LD A,(IY+$01)</td>
+<td class="comment-1" rowspan="1">Read byte +1 of the record at IY into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48564"></span>BDB4</td>
+<td class="instruction">AND $0F</td>
+<td class="comment-1" rowspan="1">Keep only bits 0, 1, 2, 3 of A (mask $0F)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48566"></span>BDB6</td>
+<td class="instruction">LD H,A</td>
+<td class="comment-1" rowspan="1">Copy A into H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48567"></span>BDB7</td>
+<td class="instruction">LD ($BA17),HL</td>
+<td class="comment-1" rowspan="1">Store HL in <a href="47635.html">$BA17</a> in "Variables used by the code at <a href="47648.html">BA20</a>-<a href="48965.html#48984">BF58</a>"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48570"></span>BDBA</td>
+<td class="instruction">PUSH IY</td>
+<td class="comment-1" rowspan="1">Save IY on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48572"></span>BDBC</td>
+<td class="instruction">CALL <a href="48578.html">$BDC2</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Turn the player's remark into a statement" (<a href="48578.html">BDC2</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48575"></span>BDBF</td>
+<td class="instruction">POP IY</td>
+<td class="comment-1" rowspan="1">Restore IY from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48577"></span>BDC1</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="48329.html">BCC9</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#48465">Map</a></td>
+<td class="next">
+Next: <a href="48578.html">BDC2</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

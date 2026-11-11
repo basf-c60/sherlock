@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Data at E08D - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-b">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Data</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="57402.html">E03A</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#57485">Map</a></td>
+<td class="next">
+Next: <a href="57504.html">E0A0</a>
+</td>
+</tr>
+</table>
+<div class="description">E08D: Sub-script: shared action 13, GO TO in a cab</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Entry points: <a href="57485.html#57487">E08F</a> = body of record <a href="57485.html">E08D</a>.
+</div>
+<div class="paragraph">
+Each sub-block is one instruction. Room and object numbers are as the game uses them (the reference pages list both).
+</div>
+<div class="paragraph">
+In an instruction, 'plan dobj' and 'plan iobj' are not fixed objects: they mean the direct and indirect object currently held in the actor's plan registers (bytes +4 and +5 of its actor record), so the same step works on whatever the actor is dealing with - for the player, the objects of the command just typed. 'plan verb' is the verb register (+3), 'self' is the acting character, and '-' means none.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57485"></span>E08D</td>
+<td class="instruction">DEFB $8D,$04</td>
+<td class="comment-1" rowspan="1">Action record header: flags $8D; bit 7: checks only; byte 1 $04 - checks-only: the script follows</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57487"></span>E08F</td>
+<td class="instruction">DEFB $87,$FD,$E5,$FD,$FF,$9B,$E0</td>
+<td class="comment-1" rowspan="1">RUN <a href="58877.html">E5FD</a> (plan dobj, -) [ok <a href="57485.html#57499">E09B</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57494"></span>E096</td>
+<td class="instruction">DEFB $05,$FD,$9E,$6B</td>
+<td class="comment-1" rowspan="1">SAY TO plan dobj message <a href="27550.html">6B9E</a>: "YOU HAVE TO GET INTO THE CAB FIRST."</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57498"></span>E09A</td>
+<td class="instruction">DEFB $0B</td>
+<td class="comment-1" rowspan="1">RETURN OK</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57499"></span>E09B</td>
+<td class="instruction">DEFB $02,$1D,$FC,$FF</td>
+<td class="comment-1" rowspan="1">DO 29 <a href="39668.html">GO TO</a>: plan iobj, -</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57503"></span>E09F</td>
+<td class="instruction">DEFB $0B</td>
+<td class="comment-1" rowspan="1">RETURN OK</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="57402.html">E03A</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#57485">Map</a></td>
+<td class="next">
+Next: <a href="57504.html">E0A0</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

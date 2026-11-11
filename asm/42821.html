@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at A745 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="42811.html">A73B</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#42821">Map</a></td>
+<td class="next">
+Next: <a href="42843.html">A75B</a>
+</td>
+</tr>
+</table>
+<div class="description">A745: Name room or thing A</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Entered with carry from <a href="41853.html#41950">$A3DF</a>/<a href="41853.html#42001">$A412</a>: carry clear names a room (<a href="42155.html">A4AB</a>, <a href="42938.html">A7BA</a>), carry set - and <a href="42821.html#42833">A751</a>, used by codes $07 and $09 - a thing (<a href="42172.html">A4BC</a>, <a href="42949.html">A7C5</a>).
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">The room or thing number</td>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Carry set for a room, clear for a thing</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">0</td>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Kept</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="42821"></span>A745</td>
+<td class="instruction">JR NC,$A751</td>
+<td class="comment-1" rowspan="1">No carry (from the caller's compare): a thing - go to <a href="42821.html#42833">A751</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42823"></span>A747</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack - Carry: a room: HL = its name words (<a href="42155.html">A4AB</a>), print them (<a href="42938.html">A7BA</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42824"></span>A748</td>
+<td class="instruction">CALL <a href="42155.html">$A4AB</a></td>
+<td class="comment-1" rowspan="1">Call the routine "HL = room A's record + 1" (<a href="42155.html">A4AB</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42827"></span>A74B</td>
+<td class="instruction">CALL <a href="42938.html">$A7BA</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print the name of the thing at HL (as <a href="54277.html">D405</a>)" (<a href="42938.html">A7BA</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42830"></span>A74E</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42831"></span>A74F</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Set A to zero, which sets the zero flag for the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42832"></span>A750</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="42833"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routines at <a href="42796.html">A72C</a>, <a href="42811.html">A73B</a> and <a href="43055.html">A82F</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="42833"></span>A751</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack - A thing: HL = its name words (<a href="42172.html">A4BC</a>), print them (<a href="42949.html">A7C5</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42834"></span>A752</td>
+<td class="instruction">CALL <a href="42172.html">$A4BC</a></td>
+<td class="comment-1" rowspan="1">Call the routine "HL = thing A's record + 7" (<a href="42172.html">A4BC</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42837"></span>A755</td>
+<td class="instruction">CALL <a href="42949.html">$A7C5</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print the name of the thing at HL (as <a href="54248.html">D3E8</a>)" (<a href="42949.html">A7C5</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42840"></span>A758</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42841"></span>A759</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Set A to zero, which sets the zero flag for the caller - Return A = 0</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42842"></span>A75A</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="42811.html">A73B</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#42821">Map</a></td>
+<td class="next">
+Next: <a href="42843.html">A75B</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

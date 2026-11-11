@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>ROM and system variables - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="sherlock.css" />
+</head>
+<body class="rom_symbols">
+<header class="site"><div class="bar"><a class="brand" href="index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">ROM and system variables</h1>
+<p>The game uses a few places outside its own code: ROM routines, screen memory and the system-variable area. Descriptions link here when they mention one of them.</p>
+<table class="rom"><tr><th>Address</th><th>Name</th><th>Kind</th><th>What the game uses it for</th></tr>
+<tr id="a04C2"><td><a id="a04C2"></a>$04C2</td><td>SA-BYTES</td><td>ROM</td><td>The ROM routine that writes a block of bytes to tape. The save routine uses it for the saved game.</td></tr>
+<tr id="a0556"><td><a id="a0556"></a>$0556</td><td>LD-BYTES</td><td>ROM</td><td>The ROM routine that reads a block of bytes from tape (the game load and the header read).</td></tr>
+<tr id="a0F12"><td><a id="a0F12"></a>$0F12</td><td>COPY-LINE code</td><td>ROM</td><td>The part of the ROM printer routine that prints one pixel line; the screen-copy routine joins it here.</td></tr>
+<tr id="a22AA"><td><a id="a22AA"></a>$22AA</td><td>PIXEL-ADDRESS</td><td>ROM</td><td>The ROM routine that turns pixel coordinates (B = y, C = x) into the screen byte address in HL and the bit position in A.</td></tr>
+<tr id="a4000"><td><a id="a4000"></a>$4000</td><td>Display file</td><td>Screen</td><td>The start of the screen bitmap: 6,144 bytes, eight pixel lines per character row.</td></tr>
+<tr id="a5800"><td><a id="a5800"></a>$5800</td><td>Attribute file</td><td>Screen</td><td>The start of the colour attributes: 768 bytes, one per character cell ($5800 to $5AFF).</td></tr>
+<tr id="a5B00"><td><a id="a5B00"></a>$5B00</td><td>Typed line</td><td>Workspace</td><td>Where the line the player types is kept before it is split into words.</td></tr>
+<tr id="a5B81"><td><a id="a5B81"></a>$5B81</td><td>Token list</td><td>Workspace</td><td>The list of words made from the typed line. A repeated command reuses the one from the previous command.</td></tr>
+<tr id="a5C08"><td><a id="a5C08"></a>$5C08</td><td>LAST_K</td><td>System variable</td><td>The last key pressed. The keyboard routine takes a new key from here.</td></tr>
+<tr id="a5C0B"><td><a id="a5C0B"></a>$5C0B</td><td>Line buffer</td><td>System variable area</td><td>Used by the game as the buffer where typed characters are collected, and as the tape header workspace.</td></tr>
+<tr id="a5C3A"><td><a id="a5C3A"></a>$5C3A</td><td>ERR_NR</td><td>System variable</td><td>The error-number byte; the start of the standard system-variable area that IY is pointed at.</td></tr>
+<tr id="a5C3B"><td><a id="a5C3B"></a>$5C3B</td><td>FLAGS</td><td>System variable</td><td>A set of ROM flag bits.</td></tr>
+<tr id="a5C3C"><td><a id="a5C3C"></a>$5C3C</td><td>TV_FLAG</td><td>System variable</td><td>The ROM's output flags. The game stores a value here to switch printing to the screen on or off for a message.</td></tr>
+<tr id="a5C42"><td><a id="a5C42"></a>$5C42</td><td>Spelling buffer</td><td>System variable area</td><td>Used by the game as the buffer where a dictionary word is spelled out from its kept letters, new letters and suffix.</td></tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

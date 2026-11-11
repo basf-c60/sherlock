@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at B936 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="47412.html">B934</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#47414">Map</a></td>
+<td class="next">
+Next: <a href="47500.html">B98C</a>
+</td>
+</tr>
+</table>
+<div class="description">B936: Deal with an order or remark addressed to the current actor</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Called from <a href="52344.html#52403">CCB3</a>, instead of the actor's script step, when <a href="47391.html">B91F</a> found something for it. A node with +7 = 2 goes to <a href="47648.html">BA20</a> (Watson's and Lestrade's replies, <a href="47719.html">BA67</a> and <a href="47975.html">BB67</a>). A node from a plan script's ASK (+1 = $FF) is handled at <a href="47500.html">B98C</a>: its verb and objects become the command, the node is removed, and the caller carries the command out (<a href="50385.html">C4D1</a>). Otherwise the words the player said are parsed for this actor (<a href="45457.html">B191</a>).
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. Find the node waiting for this actor (<a href="47374.html">B90E</a>). If its +7 is 2 it is a remark: give Watson's or Lestrade's reply (<a href="47648.html">BA20</a>).
+</div>
+<div class="paragraph">
+2. If its +1 is $FF it came from a plan script's ASK: turn it into a command (<a href="47500.html">B98C</a>).
+</div>
+<div class="paragraph">
+3. Otherwise it is words the player said: restore the ALL flag and search position from the node, and parse the current sentence for this actor (<a href="45457.html">B191</a>).
+</div>
+<div class="paragraph">
+4. If parsing fails, drop the sentences one by one and return Z. Otherwise keep the ALL position, drop the sentence unless it is an ALL, and return with the command to run.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">The actor</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">From the order or remark</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="47414"></span>B936</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47416"></span>B938</td>
+<td class="instruction">PUSH IY</td>
+<td class="comment-1" rowspan="1">Save IY on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47418"></span>B93A</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47419"></span>B93B</td>
+<td class="instruction">LD ($B935),A</td>
+<td class="comment-1" rowspan="1">Note the actor</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="47422"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="47500.html">B98C</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="47422"></span>B93E</td>
+<td class="instruction">CALL <a href="47374.html">$B90E</a></td>
+<td class="comment-1" rowspan="1">IX = its order or remark (<a href="47374.html">B90E</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47425"></span>B941</td>
+<td class="instruction">LD A,(IX+$07)</td>
+<td class="comment-1" rowspan="1">Read byte +7 of the record at IX into A - A remark (+7 = 2): Watson's or Lestrade's reply (<a href="47648.html">BA20</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47428"></span>B944</td>
+<td class="instruction">CP $02</td>
+<td class="comment-1" rowspan="1">Compare A with $02</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47430"></span>B946</td>
+<td class="instruction">JP Z,<a href="47648.html">$BA20</a></td>
+<td class="comment-1" rowspan="1">If A equals $02, jump on to the routine "A remark for Watson or Inspector Lestrade: let..." (<a href="47648.html">BA20</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47433"></span>B949</td>
+<td class="instruction">LD A,(IX+$01)</td>
+<td class="comment-1" rowspan="1">Read byte +1 of the record at IX into A - From a plan script's ASK (+1 = $FF)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47436"></span>B94C</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1">Compare A with $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47438"></span>B94E</td>
+<td class="instruction">JR Z,<a href="47500.html">$B98C</a></td>
+<td class="comment-1" rowspan="1">If A equals $FF, jump on to the routine "Take the command out of an ASK order" (<a href="47500.html">B98C</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47440"></span>B950</td>
+<td class="instruction">LD A,($B935)</td>
+<td class="comment-1" rowspan="1">Read <a href="47412.html#47413">B935</a> in "The actor an order is for (two copies)" into A - Words the player said: whom they are for</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47443"></span>B953</td>
+<td class="instruction">LD ($B934),A</td>
+<td class="comment-1" rowspan="1">Store A in "The actor an order is for (two copies)" (<a href="47412.html">B934</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47446"></span>B956</td>
+<td class="instruction">LD A,(IX+$02)</td>
+<td class="comment-1" rowspan="1">Read byte +2 of the record at IX into A - The ALL flag and the ALL search position, kept in the order</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47449"></span>B959</td>
+<td class="instruction">LD ($A01C),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#40986">$A01C</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47452"></span>B95C</td>
+<td class="instruction">LD C,(IX+$03)</td>
+<td class="comment-1" rowspan="1">Read byte +3 of the record at IX into C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47455"></span>B95F</td>
+<td class="instruction">LD B,(IX+$04)</td>
+<td class="comment-1" rowspan="1">Read byte +4 of the record at IX into B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47458"></span>B962</td>
+<td class="instruction">LD ($B17E),BC</td>
+<td class="comment-1" rowspan="1">Store BC in <a href="45421.html#45437">$B17E</a> in "Parser variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47462"></span>B966</td>
+<td class="instruction">CALL <a href="45457.html">$B191</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Match the typed command against the verb patterns" (<a href="45457.html">B191</a>) - Parse the order's current sentence for this actor (<a href="45457.html">B191</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47465"></span>B969</td>
+<td class="instruction">JR Z,<a href="47500.html#47540">$B9B4</a></td>
+<td class="comment-1" rowspan="1">If the zero flag is set, jump on to <a href="47500.html#47540">B9B4</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47467"></span>B96B</td>
+<td class="instruction">LD IX,($B866)</td>
+<td class="comment-1" rowspan="1">Read "Speech hand-over variables" (<a href="47206.html">B866</a>) into IX - Parsed: keep the ALL position and flag</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47471"></span>B96F</td>
+<td class="instruction">LD BC,($B17E)</td>
+<td class="comment-1" rowspan="1">Read <a href="45421.html#45437">$B17E</a> in "Parser variables" into BC</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47475"></span>B973</td>
+<td class="instruction">LD (IX+$03),C</td>
+<td class="comment-1" rowspan="1">Store C in byte +3 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47478"></span>B976</td>
+<td class="instruction">LD (IX+$04),B</td>
+<td class="comment-1" rowspan="1">Store B in byte +4 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47481"></span>B979</td>
+<td class="instruction">LD A,($A01C)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40986">$A01C</a> in "Game variables" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47484"></span>B97C</td>
+<td class="instruction">LD (IX+$02),A</td>
+<td class="comment-1" rowspan="1">Store A in byte +2 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47487"></span>B97F</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry) - Not an ALL: drop the sentence (<a href="47500.html#47562">B9CA</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47488"></span>B980</td>
+<td class="instruction">CALL Z,<a href="47500.html#47562">$B9CA</a></td>
+<td class="comment-1" rowspan="1">If A is zero, call <a href="47500.html#47562">B9CA</a> (inside "Take the command out of an ASK order")</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="47491"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="47500.html">B98C</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="47491"></span>B983</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="1">Load A with $01 - NZ: there is a command to carry out</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="47493"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="47500.html">B98C</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="47493"></span>B985</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47494"></span>B986</td>
+<td class="instruction">POP IY</td>
+<td class="comment-1" rowspan="1">Restore IY from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47496"></span>B988</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47498"></span>B98A</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Clear the carry flag for the caller (A is unchanged)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47499"></span>B98B</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="47412.html">B934</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#47414">Map</a></td>
+<td class="next">
+Next: <a href="47500.html">B98C</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

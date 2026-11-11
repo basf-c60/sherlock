@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at E40A - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="58357.html">E3F5</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#58378">Map</a></td>
+<td class="next">
+Next: <a href="58418.html">E432</a>
+</td>
+</tr>
+</table>
+<div class="description">E40A: Shared SIT implementation ($AA71 entry #9)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="43633.html">AA71</a>.
+</div>
+<div class="paragraph">
+`LD IY,(<a href="40918.html#40978">$A017</a>); LD A,(<a href="40918.html#41010">$A034</a>); LD (IY+1),A` - sets the current actor's own record field +1 to the target furniture's id. Sitting in something is implemented as 'you are now contained by it' - the same mechanism used for an item being inside a box, reused here for a person sitting in a chair.
+</div>
+<div class="paragraph">
+Record header: flags $78, pre-check routine <a href="58357.html">E3F5</a> (the shared guard <a href="52135.html">CBA7</a>, then <a href="56461.html#56487">DCA7</a>, then the 'will it fit' tail at <a href="57049.html#57060">DEE4</a>), body at <a href="58378.html#58387">E413</a>.
+</div>
+<div class="paragraph">
+It isn't part of this entry: <a href="58378.html#58400">E420</a> is entry #8 (GET OUT)'s pre-check routine, which entry #8's own header points at.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$A034</td>
+<td class="register-desc">The thing</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ; the thing is now the actor's holder</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="58378"></span>E40A</td>
+<td class="instruction">DEFB $78,$20,$F5,$E3,$90,$40,$28,$00</td>
+<td class="comment-1" rowspan="2">Action record header: flags $78; bit 5: test <a href="53368.html">D078</a> first; bit 6: pre-check at <a href="58357.html">E3F5</a>; bit 4: five extra bytes; byte 1 $20</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58386"></span>E412</td>
+<td class="instruction">DEFB $00</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="58387"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="58346.html">E3EA</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="58387"></span>E413</td>
+<td class="instruction">LD IY,($A017)</td>
+<td class="comment-1" rowspan="1">IY = the record at <a href="40918.html#40978">$A017</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="58391"></span>E417</td>
+<td class="instruction">LD A,($A034)</td>
+<td class="comment-1" rowspan="1">The direct object (<a href="40918.html#41010">$A034</a>)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58394"></span>E41A</td>
+<td class="instruction">LD (IY+$01),A</td>
+<td class="comment-1" rowspan="1">...becomes its holder (+1): sitting is being contained by the furniture</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58397"></span>E41D</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - Succeed</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58399"></span>E41F</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58400"></span>E420</td>
+<td class="instruction">CALL <a href="52135.html">$CBA7</a></td>
+<td class="comment-1" rowspan="1">(GET OUT's pre-check, header at <a href="58418.html">E432</a>) Is the actor busy? (<a href="52135.html">CBA7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58403"></span>E423</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A036</a> in "Game variables" into A - Is the actor inside the thing (<a href="40918.html#41010">$A034</a>), at any depth? (<a href="53877.html#53880">D278</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58406"></span>E426</td>
+<td class="instruction">LD HL,$A034</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="40918.html#41010">$A034</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58409"></span>E429</td>
+<td class="instruction">CALL <a href="53877.html#53880">$D278</a></td>
+<td class="comment-1" rowspan="1">Call <a href="53877.html#53880">D278</a> (inside "Is thing A carried by the actor, perhaps...")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58412"></span>E42C</td>
+<td class="instruction">JP NC,<a href="56341.html">$DC15</a></td>
+<td class="comment-1" rowspan="1">No: refuse (<a href="56341.html">DC15</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58415"></span>E42F</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - Yes: pass</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58417"></span>E431</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="58357.html">E3F5</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#58378">Map</a></td>
+<td class="next">
+Next: <a href="58418.html">E432</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

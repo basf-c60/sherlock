@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Data at 9B7F - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-b">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Data</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="39760.html">9B50</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#39807">Map</a></td>
+<td class="next">
+Next: <a href="39943.html">9C07</a>
+</td>
+</tr>
+</table>
+<div class="description">9B7F: Cab journeys: which cab stands a hansom cab runs between, and how long it takes</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Three-byte entries (one stand, the other stand, a number), ended by $FF, searched either way round by <a href="39943.html">9C07</a>. The ten stands are street rooms: Portman, Baker, Parliament, Slater, Aldergate and Sidmouth Streets, Kings Cross Road, Bishops Road, Buckingham Palace Road and Camden Street; every pair of them has an entry (45 entries). Leatherhead and Old Mill Road are not here: they are reached by train and the police cab.
+</div>
+<div class="paragraph">
+Hailed in Baker Street, the cab took 19-20 minutes to Parliament Street (the table says 20), and the cabbie then said 'Right guv'nor that will be 10d.'; asked for Old Mill Road, which is not in the table, he replied 'Sorry guv'nor I cannot get there from'ere'.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39807"></span>9B7F</td>
+<td class="instruction">DEFB $2D,$05,$03</td>
+<td class="comment-1" rowspan="1">Portman Street (room 45) - Baker Street (room 5): 3</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39810"></span>9B82</td>
+<td class="instruction">DEFB $2D,$0A,$07</td>
+<td class="comment-1" rowspan="1">Portman Street (room 45) - Parliament Street (room 10): 7</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39813"></span>9B85</td>
+<td class="instruction">DEFB $2D,$0C,$14</td>
+<td class="comment-1" rowspan="1">Portman Street (room 45) - Slater Street (room 12): 20</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39816"></span>9B88</td>
+<td class="instruction">DEFB $2D,$0E,$13</td>
+<td class="comment-1" rowspan="1">Portman Street (room 45) - Aldergate Street (room 14): 19</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39819"></span>9B8B</td>
+<td class="instruction">DEFB $2D,$12,$12</td>
+<td class="comment-1" rowspan="1">Portman Street (room 45) - Kings Cross Road (room 18): 18</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39822"></span>9B8E</td>
+<td class="instruction">DEFB $2D,$18,$07</td>
+<td class="comment-1" rowspan="1">Portman Street (room 45) - Bishops Road (room 24): 7</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39825"></span>9B91</td>
+<td class="instruction">DEFB $2D,$1C,$0C</td>
+<td class="comment-1" rowspan="1">Portman Street (room 45) - Buckingham Palace Road (room 28): 12</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39828"></span>9B94</td>
+<td class="instruction">DEFB $2D,$20,$06</td>
+<td class="comment-1" rowspan="1">Portman Street (room 45) - Camden Street (room 32): 6</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39831"></span>9B97</td>
+<td class="instruction">DEFB $2D,$28,$0D</td>
+<td class="comment-1" rowspan="1">Portman Street (room 45) - Sidmouth Street (room 40): 13</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39834"></span>9B9A</td>
+<td class="instruction">DEFB $05,$0A,$14</td>
+<td class="comment-1" rowspan="1">Baker Street (room 5) - Parliament Street (room 10): 20</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39837"></span>9B9D</td>
+<td class="instruction">DEFB $05,$0C,$19</td>
+<td class="comment-1" rowspan="1">Baker Street (room 5) - Slater Street (room 12): 25</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39840"></span>9BA0</td>
+<td class="instruction">DEFB $05,$0E,$1A</td>
+<td class="comment-1" rowspan="1">Baker Street (room 5) - Aldergate Street (room 14): 26</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39843"></span>9BA3</td>
+<td class="instruction">DEFB $05,$12,$0C</td>
+<td class="comment-1" rowspan="1">Baker Street (room 5) - Kings Cross Road (room 18): 12</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39846"></span>9BA6</td>
+<td class="instruction">DEFB $05,$18,$06</td>
+<td class="comment-1" rowspan="1">Baker Street (room 5) - Bishops Road (room 24): 6</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39849"></span>9BA9</td>
+<td class="instruction">DEFB $05,$1C,$0F</td>
+<td class="comment-1" rowspan="1">Baker Street (room 5) - Buckingham Palace Road (room 28): 15</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39852"></span>9BAC</td>
+<td class="instruction">DEFB $05,$20,$18</td>
+<td class="comment-1" rowspan="1">Baker Street (room 5) - Camden Street (room 32): 24</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39855"></span>9BAF</td>
+<td class="instruction">DEFB $05,$28,$09</td>
+<td class="comment-1" rowspan="1">Baker Street (room 5) - Sidmouth Street (room 40): 9</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39858"></span>9BB2</td>
+<td class="instruction">DEFB $0A,$0C,$12</td>
+<td class="comment-1" rowspan="1">Parliament Street (room 10) - Slater Street (room 12): 18</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39861"></span>9BB5</td>
+<td class="instruction">DEFB $0A,$0E,$12</td>
+<td class="comment-1" rowspan="1">Parliament Street (room 10) - Aldergate Street (room 14): 18</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39864"></span>9BB8</td>
+<td class="instruction">DEFB $0A,$12,$0C</td>
+<td class="comment-1" rowspan="1">Parliament Street (room 10) - Kings Cross Road (room 18): 12</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39867"></span>9BBB</td>
+<td class="instruction">DEFB $0A,$18,$13</td>
+<td class="comment-1" rowspan="1">Parliament Street (room 10) - Bishops Road (room 24): 19</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39870"></span>9BBE</td>
+<td class="instruction">DEFB $0A,$1C,$02</td>
+<td class="comment-1" rowspan="1">Parliament Street (room 10) - Buckingham Palace Road (room 28): 2</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39873"></span>9BC1</td>
+<td class="instruction">DEFB $0A,$20,$04</td>
+<td class="comment-1" rowspan="1">Parliament Street (room 10) - Camden Street (room 32): 4</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39876"></span>9BC4</td>
+<td class="instruction">DEFB $0A,$28,$0F</td>
+<td class="comment-1" rowspan="1">Parliament Street (room 10) - Sidmouth Street (room 40): 15</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39879"></span>9BC7</td>
+<td class="instruction">DEFB $0C,$0E,$03</td>
+<td class="comment-1" rowspan="1">Slater Street (room 12) - Aldergate Street (room 14): 3</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39882"></span>9BCA</td>
+<td class="instruction">DEFB $0C,$12,$14</td>
+<td class="comment-1" rowspan="1">Slater Street (room 12) - Kings Cross Road (room 18): 20</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39885"></span>9BCD</td>
+<td class="instruction">DEFB $0C,$18,$1E</td>
+<td class="comment-1" rowspan="1">Slater Street (room 12) - Bishops Road (room 24): 30</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39888"></span>9BD0</td>
+<td class="instruction">DEFB $0C,$1C,$14</td>
+<td class="comment-1" rowspan="1">Slater Street (room 12) - Buckingham Palace Road (room 28): 20</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39891"></span>9BD3</td>
+<td class="instruction">DEFB $0C,$20,$11</td>
+<td class="comment-1" rowspan="1">Slater Street (room 12) - Camden Street (room 32): 17</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39894"></span>9BD6</td>
+<td class="instruction">DEFB $0C,$28,$19</td>
+<td class="comment-1" rowspan="1">Slater Street (room 12) - Sidmouth Street (room 40): 25</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39897"></span>9BD9</td>
+<td class="instruction">DEFB $0E,$12,$0D</td>
+<td class="comment-1" rowspan="1">Aldergate Street (room 14) - Kings Cross Road (room 18): 13</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39900"></span>9BDC</td>
+<td class="instruction">DEFB $0E,$18,$1C</td>
+<td class="comment-1" rowspan="1">Aldergate Street (room 14) - Bishops Road (room 24): 28</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39903"></span>9BDF</td>
+<td class="instruction">DEFB $0E,$1C,$11</td>
+<td class="comment-1" rowspan="1">Aldergate Street (room 14) - Buckingham Palace Road (room 28): 17</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39906"></span>9BE2</td>
+<td class="instruction">DEFB $0E,$20,$09</td>
+<td class="comment-1" rowspan="1">Aldergate Street (room 14) - Camden Street (room 32): 9</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39909"></span>9BE5</td>
+<td class="instruction">DEFB $0E,$28,$0B</td>
+<td class="comment-1" rowspan="1">Aldergate Street (room 14) - Sidmouth Street (room 40): 11</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39912"></span>9BE8</td>
+<td class="instruction">DEFB $12,$18,$0B</td>
+<td class="comment-1" rowspan="1">Kings Cross Road (room 18) - Bishops Road (room 24): 11</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39915"></span>9BEB</td>
+<td class="instruction">DEFB $12,$1C,$10</td>
+<td class="comment-1" rowspan="1">Kings Cross Road (room 18) - Buckingham Palace Road (room 28): 16</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39918"></span>9BEE</td>
+<td class="instruction">DEFB $12,$20,$12</td>
+<td class="comment-1" rowspan="1">Kings Cross Road (room 18) - Camden Street (room 32): 18</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39921"></span>9BF1</td>
+<td class="instruction">DEFB $12,$28,$03</td>
+<td class="comment-1" rowspan="1">Kings Cross Road (room 18) - Sidmouth Street (room 40): 3</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39924"></span>9BF4</td>
+<td class="instruction">DEFB $18,$1C,$0F</td>
+<td class="comment-1" rowspan="1">Bishops Road (room 24) - Buckingham Palace Road (room 28): 15</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39927"></span>9BF7</td>
+<td class="instruction">DEFB $18,$20,$18</td>
+<td class="comment-1" rowspan="1">Bishops Road (room 24) - Camden Street (room 32): 24</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39930"></span>9BFA</td>
+<td class="instruction">DEFB $18,$28,$0D</td>
+<td class="comment-1" rowspan="1">Bishops Road (room 24) - Sidmouth Street (room 40): 13</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39933"></span>9BFD</td>
+<td class="instruction">DEFB $1C,$20,$0C</td>
+<td class="comment-1" rowspan="1">Buckingham Palace Road (room 28) - Camden Street (room 32): 12</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39936"></span>9C00</td>
+<td class="instruction">DEFB $1C,$28,$13</td>
+<td class="comment-1" rowspan="1">Buckingham Palace Road (room 28) - Sidmouth Street (room 40): 19</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39939"></span>9C03</td>
+<td class="instruction">DEFB $20,$28,$16</td>
+<td class="comment-1" rowspan="1">Camden Street (room 32) - Sidmouth Street (room 40): 22</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39942"></span>9C06</td>
+<td class="instruction">DEFB $FF</td>
+<td class="comment-1" rowspan="1">End marker</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="39760.html">9B50</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#39807">Map</a></td>
+<td class="next">
+Next: <a href="39943.html">9C07</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

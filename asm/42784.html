@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at A720 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="42769.html">A711</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#42784">Map</a></td>
+<td class="next">
+Next: <a href="42796.html">A72C</a>
+</td>
+</tr>
+</table>
+<div class="description">A720: Code $06: name the actor</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Clears <a href="40918.html#40994">$A028</a> and names the actor in <a href="40918.html#41010">$A036</a> (<a href="43055.html">A82F</a>).
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">0</td>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Z</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="42784"></span>A720</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag) - Code $06: name the current actor (<a href="40918.html#41010">$A036</a>) with <a href="40918.html#40994">$A028</a> = 0 (<a href="43055.html">A82F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42785"></span>A721</td>
+<td class="instruction">LD ($A028),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#40994">$A028</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="42788"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="41700.html">A2E4</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="42788"></span>A724</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A036</a> in "Game variables" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42791"></span>A727</td>
+<td class="instruction">CALL <a href="43055.html">$A82F</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Name actor A ($FF: SOMEONE)" (<a href="43055.html">A82F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42794"></span>A72A</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Set A to zero, which sets the zero flag for the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42795"></span>A72B</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="42769.html">A711</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#42784">Map</a></td>
+<td class="next">
+Next: <a href="42796.html">A72C</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

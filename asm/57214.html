@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Data at DF7E - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-b">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Data</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="57152.html">DF40</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#57214">Map</a></td>
+<td class="next">
+Next: <a href="57227.html">DF8B</a>
+</td>
+</tr>
+</table>
+<div class="description">DF7E: Sub-script: shared action 20, TAKE the burning note</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+TAKE it (<a href="56513.html">DCC1</a>), then <a href="57227.html">DF8B</a>.
+</div>
+<div class="paragraph">
+Entry points: <a href="57214.html#57216">DF80</a> = body of record <a href="57214.html">DF7E</a>.
+</div>
+<div class="paragraph">
+Each sub-block is one instruction. Room and object numbers are as the game uses them (the reference pages list both).
+</div>
+<div class="paragraph">
+In an instruction, 'plan dobj' and 'plan iobj' are not fixed objects: they mean the direct and indirect object currently held in the actor's plan registers (bytes +4 and +5 of its actor record), so the same step works on whatever the actor is dealing with - for the player, the objects of the command just typed. 'plan verb' is the verb register (+3), 'self' is the acting character, and '-' means none.
+</div>
+<div class="paragraph">
+DROP BURN NOTE then a plain TAKE BURN NOTE runs this script - the countdown <a href="40069.html#40097">9CA1</a> goes to $FF and the note is called SINGE; EXAMINE CLOSELY SINGE NOTE then counts as examining it. TAKE NOTE FROM FIREPLACE takes the note through a different action and leaves the countdown running. Note that typing BURNING NOTE is read as BURNT (the dictionary shares BURN), so the note must be called BURN NOTE until it is singed.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57214"></span>DF7E</td>
+<td class="instruction">DEFB $88,$00</td>
+<td class="comment-1" rowspan="1">Action record header: flags $88; bit 7: checks only; byte 1 $00 - checks-only: the script follows</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57216"></span>DF80</td>
+<td class="instruction">DEFB $07,$C1,$DC,$FD,$FF</td>
+<td class="comment-1" rowspan="1">RUN <a href="56513.html">DCC1</a> TAKE (dobj) (plan dobj, -)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57221"></span>DF85</td>
+<td class="instruction">DEFB $07,$8B,$DF,$FD,$FF</td>
+<td class="comment-1" rowspan="1">RUN <a href="57227.html">DF8B</a> (plan dobj, -)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57226"></span>DF8A</td>
+<td class="instruction">DEFB $0B</td>
+<td class="comment-1" rowspan="1">RETURN OK</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="57152.html">DF40</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#57214">Map</a></td>
+<td class="next">
+Next: <a href="57227.html">DF8B</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

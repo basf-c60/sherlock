@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at E57A - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="58671.html">E52F</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#58746">Map</a></td>
+<td class="next">
+Next: <a href="58760.html">E588</a>
+</td>
+</tr>
+</table>
+<div class="description">E57A: Script helper: tick the countdown (fail when it runs out)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Its pre-check (<a href="58671.html#58739">E573</a>) refuses when the actor has no countdown. The body counts it down: still running, the instruction succeeds - taking no time, so the script goes straight on (scripts pair it with IDLE, <a href="58792.html">E5A8</a>, which takes a minute); at zero the countdown is removed and the instruction fails, so a script can 'do X until the time is up' with a success branch back to X.
+</div>
+<div class="paragraph">
+Used by: RUN at <a href="58450.html#58498">E482</a>; RUN at <a href="59183.html#59244">E76C</a>; RUN at <a href="59290.html#59308">E7AC</a>; RUN at <a href="60971.html#61110">EEB6</a>; RUN at <a href="60971.html#61248">EF40</a>; RUN at <a href="61430.html#61456">F010</a>; RUN at <a href="61538.html#61576">F088</a>; RUN at <a href="62130.html#62150">F2C6</a>; RUN at <a href="62130.html#62176">F2E0</a>; RUN at <a href="62130.html#62231">F317</a>; RUN at <a href="62130.html#62290">F352</a>.
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ while the countdown runs; $DC15 when it runs out and is removed</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="58746"></span>E57A</td>
+<td class="instruction">DEFB $40,$00,$73,$E5</td>
+<td class="comment-1" rowspan="1">Action record header: flags $40; bit 6: pre-check at <a href="58671.html#58739">E573</a>; byte 1 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58750"></span>E57E</td>
+<td class="instruction">DEC (IX+$01)</td>
+<td class="comment-1" rowspan="1">Count down</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58753"></span>E581</td>
+<td class="instruction">RET NZ</td>
+<td class="comment-1" rowspan="1">Still running: succeed</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58754"></span>E582</td>
+<td class="instruction">CALL <a href="58760.html#58764">$E58C</a></td>
+<td class="comment-1" rowspan="1">Run out: remove it...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58757"></span>E585</td>
+<td class="instruction">JP <a href="56341.html">$DC15</a></td>
+<td class="comment-1" rowspan="1">...and fail</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="58671.html">E52F</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#58746">Map</a></td>
+<td class="next">
+Next: <a href="58760.html">E588</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

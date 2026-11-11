@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at C41F - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="50197.html">C415</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#50207">Map</a></td>
+<td class="next">
+Next: <a href="50270.html">C45E</a>
+</td>
+</tr>
+</table>
+<div class="description">C41F: GET-KEY: has the player pressed a key?</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Saves IY/IX/HL/DE/BC, points IY at the standard system-variable area (<a href="../rom_symbols.html#a5C3A">$5C3A</a>), then does EI; HALT; DI - i.e. waits for exactly one interrupt, which is where a real Spectrum's ROM would normally have scanned the keyboard into FLAGS/LAST-K.
+</div>
+<div class="paragraph">
+Checks FLAGS bit 5 ("a new key is waiting"); if not, returns A=0.
+</div>
+<div class="paragraph">
+Called from three places, all real CALL instructions: <a href="41060.html#41087">$A080</a> (non-blocking poll during boot), <a href="42294.html#42298">$A53B</a>, and <a href="50197.html">$C416</a> (the wait-for-a-key loop at <a href="50197.html">C415</a>).
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. Save the registers and point IY at the system variables.
+</div>
+<div class="paragraph">
+2. Allow one interrupt (EI, HALT) so the keyboard is scanned.
+</div>
+<div class="paragraph">
+3. If no new key is flagged, return 0. Otherwise take the key from <a href="../rom_symbols.html#a5C08">$5C08</a>, turn the ROM's editing codes into backspace and '[', and put it in capitals.
+</div>
+<div class="paragraph">
+4. Set bit 7 to say a key was pressed.
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">The key with bit 7 set, or 0 if none</td>
+</tr>
+<tr>
+<td class="register">All</td>
+<td class="register-desc">other registers kept</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="50207"></span>C41F</td>
+<td class="instruction">PUSH IY</td>
+<td class="comment-1" rowspan="1">Save every register this routine touches</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50209"></span>C421</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX, HL, DE, BC</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50211"></span>C423</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50212"></span>C424</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50213"></span>C425</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Save BC on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50214"></span>C426</td>
+<td class="instruction">LD IY,$5C3A</td>
+<td class="comment-1" rowspan="1">IY -&gt; system variables, as ROM interrupt code expects</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50218"></span>C42A</td>
+<td class="instruction">EI</td>
+<td class="comment-1" rowspan="1">Let exactly one interrupt happen...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50219"></span>C42B</td>
+<td class="instruction">HALT</td>
+<td class="comment-1" rowspan="1">...(this is where the keyboard actually gets scanned)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50220"></span>C42C</td>
+<td class="instruction">DI</td>
+<td class="comment-1" rowspan="1">Disable interrupts</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50221"></span>C42D</td>
+<td class="instruction">LD A,($5C3B)</td>
+<td class="comment-1" rowspan="1">Was a new key flagged as available?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50224"></span>C430</td>
+<td class="instruction">BIT 5,A</td>
+<td class="comment-1" rowspan="1">Test bit 5 of A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50226"></span>C432</td>
+<td class="instruction">JR NZ,$C437</td>
+<td class="comment-1" rowspan="1">If bit 5 of A is set, skip ahead to <a href="50207.html#50231">C437</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="50228"></span>C434</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">No: return with A=0</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50229"></span>C435</td>
+<td class="instruction">JR $C456</td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="50207.html#50262">C456</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="50231"></span>C437</td>
+<td class="instruction">RES 5,A</td>
+<td class="comment-1" rowspan="1">Yes: consume the "new key" flag</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50233"></span>C439</td>
+<td class="instruction">LD ($5C3B),A</td>
+<td class="comment-1" rowspan="1">Store A in FLAGS (<a href="../rom_symbols.html#a5C3B">$5C3B</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50236"></span>C43C</td>
+<td class="instruction">LD A,($5C08)</td>
+<td class="comment-1" rowspan="1">A = the key, already decoded to ASCII by the ROM</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50239"></span>C43F</td>
+<td class="instruction">CP $5F</td>
+<td class="comment-1" rowspan="1">Is it the ROM's DELETE-key code?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50241"></span>C441</td>
+<td class="instruction">JR NZ,$C445</td>
+<td class="comment-1" rowspan="1">If A differs from $5F, skip ahead to <a href="50207.html#50245">C445</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="50243"></span>C443</td>
+<td class="instruction">LD A,$18</td>
+<td class="comment-1" rowspan="1">...remap it to a plain backspace</td>
+</tr>
+<tr>
+<td class="address-2"><span id="50245"></span>C445</td>
+<td class="instruction">CP $0C</td>
+<td class="comment-1" rowspan="1">Is it this other ROM editing code?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50247"></span>C447</td>
+<td class="instruction">JR NZ,$C44B</td>
+<td class="comment-1" rowspan="1">If A differs from $0C, skip ahead to <a href="50207.html#50251">C44B</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="50249"></span>C449</td>
+<td class="instruction">LD A,$08</td>
+<td class="comment-1" rowspan="1">...remap it too</td>
+</tr>
+<tr>
+<td class="address-2"><span id="50251"></span>C44B</td>
+<td class="instruction">CP $0B</td>
+<td class="comment-1" rowspan="1">Is it this third ROM editing code?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50253"></span>C44D</td>
+<td class="instruction">JR NZ,$C451</td>
+<td class="comment-1" rowspan="1">If A differs from $0B, skip ahead to <a href="50207.html#50257">C451</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="50255"></span>C44F</td>
+<td class="instruction">LD A,$5B</td>
+<td class="comment-1" rowspan="1">...remap it to '['</td>
+</tr>
+<tr>
+<td class="address-2"><span id="50257"></span>C451</td>
+<td class="instruction">CALL <a href="49728.html">$C240</a></td>
+<td class="comment-1" rowspan="1">Upper-case A if it is a lower-case letter (<a href="49728.html">C240</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50260"></span>C454</td>
+<td class="instruction">SET 7,A</td>
+<td class="comment-1" rowspan="1">Tag the result: bit 7 set means "a key was pressed"</td>
+</tr>
+<tr>
+<td class="address-2"><span id="50262"></span>C456</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore every saved register</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50263"></span>C457</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE, HL, IX, IY and return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50264"></span>C458</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">(Restore the remaining registers)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50265"></span>C459</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50267"></span>C45B</td>
+<td class="instruction">POP IY</td>
+<td class="comment-1" rowspan="1">Restore IY from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50269"></span>C45D</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="50197.html">C415</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#50207">Map</a></td>
+<td class="next">
+Next: <a href="50270.html">C45E</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

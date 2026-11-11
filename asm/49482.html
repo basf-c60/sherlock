@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at C14A - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="49474.html">C142</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#49482">Map</a></td>
+<td class="next">
+Next: <a href="49552.html">C190</a>
+</td>
+</tr>
+</table>
+<div class="description">C14A: Set up the screen at the start of the game</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Clears the screen (<a href="49423.html">C10F</a>), sets up the command window (36 characters left on its line (<a href="49652.html">C1F4</a>), the cursor at $50E0 - the start of the bottom row - and pixel shift 2), makes the text lines full width (<a href="49474.html">C142</a>), draws the chain strip (<a href="49552.html">C190</a>) across screen row 18, pixel lines 1 to 6, and colours that row with attribute $78. Called once, at <a href="41024.html#41032">$A049</a>.
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">The</td>
+<td class="register-desc">screen cleared and the command window set up</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="49482"></span>C14A</td>
+<td class="instruction">CALL <a href="49423.html">$C10F</a></td>
+<td class="comment-1" rowspan="1">Clear the screen</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49485"></span>C14D</td>
+<td class="instruction">LD A,$24</td>
+<td class="comment-1" rowspan="1">Load A with $24 - 36 characters left on the command line</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49487"></span>C14F</td>
+<td class="instruction">LD ($C1F4),A</td>
+<td class="comment-1" rowspan="1">Store A in "Command-window state" (<a href="49652.html">C1F4</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49490"></span>C152</td>
+<td class="instruction">LD HL,$50E0</td>
+<td class="comment-1" rowspan="1">Load HL with $50E0 - Cursor at the start of the bottom row ($50E0)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49493"></span>C155</td>
+<td class="instruction">LD ($C1F6),HL</td>
+<td class="comment-1" rowspan="1">Store HL in <a href="49652.html#49654">C1F6</a> in "Command-window state"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49496"></span>C158</td>
+<td class="instruction">LD A,$02</td>
+<td class="comment-1" rowspan="1">Load A with $02 - Pixel shift 2</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49498"></span>C15A</td>
+<td class="instruction">LD ($C1FB),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="49652.html#49659">C1FB</a> in "Command-window state"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49501"></span>C15D</td>
+<td class="instruction">CALL <a href="49474.html">$C142</a></td>
+<td class="comment-1" rowspan="1">Text lines full width</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49504"></span>C160</td>
+<td class="instruction">LD HL,$5140</td>
+<td class="comment-1" rowspan="1">Load HL with $5140 - HL = row 18, pixel line 1; DE = the chain pattern</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49507"></span>C163</td>
+<td class="instruction">LD DE,$C190</td>
+<td class="comment-1" rowspan="1">Point DE at "The chain strip that holds the clock: a 32-pixel..." (<a href="49552.html">C190</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49510"></span>C166</td>
+<td class="instruction">LD B,$06</td>
+<td class="comment-1" rowspan="1">Six pixel lines</td>
+</tr>
+<tr>
+<td class="address-2"><span id="49512"></span>C168</td>
+<td class="instruction">LD C,$08</td>
+<td class="comment-1" rowspan="1">Load C with $08 - Each is the pattern's four bytes eight times over</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49514"></span>C16A</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Save BC on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49515"></span>C16B</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-2"><span id="49516"></span>C16C</td>
+<td class="instruction">LD B,$04</td>
+<td class="comment-1" rowspan="1">Load B with $04</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49518"></span>C16E</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack</td>
+</tr>
+<tr>
+<td class="address-2"><span id="49519"></span>C16F</td>
+<td class="instruction">LD A,(DE)</td>
+<td class="comment-1" rowspan="1">Read the byte DE points at into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49520"></span>C170</td>
+<td class="instruction">LD (HL),A</td>
+<td class="comment-1" rowspan="1">Store A at the address HL points to</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49521"></span>C171</td>
+<td class="instruction">INC DE</td>
+<td class="comment-1" rowspan="1">Step DE on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49522"></span>C172</td>
+<td class="instruction">INC L</td>
+<td class="comment-1" rowspan="1">Add one to L</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49523"></span>C173</td>
+<td class="instruction">DJNZ $C16F</td>
+<td class="comment-1" rowspan="1">Count B down and, while it is not zero, go back to <a href="49482.html#49519">C16F</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="49525"></span>C175</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49526"></span>C176</td>
+<td class="instruction">DEC C</td>
+<td class="comment-1" rowspan="1">Subtract one from C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49527"></span>C177</td>
+<td class="instruction">JR NZ,$C16C</td>
+<td class="comment-1" rowspan="1">If C is not zero, go back to <a href="49482.html#49516">C16C</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="49529"></span>C179</td>
+<td class="instruction">INC DE</td>
+<td class="comment-1" rowspan="1">Step DE on to the next byte - Next four bytes of the pattern</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49530"></span>C17A</td>
+<td class="instruction">INC DE</td>
+<td class="comment-1" rowspan="1">Step DE on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49531"></span>C17B</td>
+<td class="instruction">INC DE</td>
+<td class="comment-1" rowspan="1">Step DE on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49532"></span>C17C</td>
+<td class="instruction">INC DE</td>
+<td class="comment-1" rowspan="1">Step DE on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49533"></span>C17D</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack - Next pixel line down</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49534"></span>C17E</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore BC from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49535"></span>C17F</td>
+<td class="instruction">INC H</td>
+<td class="comment-1" rowspan="1">Add one to H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49536"></span>C180</td>
+<td class="instruction">DJNZ $C168</td>
+<td class="comment-1" rowspan="1">Count B down and, while it is not zero, go back to <a href="49482.html#49512">C168</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="49538"></span>C182</td>
+<td class="instruction">LD HL,$5A40</td>
+<td class="comment-1" rowspan="1">Load HL with $5A40 - Colour row 18 with attribute $78</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49541"></span>C185</td>
+<td class="instruction">LD DE,$5A41</td>
+<td class="comment-1" rowspan="1">Load DE with $5A41</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49544"></span>C188</td>
+<td class="instruction">LD BC,$001F</td>
+<td class="comment-1" rowspan="1">Load BC with $001F</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49547"></span>C18B</td>
+<td class="instruction">LD (HL),$78</td>
+<td class="comment-1" rowspan="1">Store $78 at the address HL points to</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49549"></span>C18D</td>
+<td class="instruction">LDIR</td>
+<td class="comment-1" rowspan="1">Copy BC bytes from where HL points to where DE points, counting up</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49551"></span>C18F</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="49474.html">C142</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#49482">Map</a></td>
+<td class="next">
+Next: <a href="49552.html">C190</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

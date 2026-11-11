@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Data at F25B - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-b">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Data</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="62022.html">F246</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#62043">Map</a></td>
+<td class="next">
+Next: <a href="62056.html">F268</a>
+</td>
+</tr>
+</table>
+<div class="description">F25B: Plan script: steam train (actor 41)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Entry point: <a href="62043.html">F25B</a> = steam train (actor 41).
+</div>
+<div class="paragraph">
+Each sub-block is one instruction. Split off from the block before, which it merely follows in memory.
+</div>
+<div class="paragraph">
+In an instruction, 'plan dobj' and 'plan iobj' are not fixed objects: they mean the direct and indirect object currently held in the actor's plan registers (bytes +4 and +5 of its actor record), so the same step works on whatever the actor is dealing with - for the player, the objects of the command just typed. 'plan verb' is the verb register (+3), 'self' is the acting character, and '-' means none.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62043"></span>F25B</td>
+<td class="instruction">DEFB $07,$BE,$DD,$04,$FF</td>
+<td class="comment-1" rowspan="1">RUN <a href="56766.html">DDBE</a> WAIT (dobj) minutes (4, -)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62048"></span>F260</td>
+<td class="instruction">DEFB $02,$8C,$1F,$04</td>
+<td class="comment-1" rowspan="1">DO 140 <a href="62117.html">$E4C9 THEN WAIT</a>: 31 cabbie, 4</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62052"></span>F264</td>
+<td class="instruction">DEFB $02,$8C,$02,$01</td>
+<td class="comment-1" rowspan="1">DO 140 <a href="62117.html">$E4C9 THEN WAIT</a>: 2 inspector lestrade, 1</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="62022.html">F246</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#62043">Map</a></td>
+<td class="next">
+Next: <a href="62056.html">F268</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

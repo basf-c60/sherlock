@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at F514 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="62733.html">F50D</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#62740">Map</a></td>
+<td class="next">
+Next: <a href="62794.html">F54A</a>
+</td>
+</tr>
+</table>
+<div class="description">F514: Move attribute address HL up a row (not past the top)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+<a href="62740.html#62757">F525</a> down, <a href="62740.html#62774">F536</a> left, <a href="62740.html#62784">F540</a> right: the four moves of a colour run (bit 5 commands in <a href="62402.html">F3C2</a>).
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. Each of the four entry points moves HL, the address of an attribute byte, one cell: <a href="62740.html">F514</a> up a row, <a href="62740.html#62757">F525</a> down a row, <a href="62740.html#62774">F536</a> left and <a href="62740.html#62784">F540</a> right.
+</div>
+<div class="paragraph">
+2. A row is 32 bytes. After the move the high byte is checked against the edges of the attribute area (<a href="../rom_symbols.html#a5800">$5800</a> to $59FF): if the move left it, it is undone, so the address never leaves the screen.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">An attribute address</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">The address one cell on, or unchanged at the edge</td>
+</tr>
+<tr>
+<td class="register">AF</td>
+<td class="register-desc">is preserved</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="62740"></span>F514</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack - HL 32 bytes back, unless that leaves the attribute area</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62741"></span>F515</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62742"></span>F516</td>
+<td class="instruction">LD DE,$0020</td>
+<td class="comment-1" rowspan="1">Load DE with $0020</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62745"></span>F519</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Clear the carry flag, so that the subtraction that follows is a plain one (a compare)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62746"></span>F51A</td>
+<td class="instruction">SBC HL,DE</td>
+<td class="comment-1" rowspan="1">Subtract DE from HL (a compare: carry = HL was smaller, zero = equal)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62748"></span>F51C</td>
+<td class="instruction">LD A,H</td>
+<td class="comment-1" rowspan="1">Copy H into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62749"></span>F51D</td>
+<td class="instruction">CP $57</td>
+<td class="comment-1" rowspan="1">Compare A with $57</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62751"></span>F51F</td>
+<td class="instruction">JR NZ,$F522</td>
+<td class="comment-1" rowspan="1">If A differs from $57, skip ahead to <a href="62740.html#62754">F522</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="62753"></span>F521</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1">Add DE to HL</td>
+</tr>
+<tr>
+<td class="address-2"><span id="62754"></span>F522</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62755"></span>F523</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62756"></span>F524</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="62757"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="62402.html">F3C2</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="62757"></span>F525</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack - HL 32 bytes on, unless that leaves the attribute area</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62758"></span>F526</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62759"></span>F527</td>
+<td class="instruction">LD DE,$0020</td>
+<td class="comment-1" rowspan="1">Load DE with $0020, the amount that is added next</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62762"></span>F52A</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1">Add DE to HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62763"></span>F52B</td>
+<td class="instruction">LD A,H</td>
+<td class="comment-1" rowspan="1">Copy H into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62764"></span>F52C</td>
+<td class="instruction">CP $5A</td>
+<td class="comment-1" rowspan="1">Compare A with $5A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62766"></span>F52E</td>
+<td class="instruction">JR NZ,$F532</td>
+<td class="comment-1" rowspan="1">If A differs from $5A, skip ahead to <a href="62740.html#62769">$F532</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="62768"></span>F530</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Clear the carry flag, so that the subtraction that follows is a plain one (a compare)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62769"></span>F531</td>
+<td class="instruction">SBC HL,DE</td>
+<td class="comment-1" rowspan="1">Subtract DE from HL (a compare: carry = HL was smaller, zero = equal)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62771"></span>F533</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62772"></span>F534</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62773"></span>F535</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="62774"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="62402.html">F3C2</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="62774"></span>F536</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack - HL one byte back, unless that leaves the attribute area</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62775"></span>F537</td>
+<td class="instruction">DEC HL</td>
+<td class="comment-1" rowspan="1">Step HL back one byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62776"></span>F538</td>
+<td class="instruction">LD A,H</td>
+<td class="comment-1" rowspan="1">Copy H into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62777"></span>F539</td>
+<td class="instruction">CP $57</td>
+<td class="comment-1" rowspan="1">Compare A with $57</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62779"></span>F53B</td>
+<td class="instruction">JR NZ,$F53E</td>
+<td class="comment-1" rowspan="1">If A differs from $57, skip ahead to <a href="62740.html#62782">F53E</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="62781"></span>F53D</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-2"><span id="62782"></span>F53E</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62783"></span>F53F</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="62784"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="62402.html">F3C2</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="62784"></span>F540</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack - HL one byte on, unless that leaves the attribute area</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62785"></span>F541</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62786"></span>F542</td>
+<td class="instruction">LD A,H</td>
+<td class="comment-1" rowspan="1">Copy H into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62787"></span>F543</td>
+<td class="instruction">CP $5A</td>
+<td class="comment-1" rowspan="1">Compare A with $5A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62789"></span>F545</td>
+<td class="instruction">JR NZ,$F548</td>
+<td class="comment-1" rowspan="1">If A differs from $5A, skip ahead to <a href="62740.html#62792">F548</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="62791"></span>F547</td>
+<td class="instruction">DEC HL</td>
+<td class="comment-1" rowspan="1">Step HL back one byte</td>
+</tr>
+<tr>
+<td class="address-2"><span id="62792"></span>F548</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62793"></span>F549</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="62733.html">F50D</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#62740">Map</a></td>
+<td class="next">
+Next: <a href="62794.html">F54A</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at CA9E - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="51839.html">CA7F</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#51870">Map</a></td>
+<td class="next">
+Next: <a href="51886.html">CAAE</a>
+</td>
+</tr>
+</table>
+<div class="description">CA9E: Describe the player's room: in full the first time, briefly after</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Bit 6 of the room record's first byte marks it as visited: clear, it is set and the room is described in full (<a href="53506.html">D102</a>); set, briefly (<a href="53682.html">D1B2</a>). OPEN PLAIN DOOR, NORTH, SOUTH, NORTH, SOUTH gives the closet's and the sitting room's long texts the first time ('The sun streams in the two broad windows...') and 'You are in a small closet.' / 'You are in Your Room.' the second. (The sitting room's long text came again on the first return: the opening description does not go through here.)
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$DD01</td>
+<td class="register-desc">The room number</td>
+</tr>
+<tr>
+<td class="register">$DCFF</td>
+<td class="register-desc">Its record</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">The</td>
+<td class="register-desc">room described in full the first time, briefly after</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="51870"></span>CA9E</td>
+<td class="instruction">LD A,($DD01)</td>
+<td class="comment-1" rowspan="1">Read <a href="56530.html#56577">DD01</a> in "Pre-check for moving in a direction (verbs..." into A - A = the room number (<a href="56530.html#56577">DD01</a>); HL = the room's record address (<a href="56530.html#56575">DCFF</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51873"></span>CAA1</td>
+<td class="instruction">LD HL,($DCFF)</td>
+<td class="comment-1" rowspan="1">Read <a href="56530.html#56575">DCFF</a> in "Pre-check for moving in a direction (verbs..." into HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51876"></span>CAA4</td>
+<td class="instruction">BIT 6,(HL)</td>
+<td class="comment-1" rowspan="1">Test bit 6 of the byte HL points at - Its +0 bit 6 (visited) set: describe it briefly (<a href="53682.html">D1B2</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51878"></span>CAA6</td>
+<td class="instruction">JP NZ,<a href="53682.html">$D1B2</a></td>
+<td class="comment-1" rowspan="1">If bit 6 of the byte HL points at is set, jump on to the routine "Describe room A briefly (a room seen before)" (<a href="53682.html">D1B2</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51881"></span>CAA9</td>
+<td class="instruction">SET 6,(HL)</td>
+<td class="comment-1" rowspan="1">Set bit 6 of the byte HL points at - First visit: mark it visited and describe it in full (<a href="53506.html">D102</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51883"></span>CAAB</td>
+<td class="instruction">JP <a href="53506.html">$D102</a></td>
+<td class="comment-1" rowspan="1">Jump on to the routine "Describe room A in full (the first visit)" (<a href="53506.html">D102</a>)</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="51839.html">CA7F</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#51870">Map</a></td>
+<td class="next">
+Next: <a href="51886.html">CAAE</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

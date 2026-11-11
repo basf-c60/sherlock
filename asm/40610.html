@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at 9EA2 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="40581.html">9E85</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#40610">Map</a></td>
+<td class="next">
+Next: <a href="40640.html">9EC0</a>
+</td>
+</tr>
+</table>
+<div class="description">9EA2: Game-over record: the morning papers</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Run by Lestrade's script (<a href="59367.html#60083">EAB3</a>). Unless both MRS BROWN KILLED HERSELF (<a href="39269.html#39283">9973</a>) and MRS JONES KILLED TRICIA FENDER (<a href="39269.html#39297">9981</a>) have been proven (bit 1 of their flags), ends with <a href="27187.html">6A33</a>: 'NOT ONLY HAVE YOU FAILED TO SOLVE THE CRIMES AT HAND BUT THE MORNING PAPERS CARRY A REPORT OF MR BROWNS LOST P...'; if both have, with <a href="27325.html">6ABD</a>: 'YOU HAVE DONE EXTREMELY WELL TO SOLVE THE CASE AT HAND BUT THE MORNING PAPERS CARRY A REPORT OF MR BROWNS LOST...'.
+</div>
+<div class="paragraph">
+<a href="40564.html">9E74</a> is the shared ending: prints the message in HL, waits for a key (<a href="49926.html">C306</a>), and restarts (<a href="45228.html">B0AC</a>).
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">The game ends through $9E74 with the failure or success message</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="40610"></span>9EA2</td>
+<td class="instruction">DEFB $00,$00</td>
+<td class="comment-1" rowspan="1">Action record header: flags $00; byte 1 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40612"></span>9EA4</td>
+<td class="instruction">LD HL,$6A33</td>
+<td class="comment-1" rowspan="1">Point HL at the message "NOT ONLY HAVE YOU FAILED TO SOLVE THE CRIMES AT... (<a href="27187.html">6A33</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40615"></span>9EA7</td>
+<td class="instruction">LD IX,$9973</td>
+<td class="comment-1" rowspan="1">Point IX at <a href="39269.html#39283">9973</a> in "The case: statements about the crime, and..."</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40619"></span>9EAB</td>
+<td class="instruction">BIT 1,(IX+$03)</td>
+<td class="comment-1" rowspan="1">Test bit 1 of byte +3 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40623"></span>9EAF</td>
+<td class="instruction">JR Z,<a href="40564.html">$9E74</a></td>
+<td class="comment-1" rowspan="1">If bit 1 of byte +3 of the record at IX is clear, go back to the routine "End the game with the message in HL" (<a href="40564.html">9E74</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40625"></span>9EB1</td>
+<td class="instruction">LD IX,$9981</td>
+<td class="comment-1" rowspan="1">Point IX at <a href="39269.html#39297">9981</a> in "The case: statements about the crime, and..."</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40629"></span>9EB5</td>
+<td class="instruction">BIT 1,(IX+$03)</td>
+<td class="comment-1" rowspan="1">Test bit 1 of byte +3 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40633"></span>9EB9</td>
+<td class="instruction">JR Z,<a href="40564.html">$9E74</a></td>
+<td class="comment-1" rowspan="1">If bit 1 of byte +3 of the record at IX is clear, go back to the routine "End the game with the message in HL" (<a href="40564.html">9E74</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40635"></span>9EBB</td>
+<td class="instruction">LD HL,$6ABD</td>
+<td class="comment-1" rowspan="1">Point HL at the message "YOU HAVE DONE EXTREMELY WELL TO SOLVE THE CASE... (<a href="27325.html">6ABD</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40638"></span>9EBE</td>
+<td class="instruction">JR <a href="40564.html">$9E74</a></td>
+<td class="comment-1" rowspan="1">Go back to the routine "End the game with the message in HL" (<a href="40564.html">9E74</a>)</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="40581.html">9E85</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#40610">Map</a></td>
+<td class="next">
+Next: <a href="40640.html">9EC0</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

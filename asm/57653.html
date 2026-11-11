@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at E135 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="57604.html">E104</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#57653">Map</a></td>
+<td class="next">
+Next: <a href="57723.html">E17B</a>
+</td>
+</tr>
+</table>
+<div class="description">E135: Action record: RUN at $E0A7; RUN at $E0E2; RUN at $E0F4; default for verb 20 (EXAMINE CLOSELY)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="57504.html#57511">E0A7</a>, <a href="57568.html#57570">E0E2</a>, <a href="57586.html#57588">E0F4</a>.
+</div>
+<div class="paragraph">
+EXAMINE CLOSELY. The body, for the player only (actor 0), prints the description (<a href="57152.html#57179">DF5B</a>) and then looks the thing up in <a href="57653.html#57707">E16B</a>, a table of three-byte entries (thing, message address) ended by $FF: the bed (76), the window (102), the bridge (57), the drawer (62) and the corpse (46) each have a longer text of their own.
+</div>
+<div class="paragraph">
+EXAMINE CLOSELY BED (room 61) -&gt; 'The bed is unmade and one sheet is crumpled up on top. In one corner of the sheet is a very small tear.'; CORPSE (room 88) -&gt; dried blood on the face and 'dark speckled markings that resemble powder burns' on the right hand; BRIDGE (room 88) -&gt; 'a small chip in the stone work that is evidently quite new.
+</div>
+<div class="paragraph">
+The table at <a href="57653.html#57707">E16B</a> is data (thing, message pairs) that the disassembler listed as code, which is why the last 12 'instructions' were not executed.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$A034</td>
+<td class="register-desc">The direct object</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ; its description and any extra text printed</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="57653"></span>E135</td>
+<td class="instruction">DEFB $78,$50,$2E,$DF,$80,$40,$00,$00</td>
+<td class="comment-1" rowspan="2">Action record header: flags $78; bit 5: test <a href="53368.html">D078</a> first; bit 6: pre-check at <a href="57090.html#57134">DF2E</a>; bit 4: five extra bytes; byte 1 $50</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57661"></span>E13D</td>
+<td class="instruction">DEFB $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57662"></span>E13E</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="1">Load A with $01 - <a href="51886.html">CAAE</a> = 1</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57664"></span>E140</td>
+<td class="instruction">LD ($CAAE),A</td>
+<td class="comment-1" rowspan="1">Store A in "Flag: the player's view has changed" (<a href="51886.html">CAAE</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57667"></span>E143</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A036</a> in "Game variables" into A - Only the player examines closely: anyone else passes</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57670"></span>E146</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Clear the carry flag for the caller (A is unchanged)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57671"></span>E147</td>
+<td class="instruction">RET NZ</td>
+<td class="comment-1" rowspan="1">If A is not zero, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57672"></span>E148</td>
+<td class="instruction">CALL $E151</td>
+<td class="comment-1" rowspan="1">Print the description and the extra text (<a href="57653.html#57681">E151</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57675"></span>E14B</td>
+<td class="instruction">CALL <a href="41634.html">$A2A2</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print a newline (A kept)" (<a href="41634.html">A2A2</a>) - Newline (<a href="41634.html">A2A2</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57678"></span>E14E</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57680"></span>E150</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="57681"></span>E151</td>
+<td class="instruction">CALL <a href="57152.html#57179">$DF5B</a></td>
+<td class="comment-1" rowspan="1">The thing's own description (<a href="57152.html#57179">DF5B</a>)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57684"></span>E154</td>
+<td class="instruction">LD A,($A034)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A034</a> in "Game variables" into A - ...then look for it in the table at <a href="57653.html#57707">E16B</a> (<a href="54094.html">D34E</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57687"></span>E157</td>
+<td class="instruction">LD IX,$E16B</td>
+<td class="comment-1" rowspan="1">Point IX at <a href="57653.html#57707">E16B</a> in "Action record: RUN at <a href="57504.html#57511">E0A7</a>; RUN at <a href="57568.html#57570">E0E2</a>;..."</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57691"></span>E15B</td>
+<td class="instruction">CALL <a href="54094.html">$D34E</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Find a 3-byte record by id, in a sentinel-terminated..." (<a href="54094.html">D34E</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57694"></span>E15E</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1">Compare A with $FF - Not there ($FF): done</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57696"></span>E160</td>
+<td class="instruction">RET Z</td>
+<td class="comment-1" rowspan="1">If A equals $FF, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57697"></span>E161</td>
+<td class="instruction">LD L,(IX+$01)</td>
+<td class="comment-1" rowspan="1">Read byte +1 of the record at IX into L - Found: print its extra text</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57700"></span>E164</td>
+<td class="instruction">LD H,(IX+$02)</td>
+<td class="comment-1" rowspan="1">Read byte +2 of the record at IX into H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57703"></span>E167</td>
+<td class="instruction">CALL <a href="42399.html">$A59F</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print the message at HL" (<a href="42399.html">A59F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57706"></span>E16A</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57707"></span>E16B</td>
+<td class="instruction">LD C,H</td>
+<td class="comment-1" rowspan="1">Copy H into C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57708"></span>E16C</td>
+<td class="instruction">JP NZ,$667B</td>
+<td class="comment-1" rowspan="1">If the zero flag is clear, go back to <a href="24000.html#26232">$667B</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="57711"></span>E16F</td>
+<td class="instruction">RST $10</td>
+<td class="comment-1" rowspan="1">Call the ROM routine at $10</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57712"></span>E170</td>
+<td class="instruction">LD A,E</td>
+<td class="comment-1" rowspan="1">Copy E into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57713"></span>E171</td>
+<td class="instruction">ADD HL,SP</td>
+<td class="comment-1" rowspan="1">Add SP to HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57714"></span>E172</td>
+<td class="instruction">SBC A,(HL)</td>
+<td class="comment-1" rowspan="1">Subtract the byte HL points at and the carry from A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57715"></span>E173</td>
+<td class="instruction">LD A,H</td>
+<td class="comment-1" rowspan="1">Copy H into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57716"></span>E174</td>
+<td class="instruction">LD A,$E7</td>
+<td class="comment-1" rowspan="1">Load A with $E7</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57718"></span>E176</td>
+<td class="instruction">LD A,H</td>
+<td class="comment-1" rowspan="1">Copy H into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57719"></span>E177</td>
+<td class="instruction">LD L,$4A</td>
+<td class="comment-1" rowspan="1">Load L with $4A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57721"></span>E179</td>
+<td class="instruction">LD A,H</td>
+<td class="comment-1" rowspan="1">Copy H into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57722"></span>E17A</td>
+<td class="instruction">RST $38</td>
+<td class="comment-1" rowspan="1">Call the ROM routine at $38</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="57604.html">E104</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#57653">Map</a></td>
+<td class="next">
+Next: <a href="57723.html">E17B</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

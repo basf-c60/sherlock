@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at F5FB - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="62930.html">F5D2</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#62971">Map</a></td>
+<td class="next">
+Next: <a href="62987.html">F60B</a>
+</td>
+</tr>
+</table>
+<div class="description">F5FB: Find the screen byte and bit for the pen</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The ROM's PIXEL-ADD (<a href="../rom_symbols.html#a22AA">$22AA</a>) with B = y and C = x, then a mask for the bit.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">D,</td>
+<td class="register-desc">E The pen position</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">The screen byte</td>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">The bit mask</td>
+</tr>
+<tr>
+<td class="register">BC</td>
+<td class="register-desc">Kept</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="62971"></span>F5FB</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Save BC on the stack - B = E (y), C = D (x): the ROM's pixel address routine (<a href="../rom_symbols.html#a22AA">$22AA</a>) gives HL = the screen byte, A = the bit position</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62972"></span>F5FC</td>
+<td class="instruction">LD B,E</td>
+<td class="comment-1" rowspan="1">Copy E into B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62973"></span>F5FD</td>
+<td class="instruction">LD C,D</td>
+<td class="comment-1" rowspan="1">Copy D into C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62974"></span>F5FE</td>
+<td class="instruction">CALL $22AA</td>
+<td class="comment-1" rowspan="1">Call the ROM pixel-address routine (<a href="../rom_symbols.html#a22AA">$22AA</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62977"></span>F601</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">Copy A into B - Turn the position into a mask: one bit rotated into place</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62978"></span>F602</td>
+<td class="instruction">INC B</td>
+<td class="comment-1" rowspan="1">Add one to B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62979"></span>F603</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="1">Load A with $01</td>
+</tr>
+<tr>
+<td class="address-2"><span id="62981"></span>F605</td>
+<td class="instruction">RRC A</td>
+<td class="comment-1" rowspan="1">Rotate A right</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62983"></span>F607</td>
+<td class="instruction">DJNZ $F605</td>
+<td class="comment-1" rowspan="1">Count B down and, while it is not zero, go back to <a href="62971.html#62981">F605</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="62985"></span>F609</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore BC from the stack - Return the screen byte in HL and the mask in A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62986"></span>F60A</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="62930.html">F5D2</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#62971">Map</a></td>
+<td class="next">
+Next: <a href="62987.html">F60B</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

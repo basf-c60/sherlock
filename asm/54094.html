@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at D34E - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="54089.html">D349</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#54094">Map</a></td>
+<td class="next">
+Next: <a href="54122.html">D36A</a>
+</td>
+</tr>
+</table>
+<div class="description">D34E: Find a 3-byte record by id, in a sentinel-terminated table</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Same shape as <a href="52238.html">CC0E</a>'s actor-table search, but for 3-byte records (1 id byte + a 16-bit value) instead of 8-byte ones: given a base in IX and an id in A (via B), walks the table until a record's id matches (found) or reads $FF (end of table). Uses the shadow register set (EXX) internally so it doesn't disturb the caller's own BC/DE/HL while searching.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">A table of three-byte entries</td>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">The id</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">The entry found</td>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">The id, or $FF at the end marker</td>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Z if found</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="54094"></span>D34E</td>
+<td class="instruction">EXX</td>
+<td class="comment-1" rowspan="1">Switch to the shadow registers to work in</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54095"></span>D34F</td>
+<td class="instruction">LD E,$03</td>
+<td class="comment-1" rowspan="1">Record size is 3 bytes</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="54097"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="54089.html">D349</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="54097"></span>D351</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">HL -&gt; the table base the caller passed in IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54099"></span>D353</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54100"></span>D354</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">B = the id we are looking for</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54101"></span>D355</td>
+<td class="instruction">LD D,$00</td>
+<td class="comment-1" rowspan="1">Load D with $00</td>
+</tr>
+<tr>
+<td class="address-2"><span id="54103"></span>D357</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">This record's id byte...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54104"></span>D358</td>
+<td class="instruction">CP B</td>
+<td class="comment-1" rowspan="1">...does it match?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54105"></span>D359</td>
+<td class="instruction">JR Z,$D363</td>
+<td class="comment-1" rowspan="1">If A equals B, skip ahead to <a href="54094.html#54115">D363</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="54107"></span>D35B</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1">...or is it the end-of-table sentinel?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54109"></span>D35D</td>
+<td class="instruction">JR Z,$D363</td>
+<td class="comment-1" rowspan="1">If A equals $FF, skip ahead to <a href="54094.html#54115">D363</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="54111"></span>D35F</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1">Neither: move to the next 3-byte record</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54112"></span>D360</td>
+<td class="instruction">JP $D357</td>
+<td class="comment-1" rowspan="1">Go back to <a href="54094.html#54103">D357</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="54115"></span>D363</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="54116"></span>D364</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54118"></span>D366</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="54120"></span>D368</td>
+<td class="instruction">EXX</td>
+<td class="comment-1" rowspan="1">Back to the normal registers</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54121"></span>D369</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="54089.html">D349</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#54094">Map</a></td>
+<td class="next">
+Next: <a href="54122.html">D36A</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

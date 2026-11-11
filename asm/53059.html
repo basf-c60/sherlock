@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at CF43 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="52990.html">CEFE</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#53059">Map</a></td>
+<td class="next">
+Next: <a href="53120.html">CF80</a>
+</td>
+</tr>
+</table>
+<div class="description">CF43: Erase a spent one-shot plan instruction</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Overwrites the instruction at IX, including its success and failure addresses, with zeros, so the fetch loop skips it from now on.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">A spent one-shot instruction</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">The</td>
+<td class="register-desc">instruction and its addresses overwritten with zeros</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="53059"></span>CF43</td>
+<td class="instruction">LD A,(IX+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IX into A - Bit 7: two more bytes (an address) to clear</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53062"></span>CF46</td>
+<td class="instruction">BIT 7,A</td>
+<td class="comment-1" rowspan="1">Test bit 7 of A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53064"></span>CF48</td>
+<td class="instruction">CALL NZ,$CF73</td>
+<td class="comment-1" rowspan="1">If bit 7 of A is set, call <a href="53059.html#53107">CF73</a> (inside "Erase a spent one-shot plan instruction")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53067"></span>CF4B</td>
+<td class="instruction">BIT 4,A</td>
+<td class="comment-1" rowspan="1">Test bit 4 of A - Bit 4: two more</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53069"></span>CF4D</td>
+<td class="instruction">CALL NZ,$CF73</td>
+<td class="comment-1" rowspan="1">If bit 4 of A is set, call <a href="53059.html#53107">CF73</a> (inside "Erase a spent one-shot plan instruction")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53072"></span>CF50</td>
+<td class="instruction">AND $0F</td>
+<td class="comment-1" rowspan="1">Then by the instruction's code (bits 0-3):</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53074"></span>CF52</td>
+<td class="instruction">CP $01</td>
+<td class="comment-1" rowspan="1">Compare A with $01 - code 1: two bytes in all</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53076"></span>CF54</td>
+<td class="instruction">JR Z,$CF73</td>
+<td class="comment-1" rowspan="1">If A equals $01, skip ahead to <a href="53059.html#53107">CF73</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="53078"></span>CF56</td>
+<td class="instruction">CP $02</td>
+<td class="comment-1" rowspan="1">Compare A with $02 - codes 2 and 5: four</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53080"></span>CF58</td>
+<td class="instruction">JR Z,$CF6B</td>
+<td class="comment-1" rowspan="1">If A equals $02, skip ahead to <a href="53059.html#53099">CF6B</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="53082"></span>CF5A</td>
+<td class="instruction">CP $05</td>
+<td class="comment-1" rowspan="1">Compare A with $05</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53084"></span>CF5C</td>
+<td class="instruction">JR Z,$CF6B</td>
+<td class="comment-1" rowspan="1">If A equals $05, skip ahead to <a href="53059.html#53099">CF6B</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="53086"></span>CF5E</td>
+<td class="instruction">CP $07</td>
+<td class="comment-1" rowspan="1">Compare A with $07 - code 7: five</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53088"></span>CF60</td>
+<td class="instruction">JR Z,$CF68</td>
+<td class="comment-1" rowspan="1">If A equals $07, skip ahead to <a href="53059.html#53096">CF68</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="53090"></span>CF62</td>
+<td class="instruction">CP $06</td>
+<td class="comment-1" rowspan="1">Compare A with $06 - code 6: three</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53092"></span>CF64</td>
+<td class="instruction">JR Z,$CF70</td>
+<td class="comment-1" rowspan="1">If A equals $06, skip ahead to <a href="53059.html#53104">CF70</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="53094"></span>CF66</td>
+<td class="instruction">CP $04</td>
+<td class="comment-1" rowspan="1">Compare A with $04 - code 4: five</td>
+</tr>
+<tr>
+<td class="address-2"><span id="53096"></span>CF68</td>
+<td class="instruction">CALL Z,$CF79</td>
+<td class="comment-1" rowspan="1">If A equals $04, call <a href="53059.html#53113">CF79</a> (inside "Erase a spent one-shot plan instruction")</td>
+</tr>
+<tr>
+<td class="address-2"><span id="53099"></span>CF6B</td>
+<td class="instruction">CALL Z,$CF73</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, call <a href="53059.html#53107">CF73</a> (inside "Erase a spent one-shot plan instruction")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53102"></span>CF6E</td>
+<td class="instruction">CP $03</td>
+<td class="comment-1" rowspan="1">Compare A with $03 - code 3: three; any other: two</td>
+</tr>
+<tr>
+<td class="address-2"><span id="53104"></span>CF70</td>
+<td class="instruction">CALL Z,$CF79</td>
+<td class="comment-1" rowspan="1">If A equals $03, call <a href="53059.html#53113">CF79</a> (inside "Erase a spent one-shot plan instruction")</td>
+</tr>
+<tr>
+<td class="address-2"><span id="53107"></span>CF73</td>
+<td class="instruction">LD (IX+$00),$00</td>
+<td class="comment-1" rowspan="1">Set the first byte of the record at IX to $00 - Clear two bytes</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53111"></span>CF77</td>
+<td class="instruction">INC IX</td>
+<td class="comment-1" rowspan="1">Step IX on to the next byte</td>
+</tr>
+<tr>
+<td class="address-2"><span id="53113"></span>CF79</td>
+<td class="instruction">LD (IX+$00),$00</td>
+<td class="comment-1" rowspan="1">Set the first byte of the record at IX to $00 - Clear one byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53117"></span>CF7D</td>
+<td class="instruction">INC IX</td>
+<td class="comment-1" rowspan="1">Step IX on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53119"></span>CF7F</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="52990.html">CEFE</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#53059">Map</a></td>
+<td class="next">
+Next: <a href="53120.html">CF80</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

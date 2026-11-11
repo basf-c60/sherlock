@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Data at E79A - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-b">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Data</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="59183.html">E72F</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#59290">Map</a></td>
+<td class="next">
+Next: <a href="59362.html">E7E2</a>
+</td>
+</tr>
+</table>
+<div class="description">E79A: Sub-script: RUN at $E737; RUN at $E74A; RUN at $E776</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="59183.html#59191">E737</a>, <a href="59183.html#59210">E74A</a>, <a href="59183.html#59254">E776</a>.
+</div>
+<div class="paragraph">
+Entry points: <a href="59290.html#59292">E79C</a> = body of record <a href="59290.html">E79A</a>.
+</div>
+<div class="paragraph">
+Each sub-block is one instruction. Room and object numbers are as the game uses them (the reference pages list both).
+</div>
+<div class="paragraph">
+In an instruction, 'plan dobj' and 'plan iobj' are not fixed objects: they mean the direct and indirect object currently held in the actor's plan registers (bytes +4 and +5 of its actor record), so the same step works on whatever the actor is dealing with - for the player, the objects of the command just typed. 'plan verb' is the verb register (+3), 'self' is the acting character, and '-' means none.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59290"></span>E79A</td>
+<td class="instruction">DEFB $80,$00</td>
+<td class="comment-1" rowspan="1">Action record header: flags $80; bit 7: checks only; byte 1 $00 - checks-only: the script follows</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59292"></span>E79C</td>
+<td class="instruction">DEFB $03,$A8,$E5</td>
+<td class="comment-1" rowspan="1">RUN <a href="58792.html">E5A8</a> IDLE (no checks; takes a minute)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59295"></span>E79F</td>
+<td class="instruction">DEFB $12,$83,$FB,$08,$B2,$E7</td>
+<td class="comment-1" rowspan="1">DO 131 <a href="58797.html">IS IN</a>: self, room 8 (your room) [fail <a href="59290.html#59314">E7B2</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59301"></span>E7A5</td>
+<td class="instruction">DEFB $17,$E2,$E7,$19,$FF,$B2,$E7</td>
+<td class="comment-1" rowspan="1">RUN <a href="59362.html">E7E2</a> HAS IT: is the actor carrying (dobj)? (25 daily chronicle, -) [fail <a href="59290.html#59314">E7B2</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59308"></span>E7AC</td>
+<td class="instruction">DEFB $83,$7A,$E5,$9C,$E7</td>
+<td class="comment-1" rowspan="1">RUN <a href="58746.html">E57A</a> TICK the countdown (fails, and deletes it, when it runs out) [ok <a href="59290.html#59292">E79C</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59313"></span>E7B1</td>
+<td class="instruction">DEFB $0B</td>
+<td class="comment-1" rowspan="1">RETURN OK</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59314"></span>E7B2</td>
+<td class="instruction">DEFB $03,$88,$E5</td>
+<td class="comment-1" rowspan="1">RUN <a href="58760.html">E588</a> CANCEL the countdown</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59317"></span>E7B5</td>
+<td class="instruction">DEFB $0A</td>
+<td class="comment-1" rowspan="1">RETURN FAIL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59318"></span>E7B6</td>
+<td class="instruction">DEFB $03,$88,$E5</td>
+<td class="comment-1" rowspan="1">RUN <a href="58760.html">E588</a> CANCEL the countdown</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59321"></span>E7B9</td>
+<td class="instruction">DEFB $07,$88,$E4,$00,$FF</td>
+<td class="comment-1" rowspan="1">RUN <a href="58504.html">E488</a> (0 you, -)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59326"></span>E7BE</td>
+<td class="instruction">DEFB $87,$52,$DD,$FA,$FF,$B9,$E7</td>
+<td class="comment-1" rowspan="1">RUN <a href="56658.html">DD52</a> ENTER / GO INTO (dobj) (plan verb, -) [ok <a href="59290.html#59321">E7B9</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59333"></span>E7C5</td>
+<td class="instruction">DEFB $82,$82,$00,$FF,$B9,$E7</td>
+<td class="comment-1" rowspan="1">DO 130 <a href="58877.html">IS HERE</a>: 0 you, - [ok <a href="59290.html#59321">E7B9</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59339"></span>E7CB</td>
+<td class="instruction">DEFB $81,$0D,$B9,$E7</td>
+<td class="comment-1" rowspan="1">DO 13 <a href="58418.html">CLIMB OUT OF</a> [ok <a href="59290.html#59321">E7B9</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59343"></span>E7CF</td>
+<td class="instruction">DEFB $17,$84,$DD,$00,$FF,$B9,$E7</td>
+<td class="comment-1" rowspan="1">RUN <a href="56708.html">DD84</a> (0 you, -) [fail <a href="59290.html#59321">E7B9</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59350"></span>E7D6</td>
+<td class="instruction">DEFB $82,$0C,$FA,$FF,$B9,$E7</td>
+<td class="comment-1" rowspan="1">DO 12 <a href="58378.html">CLIMB INTO</a>: plan verb, - [ok <a href="59290.html#59321">E7B9</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59356"></span>E7DC</td>
+<td class="instruction">DEFB $03,$A8,$E5</td>
+<td class="comment-1" rowspan="1">RUN <a href="58792.html">E5A8</a> IDLE (no checks; takes a minute)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59359"></span>E7DF</td>
+<td class="instruction">DEFB $0E,$B9,$E7</td>
+<td class="comment-1" rowspan="1">GOTO <a href="59290.html#59321">E7B9</a></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="59183.html">E72F</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#59290">Map</a></td>
+<td class="next">
+Next: <a href="59362.html">E7E2</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

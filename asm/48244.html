@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at BC74 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="48198.html">BC46</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#48244">Map</a></td>
+<td class="next">
+Next: <a href="48284.html">BC9C</a>
+</td>
+</tr>
+</table>
+<div class="description">BC74: Count the waiting statements that can now be proven</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+B = how many; IX (<a href="47635.html#47643">$BA1E</a>) = the last one.
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">A,</td>
+<td class="register-desc">B How many waiting statements can now be proven</td>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">The last of them ($BA1E)</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="48244"></span>BC74</td>
+<td class="instruction">LD IX,$9965</td>
+<td class="comment-1" rowspan="1">Point IX at "The case: statements about the crime, and the..." (<a href="39269.html">9965</a>) - Walk the case table (<a href="39269.html">9965</a>) to its $FF end; B counts</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48248"></span>BC78</td>
+<td class="instruction">LD B,$00</td>
+<td class="comment-1" rowspan="1">Load B with $00</td>
+</tr>
+<tr>
+<td class="address-2"><span id="48250"></span>BC7A</td>
+<td class="instruction">LD A,(IX+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IX into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48253"></span>BC7D</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1">Compare A with $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48255"></span>BC7F</td>
+<td class="instruction">JR Z,$BC96</td>
+<td class="comment-1" rowspan="1">If A equals $FF, skip ahead to <a href="48244.html#48278">BC96</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="48257"></span>BC81</td>
+<td class="instruction">BIT 0,(IX+$03)</td>
+<td class="comment-1" rowspan="1">Test bit 0 of byte +3 of the record at IX - Only statements Holmes has been told (+3 bit 0)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48261"></span>BC85</td>
+<td class="instruction">JR Z,$BC91</td>
+<td class="comment-1" rowspan="1">If bit 0 of byte +3 of the record at IX is clear, skip ahead to <a href="48244.html#48273">BC91</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="48263"></span>BC87</td>
+<td class="instruction">CALL <a href="48329.html">$BCC9</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Try to prove statement IX" (<a href="48329.html">BCC9</a>) - ...that can now be proved (<a href="48329.html">BCC9</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48266"></span>BC8A</td>
+<td class="instruction">JR Z,$BC91</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, skip ahead to <a href="48244.html#48273">BC91</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="48268"></span>BC8C</td>
+<td class="instruction">LD ($BA1E),IX</td>
+<td class="comment-1" rowspan="1">Store IX in <a href="47635.html#47643">$BA1E</a> in "Variables used by the code at <a href="47648.html">BA20</a>-<a href="48965.html#48984">BF58</a>" - Remember the last one found (<a href="47635.html#47643">$BA1E</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48272"></span>BC90</td>
+<td class="instruction">INC B</td>
+<td class="comment-1" rowspan="1">Add one to B</td>
+</tr>
+<tr>
+<td class="address-2"><span id="48273"></span>BC91</td>
+<td class="instruction">CALL <a href="48730.html">$BE5A</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Step IX over one case record (4 bytes, or 6 with a..." (<a href="48730.html">BE5A</a>) - Next record (<a href="48730.html">BE5A</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48276"></span>BC94</td>
+<td class="instruction">JR $BC7A</td>
+<td class="comment-1" rowspan="1">Go back to <a href="48244.html#48250">BC7A</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="48278"></span>BC96</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">Copy B into A - A = how many; IX = the last of them</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48279"></span>BC97</td>
+<td class="instruction">LD IX,($BA1E)</td>
+<td class="comment-1" rowspan="1">Read <a href="47635.html#47643">$BA1E</a> in "Variables used by the code at <a href="47648.html">BA20</a>-<a href="48965.html#48984">BF58</a>" into IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48283"></span>BC9B</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="48198.html">BC46</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#48244">Map</a></td>
+<td class="next">
+Next: <a href="48284.html">BC9C</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

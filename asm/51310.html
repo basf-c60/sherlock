@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at C86E - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="51299.html">C863</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#51310">Map</a></td>
+<td class="next">
+Next: <a href="51352.html">C898</a>
+</td>
+</tr>
+</table>
+<div class="description">C86E: Follow an object's containment chain to its root</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Resolves an id via <a href="53815.html">D237</a>, then repeatedly follows a 'next id' held at the resolved record's own offset +1 (not a memory address - another id, resolved the same way each time), continuing while bit 5 or bit 3 of the new record's offset +5 is set, and stopping either when +1 is $FF or when bit 7 of +5 is clear. Read as 'find what ultimately contains this thing, walking up through however many levels of nesting' - a room contains a container, which contains an item, which an actor might be carrying.
+</div>
+<div class="paragraph">
+That makes this routine's bit-5 check read naturally: keep following the chain (i.e. treat what's inside as reachable) only while each container along the way is open.
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. Start with the thing's holder (+1). If it is $FF nothing holds it, and the answer is the last holder reached.
+</div>
+<div class="paragraph">
+2. Otherwise move up to the holder's record, but only climb further when the holder's +5 bit 7 is set and it also has bit 5 or bit 3 set (it lets what is inside be seen).
+</div>
+<div class="paragraph">
+3. Return the highest holder reached.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">A thing's record</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">The highest holder reached, $FF if none</td>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">Kept</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="51310"></span>C86E</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack - A = the holder number so far ($FF at the start); IX = the thing</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51312"></span>C870</td>
+<td class="instruction">EX AF,AF'</td>
+<td class="comment-1" rowspan="1">Swap AF with the shadow copy</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51313"></span>C871</td>
+<td class="instruction">LD A,$FF</td>
+<td class="comment-1" rowspan="1">Load A with $FF</td>
+</tr>
+<tr>
+<td class="address-2"><span id="51315"></span>C873</td>
+<td class="instruction">EX AF,AF'</td>
+<td class="comment-1" rowspan="1">Swap AF with the shadow copy</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51316"></span>C874</td>
+<td class="instruction">LD A,(IX+$01)</td>
+<td class="comment-1" rowspan="1">Read byte +1 of the record at IX into A - Held by nothing ($FF): stop with A = the last holder</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51319"></span>C877</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1">Compare A with $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51321"></span>C879</td>
+<td class="instruction">JR Z,$C895</td>
+<td class="comment-1" rowspan="1">If A equals $FF, skip ahead to <a href="51310.html#51349">C895</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="51323"></span>C87B</td>
+<td class="instruction">EX AF,AF'</td>
+<td class="comment-1" rowspan="1">Swap AF with the shadow copy</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51324"></span>C87C</td>
+<td class="instruction">LD A,(IX+$01)</td>
+<td class="comment-1" rowspan="1">Read byte +1 of the record at IX into A - Otherwise A' = its holder, and IX = the holder's record (<a href="53815.html">D237</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51327"></span>C87F</td>
+<td class="instruction">CALL <a href="53815.html">$D237</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Resolve an id (in A) to its full entity record" (<a href="53815.html">D237</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51330"></span>C882</td>
+<td class="instruction">BIT 7,(IX+$05)</td>
+<td class="comment-1" rowspan="1">Test bit 7 of byte +5 of the record at IX - Keep climbing only if the holder has +5 bit 7 set...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51334"></span>C886</td>
+<td class="instruction">JR Z,$C894</td>
+<td class="comment-1" rowspan="1">If bit 7 of byte +5 of the record at IX is clear, skip ahead to <a href="51310.html#51348">C894</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="51336"></span>C888</td>
+<td class="instruction">BIT 5,(IX+$05)</td>
+<td class="comment-1" rowspan="1">Test bit 5 of byte +5 of the record at IX - ...and bit 5 or bit 3 (it lets what is inside be seen)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51340"></span>C88C</td>
+<td class="instruction">JR NZ,$C873</td>
+<td class="comment-1" rowspan="1">If bit 5 of byte +5 of the record at IX is set, go back to <a href="51310.html#51315">C873</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="51342"></span>C88E</td>
+<td class="instruction">BIT 3,(IX+$05)</td>
+<td class="comment-1" rowspan="1">Test bit 3 of byte +5 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51346"></span>C892</td>
+<td class="instruction">JR NZ,$C873</td>
+<td class="comment-1" rowspan="1">If bit 3 of byte +5 of the record at IX is set, go back to <a href="51310.html#51315">C873</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="51348"></span>C894</td>
+<td class="instruction">EX AF,AF'</td>
+<td class="comment-1" rowspan="1">Swap AF with the shadow copy - Return the highest holder reached</td>
+</tr>
+<tr>
+<td class="address-2"><span id="51349"></span>C895</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51351"></span>C897</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="51299.html">C863</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#51310">Map</a></td>
+<td class="next">
+Next: <a href="51352.html">C898</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

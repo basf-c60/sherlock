@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at ACFB - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="44236.html">ACCC</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#44283">Map</a></td>
+<td class="next">
+Next: <a href="44375.html">AD57</a>
+</td>
+</tr>
+</table>
+<div class="description">ACFB: After a sentence: copy the objects on, or rewind to read it again</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+In statement mode (<a href="40918.html#40994">$A024</a> = 2) copies the node's six bytes from +8 to +$18 and parses on (<a href="43698.html#43852">AB4C</a>). Otherwise, unless <a href="40918.html#40986">$A01B</a> is set, goes back to the position saved by <a href="44236.html">ACCC</a> and frees the nodes after it (<a href="41391.html">A1AF</a>).
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. In statement mode (<a href="40918.html#40994">$A024</a> = 2), do this once only: copy the node's first group of six bytes (+8) to the third group (+24), so the subject can be shared, and read on for the object (<a href="43698.html#43852">AB4C</a>).
+</div>
+<div class="paragraph">
+2. In command mode, if <a href="40918.html#40986">$A01B</a> is set (a line of sentences is being worked through), just read on.
+</div>
+<div class="paragraph">
+3. Otherwise go back to the start of the sentence, whose position, flags, sentence count and node were saved by <a href="44236.html">ACCC</a>, free the nodes that were made after it (<a href="41391.html">A1AF</a>) and unhook them, ready to read the sentence again.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">E</td>
+<td class="register-desc">The flags for what may come next</td>
+</tr>
+<tr>
+<td class="register">IY</td>
+<td class="register-desc">The parse node</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="44283"></span>ACFB</td>
+<td class="instruction">LD A,($A024)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40994">$A024</a> in "Game variables" into A - A statement (<a href="40918.html#40994">$A024</a> = 2)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44286"></span>ACFE</td>
+<td class="instruction">CP $02</td>
+<td class="comment-1" rowspan="1">Compare A with $02</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44288"></span>AD00</td>
+<td class="instruction">JR NZ,$AD23</td>
+<td class="comment-1" rowspan="1">If A differs from $02, skip ahead to <a href="44283.html#44323">AD23</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44290"></span>AD02</td>
+<td class="instruction">BIT 6,E</td>
+<td class="comment-1" rowspan="1">Test bit 6 of E - Only once (E bit 6)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44292"></span>AD04</td>
+<td class="instruction">JP NZ,<a href="43698.html#43852">$AB4C</a></td>
+<td class="comment-1" rowspan="1">If bit 6 of E is set, go back to <a href="43698.html#43852">AB4C</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44295"></span>AD07</td>
+<td class="instruction">SET 6,E</td>
+<td class="comment-1" rowspan="1">Set bit 6 of E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44297"></span>AD09</td>
+<td class="instruction">SET 3,E</td>
+<td class="comment-1" rowspan="1">Set bit 3 of E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44299"></span>AD0B</td>
+<td class="instruction">PUSH IY</td>
+<td class="comment-1" rowspan="1">Save IY on the stack - Copy the first group (+8) to the third (+24)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44301"></span>AD0D</td>
+<td class="instruction">EXX</td>
+<td class="comment-1" rowspan="1">Swap BC, DE and HL with their shadow copies</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44302"></span>AD0E</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44303"></span>AD0F</td>
+<td class="instruction">LD DE,$0008</td>
+<td class="comment-1" rowspan="1">Load DE with $0008, the amount that is added next</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44306"></span>AD12</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1">Add DE to HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44307"></span>AD13</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44308"></span>AD14</td>
+<td class="instruction">LD DE,$0010</td>
+<td class="comment-1" rowspan="1">Load DE with $0010, the amount that is added next</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44311"></span>AD17</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1">Add DE to HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44312"></span>AD18</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44313"></span>AD19</td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-1" rowspan="1">Swap DE and HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44314"></span>AD1A</td>
+<td class="instruction">LD BC,$0006</td>
+<td class="comment-1" rowspan="1">Load BC with $0006</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44317"></span>AD1D</td>
+<td class="instruction">LDIR</td>
+<td class="comment-1" rowspan="1">Copy BC bytes from where HL points to where DE points, counting up</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44319"></span>AD1F</td>
+<td class="instruction">EXX</td>
+<td class="comment-1" rowspan="1">Swap BC, DE and HL with their shadow copies</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44320"></span>AD20</td>
+<td class="instruction">JP <a href="43698.html#43852">$AB4C</a></td>
+<td class="comment-1" rowspan="1">and parse on</td>
+</tr>
+<tr>
+<td class="address-2"><span id="44323"></span>AD23</td>
+<td class="instruction">LD A,($A01B)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40986">$A01B</a> in "Game variables" into A - A command: with <a href="40918.html#40986">$A01B</a> set, just parse on</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44326"></span>AD26</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44327"></span>AD27</td>
+<td class="instruction">JR Z,$AD2E</td>
+<td class="comment-1" rowspan="1">If A is zero, skip ahead to <a href="44283.html#44334">AD2E</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44329"></span>AD29</td>
+<td class="instruction">SET 3,E</td>
+<td class="comment-1" rowspan="1">Set bit 3 of E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44331"></span>AD2B</td>
+<td class="instruction">JP <a href="43698.html#43852">$AB4C</a></td>
+<td class="comment-1" rowspan="1">Go back to <a href="43698.html#43852">AB4C</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="44334"></span>AD2E</td>
+<td class="instruction">LD HL,($AAA1)</td>
+<td class="comment-1" rowspan="1">Read <a href="43633.html#43681">AAA1</a> into HL - Otherwise go back to the start of the sentence (saved by <a href="44236.html">ACCC</a>): its token position...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44337"></span>AD31</td>
+<td class="instruction">LD ($A02B),HL</td>
+<td class="comment-1" rowspan="1">Store HL in <a href="40918.html#41002">$A02B</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44340"></span>AD34</td>
+<td class="instruction">LD D,$B0</td>
+<td class="comment-1" rowspan="1">Load D with $B0 - ...the flags in E (D = $B0)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44342"></span>AD36</td>
+<td class="instruction">LD A,($AAA3)</td>
+<td class="comment-1" rowspan="1">Read <a href="43633.html#43683">AAA3</a> into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44345"></span>AD39</td>
+<td class="instruction">LD E,A</td>
+<td class="comment-1" rowspan="1">Copy A into E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44346"></span>AD3A</td>
+<td class="instruction">LD A,($AAA6)</td>
+<td class="comment-1" rowspan="1">Read <a href="43633.html#43683">$AAA6</a> into A - ...the sentence count...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44349"></span>AD3D</td>
+<td class="instruction">LD ($A012),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#40978">A012</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44352"></span>AD40</td>
+<td class="instruction">LD IY,($AAA4)</td>
+<td class="comment-1" rowspan="1">...and its node</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44356"></span>AD44</td>
+<td class="instruction">LD L,(IY-$02)</td>
+<td class="comment-1" rowspan="1">Read byte -2 of the record at IY into L - Free the nodes after it (<a href="41391.html">A1AF</a>) and unhook them</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44359"></span>AD47</td>
+<td class="instruction">LD H,(IY-$01)</td>
+<td class="comment-1" rowspan="1">Read byte -1 of the record at IY into H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44362"></span>AD4A</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44363"></span>AD4B</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44365"></span>AD4D</td>
+<td class="instruction">CALL <a href="41391.html">$A1AF</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Free every node of the list starting at IX" (<a href="41391.html">A1AF</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44368"></span>AD50</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44369"></span>AD51</td>
+<td class="instruction">LD (IY-$02),A</td>
+<td class="comment-1" rowspan="1">Store A in byte -2 of the record at IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44372"></span>AD54</td>
+<td class="instruction">LD (IY-$01),A</td>
+<td class="comment-1" rowspan="1">Store A in byte -1 of the record at IY</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="44236.html">ACCC</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#44283">Map</a></td>
+<td class="next">
+Next: <a href="44375.html">AD57</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

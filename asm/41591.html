@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at A277 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="41565.html">A25D</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#41591">Map</a></td>
+<td class="next">
+Next: <a href="41622.html">A296</a>
+</td>
+</tr>
+</table>
+<div class="description">A277: Describe a room's picture</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Called while describing the displayed room (<a href="53523.html#53528">D118</a>). <a href="41565.html">A25D</a> decides whether there is a picture; if so the record's +1/+2 is passed to the picture interpreter at <a href="62402.html">F3C2</a>.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">The record whose picture is wanted (+1/+2 point to the picture data)</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">All</td>
+<td class="register-desc">registers kept</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="41591"></span>A277</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack - Save IX, HL, BC, AF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41593"></span>A279</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41594"></span>A27A</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Save BC on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41595"></span>A27B</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41596"></span>A27C</td>
+<td class="instruction">CALL <a href="41565.html">$A25D</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Is thing B in the list at (<a href="41060.html#41176">A0D8</a>)? (only when <a href="40918.html#40970">$A011</a>..." (<a href="41565.html">A25D</a>) - Is there a picture?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41599"></span>A27F</td>
+<td class="instruction">JR Z,$A290</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, skip ahead to <a href="41591.html#41616">A290</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="41601"></span>A281</td>
+<td class="instruction">CALL <a href="41622.html">$A296</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print 18 newlines" (<a href="41622.html">A296</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41604"></span>A284</td>
+<td class="instruction">CALL <a href="49449.html">$C129</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Narrow the text lines to the left half (a picture is..." (<a href="49449.html">C129</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41607"></span>A287</td>
+<td class="instruction">LD L,(IX+$01)</td>
+<td class="comment-1" rowspan="1">Read byte +1 of the record at IX into L - The picture data...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41610"></span>A28A</td>
+<td class="instruction">LD H,(IX+$02)</td>
+<td class="comment-1" rowspan="1">Read byte +2 of the record at IX into H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41613"></span>A28D</td>
+<td class="instruction">CALL <a href="62402.html">$F3C2</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Draw a picture (the picture interpreter)" (<a href="62402.html">F3C2</a>) - ...drawn by the picture interpreter</td>
+</tr>
+<tr>
+<td class="address-2"><span id="41616"></span>A290</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41617"></span>A291</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore BC from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41618"></span>A292</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41619"></span>A293</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41621"></span>A295</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="41565.html">A25D</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#41591">Map</a></td>
+<td class="next">
+Next: <a href="41622.html">A296</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

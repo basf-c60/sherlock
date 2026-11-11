@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at B9FA - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="47500.html">B98C</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#47610">Map</a></td>
+<td class="next">
+Next: <a href="47635.html">BA13</a>
+</td>
+</tr>
+</table>
+<div class="description">B9FA: Remove node IX from the order/remark list and free it</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Unlinks IX from the list at <a href="40918.html#40942">9FEE</a> (<a href="41220.html">A104</a> finds its predecessor) and frees it (<a href="41415.html">A1C7</a>).
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">The node to remove</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">The</td>
+<td class="register-desc">node unlinked from $9FEE and freed</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="47610"></span>B9FA</td>
+<td class="instruction">LD IY,$9FEE</td>
+<td class="comment-1" rowspan="1">Point IY at orders and remarks (<a href="40918.html#40942">9FEE</a>) - Find the node before IX in the list at <a href="40918.html#40942">9FEE</a> (<a href="41220.html">A104</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47614"></span>B9FE</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47616"></span>BA00</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47617"></span>BA01</td>
+<td class="instruction">CALL <a href="41220.html">$A104</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Find the node before node DE in the list at IY" (<a href="41220.html">A104</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47620"></span>BA04</td>
+<td class="instruction">LD L,(IX-$02)</td>
+<td class="comment-1" rowspan="1">Read byte -2 of the record at IX into L - Unhook IX: the previous node's link = IX's link</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47623"></span>BA07</td>
+<td class="instruction">LD H,(IX-$01)</td>
+<td class="comment-1" rowspan="1">Read byte -1 of the record at IX into H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47626"></span>BA0A</td>
+<td class="instruction">LD (IY-$02),L</td>
+<td class="comment-1" rowspan="1">Store L in byte -2 of the record at IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47629"></span>BA0D</td>
+<td class="instruction">LD (IY-$01),H</td>
+<td class="comment-1" rowspan="1">Store H in byte -1 of the record at IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47632"></span>BA10</td>
+<td class="instruction">JP <a href="41415.html">$A1C7</a></td>
+<td class="comment-1" rowspan="1">Free it (<a href="41415.html">A1C7</a>)</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="47500.html">B98C</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#47610">Map</a></td>
+<td class="next">
+Next: <a href="47635.html">BA13</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

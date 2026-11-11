@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at E654 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="58942.html">E63E</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#58964">Map</a></td>
+<td class="next">
+Next: <a href="58991.html">E66F</a>
+</td>
+</tr>
+</table>
+<div class="description">E654: Action record: is change due? (RUN at $F304, $F31C, $F339)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="62130.html#62212">F304</a>, <a href="62130.html#62236">F31C</a>, <a href="62130.html#62265">F339</a>.
+</div>
+<div class="paragraph">
+No body; the pre-check passes only if the cabbie's purse holds a positive sum - change is due to the passenger. The cabbie's script at <a href="62130.html#62134">F2B6</a> reads the balance of his purse (+9/+10 of the money he holds): negative while a fare is owed, positive when change is due, zero when settled.
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ if the cabbie's purse holds a positive sum; otherwise $DC15</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="58964"></span>E654</td>
+<td class="instruction">DEFB $40,$00,$58,$E6</td>
+<td class="comment-1" rowspan="1">Action record header: flags $40; bit 6: pre-check at <a href="58964.html#58968">E658</a>; byte 1 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58968"></span>E658</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A036</a> in "Game variables" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58971"></span>E65B</td>
+<td class="instruction">CALL <a href="58877.html#58905">$E619</a></td>
+<td class="comment-1" rowspan="1">Call <a href="58877.html#58905">E619</a> (inside "Action record: RUN at <a href="57485.html#57487">E08F</a>; RUN at <a href="58450.html#58475">E46B</a>;...") - Pre-check: does the actor hold a purse? (<a href="58877.html#58905">E619</a>) No: refuse</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58974"></span>E65E</td>
+<td class="instruction">JP Z,<a href="56341.html">$DC15</a></td>
+<td class="comment-1" rowspan="1">If the zero flag is set, go back to the routine "Fail: A = 0, HL = 0, Z set" (<a href="56341.html">DC15</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58977"></span>E661</td>
+<td class="instruction">CALL <a href="58268.html">$E39C</a></td>
+<td class="comment-1" rowspan="1">HL = its money (<a href="58268.html">E39C</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58980"></span>E664</td>
+<td class="instruction">BIT 7,H</td>
+<td class="comment-1" rowspan="1">Test bit 7 of H - Negative: refuse</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58982"></span>E666</td>
+<td class="instruction">JP NZ,<a href="56341.html">$DC15</a></td>
+<td class="comment-1" rowspan="1">If bit 7 of H is set, go back to the routine "Fail: A = 0, HL = 0, Z set" (<a href="56341.html">DC15</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58985"></span>E669</td>
+<td class="instruction">LD A,H</td>
+<td class="comment-1" rowspan="1">Copy H into A - Nothing in it: refuse</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58986"></span>E66A</td>
+<td class="instruction">OR L</td>
+<td class="comment-1" rowspan="1">Set in A the bits that are set in L</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58987"></span>E66B</td>
+<td class="instruction">JP Z,<a href="56341.html">$DC15</a></td>
+<td class="comment-1" rowspan="1">If the result is zero, go back to the routine "Fail: A = 0, HL = 0, Z set" (<a href="56341.html">DC15</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58990"></span>E66E</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Pass: it holds some money</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="58942.html">E63E</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#58964">Map</a></td>
+<td class="next">
+Next: <a href="58991.html">E66F</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

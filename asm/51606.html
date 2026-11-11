@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at C996 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="51593.html">C989</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#51606">Map</a></td>
+<td class="next">
+Next: <a href="51647.html">C9BF</a>
+</td>
+</tr>
+</table>
+<div class="description">C996: Run a numbered action record; a script record becomes the actor's plan</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Runs it through <a href="51647.html">C9BF</a>; with carry (a script) the record is started as the actor's plan (<a href="53120.html">CF80</a>, the actor's entry at <a href="40918.html#40923">9FDB</a>).
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">An action record</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Carry set if a script was started as the actor's plan; Z if refused; NZ if done</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="51606"></span>C996</td>
+<td class="instruction">PUSH IY</td>
+<td class="comment-1" rowspan="1">Save IY on the stack - Try the action record in HL (<a href="51647.html">C9BF</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51608"></span>C998</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Save BC on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51609"></span>C999</td>
+<td class="instruction">CALL <a href="51647.html">$C9BF</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Run an action record (HL = the record)" (<a href="51647.html">C9BF</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51612"></span>C99C</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore BC from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51613"></span>C99D</td>
+<td class="instruction">POP IY</td>
+<td class="comment-1" rowspan="1">Restore IY from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51615"></span>C99F</td>
+<td class="instruction">JR C,$C9A7</td>
+<td class="comment-1" rowspan="1">Carry: it is a script record</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51617"></span>C9A1</td>
+<td class="instruction">JP Z,<a href="52035.html">$CB43</a></td>
+<td class="comment-1" rowspan="1">Z: failed - end the actor's go (<a href="52035.html">CB43</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51620"></span>C9A4</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - NZ: done</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51622"></span>C9A6</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="51623"></span>C9A7</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack - Script record: save the actor's current script as a sub-script frame (<a href="53120.html">CF80</a>)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51624"></span>C9A8</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Save BC on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51625"></span>C9A9</td>
+<td class="instruction">LD HL,($9FD9)</td>
+<td class="comment-1" rowspan="1">Read the plan instruction (<a href="40918.html#40921">9FD9</a>) into HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51628"></span>C9AC</td>
+<td class="instruction">LD B,$01</td>
+<td class="comment-1" rowspan="1">Load B with $01</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51630"></span>C9AE</td>
+<td class="instruction">CALL <a href="53120.html">$CF80</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Save a sub-script call frame" (<a href="53120.html">CF80</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51633"></span>C9B1</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore BC from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51634"></span>C9B2</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51635"></span>C9B3</td>
+<td class="instruction">LD IX,($9FDB)</td>
+<td class="comment-1" rowspan="1">Read the current actor's (<a href="40918.html#40923">9FDB</a>) into IX - ...and set the actor's script to the new one (HL, in +1/+2 of its record)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51639"></span>C9B7</td>
+<td class="instruction">LD (IX+$01),L</td>
+<td class="comment-1" rowspan="1">Store L in byte +1 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51642"></span>C9BA</td>
+<td class="instruction">LD (IX+$02),H</td>
+<td class="comment-1" rowspan="1">Store H in byte +2 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51645"></span>C9BD</td>
+<td class="instruction">SCF</td>
+<td class="comment-1" rowspan="1">Set the carry flag for the caller - Carry: a script was started</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51646"></span>C9BE</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="51593.html">C989</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#51606">Map</a></td>
+<td class="next">
+Next: <a href="51647.html">C9BF</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

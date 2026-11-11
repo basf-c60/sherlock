@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at A1C7 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="41391.html">A1AF</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#41415">Map</a></td>
+<td class="next">
+Next: <a href="41484.html">A20C</a>
+</td>
+</tr>
+</table>
+<div class="description">A1C7: Free node IX back to the heap</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Puts the block back in the free list in address order and joins it to free neighbours (<a href="41484.html">A20C</a>).
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. Save HL and DE, and work out where the freed block starts: three bytes before the node in IX.
+</div>
+<div class="paragraph">
+2. Walk the list of free blocks from its head at <a href="40918.html#40931">9FE3</a>. The list is kept in address order, so stop at the first free block that lies above this one, or at the end of the list.
+</div>
+<div class="paragraph">
+3. Link the block in at that point: the previous link now points at it, and its own link points at the block that came after.
+</div>
+<div class="paragraph">
+4. Try to join it to the free block that follows it (<a href="41484.html">A20C</a>). If the freed block joined onto the one before it instead, step back to that block and try again to join it to what follows.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">The node to free</td>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">is not preserved</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="41415"></span>A1C7</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41416"></span>A1C8</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41417"></span>A1C9</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack - HL = the block's size byte, three bytes before the node</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41419"></span>A1CB</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41420"></span>A1CC</td>
+<td class="instruction">DEC HL</td>
+<td class="comment-1" rowspan="1">Step HL back one byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41421"></span>A1CD</td>
+<td class="instruction">DEC HL</td>
+<td class="comment-1" rowspan="1">Step HL back one byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41422"></span>A1CE</td>
+<td class="instruction">DEC HL</td>
+<td class="comment-1" rowspan="1">Step HL back one byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41423"></span>A1CF</td>
+<td class="instruction">LD IX,$9FE3</td>
+<td class="comment-1" rowspan="1">Point IX at the heap's free list (<a href="40918.html#40931">9FE3</a>) - Walk the free list from <a href="40918.html#40931">9FE3</a> to the first block above this one</td>
+</tr>
+<tr>
+<td class="address-2"><span id="41427"></span>A1D3</td>
+<td class="instruction">LD E,(IX+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IX into E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41430"></span>A1D6</td>
+<td class="instruction">LD D,(IX+$01)</td>
+<td class="comment-1" rowspan="1">Read byte +1 of the record at IX into D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41433"></span>A1D9</td>
+<td class="instruction">LD A,D</td>
+<td class="comment-1" rowspan="1">Copy D into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41434"></span>A1DA</td>
+<td class="instruction">OR E</td>
+<td class="comment-1" rowspan="1">Set in A the bits that are set in E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41435"></span>A1DB</td>
+<td class="instruction">JR Z,$A1EB</td>
+<td class="comment-1" rowspan="1">If the result is zero, skip ahead to <a href="41415.html#41451">A1EB</a> - (end of the list: put it last)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41437"></span>A1DD</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41438"></span>A1DE</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Clear the carry flag, so that the subtraction that follows is a plain one (a compare)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41439"></span>A1DF</td>
+<td class="instruction">SBC HL,DE</td>
+<td class="comment-1" rowspan="1">Subtract DE from HL (a compare: carry = HL was smaller, zero = equal)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41441"></span>A1E1</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41442"></span>A1E2</td>
+<td class="instruction">JR C,$A1EB</td>
+<td class="comment-1" rowspan="1">If the carry flag is set, skip ahead to <a href="41415.html#41451">A1EB</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="41444"></span>A1E4</td>
+<td class="instruction">INC DE</td>
+<td class="comment-1" rowspan="1">Step DE on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41445"></span>A1E5</td>
+<td class="instruction">INC DE</td>
+<td class="comment-1" rowspan="1">Step DE on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41446"></span>A1E6</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41447"></span>A1E7</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41449"></span>A1E9</td>
+<td class="instruction">JR $A1D3</td>
+<td class="comment-1" rowspan="1">Go back to <a href="41415.html#41427">A1D3</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="41451"></span>A1EB</td>
+<td class="instruction">LD (IX+$00),L</td>
+<td class="comment-1" rowspan="1">Store L in the first byte of the record at IX - Link it in: the previous link now points here,</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41454"></span>A1EE</td>
+<td class="instruction">LD (IX+$01),H</td>
+<td class="comment-1" rowspan="1">Store H in byte +1 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41457"></span>A1F1</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte - its size's high byte cleared, and its own link to the next free block</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41458"></span>A1F2</td>
+<td class="instruction">LD (HL),$00</td>
+<td class="comment-1" rowspan="1">Store $00 at the address HL points to</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41460"></span>A1F4</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41461"></span>A1F5</td>
+<td class="instruction">LD (HL),E</td>
+<td class="comment-1" rowspan="1">Store E at the address HL points to</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41462"></span>A1F6</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41463"></span>A1F7</td>
+<td class="instruction">LD (HL),D</td>
+<td class="comment-1" rowspan="1">Store D at the address HL points to</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41464"></span>A1F8</td>
+<td class="instruction">CALL <a href="41484.html">$A20C</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Join free block IX to the next one if they touch" (<a href="41484.html">A20C</a>) - Join it to the block after it if they touch (<a href="41484.html">A20C</a>)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41467"></span>A1FB</td>
+<td class="instruction">JR Z,$A206</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, skip ahead to <a href="41415.html#41478">A206</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="41469"></span>A1FD</td>
+<td class="instruction">LD L,(IX+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IX into L - ...and the block before it to this one</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41472"></span>A200</td>
+<td class="instruction">LD H,(IX+$01)</td>
+<td class="comment-1" rowspan="1">Read byte +1 of the record at IX into H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41475"></span>A203</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41476"></span>A204</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack</td>
+</tr>
+<tr>
+<td class="address-2"><span id="41478"></span>A206</td>
+<td class="instruction">CALL <a href="41484.html">$A20C</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Join free block IX to the next one if they touch" (<a href="41484.html">A20C</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41481"></span>A209</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41482"></span>A20A</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41483"></span>A20B</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="41391.html">A1AF</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#41415">Map</a></td>
+<td class="next">
+Next: <a href="41484.html">A20C</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

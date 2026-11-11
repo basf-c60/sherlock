@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at C5FC - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="50563.html">C583</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#50684">Map</a></td>
+<td class="next">
+Next: <a href="50701.html">C60D</a>
+</td>
+</tr>
+</table>
+<div class="description">C5FC: Should the indirect object be guessed? (numbered records)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+As <a href="50498.html">C542</a> without the <a href="40918.html#40986">$A01D</a> test, for the numbered action records (<a href="50563.html">C583</a>).
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$A010,</td>
+<td class="register-desc">$A035</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ when the indirect object should be guessed; Z when not</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="50684"></span>C5FC</td>
+<td class="instruction">LD A,($A010)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40970">$A010</a> in "Game variables" into A - Indirect object requirement code (<a href="40918.html#40970">$A010</a>) zero: no, Z</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50687"></span>C5FF</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Clear the carry flag for the caller (A is unchanged)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50688"></span>C600</td>
+<td class="instruction">RET Z</td>
+<td class="comment-1" rowspan="1">If A is zero, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50689"></span>C601</td>
+<td class="instruction">LD A,($A035)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A035</a> in "Game variables" into A - Indirect object still $FF (not named)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50692"></span>C604</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1">Compare A with $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50694"></span>C606</td>
+<td class="instruction">JR NZ,$C60B</td>
+<td class="comment-1" rowspan="1">If A differs from $FF, skip ahead to <a href="50684.html#50699">C60B</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="50696"></span>C608</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="50698"></span>C60A</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="50699"></span>C60B</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Set A to zero, which sets the zero flag for the caller - No: Z</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50700"></span>C60C</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="50563.html">C583</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#50684">Map</a></td>
+<td class="next">
+Next: <a href="50701.html">C60D</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

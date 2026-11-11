@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at 9E48 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="40447.html">9DFF</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#40520">Map</a></td>
+<td class="next">
+Next: <a href="40554.html">9E6A</a>
+</td>
+</tr>
+</table>
+<div class="description">9E48: The last scene: Basil arrives at Victoria (the winning ending)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Run by Phipps's script (<a href="60971.html#61321">EF89</a>) when he walks onto platform one at Victoria and finds you there. If Watson (3) and Lestrade (2) are both in your room (<a href="40520.html#40544">9E60</a>), ends the game with <a href="27379.html">6AF3</a>: 'AS BASIL ENTERS HE SEES YOU AND PULLS A GUN. WITH SUPRISING AGILITY WATSON PUSHES YOU OUT OF THE WAY OF BASILS FIRST SHOT ALLOWING LESTRADE TIME TO PULL HIS GUN AND CAPTURE THE CULPRITS. AS INCREDIBLE AS IT MAY SEEM YOU HAVE SOLVED THIS CASE. YOU TRULY DESERVE THE TITLE OF WORLDS GREATEST DETECTIVE.' - the only winning ending. If either is missing, with <a href="27513.html">6B79</a>: 'AS BASIL ENTERS HE SEES YOU AND PULLS A GUN. WITH HIS USUAL SKILL HIS FIRST SHOT DISPOSES OF YOU. PERHAPS YOU SHOULD TRY AGAIN.'
+</div>
+<div class="paragraph">
+With Lestrade left on the platform the same room and minute give 'With his usual skill his first shot disposes of you.' instead (endings/end5_victoria_without_lestrade).
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">The game ends through $9E74</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="40520"></span>9E48</td>
+<td class="instruction">DEFB $00,$00</td>
+<td class="comment-1" rowspan="1">Action record header: flags $00; byte 1 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40522"></span>9E4A</td>
+<td class="instruction">LD HL,$6B79</td>
+<td class="comment-1" rowspan="1">Point HL at the message "AS BASIL ENTERS HE SEES YOU AND PULLS A GUN.... (<a href="27513.html">6B79</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40525"></span>9E4D</td>
+<td class="instruction">LD A,$03</td>
+<td class="comment-1" rowspan="1">Load A with $03</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40527"></span>9E4F</td>
+<td class="instruction">CALL $9E60</td>
+<td class="comment-1" rowspan="1">Call <a href="40520.html#40544">9E60</a> (inside "The last scene: Basil arrives at Victoria...")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40530"></span>9E52</td>
+<td class="instruction">JR NZ,<a href="40564.html">$9E74</a></td>
+<td class="comment-1" rowspan="1">If the zero flag is clear, skip ahead to the routine "End the game with the message in HL" (<a href="40564.html">9E74</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40532"></span>9E54</td>
+<td class="instruction">LD A,$02</td>
+<td class="comment-1" rowspan="1">Load A with $02</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40534"></span>9E56</td>
+<td class="instruction">CALL $9E60</td>
+<td class="comment-1" rowspan="1">Call <a href="40520.html#40544">9E60</a> (inside "The last scene: Basil arrives at Victoria...")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40537"></span>9E59</td>
+<td class="instruction">JR NZ,<a href="40564.html">$9E74</a></td>
+<td class="comment-1" rowspan="1">If the zero flag is clear, skip ahead to the routine "End the game with the message in HL" (<a href="40564.html">9E74</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40539"></span>9E5B</td>
+<td class="instruction">LD HL,$6AF3</td>
+<td class="comment-1" rowspan="1">Point HL at the message "AS BASIL ENTERS HE SEES YOU AND PULLS A GUN.... (<a href="27379.html">6AF3</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40542"></span>9E5E</td>
+<td class="instruction">JR <a href="40564.html">$9E74</a></td>
+<td class="comment-1" rowspan="1">Skip ahead to the routine "End the game with the message in HL" (<a href="40564.html">9E74</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="40544"></span>9E60</td>
+<td class="instruction">CALL <a href="53815.html">$D237</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Resolve an id (in A) to its full entity record" (<a href="53815.html">D237</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40547"></span>9E63</td>
+<td class="instruction">LD A,($A009)</td>
+<td class="comment-1" rowspan="1">Read the room the player is in, which decides what is shown (<a href="40918.html#40962">$A009</a>) into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40550"></span>9E66</td>
+<td class="instruction">CP (IX+$0F)</td>
+<td class="comment-1" rowspan="1">Compare A with byte +15 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40553"></span>9E69</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="40447.html">9DFF</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#40520">Map</a></td>
+<td class="next">
+Next: <a href="40554.html">9E6A</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

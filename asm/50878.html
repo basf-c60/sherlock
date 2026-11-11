@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at C6BE - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="50728.html">C628</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#50878">Map</a></td>
+<td class="next">
+Next: <a href="51022.html">C74E</a>
+</td>
+</tr>
+</table>
+<div class="description">C6BE: Check the indirect object against the action record's requirement</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+As <a href="50728.html">C628</a>, for the indirect object and the low nibble of byte 1 (<a href="40918.html#40970">$A010</a>). <a href="50728.html#50872">C6B8</a> sets <a href="40918.html#40986">$A021</a> = 1 (the indirect object is being checked); <a href="50728.html#50772">C654</a> sets it to 0.
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. Take the indirect object's requirement code from the low nibble of byte 1 of the record. Zero means no requirement: pass.
+</div>
+<div class="paragraph">
+2. Codes 5 and 6 want a number (the parser's number marker is $FE, the value in <a href="40918.html#41002">$A031</a>): code 5 needs bit 7 of the value clear, code 6 needs it set.
+</div>
+<div class="paragraph">
+3. Codes 1 and 2 want a room whose record has bit 7 of its first byte set; codes 1 and 3 also want the room to be next door to the actor (<a href="54380.html#54385">D471</a>).
+</div>
+<div class="paragraph">
+4. Codes 7 to 15 are handed to <a href="51110.html">C7A6</a> along with the object's id, which is also stored at <a href="52089.html">$CB7A</a> so that a refusal can name it.
+</div>
+<div class="paragraph">
+5. A failure there sets <a href="40918.html#40986">$A021</a> and refuses.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IY</td>
+<td class="register-desc">The action record</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ if the indirect object is acceptable, Z if refused (the refusal is printed by $DC15)</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="50878"></span>C6BE</td>
+<td class="instruction">LD A,(IY+$01)</td>
+<td class="comment-1" rowspan="1">Read byte +1 of the record at IY into A - The requirement code: the low nibble of the record's byte 1; 0 needs nothing</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50881"></span>C6C1</td>
+<td class="instruction">AND $0F</td>
+<td class="comment-1" rowspan="1">Keep only bits 0, 1, 2, 3 of A (mask $0F)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50883"></span>C6C3</td>
+<td class="instruction">JR NZ,$C6CB</td>
+<td class="comment-1" rowspan="1">If any of bits 0, 1, 2, 3 of A was set, skip ahead to <a href="50878.html#50891">C6CB</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="50885"></span>C6C5</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - Pass: NZ</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50887"></span>C6C7</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50888"></span>C6C8</td>
+<td class="instruction">JP <a href="56341.html">$DC15</a></td>
+<td class="comment-1" rowspan="1">Refuse</td>
+</tr>
+<tr>
+<td class="address-2"><span id="50891"></span>C6CB</td>
+<td class="instruction">CP $05</td>
+<td class="comment-1" rowspan="1">Compare A with $05 - Codes 5 and 6: a number</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50893"></span>C6CD</td>
+<td class="instruction">JR C,$C6F5</td>
+<td class="comment-1" rowspan="1">If A is below $05, skip ahead to <a href="50878.html#50933">C6F5</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="50895"></span>C6CF</td>
+<td class="instruction">CP $07</td>
+<td class="comment-1" rowspan="1">Compare A with $07</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50897"></span>C6D1</td>
+<td class="instruction">JR NC,$C719</td>
+<td class="comment-1" rowspan="1">If A is $07 or more, jump on to <a href="50878.html#50969">C719</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="50899"></span>C6D3</td>
+<td class="instruction">LD A,($A035)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A035</a> in "Game variables" into A - It must be a number ($FE), its value at <a href="40918.html#41002">$A031</a>...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50902"></span>C6D6</td>
+<td class="instruction">CP $FE</td>
+<td class="comment-1" rowspan="1">Compare A with $FE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50904"></span>C6D8</td>
+<td class="instruction">JP NZ,<a href="50728.html#50772">$C654</a></td>
+<td class="comment-1" rowspan="1">If A differs from $FE, go back to <a href="50728.html#50772">C654</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="50907"></span>C6DB</td>
+<td class="instruction">LD HL,($A031)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41002">$A031</a> in "Game variables" into HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50910"></span>C6DE</td>
+<td class="instruction">LD A,(IY+$01)</td>
+<td class="comment-1" rowspan="1">Read byte +1 of the record at IY into A - ...with bit 7 of its low byte clear for code 5...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50913"></span>C6E1</td>
+<td class="instruction">AND $0F</td>
+<td class="comment-1" rowspan="1">Keep only bits 0, 1, 2, 3 of A (mask $0F)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50915"></span>C6E3</td>
+<td class="instruction">CP $05</td>
+<td class="comment-1" rowspan="1">Compare A with $05</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50917"></span>C6E5</td>
+<td class="instruction">JR NZ,$C6EE</td>
+<td class="comment-1" rowspan="1">If A differs from $05, skip ahead to <a href="50878.html#50926">C6EE</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="50919"></span>C6E7</td>
+<td class="instruction">BIT 7,L</td>
+<td class="comment-1" rowspan="1">Test bit 7 of L</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50921"></span>C6E9</td>
+<td class="instruction">JR Z,$C6C5</td>
+<td class="comment-1" rowspan="1">If bit 7 of L is clear, go back to <a href="50878.html#50885">C6C5</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="50923"></span>C6EB</td>
+<td class="instruction">JP <a href="50728.html#50772">$C654</a></td>
+<td class="comment-1" rowspan="1">Go back to <a href="50728.html#50772">C654</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="50926"></span>C6EE</td>
+<td class="instruction">BIT 7,L</td>
+<td class="comment-1" rowspan="1">Test bit 7 of L - ...and set for code 6</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50928"></span>C6F0</td>
+<td class="instruction">JR NZ,$C6C5</td>
+<td class="comment-1" rowspan="1">If bit 7 of L is set, go back to <a href="50878.html#50885">C6C5</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="50930"></span>C6F2</td>
+<td class="instruction">JP <a href="50728.html#50772">$C654</a></td>
+<td class="comment-1" rowspan="1">Go back to <a href="50728.html#50772">C654</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="50933"></span>C6F5</td>
+<td class="instruction">CP $03</td>
+<td class="comment-1" rowspan="1">Compare A with $03 - Codes 1 and 2: a room whose record has bit 7 of byte 0 set</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50935"></span>C6F7</td>
+<td class="instruction">JR NC,$C706</td>
+<td class="comment-1" rowspan="1">If A is $03 or more, skip ahead to <a href="50878.html#50950">C706</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="50937"></span>C6F9</td>
+<td class="instruction">LD A,($A035)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A035</a> in "Game variables" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50940"></span>C6FC</td>
+<td class="instruction">CALL <a href="53796.html">$D224</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Find a room record" (<a href="53796.html">D224</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50943"></span>C6FF</td>
+<td class="instruction">BIT 7,(IX+$00)</td>
+<td class="comment-1" rowspan="1">Test bit 7 of the first byte of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50947"></span>C703</td>
+<td class="instruction">JP Z,<a href="50728.html#50772">$C654</a></td>
+<td class="comment-1" rowspan="1">If bit 7 of the first byte of the record at IX is clear, go back to <a href="50728.html#50772">C654</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="50950"></span>C706</td>
+<td class="instruction">BIT 0,(IY+$01)</td>
+<td class="comment-1" rowspan="1">Test bit 0 of byte +1 of the record at IY - Codes 1 and 3: and next door to the actor (<a href="54380.html#54385">D471</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50954"></span>C70A</td>
+<td class="instruction">JR Z,$C6C5</td>
+<td class="comment-1" rowspan="1">If bit 0 of byte +1 of the record at IY is clear, go back to <a href="50878.html#50885">C6C5</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="50956"></span>C70C</td>
+<td class="instruction">LD A,($A035)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A035</a> in "Game variables" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50959"></span>C70F</td>
+<td class="instruction">CALL <a href="54380.html#54385">$D471</a></td>
+<td class="comment-1" rowspan="1">Call <a href="54380.html#54385">D471</a> (inside "Find the exit from the actor's room through...")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50962"></span>C712</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1">Compare A with $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50964"></span>C714</td>
+<td class="instruction">JP Z,<a href="50728.html#50772">$C654</a></td>
+<td class="comment-1" rowspan="1">If A equals $FF, go back to <a href="50728.html#50772">C654</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="50967"></span>C717</td>
+<td class="instruction">JR $C6C5</td>
+<td class="comment-1" rowspan="1">Go back to <a href="50878.html#50885">C6C5</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="50969"></span>C719</td>
+<td class="instruction">LD A,($A035)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A035</a> in "Game variables" into A - Codes 7-15 (<a href="51110.html">C7A6</a>), with the object noted at <a href="52089.html">$CB7A</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="50972"></span>C71C</td>
+<td class="instruction">LD ($CB7A),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="52089.html">$CB7A</a> in "The flags <a href="52091.html">CB7B</a> is to name"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50975"></span>C71F</td>
+<td class="instruction">LD C,A</td>
+<td class="comment-1" rowspan="1">Copy A into C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50976"></span>C720</td>
+<td class="instruction">LD A,(IY+$01)</td>
+<td class="comment-1" rowspan="1">Read byte +1 of the record at IY into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50979"></span>C723</td>
+<td class="instruction">CALL <a href="51110.html">$C7A6</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Check object C against requirement code A (7-15)" (<a href="51110.html">C7A6</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50982"></span>C726</td>
+<td class="instruction">RET Z</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50983"></span>C727</td>
+<td class="instruction">BIT 4,(IY+$00)</td>
+<td class="comment-1" rowspan="1">Test bit 4 of the first byte of the record at IY - Flags bit 4: then the indirect object's +5 masks from the header (<a href="51022.html">C74E</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50987"></span>C72B</td>
+<td class="instruction">JP Z,<a href="50728.html#50735">$C62F</a></td>
+<td class="comment-1" rowspan="1">If bit 4 of the first byte of the record at IY is clear, go back to <a href="50728.html#50735">C62F</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="50990"></span>C72E</td>
+<td class="instruction">LD A,(IY+$02)</td>
+<td class="comment-1" rowspan="1">Read byte +2 of the record at IY into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50993"></span>C731</td>
+<td class="instruction">LD L,(IY+$05)</td>
+<td class="comment-1" rowspan="1">Read byte +5 of the record at IY into L</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50996"></span>C734</td>
+<td class="instruction">LD H,(IY+$06)</td>
+<td class="comment-1" rowspan="1">Read byte +6 of the record at IY into H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50999"></span>C737</td>
+<td class="instruction">BIT 6,(IY+$00)</td>
+<td class="comment-1" rowspan="1">Test bit 6 of the first byte of the record at IY - (two bytes further on when the header also has a pre-check address, bit 6)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51003"></span>C73B</td>
+<td class="instruction">JR Z,$C746</td>
+<td class="comment-1" rowspan="1">If bit 6 of the first byte of the record at IY is clear, skip ahead to <a href="50878.html#51014">C746</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="51005"></span>C73D</td>
+<td class="instruction">LD A,(IY+$04)</td>
+<td class="comment-1" rowspan="1">Read byte +4 of the record at IY into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51008"></span>C740</td>
+<td class="instruction">LD L,(IY+$07)</td>
+<td class="comment-1" rowspan="1">Read byte +7 of the record at IY into L</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51011"></span>C743</td>
+<td class="instruction">LD H,(IY+$08)</td>
+<td class="comment-1" rowspan="1">Read byte +8 of the record at IY into H</td>
+</tr>
+<tr>
+<td class="address-2"><span id="51014"></span>C746</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">Copy A into B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51015"></span>C747</td>
+<td class="instruction">CALL <a href="51022.html">$C74E</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Test object C's +5 flags against a record's masks" (<a href="51022.html">C74E</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51018"></span>C74A</td>
+<td class="instruction">RET NZ</td>
+<td class="comment-1" rowspan="1">If the zero flag is clear, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51019"></span>C74B</td>
+<td class="instruction">JP <a href="50728.html#50872">$C6B8</a></td>
+<td class="comment-1" rowspan="1">The flags were wrong: <a href="40918.html#40986">$A021</a> = 1, and refuse</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="50728.html">C628</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#50878">Map</a></td>
+<td class="next">
+Next: <a href="51022.html">C74E</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

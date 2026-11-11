@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Data at A85C - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-b">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Data</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="43090.html">A852</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#43100">Map</a></td>
+<td class="next">
+Next: <a href="43136.html">A880</a>
+</td>
+</tr>
+</table>
+<div class="description">A85C: Word suffixes</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Nine 4-byte entries, zero-padded, chosen by the low nibble of a dictionary word's flags. Code 8 is a delete, so suffix 3 turns SPY into SPIES and suffix 7 RIDE into RIDING. <a href="43311.html#43322">$A93B</a> indexes it.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43100"></span>A85C</td>
+<td class="instruction">DEFB $53,$00,$00,$00</td>
+<td class="comment-1" rowspan="1">Suffix 0: "S"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43104"></span>A860</td>
+<td class="instruction">DEFB $45,$53,$00,$00</td>
+<td class="comment-1" rowspan="1">Suffix 1: "ES"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43108"></span>A864</td>
+<td class="instruction">DEFB $49,$45,$53,$00</td>
+<td class="comment-1" rowspan="1">Suffix 2: "IES"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43112"></span>A868</td>
+<td class="instruction">DEFB $08,$49,$45,$53</td>
+<td class="comment-1" rowspan="1">Suffix 3: "&lt;delete&gt;IES"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43116"></span>A86C</td>
+<td class="instruction">DEFB $44,$00,$00,$00</td>
+<td class="comment-1" rowspan="1">Suffix 4: "D"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43120"></span>A870</td>
+<td class="instruction">DEFB $49,$4E,$47,$00</td>
+<td class="comment-1" rowspan="1">Suffix 5: "ING"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43124"></span>A874</td>
+<td class="instruction">DEFB $45,$44,$00,$00</td>
+<td class="comment-1" rowspan="1">Suffix 6: "ED"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43128"></span>A878</td>
+<td class="instruction">DEFB $08,$49,$4E,$47</td>
+<td class="comment-1" rowspan="1">Suffix 7: "&lt;delete&gt;ING"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43132"></span>A87C</td>
+<td class="instruction">DEFB $4C,$59,$00,$00</td>
+<td class="comment-1" rowspan="1">Suffix 8: "LY"</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="43090.html">A852</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#43100">Map</a></td>
+<td class="next">
+Next: <a href="43136.html">A880</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

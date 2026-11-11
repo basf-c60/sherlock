@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at D6CE - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="54975.html">D6BF</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#54990">Map</a></td>
+<td class="next">
+Next: <a href="55013.html">D6E5</a>
+</td>
+</tr>
+</table>
+<div class="description">D6CE: Read one word and classify it as noun or verb</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Calls the tokenizer (<a href="55749.html">D9C5</a>) and checks its class-byte result: $D0 means noun (jumps to <a href="54990.html#55008">D6E0</a> to handle that), $C0 means verb (falls through to accept it); anything else retries by calling the tokenizer again.
+</div>
+<div class="paragraph">
+Read as: the tokenizer resolves the word immediately, but offers it under a sequence of candidate classes until one matches what the caller is looking for.
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">The class byte</td>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ for a verb; Z with HL = $D6E5 for an unknown word</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="54990"></span>D6CE</td>
+<td class="instruction">LD HL,$5B00</td>
+<td class="comment-1" rowspan="1">Always start reading from the input buffer</td>
+</tr>
+<tr>
+<td class="address-2"><span id="54993"></span>D6D1</td>
+<td class="instruction">CALL <a href="55749.html">$D9C5</a></td>
+<td class="comment-1" rowspan="1">Ask the tokenizer for the next word</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54996"></span>D6D4</td>
+<td class="instruction">CP $D0</td>
+<td class="comment-1" rowspan="1">Is it a noun?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54998"></span>D6D6</td>
+<td class="instruction">JP Z,$D6E0</td>
+<td class="comment-1" rowspan="1">If A equals $D0, skip ahead to <a href="54990.html#55008">D6E0</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55001"></span>D6D9</td>
+<td class="instruction">CP $C0</td>
+<td class="comment-1" rowspan="1">...or a verb?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55003"></span>D6DB</td>
+<td class="instruction">JR NZ,$D6D1</td>
+<td class="comment-1" rowspan="1">Neither: try again</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55005"></span>D6DD</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Verb accepted</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55007"></span>D6DF</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="55008"></span>D6E0</td>
+<td class="instruction">LD HL,$D6E5</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55011"></span>D6E3</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Set A to zero, which sets the zero flag for the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55012"></span>D6E4</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="54975.html">D6BF</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#54990">Map</a></td>
+<td class="next">
+Next: <a href="55013.html">D6E5</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

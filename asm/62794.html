@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at F54A - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="62740.html">F514</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#62794">Map</a></td>
+<td class="next">
+Next: <a href="62830.html">F56E</a>
+</td>
+</tr>
+</table>
+<div class="description">F54A: Move the pen one pixel (Z when it would leave the picture area)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+E is the pen's y and D its x. <a href="62794.html">F54A</a> moves down (stopping at 176), <a href="62794.html#62805">F555</a> up (stopping at 0), <a href="62794.html#62814">F55E</a> right (stopping at 255), <a href="62794.html#62821">F565</a> left - stopping when bit 7 of D would clear, so the pen can never leave the right half of the screen, which is why every picture sits there.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">E</td>
+<td class="register-desc">The pen's y</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">E</td>
+<td class="register-desc">One more unless it would reach 176</td>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Z at the edge</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="62794"></span>F54A</td>
+<td class="instruction">INC E</td>
+<td class="comment-1" rowspan="1">Add one to E - One pixel up (E + 1) - unless that reaches y = 176 ($B0): then put it back and Z</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62795"></span>F54B</td>
+<td class="instruction">LD H,A</td>
+<td class="comment-1" rowspan="1">Copy A into H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62796"></span>F54C</td>
+<td class="instruction">LD A,E</td>
+<td class="comment-1" rowspan="1">Copy E into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62797"></span>F54D</td>
+<td class="instruction">CP $B0</td>
+<td class="comment-1" rowspan="1">Compare A with $B0</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62799"></span>F54F</td>
+<td class="instruction">LD A,H</td>
+<td class="comment-1" rowspan="1">Copy H into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62800"></span>F550</td>
+<td class="instruction">RET NZ</td>
+<td class="comment-1" rowspan="1">If A differs from $B0, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62801"></span>F551</td>
+<td class="instruction">DEC E</td>
+<td class="comment-1" rowspan="1">Subtract one from E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62802"></span>F552</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62803"></span>F553</td>
+<td class="instruction">LD A,H</td>
+<td class="comment-1" rowspan="1">Copy H into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62804"></span>F554</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="62805"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routines at <a href="62608.html">F490</a> and <a href="62830.html">F56E</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="62805"></span>F555</td>
+<td class="instruction">DEC E</td>
+<td class="comment-1" rowspan="1">Subtract one from E - One down (E - 1), not below 0</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62806"></span>F556</td>
+<td class="instruction">LD H,A</td>
+<td class="comment-1" rowspan="1">Copy A into H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62807"></span>F557</td>
+<td class="instruction">LD A,E</td>
+<td class="comment-1" rowspan="1">Copy E into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62808"></span>F558</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1">Compare A with $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62810"></span>F55A</td>
+<td class="instruction">LD A,H</td>
+<td class="comment-1" rowspan="1">Copy H into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62811"></span>F55B</td>
+<td class="instruction">RET NZ</td>
+<td class="comment-1" rowspan="1">If A differs from $FF, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62812"></span>F55C</td>
+<td class="instruction">INC E</td>
+<td class="comment-1" rowspan="1">Add one to E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62813"></span>F55D</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="62814"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routines at <a href="62608.html">F490</a> and <a href="62830.html">F56E</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="62814"></span>F55E</td>
+<td class="instruction">INC D</td>
+<td class="comment-1" rowspan="1">Add one to D - One right (D + 1), not past 255</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62815"></span>F55F</td>
+<td class="instruction">RET NZ</td>
+<td class="comment-1" rowspan="1">If D is not zero, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62816"></span>F560</td>
+<td class="instruction">DEC D</td>
+<td class="comment-1" rowspan="1">Subtract one from D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62817"></span>F561</td>
+<td class="instruction">LD H,A</td>
+<td class="comment-1" rowspan="1">Copy A into H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62818"></span>F562</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62819"></span>F563</td>
+<td class="instruction">LD A,H</td>
+<td class="comment-1" rowspan="1">Copy H into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62820"></span>F564</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="62821"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routines at <a href="62608.html">F490</a> and <a href="62830.html">F56E</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="62821"></span>F565</td>
+<td class="instruction">DEC D</td>
+<td class="comment-1" rowspan="1">Subtract one from D - One left (D - 1), not out of the right half (bit 7 of D must stay set)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62822"></span>F566</td>
+<td class="instruction">BIT 7,D</td>
+<td class="comment-1" rowspan="1">Test bit 7 of D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62824"></span>F568</td>
+<td class="instruction">RET NZ</td>
+<td class="comment-1" rowspan="1">If bit 7 of D is set, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62825"></span>F569</td>
+<td class="instruction">INC D</td>
+<td class="comment-1" rowspan="1">Add one to D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62826"></span>F56A</td>
+<td class="instruction">LD H,A</td>
+<td class="comment-1" rowspan="1">Copy A into H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62827"></span>F56B</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62828"></span>F56C</td>
+<td class="instruction">LD A,H</td>
+<td class="comment-1" rowspan="1">Copy H into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62829"></span>F56D</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="62740.html">F514</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#62794">Map</a></td>
+<td class="next">
+Next: <a href="62830.html">F56E</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

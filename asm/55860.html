@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at DA34 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="55858.html">DA32</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#55860">Map</a></td>
+<td class="next">
+Next: <a href="55933.html">DA7D</a>
+</td>
+</tr>
+</table>
+<div class="description">DA34: Look up this word's first letter in the dictionary index</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Takes the current word's first character directly from the input buffer, masks it to 5 bits (giving 1-26 for any letter without needing a separate packing step - 'A' is $41, whose low 5 bits are 1; 'Z' is $5A, whose low 5 bits are 26), and uses that to index a 26-entry table at <a href="23936.html">5D80</a> of 16-bit offsets, relative to a second base at <a href="23936.html#23998">$5DBF</a>, to find the first candidate word stored under that letter.
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. The first letter (A = 1 to Z = 26) indexes the table of offsets at <a href="23936.html">5D80</a>.
+</div>
+<div class="paragraph">
+2. DE is where that letter's words start in the dictionary. The next letter that has words marks where they end (<a href="55858.html">DA32</a>).
+</div>
+<div class="paragraph">
+3. Return Z if there are no words under the letter.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">The word</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">DE</td>
+<td class="register-desc">The first dictionary record for the letter</td>
+</tr>
+<tr>
+<td class="register">$DA32</td>
+<td class="register-desc">Where its words end</td>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Z if there are none</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="55860"></span>DA34</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into A - The first letter (A = 1 ... Z = 26) indexes the table of offsets at <a href="23936.html">5D80</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55861"></span>DA35</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55862"></span>DA36</td>
+<td class="instruction">AND $1F</td>
+<td class="comment-1" rowspan="1">Keep only bits 0, 1, 2, 3, 4 of A (mask $1F)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55864"></span>DA38</td>
+<td class="instruction">RLCA</td>
+<td class="comment-1" rowspan="1">Rotate A left one place (bit 7 goes to carry and bit 0)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55865"></span>DA39</td>
+<td class="instruction">LD E,A</td>
+<td class="comment-1" rowspan="1">Copy A into E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55866"></span>DA3A</td>
+<td class="instruction">LD D,$00</td>
+<td class="comment-1" rowspan="1">Load D with $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55868"></span>DA3C</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55869"></span>DA3D</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55871"></span>DA3F</td>
+<td class="instruction">LD HL,$5D80</td>
+<td class="comment-1" rowspan="1">Point HL at "Dictionary index: where each letter's words start" (<a href="23936.html">5D80</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55874"></span>DA42</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1">Add DE to HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55875"></span>DA43</td>
+<td class="instruction">LD E,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into E - DE = where this letter's words start in the dictionary</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55876"></span>DA44</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55877"></span>DA45</td>
+<td class="instruction">LD D,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55878"></span>DA46</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55879"></span>DA47</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack</td>
+</tr>
+<tr>
+<td class="address-2"><span id="55880"></span>DA48</td>
+<td class="instruction">LD E,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into E - The next letter that has words marks where they end (<a href="55858.html">DA32</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55881"></span>DA49</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55882"></span>DA4A</td>
+<td class="instruction">LD D,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55883"></span>DA4B</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55884"></span>DA4C</td>
+<td class="instruction">LD A,D</td>
+<td class="comment-1" rowspan="1">Copy D into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55885"></span>DA4D</td>
+<td class="instruction">OR E</td>
+<td class="comment-1" rowspan="1">Set in A the bits that are set in E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55886"></span>DA4E</td>
+<td class="instruction">JR Z,$DA48</td>
+<td class="comment-1" rowspan="1">If the result is zero, go back to <a href="55860.html#55880">DA48</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55888"></span>DA50</td>
+<td class="instruction">LD HL,$5DBF</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="23936.html#23998">$5DBF</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55891"></span>DA53</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1">Add DE to HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55892"></span>DA54</td>
+<td class="instruction">LD ($DA32),HL</td>
+<td class="comment-1" rowspan="1">Store HL in "The tokenizer's word pointer" (<a href="55858.html">DA32</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55895"></span>DA57</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55896"></span>DA58</td>
+<td class="instruction">LD A,D</td>
+<td class="comment-1" rowspan="1">Copy D into A - No words under this letter: Z</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55897"></span>DA59</td>
+<td class="instruction">OR E</td>
+<td class="comment-1" rowspan="1">Set in A the bits that are set in E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55898"></span>DA5A</td>
+<td class="instruction">RET Z</td>
+<td class="comment-1" rowspan="1">If the result is zero, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55899"></span>DA5B</td>
+<td class="instruction">LD HL,$5DBF</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="23936.html#23998">$5DBF</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55902"></span>DA5E</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1">Add DE to HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55903"></span>DA5F</td>
+<td class="instruction">LD DE,$5C0B</td>
+<td class="comment-1" rowspan="1">Point DE at the tape header workspace (<a href="../rom_symbols.html#a5C0B">$5C0B</a>) - Copy the typed word to <a href="../rom_symbols.html#a5C0B">$5C0B</a> in lower case, as the dictionary spells</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55906"></span>DA62</td>
+<td class="instruction">LD B,$01</td>
+<td class="comment-1" rowspan="1">Load B with $01</td>
+</tr>
+<tr>
+<td class="address-2"><span id="55908"></span>DA64</td>
+<td class="instruction">LD A,(IX+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IX into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55911"></span>DA67</td>
+<td class="instruction">CP $40</td>
+<td class="comment-1" rowspan="1">Compare A with $40</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55913"></span>DA69</td>
+<td class="instruction">JR C,$DA74</td>
+<td class="comment-1" rowspan="1">If A is below $40, skip ahead to <a href="55860.html#55924">DA74</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55915"></span>DA6B</td>
+<td class="instruction">OR $20</td>
+<td class="comment-1" rowspan="1">Set bit 5 of A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55917"></span>DA6D</td>
+<td class="instruction">LD (DE),A</td>
+<td class="comment-1" rowspan="1">Store A at the address DE points to</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55918"></span>DA6E</td>
+<td class="instruction">INC DE</td>
+<td class="comment-1" rowspan="1">Step DE on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55919"></span>DA6F</td>
+<td class="instruction">INC IX</td>
+<td class="comment-1" rowspan="1">Step IX on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55921"></span>DA71</td>
+<td class="instruction">INC B</td>
+<td class="comment-1" rowspan="1">Add one to B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55922"></span>DA72</td>
+<td class="instruction">JR $DA64</td>
+<td class="comment-1" rowspan="1">Go back to <a href="55860.html#55908">DA64</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="55924"></span>DA74</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag) - End it with 0; <a href="56339.html">DC13</a> = its length + 1</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55925"></span>DA75</td>
+<td class="instruction">LD (DE),A</td>
+<td class="comment-1" rowspan="1">Store A at the address DE points to</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55926"></span>DA76</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">Copy B into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55927"></span>DA77</td>
+<td class="instruction">LD ($DC13),A</td>
+<td class="comment-1" rowspan="1">Store A in "The number reader's working bytes" (<a href="56339.html">DC13</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55930"></span>DA7A</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55932"></span>DA7C</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="55858.html">DA32</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#55860">Map</a></td>
+<td class="next">
+Next: <a href="55933.html">DA7D</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

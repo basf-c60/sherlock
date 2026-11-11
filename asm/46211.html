@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at B483 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="46085.html">B405</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#46211">Map</a></td>
+<td class="next">
+Next: <a href="46240.html">B4A0</a>
+</td>
+</tr>
+</table>
+<div class="description">B483: Copy the word pair at IY + E to HL, if B is not 0</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+B counts down when the pair is not empty; HL moves on two. Used by <a href="45981.html">B39D</a> to build its match pattern.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Where to copy to</td>
+</tr>
+<tr>
+<td class="register">IY</td>
+<td class="register-desc">A node</td>
+</tr>
+<tr>
+<td class="register">E</td>
+<td class="register-desc">The offset of the word pair</td>
+</tr>
+<tr>
+<td class="register">B</td>
+<td class="register-desc">The number of pairs still wanted</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Z if the pair was empty or B was 0</td>
+</tr>
+<tr>
+<td class="register">B</td>
+<td class="register-desc">One fewer if the pair was not empty</td>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Moved on two bytes if copied</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="46211"></span>B483</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag) - B = 0: nothing to copy</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46212"></span>B484</td>
+<td class="instruction">CP B</td>
+<td class="comment-1" rowspan="1">Compare A with B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46213"></span>B485</td>
+<td class="instruction">RET Z</td>
+<td class="comment-1" rowspan="1">If A equals B, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46214"></span>B486</td>
+<td class="instruction">LD D,$00</td>
+<td class="comment-1" rowspan="1">Load D with $00 - Word pair at IY + E...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46216"></span>B488</td>
+<td class="instruction">PUSH IY</td>
+<td class="comment-1" rowspan="1">Save IY on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46218"></span>B48A</td>
+<td class="instruction">ADD IY,DE</td>
+<td class="comment-1" rowspan="1">Add DE to IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46220"></span>B48C</td>
+<td class="instruction">LD A,(IY+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IY into A - ...copied to HL, HL+1</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46223"></span>B48F</td>
+<td class="instruction">LD (HL),A</td>
+<td class="comment-1" rowspan="1">Store A at the address HL points to</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46224"></span>B490</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46225"></span>B491</td>
+<td class="instruction">LD A,(IY+$01)</td>
+<td class="comment-1" rowspan="1">Read byte +1 of the record at IY into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46228"></span>B494</td>
+<td class="instruction">LD (HL),A</td>
+<td class="comment-1" rowspan="1">Store A at the address HL points to</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46229"></span>B495</td>
+<td class="instruction">DEC HL</td>
+<td class="comment-1" rowspan="1">Step HL back one byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46230"></span>B496</td>
+<td class="instruction">OR (IY+$00)</td>
+<td class="comment-1" rowspan="1">Set in A the bits that are set in the first byte of the record at IY - Z if the pair was empty</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46233"></span>B499</td>
+<td class="instruction">POP IY</td>
+<td class="comment-1" rowspan="1">Restore IY from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46235"></span>B49B</td>
+<td class="instruction">RET Z</td>
+<td class="comment-1" rowspan="1">An empty one is not counted</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46236"></span>B49C</td>
+<td class="instruction">DEC B</td>
+<td class="comment-1" rowspan="1">Subtract one from B - Count down B; HL on to the next pair</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46237"></span>B49D</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46238"></span>B49E</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46239"></span>B49F</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="46085.html">B405</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#46211">Map</a></td>
+<td class="next">
+Next: <a href="46240.html">B4A0</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at B2DF - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="45457.html">B191</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#45791">Map</a></td>
+<td class="next">
+Next: <a href="45827.html">B303</a>
+</td>
+</tr>
+</table>
+<div class="description">B2DF: Choose the indirect object: the candidate that passes the record's checks</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Restarts the indirect-object search (<a href="45931.html">B36B</a>) and tries each candidate (<a href="46440.html">B568</a>) with the record's checks (<a href="51497.html">C929</a>), counting those that pass in <a href="45421.html">$B171</a> and keeping the last in <a href="45421.html#45445">B185</a>; stops at the first unless <a href="45421.html#45453">$B190</a> is set. <a href="40918.html#41010">$A035</a> is left holding the one chosen.
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">$A035</td>
+<td class="register-desc">The first indirect object that passes the record's checks</td>
+</tr>
+<tr>
+<td class="register">$B171</td>
+<td class="register-desc">How many pass</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="45791"></span>B2DF</td>
+<td class="instruction">CALL <a href="45931.html">$B36B</a></td>
+<td class="comment-1" rowspan="1">Start the indirect-object search afresh (<a href="45931.html">B36B</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="45794"></span>B2E2</td>
+<td class="instruction">CALL <a href="46440.html">$B568</a></td>
+<td class="comment-1" rowspan="1">Next indirect-object candidate (<a href="46440.html">B568</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45797"></span>B2E5</td>
+<td class="instruction">JR Z,$B2FC</td>
+<td class="comment-1" rowspan="1">None left: finish</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45799"></span>B2E7</td>
+<td class="instruction">CALL <a href="51497.html">$C929</a></td>
+<td class="comment-1" rowspan="1">Does it pass the record's checks (<a href="51497.html">C929</a>)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45802"></span>B2EA</td>
+<td class="instruction">JR Z,$B2E2</td>
+<td class="comment-1" rowspan="1">No: next</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45804"></span>B2EC</td>
+<td class="instruction">LD A,($A035)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A035</a> in "Game variables" into A - Yes: remember it in <a href="45421.html#45445">B185</a>...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45807"></span>B2EF</td>
+<td class="instruction">LD ($B185),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="45421.html#45445">B185</a> in "Parser variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45810"></span>B2F2</td>
+<td class="instruction">LD HL,$B171</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="45421.html">$B171</a> in "Parser variables" - ...and count it in <a href="45421.html">$B171</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45813"></span>B2F5</td>
+<td class="instruction">INC (HL)</td>
+<td class="comment-1" rowspan="1">Add one to the byte at <a href="45421.html">$B171</a> in "Parser variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45814"></span>B2F6</td>
+<td class="instruction">LD A,($B190)</td>
+<td class="comment-1" rowspan="1">Read <a href="45421.html#45453">$B190</a> in "Parser variables" into A - Stop at the first if the verb says so (<a href="45421.html#45453">$B190</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45817"></span>B2F9</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45818"></span>B2FA</td>
+<td class="instruction">JR Z,$B2E2</td>
+<td class="comment-1" rowspan="1">If A is zero, go back to <a href="45791.html#45794">B2E2</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="45820"></span>B2FC</td>
+<td class="instruction">LD A,($B185)</td>
+<td class="comment-1" rowspan="1">Read <a href="45421.html#45445">B185</a> in "Parser variables" into A - Put the first one found into <a href="40918.html#41010">$A035</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45823"></span>B2FF</td>
+<td class="instruction">LD ($A035),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41010">$A035</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45826"></span>B302</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="45457.html">B191</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#45791">Map</a></td>
+<td class="next">
+Next: <a href="45827.html">B303</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

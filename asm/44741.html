@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at AEC5 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="44726.html">AEB6</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#44741">Map</a></td>
+<td class="next">
+Next: <a href="44778.html">AEEA</a>
+</td>
+</tr>
+</table>
+<div class="description">AEC5: IY = the node before IY in the sentence list ($9FF0)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="40918.html#40944">9FF0</a>.
+</div>
+<div class="paragraph">
+Through <a href="41220.html">A104</a>, stepping back over nodes marked with bit 6 of +1 and stopping at the head (<a href="40918.html#40946">9FF2</a>).
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IY</td>
+<td class="register-desc">A node</td>
+</tr>
+<tr>
+<td class="register">B</td>
+<td class="register-desc">The sentence count</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">IY</td>
+<td class="register-desc">The node before it, skipping nodes marked BUT</td>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">The node given</td>
+</tr>
+<tr>
+<td class="register">B</td>
+<td class="register-desc">One fewer</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="44741"></span>AEC5</td>
+<td class="instruction">DEC B</td>
+<td class="comment-1" rowspan="1">One sentence fewer (<a href="40918.html#40978">A012</a> is kept in B)</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="44742"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routines at <a href="44778.html">AEEA</a> and <a href="45309.html">B0FD</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="44742"></span>AEC6</td>
+<td class="instruction">PUSH IY</td>
+<td class="comment-1" rowspan="1">Save IY on the stack - IX = the node, then IY = the node before it in the list at <a href="40918.html#40944">9FF0</a> (<a href="41220.html">A104</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44744"></span>AEC8</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44746"></span>AECA</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44747"></span>AECB</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack</td>
+</tr>
+<tr>
+<td class="address-2"><span id="44748"></span>AECC</td>
+<td class="instruction">PUSH IY</td>
+<td class="comment-1" rowspan="1">Save IY on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44750"></span>AECE</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44751"></span>AECF</td>
+<td class="instruction">LD IY,$9FF0</td>
+<td class="comment-1" rowspan="1">Point IY at words the player has (<a href="40918.html#40944">9FF0</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44755"></span>AED3</td>
+<td class="instruction">CALL <a href="41220.html">$A104</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Find the node before node DE in the list at IY" (<a href="41220.html">A104</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44758"></span>AED6</td>
+<td class="instruction">PUSH IY</td>
+<td class="comment-1" rowspan="1">Save IY on the stack - At the head of the list (<a href="40918.html#40946">9FF2</a>)? Then stop</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44760"></span>AED8</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44761"></span>AED9</td>
+<td class="instruction">LD DE,$9FF2</td>
+<td class="comment-1" rowspan="1">Point DE at <a href="40918.html#40946">9FF2</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44764"></span>AEDC</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Clear the carry flag, so that the subtraction that follows is a plain one (a compare)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44765"></span>AEDD</td>
+<td class="instruction">SBC HL,DE</td>
+<td class="comment-1" rowspan="1">Subtract DE from HL (a compare: carry = HL was smaller, zero = equal)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44767"></span>AEDF</td>
+<td class="instruction">JR Z,$AEE7</td>
+<td class="comment-1" rowspan="1">If the two values are equal, skip ahead to <a href="44741.html#44775">AEE7</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44769"></span>AEE1</td>
+<td class="instruction">BIT 6,(IY+$01)</td>
+<td class="comment-1" rowspan="1">Test bit 6 of byte +1 of the record at IY - Skip nodes marked with bit 6 of +1 (BUT nodes)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44773"></span>AEE5</td>
+<td class="instruction">JR NZ,$AECC</td>
+<td class="comment-1" rowspan="1">If bit 6 of byte +1 of the record at IY is set, go back to <a href="44741.html#44748">AECC</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="44775"></span>AEE7</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44776"></span>AEE8</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44777"></span>AEE9</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="44726.html">AEB6</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#44741">Map</a></td>
+<td class="next">
+Next: <a href="44778.html">AEEA</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

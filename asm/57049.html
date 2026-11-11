@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at DED9 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="57025.html">DEC1</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#57049">Map</a></td>
+<td class="next">
+Next: <a href="57090.html">DF02</a>
+</td>
+</tr>
+</table>
+<div class="description">DED9: Pre-check for PUT IN: will the thing fit in the container?</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Sets IX to the thing being moved (<a href="40918.html#40978">$A013</a>), IY to the container (<a href="40918.html#40978">$A015</a>) and A to the container's id, then falls into the fit check at <a href="57049.html#57060">DEE4</a> - which the SIT IN / GET INTO pre-check (<a href="58357.html">E3F5</a>) also jumps into with different registers (IX = the actor, IY = the chair): a shared tail.
+</div>
+<div class="paragraph">
+<a href="57049.html#57060">DEE4</a> refuses if none of bits 0-2 of the container's field +4 are set (it cannot hold things). Otherwise it fits if capacity - size - what's already inside is at least 1, where capacity and size are both field +2 and <a href="53997.html">D2ED</a> totals what is already inside.
+</div>
+<div class="paragraph">
+Holmes (size 96) gets into Watson's armchair (capacity 255) even with Watson in it (<a href="53997.html">D2ED</a> returns 96): 255-96-96 = 63.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$A013</td>
+<td class="register-desc">The thing being put</td>
+</tr>
+<tr>
+<td class="register">$A015</td>
+<td class="register-desc">The container</td>
+</tr>
+<tr>
+<td class="register">$A035</td>
+<td class="register-desc">The container's id</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">The thing</td>
+</tr>
+<tr>
+<td class="register">IY</td>
+<td class="register-desc">The container</td>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ if it fits; Z if it will not</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="57049"></span>DED9</td>
+<td class="instruction">LD IX,($A013)</td>
+<td class="comment-1" rowspan="1">IX = the thing being put somewhere</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57053"></span>DEDD</td>
+<td class="instruction">LD IY,($A015)</td>
+<td class="comment-1" rowspan="1">IY = the container</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57057"></span>DEE1</td>
+<td class="instruction">LD A,($A035)</td>
+<td class="comment-1" rowspan="1">A = the container's id</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="57060"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="58357.html">E3F5</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="57060"></span>DEE4</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">B = the container's id. Can the container hold things?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57061"></span>DEE5</td>
+<td class="instruction">LD A,(IY+$04)</td>
+<td class="comment-1" rowspan="1">Read the type byte (+4) of the thing record at IY into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57064"></span>DEE8</td>
+<td class="instruction">AND $07</td>
+<td class="comment-1" rowspan="1">Keep only bits 0, 1, 2 of A (mask $07)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57066"></span>DEEA</td>
+<td class="instruction">JP Z,<a href="56341.html">$DC15</a></td>
+<td class="comment-1" rowspan="1">No: refuse</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57069"></span>DEED</td>
+<td class="instruction">LD A,(IY+$02)</td>
+<td class="comment-1" rowspan="1">Capacity minus the size of the thing...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57072"></span>DEF0</td>
+<td class="instruction">SUB (IX+$02)</td>
+<td class="comment-1" rowspan="1">Subtract the size byte (+2) of the thing record at IX from A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57075"></span>DEF3</td>
+<td class="instruction">JR C,$DF00</td>
+<td class="comment-1" rowspan="1">...too big even for an empty container? Refuse</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57077"></span>DEF5</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57078"></span>DEF6</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">How much is already inside the container?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57079"></span>DEF7</td>
+<td class="instruction">CALL <a href="53997.html">$D2ED</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Total size (+2) of the things directly in thing A" (<a href="53997.html">D2ED</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57082"></span>DEFA</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">Copy A into B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57083"></span>DEFB</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57084"></span>DEFC</td>
+<td class="instruction">SUB B</td>
+<td class="comment-1" rowspan="1">Take that off too</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57085"></span>DEFD</td>
+<td class="instruction">JR C,$DF00</td>
+<td class="comment-1" rowspan="1">Not enough room: refuse</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57087"></span>DEFF</td>
+<td class="instruction">RET NZ</td>
+<td class="comment-1" rowspan="1">At least 1 to spare: it fits (NZ)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="57088"></span>DF00</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Exactly full also refuses (Z)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57089"></span>DF01</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="57025.html">DEC1</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#57049">Map</a></td>
+<td class="next">
+Next: <a href="57090.html">DF02</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

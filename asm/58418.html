@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at E432 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="58378.html">E40A</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#58418">Map</a></td>
+<td class="next">
+Next: <a href="58450.html">E452</a>
+</td>
+</tr>
+</table>
+<div class="description">E432: Shared GET-OUT implementation ($AA71 entry #8)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="43633.html">AA71</a>.
+</div>
+<div class="paragraph">
+`LD IY,(<a href="40918.html#40978">$A013</a>); LD A,(IY+1); LD IY,(<a href="40918.html#40978">$A017</a>); LD (IY+1),A` - reads the *target* furniture's own field +1 (whatever contains the furniture - the room it's in) and copies that into the current actor's field +1. Getting out of a chair is 'you are now contained by whatever contains the chair' - the natural inverse of SIT (<a href="58378.html">E40A</a> above), built from the same containment field.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$A013</td>
+<td class="register-desc">The thing the actor is in</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ; the actor is held by what held the thing</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="58418"></span>E432</td>
+<td class="instruction">DEFB $78,$20,$20,$E4,$10,$80,$28,$00</td>
+<td class="comment-1" rowspan="2">Action record header: flags $78; bit 5: test <a href="53368.html">D078</a> first; bit 6: pre-check at <a href="58378.html#58400">E420</a>; bit 4: five extra bytes; byte 1 $20</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58426"></span>E43A</td>
+<td class="instruction">DEFB $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58427"></span>E43B</td>
+<td class="instruction">LD IY,($A013)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40978">$A013</a> in "Game variables" into IY - The thing the direct object is in (its +1)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58431"></span>E43F</td>
+<td class="instruction">LD A,(IY+$01)</td>
+<td class="comment-1" rowspan="1">Read byte +1 of the record at IY into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58434"></span>E442</td>
+<td class="instruction">LD IY,($A017)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40978">$A017</a> in "Game variables" into IY - ...becomes the holder of the record at <a href="40918.html#40978">$A017</a> (the</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58438"></span>E446</td>
+<td class="instruction">LD (IY+$01),A</td>
+<td class="comment-1" rowspan="1">Store A in byte +1 of the record at IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58441"></span>E449</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - Succeed</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58443"></span>E44B</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58444"></span>E44C</td>
+<td class="instruction">CALL <a href="52135.html">$CBA7</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Refuse if the character is busy: 'SORRY, I CANNOT DO..." (<a href="52135.html">CBA7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58447"></span>E44F</td>
+<td class="instruction">JP <a href="57997.html">$E28D</a></td>
+<td class="comment-1" rowspan="1">Go back to the routine "Refuse if the actor is the direct object" (<a href="57997.html">E28D</a>)</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="58378.html">E40A</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#58418">Map</a></td>
+<td class="next">
+Next: <a href="58450.html">E452</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

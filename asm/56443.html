@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at DC7B - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="56407.html">DC57</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#56443">Map</a></td>
+<td class="next">
+Next: <a href="56461.html">DC8D</a>
+</td>
+</tr>
+</table>
+<div class="description">DC7B: Action record: default for verb 34 (LOOK)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+LOOK: a new line, then the full description of the room the player is in. It runs for the player and for the china man (the disguise), and does nothing for other actors (the pre-check at <a href="56407.html#56428">DC6C</a> passes only actors 0, 1 and $64 - you, the china man and the old man).
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ; the room described in full ($D102) when the actor is accepted by $DC6C</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56443"></span>DC7B</td>
+<td class="instruction">DEFB $20,$10</td>
+<td class="comment-1" rowspan="1">Action record header: flags $20; bit 5: test <a href="53368.html">D078</a> first; byte 1 $10</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56445"></span>DC7D</td>
+<td class="instruction">CALL <a href="56407.html#56428">$DC6C</a></td>
+<td class="comment-1" rowspan="1">Call <a href="56407.html#56428">DC6C</a> (inside "Action record: default for verb <a href="56407.html">28</a> (GO...") - Only the actors <a href="56407.html#56428">DC6C</a> accepts (Z); anyone else passes</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56448"></span>DC80</td>
+<td class="instruction">RET NZ</td>
+<td class="comment-1" rowspan="1">If the zero flag is clear, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56449"></span>DC81</td>
+<td class="instruction">CALL <a href="41634.html">$A2A2</a></td>
+<td class="comment-1" rowspan="1">Newline</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56452"></span>DC84</td>
+<td class="instruction">LD A,($A00A)</td>
+<td class="comment-1" rowspan="1">Read the current actor's room (<a href="40918.html#40970">A00A</a>) into A - The room the player is in (<a href="40918.html#40970">A00A</a>): describe it in full (<a href="53506.html">D102</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56455"></span>DC87</td>
+<td class="instruction">CALL <a href="53506.html">$D102</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Describe room A in full (the first visit)" (<a href="53506.html">D102</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56458"></span>DC8A</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - Succeed</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56460"></span>DC8C</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="56407.html">DC57</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#56443">Map</a></td>
+<td class="next">
+Next: <a href="56461.html">DC8D</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

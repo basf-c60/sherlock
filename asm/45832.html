@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at B308 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="45827.html">B303</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#45832">Map</a></td>
+<td class="next">
+Next: <a href="45869.html">B32D</a>
+</td>
+</tr>
+</table>
+<div class="description">B308: Count the candidates for the direct object</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Runs the direct-object search to the end (<a href="45903.html">B34F</a>, <a href="46273.html">B4C1</a>), counting in <a href="45421.html">$B170</a>, and puts the search state back as it was. A = the count.
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">The number of candidates for the direct object</td>
+</tr>
+<tr>
+<td class="register">Search</td>
+<td class="register-desc">state kept</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="45832"></span>B308</td>
+<td class="instruction">LD HL,($B17E)</td>
+<td class="comment-1" rowspan="1">Read <a href="45421.html#45437">$B17E</a> in "Parser variables" into HL - Keep the direct object's search position (<a href="45421.html#45437">$B17E</a>) and its number-used flag (<a href="46242.html">B4A2</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45835"></span>B30B</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45836"></span>B30C</td>
+<td class="instruction">LD A,($B4A2)</td>
+<td class="comment-1" rowspan="1">Read "<a href="46273.html">B4C1</a>: $FF until the number in the direct-object..." (<a href="46242.html">B4A2</a>) into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45839"></span>B30F</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45840"></span>B310</td>
+<td class="instruction">CALL <a href="45903.html">$B34F</a></td>
+<td class="comment-1" rowspan="1">Start the search again from the top (<a href="45903.html">B34F</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="45843"></span>B313</td>
+<td class="instruction">CALL <a href="46273.html">$B4C1</a></td>
+<td class="comment-1" rowspan="1">Call the routine "The next candidate for the direct object (<a href="40918.html#41010">$A034</a>)" (<a href="46273.html">B4C1</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45846"></span>B316</td>
+<td class="instruction">JR Z,$B31E</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, skip ahead to <a href="45832.html#45854">B31E</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45848"></span>B318</td>
+<td class="instruction">LD HL,$B170</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="45421.html">$B170</a> in "Parser variables" - One more: <a href="45421.html">$B170</a> counts them</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45851"></span>B31B</td>
+<td class="instruction">INC (HL)</td>
+<td class="comment-1" rowspan="1">Add one to the byte at <a href="45421.html">$B170</a> in "Parser variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45852"></span>B31C</td>
+<td class="instruction">JR $B313</td>
+<td class="comment-1" rowspan="1">Go back to <a href="45832.html#45843">B313</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="45854"></span>B31E</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack - No more: put the position and flag back</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45855"></span>B31F</td>
+<td class="instruction">LD ($B4A2),A</td>
+<td class="comment-1" rowspan="1">Store A in "<a href="46273.html">B4C1</a>: $FF until the number in the direct-object..." (<a href="46242.html">B4A2</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45858"></span>B322</td>
+<td class="instruction">LD HL,$B170</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="45421.html">$B170</a> in "Parser variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45861"></span>B325</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte at <a href="45421.html">$B170</a> in "Parser variables" into A - A = how many; <a href="45421.html">$B170</a> cleared again</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45862"></span>B326</td>
+<td class="instruction">LD (HL),$00</td>
+<td class="comment-1" rowspan="1">Store $00 at the address HL points to</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45864"></span>B328</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45865"></span>B329</td>
+<td class="instruction">LD ($B17E),HL</td>
+<td class="comment-1" rowspan="1">Store HL in <a href="45421.html#45437">$B17E</a> in "Parser variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45868"></span>B32C</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="45827.html">B303</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#45832">Map</a></td>
+<td class="next">
+Next: <a href="45869.html">B32D</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

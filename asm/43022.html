@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at A80E - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="42987.html">A7EB</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#43022">Map</a></td>
+<td class="next">
+Next: <a href="43055.html">A82F</a>
+</td>
+</tr>
+</table>
+<div class="description">A80E: Print word reference DE (code $04's printer)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Through <a href="42960.html">A7D0</a>, then as a dictionary word (<a href="43136.html#43143">A887</a>) with flag nibble $5 unless it is empty; ORs <a href="42986.html">A7EA</a> into <a href="40918.html#40994">$A026</a>.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">DE</td>
+<td class="register-desc">A word reference</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">The</td>
+<td class="register-desc">word printed, as a noun ($A887)</td>
+</tr>
+<tr>
+<td class="register">$A026</td>
+<td class="register-desc">Marked if the word is not YOU</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="43022"></span>A80E</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack - Print the word's preceding space/capital handling first (<a href="42960.html">A7D0</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43023"></span>A80F</td>
+<td class="instruction">CALL <a href="42960.html">$A7D0</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print an article, or note whether the word is YOU" (<a href="42960.html">A7D0</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43026"></span>A812</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43027"></span>A813</td>
+<td class="instruction">LD A,$50</td>
+<td class="comment-1" rowspan="1">Load A with $50 - Class $50 (a noun) is put in the top nibble of D</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="43029"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="54277.html">D405</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="43029"></span>A815</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43030"></span>A816</td>
+<td class="instruction">LD A,D</td>
+<td class="comment-1" rowspan="1">Copy D into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43031"></span>A817</td>
+<td class="instruction">AND $0F</td>
+<td class="comment-1" rowspan="1">Keep only bits 0, 1, 2, 3 of A (mask $0F)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43033"></span>A819</td>
+<td class="instruction">LD D,A</td>
+<td class="comment-1" rowspan="1">Copy A into D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43034"></span>A81A</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43035"></span>A81B</td>
+<td class="instruction">OR D</td>
+<td class="comment-1" rowspan="1">Set in A the bits that are set in D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43036"></span>A81C</td>
+<td class="instruction">LD D,A</td>
+<td class="comment-1" rowspan="1">Copy A into D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43037"></span>A81D</td>
+<td class="instruction">AND $0F</td>
+<td class="comment-1" rowspan="1">Keep only bits 0, 1, 2, 3 of A (mask $0F) - Nothing there (D and E zero apart from the class)? Return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43039"></span>A81F</td>
+<td class="instruction">OR E</td>
+<td class="comment-1" rowspan="1">Set in A the bits that are set in E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43040"></span>A820</td>
+<td class="instruction">RET Z</td>
+<td class="comment-1" rowspan="1">If the result is zero, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43041"></span>A821</td>
+<td class="instruction">CALL <a href="43136.html#43143">$A887</a></td>
+<td class="comment-1" rowspan="1">Print the word (<a href="43136.html#43143">A887</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43044"></span>A824</td>
+<td class="instruction">LD A,($A7EA)</td>
+<td class="comment-1" rowspan="1">Read "<a href="42960.html">A7D0</a>: set when the word was not YOU" (<a href="42986.html">A7EA</a>) into A - Note the print state of the word's last letter (<a href="42986.html">A7EA</a>) in <a href="40918.html#40994">$A026</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43047"></span>A827</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43048"></span>A828</td>
+<td class="instruction">LD HL,$A026</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="40918.html#40994">$A026</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43051"></span>A82B</td>
+<td class="instruction">OR (HL)</td>
+<td class="comment-1" rowspan="1">Set in A the bits that are set in the byte at <a href="40918.html#40994">$A026</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43052"></span>A82C</td>
+<td class="instruction">LD (HL),A</td>
+<td class="comment-1" rowspan="1">Store A at the address HL points to</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43053"></span>A82D</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43054"></span>A82E</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="42987.html">A7EB</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#43022">Map</a></td>
+<td class="next">
+Next: <a href="43055.html">A82F</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>State bits: asleep, dead and the rest - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="sherlock.css" />
+</head>
+<body class="state-bits">
+<header class="site"><div class="bar"><a class="brand" href="index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">State bits: asleep, dead and the rest</h1>
+
+<p>Almost everything that can change about a person or object in Sherlock is a bit in its record. This page lists them: what each bit means, which things have it, and what the game does with it. The bytes below are offsets in an entity record (the things listed by the index at <a href="asm/35695.html">8B6F</a>).</p>
+
+<h3>Asleep, unconscious, dead</h3>
+<p>These are not three bits. Each is a combination of three parts of the record:</p>
+<ul>
+<li><b>The person bit</b> (+5 bit 6) is cleared, so the character stops being someone you can talk to.</li>
+<li><b>A state word</b> (+9/+10, the first adjective slot of the name) is replaced by a word such as SLEEPING or UNCONSCIOUS, so the thing is listed as "a sleeping Phipps" or "an unconscious local police man". <a href="asm/61889.html">F1C1</a> writes it, together with the article nibble below.</li>
+<li><b>The article nibble</b> (the high nibble of +8) is changed so that the name reads properly with the new word: 1 is "a", 2 is "an", 8 is no article.</li>
+</ul>
+<table class="sherlock">
+<tr><th>State</th><th>Who and when</th><th>What changes</th></tr>
+<tr><td><b>Asleep</b></td><td>The gardener, the cook and Strachan at 9pm (<a href="asm/40657.html">9ED1</a>, <a href="asm/40641.html">9EC1</a>); Phipps in the night script (<a href="asm/61363.html">EFB3</a>).</td><td>The state word becomes SLEEPING ($07F0), the article nibble becomes 1, and the person bit is cleared. The gardener and cook also go off stage, and Strachan is moved to Daphne's room (74). Waking puts the person bit back and clears the word.</td></tr>
+<tr><td><b>Unconscious</b></td><td>The local police man, when the Major knocks him out (<a href="asm/61864.html">F1A8</a>).</td><td>The state word becomes UNCONSCIOUS ($0910), the article nibble becomes 2, and the person bit is cleared. Straker reviving him (<a href="asm/60729.html">ED39</a>) puts back LOCAL ($050B), nibble 1 and the person bit.</td></tr>
+<tr><td><b>Dead</b></td><td>The female corpse (46) and the body (72).</td><td>The thing is not a person: bit 6 is clear. A check that needs the person bit and does not find it prints the word DEAD from the flag table at <a href="asm/50289.html">C471</a>.</td></tr>
+<tr><td><b>Burning, singed, burnt</b></td><td>The note Phipps burns (85).</td><td>BURNING ($0157) is replaced by SINGED ($07D5) when it is taken, or BURNT ($015B) when the countdown at <a href="asm/40069.html#40097">9CA1</a> runs out (<a href="asm/40098.html">9CA2</a>).</td></tr>
+</table>
+
+<h3>The flag byte, +5</h3>
+<p>Eight bits of condition. The flag-word tables at <a href="asm/50289.html">C471</a> (a bit that is needed but missing) and <a href="asm/50305.html">C481</a> (a bit that is present but forbidden) give the words that "THE ... IS ..." messages print.</p>
+<table class="sherlock">
+<tr><th>Bit</th><th>Mask</th><th>Meaning</th><th>Details</th></tr>
+<tr><td>7</td><td>$80</td><td><b>Revealed (visible)</b></td><td>Set on everything the player can see. A thing with this bit clear is hidden: <a href="asm/51233.html">C821</a> says it cannot be seen, and EXAMINE needs it set. <a href="asm/40022.html">9C56</a> sets it and <a href="asm/40032.html">9C60</a> clears it. The torn note, the false bottom and the large rock start hidden and are revealed by examining the place that holds them; the steam trains are hidden until <a href="asm/40001.html">9C41</a> moves one, which sets the bit.</td></tr>
+<tr><td>6</td><td>$40</td><td><b>Person (alive and able to act)</b></td><td>Set on every character who is in play. What a person holds is introduced with "&lt;name&gt; IS CARRYING", and a person can be talked to. Clearing it is how the game makes someone <b>asleep</b> or <b>unconscious</b> (<a href="asm/61363.html">EFB3</a>, <a href="asm/40657.html">9ED1</a>, <a href="asm/61864.html">F1A8</a>). The flag-word table at <a href="asm/50289.html">C471</a> names the missing bit DEAD, so a check that needs a living person and finds the bit clear would say "IS DEAD". There is no separate "dead" bit: the dead are things with this bit clear, such as the female corpse (46) and the body (72).</td></tr>
+<tr><td>5</td><td>$20</td><td><b>Open</b></td><td>Set when a door, window, drawer or similar thing is open. OPEN sets it and CLOSE clears it (the two shared actions at <a href="asm/56989.html">DE9D</a> and <a href="asm/57007.html">DEAF</a>); OPEN refuses a thing that has it set ("IS OPEN") and CLOSE refuses one that has it clear ("IS CLOSED"). The containment walk at <a href="asm/51310.html">C86E</a> lets what is inside a holder be seen only when the holder has this bit or bit 3 set. The cabs and trains have it set, and so do the large rock and the burning note.</td></tr>
+<tr><td>4</td><td>$10</td><td><b>On (alight)</b></td><td>Set on the oil lamp when it is lit; the flag-word tables call the opposite OFF and this ON. The cabs and trains have it set. The light test at <a href="asm/53368.html">D078</a> needs a thing in reach that is on and full.</td></tr>
+<tr><td>3</td><td>$08</td><td><b>Contents can be seen</b></td><td>The second way, besides bit 5, that a holder lets the things inside it be seen (<a href="asm/51310.html">C86E</a>). It is not set on any thing at the start of the game, and there is no word for it in the flag tables.</td></tr>
+<tr><td>2</td><td>$04</td><td><b>Full</b></td><td>Set on the oil lamp, the cabs, the trains and the deep stream. The flag-word tables call the opposite EMPTY and this FULL. The lamp must be both on and full to give light.</td></tr>
+<tr><td>1</td><td>$02</td><td><b>Not used by any check found</b></td><td>Set only on the deep stream (59). No verb record, flag table or light test reads it.</td></tr>
+<tr><td>0</td><td>$01</td><td><b>Locked</b></td><td>Set on the doors and windows that start locked (the front doors, the windows). The flag tables call the opposite UNLOCKED and this LOCKED. OPEN refuses a thing that has it set ("IS LOCKED"); the script helpers at <a href="asm/61955.html">F203</a> and <a href="asm/61968.html">F210</a> clear and set it.</td></tr>
+</table>
+<p>Common values: $80 an ordinary visible thing, $A0 a visible thing that is open (or a person who is asleep or unconscious), $E0 a person in play, $81 a locked door, $B4 a cab (visible, open, on and full), $34 a train that is out of sight.</p>
+
+<h3>How a verb tests these bits</h3>
+<p>A verb's action record can carry a pair of masks and modes for the direct and indirect objects' +5 bytes (<a href="asm/51022.html">C74E</a>). Mode 0 needs every mask bit set, 1 needs at least one, 2 needs none, 3 not all. EXAMINE needs bit 7; OPEN needs bits 5 and 0 clear; CLOSE needs bit 5 set. On failure the offending bits go to <a href="asm/52089.html">CB79</a> and <a href="asm/52091.html">CB7B</a> prints "THE ... IS ..." with the word from the table.</p>
+
+<h3>The second flag byte, +6</h3>
+<table class="sherlock">
+<tr><th>Bit</th><th>Mask</th><th>Meaning</th><th>Details</th></tr>
+<tr><td>7</td><td>$80</td><td><b>Seen</b></td><td>Set on every thing that has been listed in a room description (<a href="asm/54566.html">D526</a> sets it as it names each one). A piece of case evidence of the plain kind needs both of its things seen (<a href="asm/48785.html">BE91</a>).</td></tr>
+<tr><td>6</td><td>$40</td><td><b>Examined</b></td><td>Set by EXAMINE (<a href="asm/57152.html#57179">DF5B</a>). Evidence of the second kind needs both things examined.</td></tr>
+<tr><td>5</td><td>$20</td><td><b>Countable</b></td><td>Set on the money things (27, 28, 32 and 35). COUNT needs it (<a href="asm/58140.html">E31C</a>).</td></tr>
+</table>
+
+<h3>The type byte, +4</h3>
+<table class="sherlock">
+<tr><th>Bits</th><th>Mask</th><th>Meaning</th><th>Details</th></tr>
+<tr><td>7</td><td>$80</td><td><b>Needs light</b></td><td>Set on the player, the china man, the old man and the cabbies; an actor with it set can be "too dark to see" (<a href="asm/53368.html">D078</a>). It is also set on the oil lamp and the vehicles.</td></tr>
+<tr><td>6-4</td><td>$70</td><td><b>Kind of passenger</b></td><td>GET INTO a cab needs the thing at the cab's +3 and the actor to share one of these three bits (<a href="asm/58296.html">E3B8</a>): Lestrade, Watson, Straker, the police men, Tricia Fender and Mrs Jones have $10; the Major, Strachan, Phipps, the gardener, the cook, the maid and the German agent have $40; the player has $10 too, and the china man and the old man have $20.</td></tr>
+<tr><td>2-0</td><td>$07</td><td><b>How it holds things</b></td><td>0: cannot hold things. 1 IN, 2 ON, 3 BEHIND, 4 UNDER, 5 TIED TO: the word printed by <a href="asm/54739.html">D5D3</a> when it lists what a thing holds. PUT IN refuses a thing whose bits 0-2 are all clear (<a href="asm/57049.html">DED9</a>).</td></tr>
+</table>
+
+<h3>The case table, +3 of a statement</h3>
+<p>The statements and evidence of the case (the table at <a href="asm/39269.html">9965</a>) are four- or six-byte records; their byte 3 is a set of flags.</p>
+<table class="sherlock">
+<tr><th>Bit</th><th>Mask</th><th>Meaning</th><th>Details</th></tr>
+<tr><td>0</td><td>$01</td><td><b>Waiting</b></td><td>Holmes has told this statement and it has not yet been proven; Lestrade asks about it (<a href="asm/48198.html">BC46</a>, <a href="asm/40408.html">9DD8</a>). Cleared when it is proven.</td></tr>
+<tr><td>1</td><td>$02</td><td><b>Proven (done)</b></td><td>The statement or piece of evidence has been established. Routines such as <a href="asm/39420.html#39540">9A74</a> set it. Once set it stays set.</td></tr>
+<tr><td>2</td><td>$04</td><td><b>Has children</b></td><td>The evidence records that follow it, up to one with bit 3, are its sub-evidence; all must pass (<a href="asm/48904.html">BF08</a>).</td></tr>
+<tr><td>3</td><td>$08</td><td><b>Last in its group</b></td><td>Closes a level of sub-evidence (<a href="asm/48754.html">BE72</a>).</td></tr>
+<tr><td>4-5</td><td>$30</td><td><b>A routine follows</b></td><td>The record is six bytes, not four: the last two are the address of the routine that runs when it is proven (the Lestrade and Watson replies, <a href="asm/39420.html#39485">9A3D</a> and so on). Bit 5 also marks the three "killed" statements: Watson matches those outright, while others he accepts only on a 50 per cent roll, and the waiting-statement check skips them.</td></tr>
+<tr><td>6-7</td><td>$C0</td><td><b>Kind of test</b></td><td>00: both things seen; 01: both examined; 10: only true once something else has marked it done; 11: no test of its own, only its group (<a href="asm/48785.html">BE91</a>).</td></tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

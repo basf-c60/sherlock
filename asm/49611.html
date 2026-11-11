@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at C1CB - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="49600.html">C1C0</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#49611">Map</a></td>
+<td class="next">
+Next: <a href="49633.html">C1E1</a>
+</td>
+</tr>
+</table>
+<div class="description">C1CB: Print a message: plain ASCII, last byte has bit 7 set</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+A short, self-contained loop: read a byte, strip bit 7, print it (via the gated entry at <a href="49660.html#49661">C1FD</a>), then check whether the *original* byte (before stripping) had bit 7 set - if so, that was the last character of the message and the loop stops; otherwise it advances and repeats.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">A message whose last byte has bit 7 set</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">The</td>
+<td class="register-desc">message printed</td>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">At the last byte</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="49611"></span>C1CB</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">A = this message byte, with the terminator bit stripped</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49612"></span>C1CC</td>
+<td class="instruction">AND $7F</td>
+<td class="comment-1" rowspan="1">Keep only bits 0, 1, 2, 3, 4, 5, 6 of A (mask $7F)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49614"></span>C1CE</td>
+<td class="instruction">CALL <a href="49660.html#49661">$C1FD</a></td>
+<td class="comment-1" rowspan="1">Print it</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49617"></span>C1D1</td>
+<td class="instruction">BIT 7,(HL)</td>
+<td class="comment-1" rowspan="1">Did the ORIGINAL byte have the terminator bit set?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49619"></span>C1D3</td>
+<td class="instruction">RET NZ</td>
+<td class="comment-1" rowspan="1">...then that was the last character - stop</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49620"></span>C1D4</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Else: next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49621"></span>C1D5</td>
+<td class="instruction">JR $C1CB</td>
+<td class="comment-1" rowspan="1">Jump to <a href="49611.html">C1CB</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="49623"></span>C1D7</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="49624"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="41244.html">A11C</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="49624"></span>C1D8</td>
+<td class="instruction">LD HL,$13C5</td>
+<td class="comment-1" rowspan="1">Load HL with $13C5 - HL = $13C5; (<a href="49600.html">C1C0</a>); then on to <a href="41060.html#41195">A0EB</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="49627"></span>C1DB</td>
+<td class="instruction">CALL <a href="49600.html">$C1C0</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print a prompt at HL, wait for a key, newline" (<a href="49600.html">C1C0</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49630"></span>C1DE</td>
+<td class="instruction">JP <a href="41060.html#41195">$A0EB</a></td>
+<td class="comment-1" rowspan="1">Go back to <a href="41060.html#41195">A0EB</a></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="49600.html">C1C0</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#49611">Map</a></td>
+<td class="next">
+Next: <a href="49633.html">C1E1</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

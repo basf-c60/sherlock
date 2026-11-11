@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at D078 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="53354.html">D06A</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#53368">Map</a></td>
+<td class="next">
+Next: <a href="53456.html">D0D0</a>
+</td>
+</tr>
+</table>
+<div class="description">D078: Is it too dark for the actor to see? (carry if so)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Only for actors that need light: those with +4 bit 7 in their own record (<a href="40918.html#40978">$A017</a>) - the player, the cabs and cabbies, the trains and a few others; everyone else sees in the dark. For them it is dark when inside something, or when the room's record has bit 7 of its first byte clear (outdoors, it seems) and <a href="49164.html">C00C</a> says it is night (8pm to 6am) - unless a light is about: a thing that also has +4 bit 7, whose +5 flags masked with $5C give $14 (full and on, not a person: the oil lamp starts like this, +5 = $94), and that <a href="51233.html">C821</a> says is here.
+</div>
+<div class="paragraph">
+Walking to Baker Street and setting the clock to 9pm, LOOK gets 'SORRY IT IS TOO DARK.' without the oil lamp and the normal description with it.
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. Only actors with +4 bit 7 set (the player, and some others) can be in the dark.
+</div>
+<div class="paragraph">
+2. Follow the actor's containment chain (<a href="51310.html">C86E</a>). A room with its light bit (+0 bit 7) is never dark; nor is anywhere by day (anything but night, <a href="49164.html">C00C</a>).
+</div>
+<div class="paragraph">
+3. At night in an unlit room, look through all the things for a light: one that is in the actor's reach, alight (+5 passes the test) and shining (+4 bit 7). If one is found it is not dark.
+</div>
+<div class="paragraph">
+4. Otherwise return with carry set.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$A017</td>
+<td class="register-desc">The actor's record</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Carry when it is too dark for the actor to see; NC when not</td>
+</tr>
+<tr>
+<td class="register">Registers</td>
+<td class="register-desc">kept</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="53368"></span>D078</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53370"></span>D07A</td>
+<td class="instruction">PUSH IY</td>
+<td class="comment-1" rowspan="1">Save IY on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53372"></span>D07C</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Save BC on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53373"></span>D07D</td>
+<td class="instruction">LD IX,($A017)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40978">$A017</a> in "Game variables" into IX - Only actors with +4 bit 7 can be in the dark</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53377"></span>D081</td>
+<td class="instruction">LD A,(IX+$04)</td>
+<td class="comment-1" rowspan="1">Read byte +4 of the record at IX into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53380"></span>D084</td>
+<td class="instruction">AND $80</td>
+<td class="comment-1" rowspan="1">Isolate bit 7 of A (mask $80)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53382"></span>D086</td>
+<td class="instruction">JR Z,$D0C6</td>
+<td class="comment-1" rowspan="1">If bit 7 of A was clear, jump on to <a href="53368.html#53446">D0C6</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="53384"></span>D088</td>
+<td class="instruction">CALL <a href="51310.html">$C86E</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Follow an object's containment chain to its root" (<a href="51310.html">C86E</a>) - (<a href="51310.html">C86E</a>, then the room and the hour)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53387"></span>D08B</td>
+<td class="instruction">INC A</td>
+<td class="comment-1" rowspan="1">Add one to A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53388"></span>D08C</td>
+<td class="instruction">JR NZ,$D09E</td>
+<td class="comment-1" rowspan="1">If A is not zero, skip ahead to <a href="53368.html#53406">D09E</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="53390"></span>D08E</td>
+<td class="instruction">CALL <a href="54076.html">$D33C</a></td>
+<td class="comment-1" rowspan="1">Call the routine "IX = record of the actor's room" (<a href="54076.html">D33C</a>) - A lit room (record byte 0 bit 7) is never dark</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53393"></span>D091</td>
+<td class="instruction">BIT 7,(IX+$00)</td>
+<td class="comment-1" rowspan="1">Test bit 7 of the first byte of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53397"></span>D095</td>
+<td class="instruction">JR NZ,$D0C6</td>
+<td class="comment-1" rowspan="1">If bit 7 of the first byte of the record at IX is set, jump on to <a href="53368.html#53446">D0C6</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="53399"></span>D097</td>
+<td class="instruction">CALL <a href="49164.html">$C00C</a></td>
+<td class="comment-1" rowspan="1">Call the routine "What part of the day is it? (A = 1-5)" (<a href="49164.html">C00C</a>) - Nor is anywhere by day (<a href="49164.html">C00C</a>: 1 means night, 8pm to 6am)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53402"></span>D09A</td>
+<td class="instruction">CP $01</td>
+<td class="comment-1" rowspan="1">Compare A with $01</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53404"></span>D09C</td>
+<td class="instruction">JR NZ,$D0C6</td>
+<td class="comment-1" rowspan="1">If A differs from $01, jump on to <a href="53368.html#53446">D0C6</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="53406"></span>D09E</td>
+<td class="instruction">LD IX,$8B6F</td>
+<td class="comment-1" rowspan="1">Point IX at "Entity index: id -&gt; record address" (<a href="35695.html">8B6F</a>) - Night, unlit room: look through the things for a light</td>
+</tr>
+<tr>
+<td class="address-2"><span id="53410"></span>D0A2</td>
+<td class="instruction">CALL <a href="53766.html">$D206</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Step to the next 3-byte entry" (<a href="53766.html">D206</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53413"></span>D0A5</td>
+<td class="instruction">JR Z,$D0C9</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, skip ahead to <a href="53368.html#53449">D0C9</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="53415"></span>D0A7</td>
+<td class="instruction">LD A,(IY+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IY into A - One with n = 1,</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53418"></span>D0AA</td>
+<td class="instruction">CP $01</td>
+<td class="comment-1" rowspan="1">Compare A with $01</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53420"></span>D0AC</td>
+<td class="instruction">JR NZ,$D0A2</td>
+<td class="comment-1" rowspan="1">If A differs from $01, go back to <a href="53368.html#53410">D0A2</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="53422"></span>D0AE</td>
+<td class="instruction">LD A,(IY+$05)</td>
+<td class="comment-1" rowspan="1">Read byte +5 of the record at IY into A - +5 &amp; $5C = $14 (lit: the oil lamp once lit),</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53425"></span>D0B1</td>
+<td class="instruction">XOR $B7</td>
+<td class="comment-1" rowspan="1">Flip in A the bits that are set in $B7</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53427"></span>D0B3</td>
+<td class="instruction">AND $5C</td>
+<td class="comment-1" rowspan="1">Keep only bits 2, 3, 4, 6 of A (mask $5C)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53429"></span>D0B5</td>
+<td class="instruction">JR NZ,$D0A2</td>
+<td class="comment-1" rowspan="1">If any of bits 2, 3, 4, 6 of A was set, go back to <a href="53368.html#53410">D0A2</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="53431"></span>D0B7</td>
+<td class="instruction">LD A,(IY+$04)</td>
+<td class="comment-1" rowspan="1">Read byte +4 of the record at IY into A - +4 bit 7,</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53434"></span>D0BA</td>
+<td class="instruction">AND $80</td>
+<td class="comment-1" rowspan="1">Isolate bit 7 of A (mask $80)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53436"></span>D0BC</td>
+<td class="instruction">JR Z,$D0A2</td>
+<td class="comment-1" rowspan="1">If bit 7 of A was clear, go back to <a href="53368.html#53410">D0A2</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="53438"></span>D0BE</td>
+<td class="instruction">LD A,(IX+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IX into A - and here (<a href="51233.html">C821</a>): not dark after all</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53441"></span>D0C1</td>
+<td class="instruction">CALL <a href="51233.html">$C821</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Can the current actor (<a href="40918.html#41010">$A036</a>) see thing A?" (<a href="51233.html">C821</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53444"></span>D0C4</td>
+<td class="instruction">JR Z,$D0A2</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, go back to <a href="53368.html#53410">D0A2</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="53446"></span>D0C6</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry) - NC: the actor can see</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53447"></span>D0C7</td>
+<td class="instruction">JR $D0CA</td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="53368.html#53450">D0CA</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="53449"></span>D0C9</td>
+<td class="instruction">SCF</td>
+<td class="comment-1" rowspan="1">Set the carry flag - Carry: too dark</td>
+</tr>
+<tr>
+<td class="address-2"><span id="53450"></span>D0CA</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore BC from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53451"></span>D0CB</td>
+<td class="instruction">POP IY</td>
+<td class="comment-1" rowspan="1">Restore IY from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53453"></span>D0CD</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53455"></span>D0CF</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="53354.html">D06A</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#53368">Map</a></td>
+<td class="next">
+Next: <a href="53456.html">D0D0</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at BE91 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="48754.html">BE72</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#48785">Map</a></td>
+<td class="next">
+Next: <a href="48904.html">BF08</a>
+</td>
+</tr>
+</table>
+<div class="description">BE91: Check one piece of evidence (NZ if it holds)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+See the case table at <a href="39269.html">9965</a> for the four kinds. Marks it done (bit 1 set, bit 0 clear) when it holds.
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. If the evidence is already marked done (bit 1 of its flags), it holds: finish.
+</div>
+<div class="paragraph">
+2. The top two bits of the flags give the kind. Kind 0: both things named in the record must have been seen by the player (bit 7 of their +6 flags); if so it holds. Kind $80 is a marker that only some other routine can set, so it never holds by itself.
+</div>
+<div class="paragraph">
+3. Kind $40: both things must have been examined (bit 6 of +6). Then, as for kind $C0 (which has no test of its own), it holds only if it has no children, or if all of its children hold (<a href="48904.html">BF08</a>).
+</div>
+<div class="paragraph">
+4. When it holds, mark it done (bit 1 set, bit 0 clear) and return NZ.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">An evidence record in the case table</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ if it holds, Z if not</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="48785"></span>BE91</td>
+<td class="instruction">BIT 1,(IX+$03)</td>
+<td class="comment-1" rowspan="1">Test bit 1 of byte +3 of the record at IX - Already done?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48789"></span>BE95</td>
+<td class="instruction">JR NZ,<a href="48754.html">$BE72</a></td>
+<td class="comment-1" rowspan="1">If bit 1 of byte +3 of the record at IX is set, go back to the routine "Step IX over a whole group of case records" (<a href="48754.html">BE72</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48791"></span>BE97</td>
+<td class="instruction">LD A,(IX+$03)</td>
+<td class="comment-1" rowspan="1">Read byte +3 of the record at IX into A - Which kind of test?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48794"></span>BE9A</td>
+<td class="instruction">AND $C0</td>
+<td class="comment-1" rowspan="1">Keep only bits 6, 7 of A (mask $C0)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48796"></span>BE9C</td>
+<td class="instruction">CP $00</td>
+<td class="comment-1" rowspan="1">Compare A with $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48798"></span>BE9E</td>
+<td class="instruction">JR NZ,$BECD</td>
+<td class="comment-1" rowspan="1">If A differs from $00, jump on to <a href="48785.html#48845">BECD</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="48800"></span>BEA0</td>
+<td class="instruction">LD A,(IX+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IX into A - Seen: the first thing...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48803"></span>BEA3</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48805"></span>BEA5</td>
+<td class="instruction">CALL <a href="53815.html">$D237</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Resolve an id (in A) to its full entity record" (<a href="53815.html">D237</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48808"></span>BEA8</td>
+<td class="instruction">BIT 7,(IX+$06)</td>
+<td class="comment-1" rowspan="1">Test bit 7 of byte +6 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48812"></span>BEAC</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48814"></span>BEAE</td>
+<td class="instruction">JR Z,<a href="48754.html">$BE72</a></td>
+<td class="comment-1" rowspan="1">If the zero flag is set, go back to the routine "Step IX over a whole group of case records" (<a href="48754.html">BE72</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48816"></span>BEB0</td>
+<td class="instruction">LD A,(IX+$02)</td>
+<td class="comment-1" rowspan="1">Read byte +2 of the record at IX into A - ...and the second</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48819"></span>BEB3</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48821"></span>BEB5</td>
+<td class="instruction">CALL <a href="53815.html">$D237</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Resolve an id (in A) to its full entity record" (<a href="53815.html">D237</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48824"></span>BEB8</td>
+<td class="instruction">BIT 7,(IX+$06)</td>
+<td class="comment-1" rowspan="1">Test bit 7 of byte +6 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48828"></span>BEBC</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48830"></span>BEBE</td>
+<td class="instruction">JR Z,<a href="48754.html">$BE72</a></td>
+<td class="comment-1" rowspan="1">If the zero flag is set, go back to the routine "Step IX over a whole group of case records" (<a href="48754.html">BE72</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="48832"></span>BEC0</td>
+<td class="instruction">SET 1,(IX+$03)</td>
+<td class="comment-1" rowspan="1">Set bit 1 of byte +3 of the record at IX - It holds: mark it done</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48836"></span>BEC4</td>
+<td class="instruction">RES 0,(IX+$03)</td>
+<td class="comment-1" rowspan="1">Clear bit 0 of byte +3 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48840"></span>BEC8</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Set bit 0 of A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48842"></span>BECA</td>
+<td class="instruction">JP <a href="48754.html">$BE72</a></td>
+<td class="comment-1" rowspan="1">Go back to the routine "Step IX over a whole group of case records" (<a href="48754.html">BE72</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="48845"></span>BECD</td>
+<td class="instruction">CP $80</td>
+<td class="comment-1" rowspan="1">Compare A with $80 - Kind $80: never by itself</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48847"></span>BECF</td>
+<td class="instruction">JR Z,<a href="48754.html">$BE72</a></td>
+<td class="comment-1" rowspan="1">If A equals $80, go back to the routine "Step IX over a whole group of case records" (<a href="48754.html">BE72</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48849"></span>BED1</td>
+<td class="instruction">CP $40</td>
+<td class="comment-1" rowspan="1">Compare A with $40 - Kind $40: examined?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48851"></span>BED3</td>
+<td class="instruction">JR NZ,$BEF6</td>
+<td class="comment-1" rowspan="1">If A differs from $40, skip ahead to <a href="48785.html#48886">BEF6</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="48853"></span>BED5</td>
+<td class="instruction">LD A,(IX+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IX into A - The first thing...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48856"></span>BED8</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48858"></span>BEDA</td>
+<td class="instruction">CALL <a href="53815.html">$D237</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Resolve an id (in A) to its full entity record" (<a href="53815.html">D237</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48861"></span>BEDD</td>
+<td class="instruction">BIT 6,(IX+$06)</td>
+<td class="comment-1" rowspan="1">Test bit 6 of byte +6 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48865"></span>BEE1</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48867"></span>BEE3</td>
+<td class="instruction">JR Z,<a href="48754.html">$BE72</a></td>
+<td class="comment-1" rowspan="1">If the zero flag is set, go back to the routine "Step IX over a whole group of case records" (<a href="48754.html">BE72</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48869"></span>BEE5</td>
+<td class="instruction">LD A,(IX+$02)</td>
+<td class="comment-1" rowspan="1">Read byte +2 of the record at IX into A - ...and the second</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48872"></span>BEE8</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48874"></span>BEEA</td>
+<td class="instruction">CALL <a href="53815.html">$D237</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Resolve an id (in A) to its full entity record" (<a href="53815.html">D237</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48877"></span>BEED</td>
+<td class="instruction">BIT 6,(IX+$06)</td>
+<td class="comment-1" rowspan="1">Test bit 6 of byte +6 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48881"></span>BEF1</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48883"></span>BEF3</td>
+<td class="instruction">JP Z,<a href="48754.html">$BE72</a></td>
+<td class="comment-1" rowspan="1">If the zero flag is set, go back to the routine "Step IX over a whole group of case records" (<a href="48754.html">BE72</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="48886"></span>BEF6</td>
+<td class="instruction">BIT 2,(IX+$03)</td>
+<td class="comment-1" rowspan="1">Test bit 2 of byte +3 of the record at IX - Children to check as well?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48890"></span>BEFA</td>
+<td class="instruction">JR Z,$BEC0</td>
+<td class="comment-1" rowspan="1">If bit 2 of byte +3 of the record at IX is clear, go back to <a href="48785.html#48832">BEC0</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="48892"></span>BEFC</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack - All of them</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48894"></span>BEFE</td>
+<td class="instruction">CALL <a href="48904.html">$BF08</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Check every piece of evidence in the group after IX..." (<a href="48904.html">BF08</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48897"></span>BF01</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48899"></span>BF03</td>
+<td class="instruction">JR NZ,$BEC0</td>
+<td class="comment-1" rowspan="1">If the zero flag is clear, go back to <a href="48785.html#48832">BEC0</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="48901"></span>BF05</td>
+<td class="instruction">JP <a href="48754.html">$BE72</a></td>
+<td class="comment-1" rowspan="1">Go back to the routine "Step IX over a whole group of case records" (<a href="48754.html">BE72</a>)</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="48754.html">BE72</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#48785">Map</a></td>
+<td class="next">
+Next: <a href="48904.html">BF08</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

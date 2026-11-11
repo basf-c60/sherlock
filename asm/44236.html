@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at ACCC - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="44198.html">ACA6</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#44236">Map</a></td>
+<td class="next">
+Next: <a href="44283.html">ACFB</a>
+</td>
+</tr>
+</table>
+<div class="description">ACCC: Note where this sentence started, so it can be read again</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Skips commas ($A0), then keeps the token position (<a href="40918.html#40994">$A029</a>, also in <a href="40918.html#41002">$A02B</a>), E, IY and <a href="40918.html#40978">A012</a> at <a href="43633.html#43681">AAA1</a>-<a href="43633.html#43683">$AAA6</a>; when <a href="40918.html#40986">A01A</a> is 2 it marks the node with bit 6 of +1.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">E</td>
+<td class="register-desc">Flags</td>
+</tr>
+<tr>
+<td class="register">IY</td>
+<td class="register-desc">The sentence node</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">The</td>
+<td class="register-desc">start of the sentence saved at $AAA1 to $AAA6</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="44236"></span>ACCC</td>
+<td class="instruction">RES 3,E</td>
+<td class="comment-1" rowspan="1">Clear bit 3 of E - E bit 3 clear: no clause finished yet</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44238"></span>ACCE</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack</td>
+</tr>
+<tr>
+<td class="address-2"><span id="44239"></span>ACCF</td>
+<td class="instruction">CALL <a href="44671.html">$AE7F</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Read the next token of the typed line" (<a href="44671.html">AE7F</a>) - Skip commas (class $A0)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44242"></span>ACD2</td>
+<td class="instruction">CP $A0</td>
+<td class="comment-1" rowspan="1">Compare A with $A0</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44244"></span>ACD4</td>
+<td class="instruction">JR Z,$ACCF</td>
+<td class="comment-1" rowspan="1">If A equals $A0, go back to <a href="44236.html#44239">ACCF</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44246"></span>ACD6</td>
+<td class="instruction">LD HL,($A029)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40994">$A029</a> in "Game variables" into HL - Remember where this sentence starts: the token position (<a href="40918.html#40994">$A029</a>)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44249"></span>ACD9</td>
+<td class="instruction">LD ($AAA1),HL</td>
+<td class="comment-1" rowspan="1">Store HL in <a href="43633.html#43681">AAA1</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44252"></span>ACDC</td>
+<td class="instruction">LD ($A02B),HL</td>
+<td class="comment-1" rowspan="1">Store HL in <a href="40918.html#41002">$A02B</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44255"></span>ACDF</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44256"></span>ACE0</td>
+<td class="instruction">LD A,E</td>
+<td class="comment-1" rowspan="1">Copy E into A - ...the flags in E, the node (IY) and the sentence count (<a href="40918.html#40978">A012</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44257"></span>ACE1</td>
+<td class="instruction">LD ($AAA3),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="43633.html#43683">AAA3</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44260"></span>ACE4</td>
+<td class="instruction">LD ($AAA4),IY</td>
+<td class="comment-1" rowspan="1">Store IY in <a href="43633.html#43683">$AAA4</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44264"></span>ACE8</td>
+<td class="instruction">LD A,($A012)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40978">A012</a> in "Game variables" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44267"></span>ACEB</td>
+<td class="instruction">LD ($AAA6),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="43633.html#43683">$AAA6</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44270"></span>ACEE</td>
+<td class="instruction">LD A,($A01A)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40986">A01A</a> in "Game variables" into A - 'All but' (<a href="40918.html#40986">A01A</a> = 2): mark the node with bit 6 of +1</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44273"></span>ACF1</td>
+<td class="instruction">CP $02</td>
+<td class="comment-1" rowspan="1">Compare A with $02</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44275"></span>ACF3</td>
+<td class="instruction">JR NZ,<a href="44375.html">$AD57</a></td>
+<td class="comment-1" rowspan="1">If A differs from $02, jump on to the routine "Count the sentence, then on to the next or finish" (<a href="44375.html">AD57</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44277"></span>ACF5</td>
+<td class="instruction">SET 6,(IY+$01)</td>
+<td class="comment-1" rowspan="1">Set bit 6 of byte +1 of the record at IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44281"></span>ACF9</td>
+<td class="instruction">JR <a href="44375.html">$AD57</a></td>
+<td class="comment-1" rowspan="1">Jump on to the routine "Count the sentence, then on to the next or finish" (<a href="44375.html">AD57</a>)</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="44198.html">ACA6</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#44236">Map</a></td>
+<td class="next">
+Next: <a href="44283.html">ACFB</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

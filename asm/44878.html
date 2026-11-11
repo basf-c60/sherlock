@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at AF4E - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="44856.html">AF38</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#44878">Map</a></td>
+<td class="next">
+Next: <a href="44903.html">AF67</a>
+</td>
+</tr>
+</table>
+<div class="description">AF4E: Copy 6, 10 or 2 bytes from IX + DE to IY + DE</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Entries <a href="44878.html">AF4E</a> (6), <a href="44878.html#44882">AF52</a> (10) and <a href="44878.html#44886">AF56</a> (2).
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">DE</td>
+<td class="register-desc">The offset</td>
+</tr>
+<tr>
+<td class="register">IX,</td>
+<td class="register-desc">IY The two nodes</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">6</td>
+<td class="register-desc">bytes copied (entry $AF52 copies 10, $AF56 copies 2)</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="44878"></span>AF4E</td>
+<td class="instruction">LD C,$06</td>
+<td class="comment-1" rowspan="1">Load C with $06 - Copy 6 bytes (<a href="44878.html">AF4E</a>), 10 (<a href="44878.html#44882">AF52</a>) or 2 (<a href="44878.html#44886">AF56</a>) - entry points set the count in C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44880"></span>AF50</td>
+<td class="instruction">JR $AF58</td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="44878.html#44888">AF58</a></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="44882"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="44785.html">AEF1</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="44882"></span>AF52</td>
+<td class="instruction">LD C,$0A</td>
+<td class="comment-1" rowspan="1">Load C with $0A - ...10...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44884"></span>AF54</td>
+<td class="instruction">JR $AF58</td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="44878.html#44888">AF58</a></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="44886"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="44785.html">AEF1</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="44886"></span>AF56</td>
+<td class="instruction">LD C,$02</td>
+<td class="comment-1" rowspan="1">...or 2</td>
+</tr>
+<tr>
+<td class="address-2"><span id="44888"></span>AF58</td>
+<td class="instruction">PUSH IY</td>
+<td class="comment-1" rowspan="1">Save IY on the stack - Source = IY + DE, destination = IX + DE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44890"></span>AF5A</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44891"></span>AF5B</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1">Add DE to HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44892"></span>AF5C</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44893"></span>AF5D</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44895"></span>AF5F</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44896"></span>AF60</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1">Add DE to HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44897"></span>AF61</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44898"></span>AF62</td>
+<td class="instruction">LD B,$00</td>
+<td class="comment-1" rowspan="1">Load B with $00 - BC = the count; block copy</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44900"></span>AF64</td>
+<td class="instruction">LDIR</td>
+<td class="comment-1" rowspan="1">Copy BC bytes from where HL points to where DE points, counting up</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44902"></span>AF66</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="44856.html">AF38</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#44878">Map</a></td>
+<td class="next">
+Next: <a href="44903.html">AF67</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

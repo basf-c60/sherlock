@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at C388 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="50045.html">C37D</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#50056">Map</a></td>
+<td class="next">
+Next: <a href="50148.html">C3E4</a>
+</td>
+</tr>
+</table>
+<div class="description">C388: PLOT-CHAR: draw one character glyph at HL, shifted by C</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Computes the source glyph address as A*8 + $3C00 - which is exactly the real 128K/48K ROM's own character-bitmap layout (space, code 32, sits at $3D00 = $3C00 + 32*8), confirming A is a plain ASCII code here, not some internal token.
+</div>
+<div class="paragraph">
+For each of the glyph's 8 pixel rows, shifts the byte right by C bits (carrying into the next screen byte, via the 'or c' merge at <a href="50056.html#50096">C3B0</a>/<a href="50056.html#50125">C3CD</a>) so that text can be printed at any pixel column, not just 8-pixel-aligned ones - this is why the routine is more involved than a plain 1:1 glyph copy.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">The character</td>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">The screen address</td>
+</tr>
+<tr>
+<td class="register">C</td>
+<td class="register-desc">The pixel shift</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">The</td>
+<td class="register-desc">glyph drawn; all registers kept</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="50056"></span>C388</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save everything - A is the character to plot</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50057"></span>C389</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Save BC on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50058"></span>C38A</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50059"></span>C38B</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50060"></span>C38C</td>
+<td class="instruction">LD L,A</td>
+<td class="comment-1" rowspan="1">HL = A (as a word)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50061"></span>C38D</td>
+<td class="instruction">LD H,$00</td>
+<td class="comment-1" rowspan="1">Load H with $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50063"></span>C38F</td>
+<td class="instruction">ADD HL,HL</td>
+<td class="comment-1" rowspan="1">HL = A * 8...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50064"></span>C390</td>
+<td class="instruction">ADD HL,HL</td>
+<td class="comment-1" rowspan="1">Double HL (shift it left one bit)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50065"></span>C391</td>
+<td class="instruction">ADD HL,HL</td>
+<td class="comment-1" rowspan="1">Double HL (shift it left one bit)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50066"></span>C392</td>
+<td class="instruction">LD DE,$3C00</td>
+<td class="comment-1" rowspan="1">...plus the font table base ($3C00: the ROM layout)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50069"></span>C395</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1">Add DE to HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50070"></span>C396</td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-1" rowspan="1">DE = this glyph's address; HL = the screen position</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50071"></span>C397</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50072"></span>C398</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50073"></span>C399</td>
+<td class="instruction">LD B,$08</td>
+<td class="comment-1" rowspan="1">8 pixel rows to plot</td>
+</tr>
+<tr>
+<td class="address-2"><span id="50075"></span>C39B</td>
+<td class="instruction">LD A,(DE)</td>
+<td class="comment-1" rowspan="1">Fetch this row of the glyph</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50076"></span>C39C</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Save BC on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50077"></span>C39D</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50078"></span>C39E</td>
+<td class="instruction">DEC C</td>
+<td class="comment-1" rowspan="1">Is the column-shift zero (byte-aligned print)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50079"></span>C39F</td>
+<td class="instruction">INC C</td>
+<td class="comment-1" rowspan="1">Add one to C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50080"></span>C3A0</td>
+<td class="instruction">LD B,$FF</td>
+<td class="comment-1" rowspan="1">Load B with $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50082"></span>C3A2</td>
+<td class="instruction">JR Z,$C3AB</td>
+<td class="comment-1" rowspan="1">Fast path: no shifting needed</td>
+</tr>
+<tr>
+<td class="address-2"><span id="50084"></span>C3A4</td>
+<td class="instruction">SRL A</td>
+<td class="comment-1" rowspan="1">Shift the glyph byte right by the column offset...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50086"></span>C3A6</td>
+<td class="instruction">SRL B</td>
+<td class="comment-1" rowspan="1">...building a matching mask alongside it</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50088"></span>C3A8</td>
+<td class="instruction">DEC C</td>
+<td class="comment-1" rowspan="1">Count C down; loop until zero</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50089"></span>C3A9</td>
+<td class="instruction">JR NZ,$C3A4</td>
+<td class="comment-1" rowspan="1">If C is not zero, go back to <a href="50056.html#50084">C3A4</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="50091"></span>C3AB</td>
+<td class="instruction">LD C,A</td>
+<td class="comment-1" rowspan="1">Copy A into C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50092"></span>C3AC</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">Copy B into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50093"></span>C3AD</td>
+<td class="instruction">CPL</td>
+<td class="comment-1" rowspan="1">Clear the bits this glyph will occupy...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50094"></span>C3AE</td>
+<td class="instruction">AND (HL)</td>
+<td class="comment-1" rowspan="1">Keep only the bits of A that are set in the byte HL points at</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50095"></span>C3AF</td>
+<td class="instruction">OR C</td>
+<td class="comment-1" rowspan="1">...and merge the shifted glyph bits in</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50096"></span>C3B0</td>
+<td class="instruction">LD (HL),A</td>
+<td class="comment-1" rowspan="1">Store A at the address HL points to</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50097"></span>C3B1</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore the row counter</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50098"></span>C3B2</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore BC from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50099"></span>C3B3</td>
+<td class="instruction">DEC C</td>
+<td class="comment-1" rowspan="1">Fast-aligned path rejoins here (from the sign-flag branch above)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50100"></span>C3B4</td>
+<td class="instruction">INC C</td>
+<td class="comment-1" rowspan="1">Add one to C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50101"></span>C3B5</td>
+<td class="instruction">JR Z,$C3D0</td>
+<td class="comment-1" rowspan="1">If C has become zero, skip ahead to <a href="50056.html#50128">C3D0</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="50103"></span>C3B7</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Remaining shift = 8 - column offset (the overflow into</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50104"></span>C3B8</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">the next screen byte)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50105"></span>C3B9</td>
+<td class="instruction">LD A,$08</td>
+<td class="comment-1" rowspan="1">C = 8 - C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50107"></span>C3BB</td>
+<td class="instruction">SUB C</td>
+<td class="comment-1" rowspan="1">Subtract C from A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50108"></span>C3BC</td>
+<td class="instruction">LD C,A</td>
+<td class="comment-1" rowspan="1">Copy A into C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50109"></span>C3BD</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50110"></span>C3BE</td>
+<td class="instruction">LD B,$FF</td>
+<td class="comment-1" rowspan="1">Shift the glyph byte left by that remaining amount...</td>
+</tr>
+<tr>
+<td class="address-2"><span id="50112"></span>C3C0</td>
+<td class="instruction">SLA A</td>
+<td class="comment-1" rowspan="1">...building a matching mask alongside it</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50114"></span>C3C2</td>
+<td class="instruction">SLA B</td>
+<td class="comment-1" rowspan="1">Shift B left, C times</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50116"></span>C3C4</td>
+<td class="instruction">DEC C</td>
+<td class="comment-1" rowspan="1">Subtract one from C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50117"></span>C3C5</td>
+<td class="instruction">JR NZ,$C3C0</td>
+<td class="comment-1" rowspan="1">If C is not zero, go back to <a href="50056.html#50112">C3C0</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="50119"></span>C3C7</td>
+<td class="instruction">LD C,A</td>
+<td class="comment-1" rowspan="1">C = A; A = B complemented</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50120"></span>C3C8</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">Copy B into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50121"></span>C3C9</td>
+<td class="instruction">CPL</td>
+<td class="comment-1" rowspan="1">Flip every bit of A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50122"></span>C3CA</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Move to the next screen byte along</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50123"></span>C3CB</td>
+<td class="instruction">AND (HL)</td>
+<td class="comment-1" rowspan="1">Clear the bits this glyph will occupy there...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50124"></span>C3CC</td>
+<td class="instruction">OR C</td>
+<td class="comment-1" rowspan="1">Set in A the bits that are set in C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50125"></span>C3CD</td>
+<td class="instruction">LD (HL),A</td>
+<td class="comment-1" rowspan="1">...and merge the overflow bits in</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50126"></span>C3CE</td>
+<td class="instruction">DEC HL</td>
+<td class="comment-1" rowspan="1">Move back (net: one screen byte to the right overall)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50127"></span>C3CF</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore BC from the stack</td>
+</tr>
+<tr>
+<td class="address-2"><span id="50128"></span>C3D0</td>
+<td class="instruction">INC DE</td>
+<td class="comment-1" rowspan="1">Step DE on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50129"></span>C3D1</td>
+<td class="instruction">INC H</td>
+<td class="comment-1" rowspan="1">Next pixel row down</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50130"></span>C3D2</td>
+<td class="instruction">DJNZ $C39B</td>
+<td class="comment-1" rowspan="1">Count B down and, while it is not zero, go back to <a href="50056.html#50075">C39B</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="50132"></span>C3D4</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore caller's registers</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50133"></span>C3D5</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50134"></span>C3D6</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore BC from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50135"></span>C3D7</td>
+<td class="instruction">LD A,C</td>
+<td class="comment-1" rowspan="1">C = the new column-shift for the next character:</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50136"></span>C3D8</td>
+<td class="instruction">ADD A,$07</td>
+<td class="comment-1" rowspan="1">add the glyph width (7 wide, since 1 col overlaps)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50138"></span>C3DA</td>
+<td class="instruction">CP $08</td>
+<td class="comment-1" rowspan="1">...wrapping back into 0-7 and bumping the screen</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50140"></span>C3DC</td>
+<td class="instruction">JR C,$C3E1</td>
+<td class="comment-1" rowspan="1">...column (inc L) when it does</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50142"></span>C3DE</td>
+<td class="instruction">SUB $08</td>
+<td class="comment-1" rowspan="1">Subtract $08 from A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50144"></span>C3E0</td>
+<td class="instruction">INC L</td>
+<td class="comment-1" rowspan="1">Add one to L</td>
+</tr>
+<tr>
+<td class="address-2"><span id="50145"></span>C3E1</td>
+<td class="instruction">LD C,A</td>
+<td class="comment-1" rowspan="1">Copy A into C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50146"></span>C3E2</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore the flags this routine was called with</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50147"></span>C3E3</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="50045.html">C37D</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#50056">Map</a></td>
+<td class="next">
+Next: <a href="50148.html">C3E4</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at C45E - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="50207.html">C41F</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#50270">Map</a></td>
+<td class="next">
+Next: <a href="50289.html">C471</a>
+</td>
+</tr>
+</table>
+<div class="description">C45E: Is B below the last number for this object slot?</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Carry when B is below 106 if the slot's requirement code (<a href="40918.html#40970">$A010</a>, or <a href="40918.html#40970">$A00F</a> when entered at <a href="50270.html#50275">C463</a>) is below 5, or below 110 if it is 5 or more - 106 and 110 being one past the last room and the last thing. Used by the guessing loops <a href="50522.html">C55A</a> and <a href="50701.html">C60D</a>.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">B</td>
+<td class="register-desc">The candidate number</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Carry when it is within the allowed range (below 106 for a room, 110 for a thing)</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="50270"></span>C45E</td>
+<td class="instruction">LD A,($A010)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40970">$A010</a> in "Game variables" into A - Indirect object's requirement code (<a href="40918.html#40970">$A010</a>)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50273"></span>C461</td>
+<td class="instruction">JR $C466</td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="50270.html#50278">C466</a></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="50275"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routines at <a href="50385.html">C4D1</a> and <a href="50563.html">C583</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="50275"></span>C463</td>
+<td class="instruction">LD A,($A00F)</td>
+<td class="comment-1" rowspan="1">(or the direct object's <a href="40918.html#40970">$A00F</a> from here)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="50278"></span>C466</td>
+<td class="instruction">CP $05</td>
+<td class="comment-1" rowspan="1">Code below 5 means a room, otherwise a thing</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50280"></span>C468</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">Copy B into A - A = the candidate number B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50281"></span>C469</td>
+<td class="instruction">JR C,$C46E</td>
+<td class="comment-1" rowspan="1">If A is below $05, skip ahead to <a href="50270.html#50286">C46E</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="50283"></span>C46B</td>
+<td class="instruction">CP $6E</td>
+<td class="comment-1" rowspan="1">Compare A with $6E - Things: carry if B is below 110</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50285"></span>C46D</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="50286"></span>C46E</td>
+<td class="instruction">CP $6A</td>
+<td class="comment-1" rowspan="1">Compare A with $6A - Rooms: carry if B is below 106</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50288"></span>C470</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="50207.html">C41F</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#50270">Map</a></td>
+<td class="next">
+Next: <a href="50289.html">C471</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

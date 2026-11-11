@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Data at A2AA - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-b">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Data</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="41634.html">A2A2</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#41642">Map</a></td>
+<td class="next">
+Next: <a href="41643.html">A2AB</a>
+</td>
+</tr>
+</table>
+<div class="description">A2AA: Use THE: a flag for the article printer ($A7F2)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="42987.html#42994">A7F2</a>.
+</div>
+<div class="paragraph">
+Set, the article printer at <a href="42987.html">A7EB</a> takes its words from the second table at <a href="41549.html#41557">A255</a> (THE, THE, THE, SOME). Set to 1 around <a href="54672.html#54711">D5B7</a>'s naming.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41642"></span>A2AA</td>
+<td class="instruction">DEFB $00</td>
+<td class="comment-1" rowspan="1">Flag</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="41634.html">A2A2</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#41642">Map</a></td>
+<td class="next">
+Next: <a href="41643.html">A2AB</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

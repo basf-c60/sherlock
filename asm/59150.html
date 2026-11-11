@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at E70E - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="59110.html">E6E6</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#59150">Map</a></td>
+<td class="next">
+Next: <a href="59183.html">E72F</a>
+</td>
+</tr>
+</table>
+<div class="description">E70E: Action record: the cabbie's parting shout (RUN at $F35C)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="62130.html#62300">F35C</a>.
+</div>
+<div class="paragraph">
+The cabbie's parting shout when a passenger has gone without paying: 'The cabbie shouts " You bloody snob, watch out if we ever meet again ... "' (<a href="27732.html">6C54</a>). The record reads +3 of the actor's table record (the saved direct-object register, <a href="53120.html#53174">CFB6</a>): if it is non-zero it prints the shout; if it is zero it sets the ROM variable <a href="../rom_symbols.html#a5C3C">$5C3C</a> to 1 first and then prints.
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ; the cabbie's shout printed, if the player can see it</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="59150"></span>E70E</td>
+<td class="instruction">DEFB $00,$00</td>
+<td class="comment-1" rowspan="1">Action record header: flags $00; byte 1 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59152"></span>E710</td>
+<td class="instruction">LD A,($5C3C)</td>
+<td class="comment-1" rowspan="1">Read the output-switch byte (TV_FLAG) (<a href="../rom_symbols.html#a5C3C">$5C3C</a>) into A - Keep the output switch <a href="../rom_symbols.html#a5C3C">$5C3C</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="59155"></span>E713</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59156"></span>E714</td>
+<td class="instruction">CALL <a href="53120.html#53174">$CFB6</a></td>
+<td class="comment-1" rowspan="1">(<a href="53120.html#53174">CFB6</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59159"></span>E717</td>
+<td class="instruction">LD A,(IX+$03)</td>
+<td class="comment-1" rowspan="1">Read byte +3 of the record at IX into A - The record's flags (+3)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59162"></span>E71A</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59163"></span>E71B</td>
+<td class="instruction">LD HL,$6C54</td>
+<td class="comment-1" rowspan="1">Point HL at the message "YOU SHOUTS" YOU BLOODY SNOB, WATCH OUT IF WE... (<a href="27732.html">6C54</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59166"></span>E71E</td>
+<td class="instruction">JR NZ,$E725</td>
+<td class="comment-1" rowspan="1">If A is not zero, skip ahead to <a href="59150.html#59173">E725</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="59168"></span>E720</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="1">Load A with $01</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59170"></span>E722</td>
+<td class="instruction">LD ($5C3C),A</td>
+<td class="comment-1" rowspan="1">Store A in the output-switch byte (TV_FLAG) (<a href="../rom_symbols.html#a5C3C">$5C3C</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="59173"></span>E725</td>
+<td class="instruction">CALL <a href="42399.html">$A59F</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print the message at HL" (<a href="42399.html">A59F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59176"></span>E728</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59177"></span>E729</td>
+<td class="instruction">LD ($5C3C),A</td>
+<td class="comment-1" rowspan="1">Store A in the output-switch byte (TV_FLAG) (<a href="../rom_symbols.html#a5C3C">$5C3C</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59180"></span>E72C</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59182"></span>E72E</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="59110.html">E6E6</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#59150">Map</a></td>
+<td class="next">
+Next: <a href="59183.html">E72F</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

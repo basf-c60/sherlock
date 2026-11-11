@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Data at E7E7 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-b">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Data</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="59362.html">E7E2</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#59367">Map</a></td>
+<td class="next">
+Next: <a href="60150.html">EAF6</a>
+</td>
+</tr>
+</table>
+<div class="description">E7E7: Plan script: inspector lestrade (actor 2)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Entry points: <a href="59367.html">E7E7</a> = inspector lestrade (actor 2).
+</div>
+<div class="paragraph">
+Each sub-block is one instruction. Room and object numbers are as the game uses them (the reference pages list both).
+</div>
+<div class="paragraph">
+In an instruction, 'plan dobj' and 'plan iobj' are not fixed objects: they mean the direct and indirect object currently held in the actor's plan registers (bytes +4 and +5 of its actor record), so the same step works on whatever the actor is dealing with - for the player, the objects of the command just typed. 'plan verb' is the verb register (+3), 'self' is the acting character, and '-' means none.
+</div>
+<div class="paragraph">
+The endgame (<a href="59367.html#59941">EA25</a>-<a href="59367.html#60147">$EAF5</a>). Once PHIPPS HAS PLANS is proven (<a href="60185.html">EB19</a>) he keeps asking 'HAVE YOU FOUND WHERE THE SALE LOCATION IS.' whenever you are with him. As soon as THE SALE LOCATION IS OLD MILL ROAD is proven too (<a href="60177.html">EB11</a>) he sets off (<a href="59367.html#59995">EA5B</a>) - with or without you: he signals Chief Constable Straker, travels to Leatherhead (<a href="60274.html">EB72</a>), climbs into the police cab (<a href="59367.html#60009">EA69</a>) and has the constable drive to Old Mill Road. There, if you are not in the cab with him (<a href="59367.html#60024">EA78</a>) he gives up and goes home (<a href="59367.html#60036">EA84</a>). If you are, and Phipps is still there (<a href="59367.html#60030">EA7E</a>), they drive back to Main Street and walk north to platform two at Leatherhead (room 55), and he says 'I AM AFRAID THAT BASIL HAS ELUDED US HOLMES.'. Left alone he waits there for a train and goes home on it (<a href="59367.html#60112">EAD0</a>, then <a href="59367.html#60053">EA95</a> and <a href="60200.html">EB28</a>: platform four, Kings Cross Road, a cab to Parliament Street). But that waiting loop is the one stretch of this part of his script without the busy flag, so he takes orders there; and once off platform two with no train in, his script follows you (verb <a href="60299.html">134</a>, <a href="59367.html#60130">EAE2</a>) until you reach platform one at Victoria (room 30) - where Phipps is heading, and where Lestrade has to be for the winning ending (<a href="40520.html">9E48</a>). On platform two with his script at <a href="59367.html#60112">EAD0</a>, SAY TO LESTRADE "FOLLOW ME" and he followed every step south to Main Street and beyond (carrying out the order - his script position moved to the order's own sub-script, <a href="58450.html#58498">E482</a> then <a href="56658.html#56671">DD5F</a>). Either way, if he gets back to Scotland Yard he says that Basil has eluded you, and ends the game with the papers at 10am (<a href="59367.html#60083">EAB3</a>).
+</div>
+<div class="paragraph">
+The chase. The police cab holds only so much: climb in too early and you and Watson fill it, so Lestrade is left behind and the cab drives off without him; too late and Lestrade and Chief Constable Straker fill it ('I SEE NO POLICE CAB THAT YOU CAN CLIMB INTO'); in the minute Lestrade climbs in, you, Watson and Lestrade fit and Straker stays out. Then: Old Mill Road at 3:13pm, 'As you enter Basil Phipps whips his horses into action...' at 3:14, back in Main Street at 4:47, and Phipps walks to platform two and boards the train at 4:54. It leaves at 4:55 - one minute before Lestrade, still saying that Basil has eluded you, will take an order. Told to follow, he and Watson came on the next train (6:18), which reached platform four at 7:30; Phipps had left the game by 6:45 (between 6:30 and 6:45 in the logs), having found nobody at Victoria. Asking the constable to drive the police cab to Buckingham Palace Road did nothing; asked for Kings Cross Road - one of its three routes (<a href="39577.html#39587">9AA3</a>) - it went, with Lestrade and Watson aboard, but took 95 minutes and arrived at 6:42, just as Phipps walked onto platform one at Victoria. The trains run every 90 minutes (<a href="62072.html">F278</a>), so missing the 4:55 costs an hour and a half. The plain GO TO and the train both lose; the furious police cab and the underground train win - see below.
+</div>
+<div class="paragraph">
+The winning line. With suprising agility Watson pushes you out of the way of Basils first shot allowing Lestrade time to pull his gun and capture the culprits. As incredible as it may seem you have solved this case. You truly deserve the title of worlds greatest detective.' Two minutes to spare.
+</div>
+<div class="paragraph">
+The order that matters on Wednesday: THE SALE LOCATION IS OLD MILL ROAD said at 10:53am; hansom cab (not Lestrade's) to Kings Cross Road; noon train; out at platform one; police cab at 1:37pm in the minute Lestrade boards; at 4:56pm on platform two SAY TO LESTRADE "FOLLOW ME" once; police cab GO FURIOUSLY TO KINGS CROSS ROAD (74 minutes); the 6:29 train from Kings Cross platform one, boarded in the minute it is in, so that Lestrade (who follows a turn behind) is aboard; Victoria platform one at 6:41.
+</div>
+<div class="paragraph">
+Left alone on platform two at 4:55pm Lestrade says 'has eluded us Holmes' at 4:56 and takes the 6:15pm train (script <a href="60385.html#60401">EBF1</a>), reaches platform four at 7:31, Kings Cross Road at 7:41, a hansom cab at 7:46, Parliament Street at 8:01 and Scotland Yard at 8:06pm (script <a href="59367.html#60057">EA99</a>, which then waits for 10pm; <a href="59367.html#60077">EAAD</a> puts him off stage at 10:01pm). The speech is only printed if you are in the room: riding the same train and cab and walking EAST into Scotland Yard at 8:02pm, you hear 'I am afraid that Basil has eluded us Holmes.' at 8:04pm. At Thursday 10:00am the script is at <a href="59367.html#60083">EAB3</a> and the papers ending fires (end7_eluded_at_scotland_yard).
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59367"></span>E7E7</td>
+<td class="instruction">DEFB $41,$04</td>
+<td class="comment-1" rowspan="1">DO 4 <a href="56579.html">WEST</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59369"></span>E7E9</td>
+<td class="instruction">DEFB $43,$72,$EB</td>
+<td class="comment-1" rowspan="1">RUN <a href="60274.html">EB72</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59372"></span>E7EC</td>
+<td class="instruction">DEFB $45,$04,$18,$69</td>
+<td class="comment-1" rowspan="1">SAY TO 4 chief constable straker message <a href="26904.html">6918</a>: "HELLO" [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59376"></span>E7F0</td>
+<td class="instruction">DEFB $48,$04</td>
+<td class="comment-1" rowspan="1">SIGNAL 4 chief constable straker [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59378"></span>E7F2</td>
+<td class="instruction">DEFB $59,$04,$F2,$E7</td>
+<td class="comment-1" rowspan="1">AWAIT 4 chief constable straker [busy; fail: wait here]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59382"></span>E7F6</td>
+<td class="instruction">DEFB $45,$04,$63,$71</td>
+<td class="comment-1" rowspan="1">SAY TO 4 chief constable straker message <a href="29027.html">7163</a>: "NOW WHAT SEEMS TO BE THE PROBLEM HERE?" [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59386"></span>E7FA</td>
+<td class="instruction">DEFB $48,$04</td>
+<td class="comment-1" rowspan="1">SIGNAL 4 chief constable straker [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59388"></span>E7FC</td>
+<td class="instruction">DEFB $59,$04,$FC,$E7</td>
+<td class="comment-1" rowspan="1">AWAIT 4 chief constable straker [busy; fail: wait here]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59392"></span>E800</td>
+<td class="instruction">DEFB $45,$04,$75,$71</td>
+<td class="comment-1" rowspan="1">SAY TO 4 chief constable straker message <a href="29045.html">7175</a>: "WELL THEN SHOW ME TO THE BROWN'S ESTATE PLEASE." [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59396"></span>E804</td>
+<td class="instruction">DEFB $48,$04</td>
+<td class="comment-1" rowspan="1">SIGNAL 4 chief constable straker [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59398"></span>E806</td>
+<td class="instruction">DEFB $42,$86,$04,$58</td>
+<td class="comment-1" rowspan="1">DO 134 <a href="60299.html">FOLLOW UNTIL IN</a>: 4 chief constable straker, room 88 (east side) [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59402"></span>E80A</td>
+<td class="instruction">DEFB $42,$13,$2E,$FF</td>
+<td class="comment-1" rowspan="1">DO 19 <a href="57152.html">EXAMINE</a>: 46 female corpse, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59406"></span>E80E</td>
+<td class="instruction">DEFB $42,$13,$2F,$FF</td>
+<td class="comment-1" rowspan="1">DO 19 <a href="57152.html">EXAMINE</a>: 47 crumpled note, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59410"></span>E812</td>
+<td class="instruction">DEFB $42,$13,$39,$FF</td>
+<td class="comment-1" rowspan="1">DO 19 <a href="57152.html">EXAMINE</a>: 57 sandstone bridge, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59414"></span>E816</td>
+<td class="instruction">DEFB $41,$04</td>
+<td class="comment-1" rowspan="1">DO 4 <a href="56579.html">WEST</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59416"></span>E818</td>
+<td class="instruction">DEFB $42,$13,$39,$FF</td>
+<td class="comment-1" rowspan="1">DO 19 <a href="57152.html">EXAMINE</a>: 57 sandstone bridge, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59420"></span>E81C</td>
+<td class="instruction">DEFB $41,$03</td>
+<td class="comment-1" rowspan="1">DO 3 <a href="56579.html">EAST</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59422"></span>E81E</td>
+<td class="instruction">DEFB $45,$04,$50,$71</td>
+<td class="comment-1" rowspan="1">SAY TO 4 chief constable straker message <a href="29008.html">7150</a>: "HAVE YOUR MEN SEARCHED THE RIVER FOR THE GUN YET?" [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59426"></span>E822</td>
+<td class="instruction">DEFB $48,$04</td>
+<td class="comment-1" rowspan="1">SIGNAL 4 chief constable straker [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59428"></span>E824</td>
+<td class="instruction">DEFB $59,$04,$24,$E8</td>
+<td class="comment-1" rowspan="1">AWAIT 4 chief constable straker [busy; fail: wait here]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59432"></span>E828</td>
+<td class="instruction">DEFB $42,$89,$07,$3B</td>
+<td class="comment-1" rowspan="1">DO 137 <a href="60315.html">DO THEN EXAMINE</a>: verb <a href="56579.html">7</a> <a href="56579.html">SOUTHEAST</a>, 59 deep stream [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59436"></span>E82C</td>
+<td class="instruction">DEFB $42,$89,$03,$3A</td>
+<td class="comment-1" rowspan="1">DO 137 <a href="60315.html">DO THEN EXAMINE</a>: verb <a href="56579.html">3</a> <a href="56579.html">EAST</a>, 58 footbridge [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59440"></span>E830</td>
+<td class="instruction">DEFB $42,$89,$01,$3A</td>
+<td class="comment-1" rowspan="1">DO 137 <a href="60315.html">DO THEN EXAMINE</a>: verb <a href="56579.html">1</a> <a href="56579.html">NORTH</a>, 58 footbridge [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59444"></span>E834</td>
+<td class="instruction">DEFB $41,$05</td>
+<td class="comment-1" rowspan="1">DO 5 <a href="56579.html">NORTHEAST</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59446"></span>E836</td>
+<td class="instruction">DEFB $42,$89,$01,$4B</td>
+<td class="comment-1" rowspan="1">DO 137 <a href="60315.html">DO THEN EXAMINE</a>: verb <a href="56579.html">1</a> <a href="56579.html">NORTH</a>, 75 thick hedge [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59450"></span>E83A</td>
+<td class="instruction">DEFB $41,$01</td>
+<td class="comment-1" rowspan="1">DO 1 <a href="56579.html">NORTH</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59452"></span>E83C</td>
+<td class="instruction">DEFB $41,$01</td>
+<td class="comment-1" rowspan="1">DO 1 <a href="56579.html">NORTH</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59454"></span>E83E</td>
+<td class="instruction">DEFB $41,$06</td>
+<td class="comment-1" rowspan="1">DO 6 <a href="56579.html">NORTHWEST</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59456"></span>E840</td>
+<td class="instruction">DEFB $41,$01</td>
+<td class="comment-1" rowspan="1">DO 1 <a href="56579.html">NORTH</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59458"></span>E842</td>
+<td class="instruction">DEFB $41,$04</td>
+<td class="comment-1" rowspan="1">DO 4 <a href="56579.html">WEST</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59460"></span>E844</td>
+<td class="instruction">DEFB $41,$08</td>
+<td class="comment-1" rowspan="1">DO 8 <a href="56579.html">SOUTHWEST</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59462"></span>E846</td>
+<td class="instruction">DEFB $41,$02</td>
+<td class="comment-1" rowspan="1">DO 2 <a href="56579.html">SOUTH</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59464"></span>E848</td>
+<td class="instruction">DEFB $42,$89,$07,$3B</td>
+<td class="comment-1" rowspan="1">DO 137 <a href="60315.html">DO THEN EXAMINE</a>: verb <a href="56579.html">7</a> <a href="56579.html">SOUTHEAST</a>, 59 deep stream [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59468"></span>E84C</td>
+<td class="instruction">DEFB $41,$08</td>
+<td class="comment-1" rowspan="1">DO 8 <a href="56579.html">SOUTHWEST</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59470"></span>E84E</td>
+<td class="instruction">DEFB $41,$03</td>
+<td class="comment-1" rowspan="1">DO 3 <a href="56579.html">EAST</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59472"></span>E850</td>
+<td class="instruction">DEFB $45,$04,$89,$71</td>
+<td class="comment-1" rowspan="1">SAY TO 4 chief constable straker message <a href="29065.html">7189</a>: "RIGHT THEN CONSTABLE WILL YOU SHOW ME TO MISS STRACHAN AND MR PHIPP..." [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59476"></span>E854</td>
+<td class="instruction">DEFB $48,$04</td>
+<td class="comment-1" rowspan="1">SIGNAL 4 chief constable straker [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59478"></span>E856</td>
+<td class="instruction">DEFB $42,$86,$04,$43</td>
+<td class="comment-1" rowspan="1">DO 134 <a href="60299.html">FOLLOW UNTIL IN</a>: 4 chief constable straker, room 67 (sitting room) [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59482"></span>E85A</td>
+<td class="instruction">DEFB $0F</td>
+<td class="comment-1" rowspan="1">PASS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59483"></span>E85B</td>
+<td class="instruction">DEFB $44,$05,$30,$FB,$10</td>
+<td class="comment-1" rowspan="1">ASK 5 strachan TO 48 <a href="57814.html">TELL ABOUT</a>: self, 16 what happened [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59488"></span>E860</td>
+<td class="instruction">DEFB $0F</td>
+<td class="comment-1" rowspan="1">PASS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59489"></span>E861</td>
+<td class="instruction">DEFB $44,$06,$2F,$FB,$11</td>
+<td class="comment-1" rowspan="1">ASK 6 phipps TO 47 <a href="57814.html">TELL</a>: self, 17 your alibi [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59494"></span>E866</td>
+<td class="instruction">DEFB $0F</td>
+<td class="comment-1" rowspan="1">PASS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59495"></span>E867</td>
+<td class="instruction">DEFB $0F</td>
+<td class="comment-1" rowspan="1">PASS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59496"></span>E868</td>
+<td class="instruction">DEFB $46,$26,$71</td>
+<td class="comment-1" rowspan="1">PRINT message <a href="28966.html">7126</a>: "YOU SAY' I WOULD LIKE YOU TO REMAIN HERE PLEASE.'" [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59499"></span>E86B</td>
+<td class="instruction">DEFB $45,$04,$A4,$71</td>
+<td class="comment-1" rowspan="1">SAY TO 4 chief constable straker message <a href="29092.html">71A4</a>: "CHIEF CONSTABLE I WILL SEE THE STAFF NOW." [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59503"></span>E86F</td>
+<td class="instruction">DEFB $48,$04</td>
+<td class="comment-1" rowspan="1">SIGNAL 4 chief constable straker [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59505"></span>E871</td>
+<td class="instruction">DEFB $42,$86,$04,$41</td>
+<td class="comment-1" rowspan="1">DO 134 <a href="60299.html">FOLLOW UNTIL IN</a>: 4 chief constable straker, room 65 (large kitchen) [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59509"></span>E875</td>
+<td class="instruction">DEFB $44,$08,$30,$FB,$10</td>
+<td class="comment-1" rowspan="1">ASK 8 gardener TO 48 <a href="57814.html">TELL ABOUT</a>: self, 16 what happened [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59514"></span>E87A</td>
+<td class="instruction">DEFB $0F</td>
+<td class="comment-1" rowspan="1">PASS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59515"></span>E87B</td>
+<td class="instruction">DEFB $44,$0A,$30,$FB,$10</td>
+<td class="comment-1" rowspan="1">ASK 10 maid TO 48 <a href="57814.html">TELL ABOUT</a>: self, 16 what happened [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59520"></span>E880</td>
+<td class="instruction">DEFB $0F</td>
+<td class="comment-1" rowspan="1">PASS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59521"></span>E881</td>
+<td class="instruction">DEFB $44,$09,$2F,$FB,$10</td>
+<td class="comment-1" rowspan="1">ASK 9 cook TO 47 <a href="57814.html">TELL</a>: self, 16 what happened [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59526"></span>E886</td>
+<td class="instruction">DEFB $0F</td>
+<td class="comment-1" rowspan="1">PASS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59527"></span>E887</td>
+<td class="instruction">DEFB $0F</td>
+<td class="comment-1" rowspan="1">PASS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59528"></span>E888</td>
+<td class="instruction">DEFB $46,$26,$71</td>
+<td class="comment-1" rowspan="1">PRINT message <a href="28966.html">7126</a>: "YOU SAY' I WOULD LIKE YOU TO REMAIN HERE PLEASE.'" [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59531"></span>E88B</td>
+<td class="instruction">DEFB $45,$04,$B7,$71</td>
+<td class="comment-1" rowspan="1">SAY TO 4 chief constable straker message <a href="29111.html">71B7</a>: "WELL I MUST SAY THIS IS ALL VERY CONFUSING, PERHAPS I SHOULD VISIT..." [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59535"></span>E88F</td>
+<td class="instruction">DEFB $48,$04</td>
+<td class="comment-1" rowspan="1">SIGNAL 4 chief constable straker [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59537"></span>E891</td>
+<td class="instruction">DEFB $42,$86,$04,$5E</td>
+<td class="comment-1" rowspan="1">DO 134 <a href="60299.html">FOLLOW UNTIL IN</a>: 4 chief constable straker, room 94 (library) [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59541"></span>E895</td>
+<td class="instruction">DEFB $42,$13,$48,$FF</td>
+<td class="comment-1" rowspan="1">DO 19 <a href="57152.html">EXAMINE</a>: 72 body, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59545"></span>E899</td>
+<td class="instruction">DEFB $42,$13,$47,$FF</td>
+<td class="comment-1" rowspan="1">DO 19 <a href="57152.html">EXAMINE</a>: 71 bloodstained sofa, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59549"></span>E89D</td>
+<td class="instruction">DEFB $42,$13,$42,$FF</td>
+<td class="comment-1" rowspan="1">DO 19 <a href="57152.html">EXAMINE</a>: 66 bookcase, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59553"></span>E8A1</td>
+<td class="instruction">DEFB $52,$1C,$42,$FF,$AB,$E8</td>
+<td class="comment-1" rowspan="1">DO 28 <a href="56407.html">GO THROUGH</a>: 66 bookcase, - [busy; fail <a href="59367.html#59563">E8AB</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59559"></span>E8A7</td>
+<td class="instruction">DEFB $42,$13,$43,$FF</td>
+<td class="comment-1" rowspan="1">DO 19 <a href="57152.html">EXAMINE</a>: 67 bloodstained clothes, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59563"></span>E8AB</td>
+<td class="instruction">DEFB $42,$1C,$42,$FF</td>
+<td class="comment-1" rowspan="1">DO 28 <a href="56407.html">GO THROUGH</a>: 66 bookcase, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59567"></span>E8AF</td>
+<td class="instruction">DEFB $48,$04</td>
+<td class="comment-1" rowspan="1">SIGNAL 4 chief constable straker [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59569"></span>E8B1</td>
+<td class="instruction">DEFB $43,$47,$EB</td>
+<td class="comment-1" rowspan="1">RUN <a href="60231.html">EB47</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59572"></span>E8B4</td>
+<td class="instruction">DEFB $48,$07</td>
+<td class="comment-1" rowspan="1">SIGNAL 7 major percival ffoulkes [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59574"></span>E8B6</td>
+<td class="instruction">DEFB $0F</td>
+<td class="comment-1" rowspan="1">PASS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59575"></span>E8B7</td>
+<td class="instruction">DEFB $41,$01</td>
+<td class="comment-1" rowspan="1">DO 1 <a href="56579.html">NORTH</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59577"></span>E8B9</td>
+<td class="instruction">DEFB $45,$0B,$12,$71</td>
+<td class="comment-1" rowspan="1">SAY TO 11 local police man message <a href="28946.html">7112</a>: "WHAT IS GOING ON HERE CONSTABLE?" [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59581"></span>E8BD</td>
+<td class="instruction">DEFB $48,$0B</td>
+<td class="comment-1" rowspan="1">SIGNAL 11 local police man [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59583"></span>E8BF</td>
+<td class="instruction">DEFB $48,$07</td>
+<td class="comment-1" rowspan="1">SIGNAL 7 major percival ffoulkes [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59585"></span>E8C1</td>
+<td class="instruction">DEFB $59,$07,$C1,$E8</td>
+<td class="comment-1" rowspan="1">AWAIT 7 major percival ffoulkes [busy; fail: wait here]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59589"></span>E8C5</td>
+<td class="instruction">DEFB $45,$07,$1D,$71</td>
+<td class="comment-1" rowspan="1">SAY TO 7 major percival ffoulkes message <a href="28957.html">711D</a>: "COME WITH ME PLEASE." [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59593"></span>E8C9</td>
+<td class="instruction">DEFB $43,$17,$ED</td>
+<td class="comment-1" rowspan="1">RUN <a href="60695.html">ED17</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59596"></span>E8CC</td>
+<td class="instruction">DEFB $0F</td>
+<td class="comment-1" rowspan="1">PASS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59597"></span>E8CD</td>
+<td class="instruction">DEFB $44,$04,$30,$07,$0F</td>
+<td class="comment-1" rowspan="1">ASK 4 chief constable straker TO 48 <a href="57814.html">TELL ABOUT</a>: 7 major percival ffoulkes, 15 case [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59602"></span>E8D2</td>
+<td class="instruction">DEFB $0F</td>
+<td class="comment-1" rowspan="1">PASS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59603"></span>E8D3</td>
+<td class="instruction">DEFB $44,$07,$30,$FB,$11</td>
+<td class="comment-1" rowspan="1">ASK 7 major percival ffoulkes TO 48 <a href="57814.html">TELL ABOUT</a>: self, 17 your alibi [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59608"></span>E8D8</td>
+<td class="instruction">DEFB $0F</td>
+<td class="comment-1" rowspan="1">PASS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59609"></span>E8D9</td>
+<td class="instruction">DEFB $0F</td>
+<td class="comment-1" rowspan="1">PASS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59610"></span>E8DA</td>
+<td class="instruction">DEFB $44,$07,$2F,$FB,$12</td>
+<td class="comment-1" rowspan="1">ASK 7 major percival ffoulkes TO 47 <a href="57814.html">TELL</a>: self, 18 your address [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59615"></span>E8DF</td>
+<td class="instruction">DEFB $0F</td>
+<td class="comment-1" rowspan="1">PASS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59616"></span>E8E0</td>
+<td class="instruction">DEFB $0F</td>
+<td class="comment-1" rowspan="1">PASS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59617"></span>E8E1</td>
+<td class="instruction">DEFB $44,$07,$15,$FB,$FF</td>
+<td class="comment-1" rowspan="1">ASK 7 major percival ffoulkes TO 21 <a href="58450.html">FOLLOW</a>: self, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59622"></span>E8E6</td>
+<td class="instruction">DEFB $42,$87,$44,$FF</td>
+<td class="comment-1" rowspan="1">DO 135 <a href="60712.html">GO THROUGH DOOR</a>: 68 solid door, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59626"></span>E8EA</td>
+<td class="instruction">DEFB $46,$26,$71</td>
+<td class="comment-1" rowspan="1">PRINT message <a href="28966.html">7126</a>: "YOU SAY' I WOULD LIKE YOU TO REMAIN HERE PLEASE.'" [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59629"></span>E8ED</td>
+<td class="instruction">DEFB $42,$87,$45,$FF</td>
+<td class="comment-1" rowspan="1">DO 135 <a href="60712.html">GO THROUGH DOOR</a>: 69 sittingroom door, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59633"></span>E8F1</td>
+<td class="instruction">DEFB $42,$87,$13,$FF</td>
+<td class="comment-1" rowspan="1">DO 135 <a href="60712.html">GO THROUGH DOOR</a>: 19 front door, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59637"></span>E8F5</td>
+<td class="instruction">DEFB $41,$01</td>
+<td class="comment-1" rowspan="1">DO 1 <a href="56579.html">NORTH</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59639"></span>E8F7</td>
+<td class="instruction">DEFB $45,$0B,$39,$71</td>
+<td class="comment-1" rowspan="1">SAY TO 11 local police man message <a href="28985.html">7139</a>: "MAKE SURE THE MAJOR DOES NOT LEAVE CONSTABLE." [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59643"></span>E8FB</td>
+<td class="instruction">DEFB $45,$04,$A4,$71</td>
+<td class="comment-1" rowspan="1">SAY TO 4 chief constable straker message <a href="29092.html">71A4</a>: "CHIEF CONSTABLE I WILL SEE THE STAFF NOW." [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59647"></span>E8FF</td>
+<td class="instruction">DEFB $48,$04</td>
+<td class="comment-1" rowspan="1">SIGNAL 4 chief constable straker [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59649"></span>E901</td>
+<td class="instruction">DEFB $42,$86,$04,$41</td>
+<td class="comment-1" rowspan="1">DO 134 <a href="60299.html">FOLLOW UNTIL IN</a>: 4 chief constable straker, room 65 (large kitchen) [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59653"></span>E905</td>
+<td class="instruction">DEFB $44,$09,$30,$FB,$07</td>
+<td class="comment-1" rowspan="1">ASK 9 cook TO 48 <a href="57814.html">TELL ABOUT</a>: self, 7 major percival ffoulkes [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59658"></span>E90A</td>
+<td class="instruction">DEFB $0F</td>
+<td class="comment-1" rowspan="1">PASS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59659"></span>E90B</td>
+<td class="instruction">DEFB $44,$08,$30,$FB,$07</td>
+<td class="comment-1" rowspan="1">ASK 8 gardener TO 48 <a href="57814.html">TELL ABOUT</a>: self, 7 major percival ffoulkes [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59664"></span>E910</td>
+<td class="instruction">DEFB $0F</td>
+<td class="comment-1" rowspan="1">PASS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59665"></span>E911</td>
+<td class="instruction">DEFB $45,$04,$89,$71</td>
+<td class="comment-1" rowspan="1">SAY TO 4 chief constable straker message <a href="29065.html">7189</a>: "RIGHT THEN CONSTABLE WILL YOU SHOW ME TO MISS STRACHAN AND MR PHIPP..." [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59669"></span>E915</td>
+<td class="instruction">DEFB $48,$04</td>
+<td class="comment-1" rowspan="1">SIGNAL 4 chief constable straker [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59671"></span>E917</td>
+<td class="instruction">DEFB $42,$86,$04,$43</td>
+<td class="comment-1" rowspan="1">DO 134 <a href="60299.html">FOLLOW UNTIL IN</a>: 4 chief constable straker, room 67 (sitting room) [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59675"></span>E91B</td>
+<td class="instruction">DEFB $0F</td>
+<td class="comment-1" rowspan="1">PASS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59676"></span>E91C</td>
+<td class="instruction">DEFB $44,$05,$30,$FB,$07</td>
+<td class="comment-1" rowspan="1">ASK 5 strachan TO 48 <a href="57814.html">TELL ABOUT</a>: self, 7 major percival ffoulkes [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59681"></span>E921</td>
+<td class="instruction">DEFB $0F</td>
+<td class="comment-1" rowspan="1">PASS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59682"></span>E922</td>
+<td class="instruction">DEFB $45,$04,$08,$70</td>
+<td class="comment-1" rowspan="1">SAY TO 4 chief constable straker message <a href="28680.html">7008</a>: "WELL IT LOOKS AS THOUGH THE MAJOR IS OUR MAN." [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59686"></span>E926</td>
+<td class="instruction">DEFB $48,$04</td>
+<td class="comment-1" rowspan="1">SIGNAL 4 chief constable straker [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59688"></span>E928</td>
+<td class="instruction">DEFB $42,$86,$04,$5C</td>
+<td class="comment-1" rowspan="1">DO 134 <a href="60299.html">FOLLOW UNTIL IN</a>: 4 chief constable straker, room 92 (jones front gate) [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59692"></span>E92C</td>
+<td class="instruction">DEFB $45,$04,$34,$70</td>
+<td class="comment-1" rowspan="1">SAY TO 4 chief constable straker message <a href="28724.html">7034</a>: "WELL THEN CONSTABLE I SHALL RETURN TO THE YARD AND APPREHEND THIS M..." [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59696"></span>E930</td>
+<td class="instruction">DEFB $48,$04</td>
+<td class="comment-1" rowspan="1">SIGNAL 4 chief constable straker [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59698"></span>E932</td>
+<td class="instruction">DEFB $03,$6A,$9E</td>
+<td class="comment-1" rowspan="1">RUN <a href="40554.html">9E6A</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="59701"></span>E935</td>
+<td class="instruction">DEFB $41,$04</td>
+<td class="comment-1" rowspan="1">DO 4 <a href="56579.html">WEST</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59703"></span>E937</td>
+<td class="instruction">DEFB $41,$01</td>
+<td class="comment-1" rowspan="1">DO 1 <a href="56579.html">NORTH</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59705"></span>E939</td>
+<td class="instruction">DEFB $43,$28,$EB</td>
+<td class="comment-1" rowspan="1">RUN <a href="60200.html">EB28</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59708"></span>E93C</td>
+<td class="instruction">DEFB $0F</td>
+<td class="comment-1" rowspan="1">PASS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59709"></span>E93D</td>
+<td class="instruction">DEFB $C2,$81,$FB,$00,$49,$E9</td>
+<td class="comment-1" rowspan="1">DO 129 <a href="58840.html">IS WITH</a>: self, 0 you [busy; ok <a href="59367.html#59721">E949</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59715"></span>E943</td>
+<td class="instruction">DEFB $D9,$07,$51,$E9,$3C,$E9</td>
+<td class="comment-1" rowspan="1">AWAIT 7 major percival ffoulkes [busy; ok <a href="59367.html#59729">E951</a>; fail <a href="59367.html#59708">E93C</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59721"></span>E949</td>
+<td class="instruction">DEFB $45,$00,$20,$70</td>
+<td class="comment-1" rowspan="1">SAY TO 0 you message <a href="28704.html">7020</a>: "WELL IT LOOKS AS THOUGH THE MAJOR IS OUR MAN. MY MEN ARE OUT LOOKIN..." [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59725"></span>E94D</td>
+<td class="instruction">DEFB $59,$07,$4D,$E9</td>
+<td class="comment-1" rowspan="1">AWAIT 7 major percival ffoulkes [busy; fail: wait here]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59729"></span>E951</td>
+<td class="instruction">DEFB $42,$80,$FB,$00</td>
+<td class="comment-1" rowspan="1">DO 128 <a href="58519.html">PUT</a>: self, room 0 (off stage) [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59733"></span>E955</td>
+<td class="instruction">DEFB $82,$81,$00,$07,$61,$E9</td>
+<td class="comment-1" rowspan="1">DO 129 <a href="58840.html">IS WITH</a>: 0 you, 7 major percival ffoulkes [ok <a href="59367.html#59745">E961</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59739"></span>E95B</td>
+<td class="instruction">DEFB $12,$88,$01,$FF,$55,$E9</td>
+<td class="comment-1" rowspan="1">DO 136 <a href="61910.html">IS HOUR</a> 1 [fail <a href="59367.html#59733">E955</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59745"></span>E961</td>
+<td class="instruction">DEFB $02,$80,$FB,$0C</td>
+<td class="comment-1" rowspan="1">DO 128 <a href="58519.html">PUT</a>: self, room 12 (slater street)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59749"></span>E965</td>
+<td class="instruction">DEFB $52,$81,$FB,$07,$65,$E9</td>
+<td class="comment-1" rowspan="1">DO 129 <a href="58840.html">IS WITH</a>: self, 7 major percival ffoulkes [busy; fail: wait here]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59755"></span>E96B</td>
+<td class="instruction">DEFB $03,$85,$9E</td>
+<td class="comment-1" rowspan="1">RUN <a href="40581.html">9E85</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="59758"></span>E96E</td>
+<td class="instruction">DEFB $45,$07,$75,$70</td>
+<td class="comment-1" rowspan="1">SAY TO 7 major percival ffoulkes message <a href="28789.html">7075</a>: "YOU ARE FREE TO GO." [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59762"></span>E972</td>
+<td class="instruction">DEFB $48,$07</td>
+<td class="comment-1" rowspan="1">SIGNAL 7 major percival ffoulkes [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59764"></span>E974</td>
+<td class="instruction">DEFB $47,$A4,$EB,$FF,$0A</td>
+<td class="comment-1" rowspan="1">RUN <a href="60324.html">EBA4</a> (-, 10 maid) [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59769"></span>E979</td>
+<td class="instruction">DEFB $42,$80,$FB,$0B</td>
+<td class="comment-1" rowspan="1">DO 128 <a href="58519.html">PUT</a>: self, room 11 (scotland yard) [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59773"></span>E97D</td>
+<td class="instruction">DEFB $42,$80,$FB,$00</td>
+<td class="comment-1" rowspan="1">DO 128 <a href="58519.html">PUT</a>: self, room 0 (off stage) [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59777"></span>E981</td>
+<td class="instruction">DEFB $52,$88,$07,$FF,$81,$E9</td>
+<td class="comment-1" rowspan="1">DO 136 <a href="61910.html">IS HOUR</a> 7 [busy; fail: wait here]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59783"></span>E987</td>
+<td class="instruction">DEFB $42,$80,$FB,$0B</td>
+<td class="comment-1" rowspan="1">DO 128 <a href="58519.html">PUT</a>: self, room 11 (scotland yard) [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59787"></span>E98B</td>
+<td class="instruction">DEFB $41,$04</td>
+<td class="comment-1" rowspan="1">DO 4 <a href="56579.html">WEST</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59789"></span>E98D</td>
+<td class="instruction">DEFB $48,$04</td>
+<td class="comment-1" rowspan="1">SIGNAL 4 chief constable straker [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59791"></span>E98F</td>
+<td class="instruction">DEFB $43,$72,$EB</td>
+<td class="comment-1" rowspan="1">RUN <a href="60274.html">EB72</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59794"></span>E992</td>
+<td class="instruction">DEFB $44,$04,$20,$FF,$FF</td>
+<td class="comment-1" rowspan="1">ASK 4 chief constable straker TO 32 <a href="39550.html">HELLO</a>: -, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59799"></span>E997</td>
+<td class="instruction">DEFB $43,$F6,$EC</td>
+<td class="comment-1" rowspan="1">RUN <a href="60662.html">ECF6</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59802"></span>E99A</td>
+<td class="instruction">DEFB $C2,$88,$0A,$FF,$DB,$E9</td>
+<td class="comment-1" rowspan="1">DO 136 <a href="61910.html">IS HOUR</a> 10 [busy; ok <a href="59367.html#59867">E9DB</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59808"></span>E9A0</td>
+<td class="instruction">DEFB $C7,$E2,$E7,$5D,$FF,$DB,$E9</td>
+<td class="comment-1" rowspan="1">RUN <a href="59362.html">E7E2</a> HAS IT: is the actor carrying (dobj)? (93 large rock, -) [busy; ok <a href="59367.html#59867">E9DB</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59815"></span>E9A7</td>
+<td class="instruction">DEFB $57,$98,$F1,$0A,$FF,$B5,$E9</td>
+<td class="comment-1" rowspan="1">RUN <a href="61848.html">F198</a> CHANCE: succeed if a random 1-99 is at most (dobj) (10, -) [busy; fail <a href="59367.html#59829">E9B5</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59822"></span>E9AE</td>
+<td class="instruction">DEFB $42,$13,$39,$FF</td>
+<td class="comment-1" rowspan="1">DO 19 <a href="57152.html">EXAMINE</a>: 57 sandstone bridge, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59826"></span>E9B2</td>
+<td class="instruction">DEFB $0E,$9A,$E9</td>
+<td class="comment-1" rowspan="1">GOTO <a href="59367.html#59802">E99A</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="59829"></span>E9B5</td>
+<td class="instruction">DEFB $57,$98,$F1,$0A,$FF,$C3,$E9</td>
+<td class="comment-1" rowspan="1">RUN <a href="61848.html">F198</a> CHANCE: succeed if a random 1-99 is at most (dobj) (10, -) [busy; fail <a href="59367.html#59843">E9C3</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59836"></span>E9BC</td>
+<td class="instruction">DEFB $42,$13,$3B,$FF</td>
+<td class="comment-1" rowspan="1">DO 19 <a href="57152.html">EXAMINE</a>: 59 deep stream, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59840"></span>E9C0</td>
+<td class="instruction">DEFB $0E,$9A,$E9</td>
+<td class="comment-1" rowspan="1">GOTO <a href="59367.html#59802">E99A</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="59843"></span>E9C3</td>
+<td class="instruction">DEFB $57,$98,$F1,$0A,$FF,$CF,$E9</td>
+<td class="comment-1" rowspan="1">RUN <a href="61848.html">F198</a> CHANCE: succeed if a random 1-99 is at most (dobj) (10, -) [busy; fail <a href="59367.html#59855">E9CF</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59850"></span>E9CA</td>
+<td class="instruction">DEFB $41,$04</td>
+<td class="comment-1" rowspan="1">DO 4 <a href="56579.html">WEST</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59852"></span>E9CC</td>
+<td class="instruction">DEFB $0E,$9A,$E9</td>
+<td class="comment-1" rowspan="1">GOTO <a href="59367.html#59802">E99A</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="59855"></span>E9CF</td>
+<td class="instruction">DEFB $57,$98,$F1,$0A,$FF,$9A,$E9</td>
+<td class="comment-1" rowspan="1">RUN <a href="61848.html">F198</a> CHANCE: succeed if a random 1-99 is at most (dobj) (10, -) [busy; fail <a href="59367.html#59802">E99A</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59862"></span>E9D6</td>
+<td class="instruction">DEFB $41,$03</td>
+<td class="comment-1" rowspan="1">DO 3 <a href="56579.html">EAST</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59864"></span>E9D8</td>
+<td class="instruction">DEFB $0E,$9A,$E9</td>
+<td class="comment-1" rowspan="1">GOTO <a href="59367.html#59802">E99A</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="59867"></span>E9DB</td>
+<td class="instruction">DEFB $43,$0C,$ED</td>
+<td class="comment-1" rowspan="1">RUN <a href="60684.html">ED0C</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59870"></span>E9DE</td>
+<td class="instruction">DEFB $41,$01</td>
+<td class="comment-1" rowspan="1">DO 1 <a href="56579.html">NORTH</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59872"></span>E9E0</td>
+<td class="instruction">DEFB $41,$03</td>
+<td class="comment-1" rowspan="1">DO 3 <a href="56579.html">EAST</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59874"></span>E9E2</td>
+<td class="instruction">DEFB $41,$03</td>
+<td class="comment-1" rowspan="1">DO 3 <a href="56579.html">EAST</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59876"></span>E9E4</td>
+<td class="instruction">DEFB $43,$17,$ED</td>
+<td class="comment-1" rowspan="1">RUN <a href="60695.html">ED17</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59879"></span>E9E7</td>
+<td class="instruction">DEFB $42,$13,$42,$FF</td>
+<td class="comment-1" rowspan="1">DO 19 <a href="57152.html">EXAMINE</a>: 66 bookcase, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59883"></span>E9EB</td>
+<td class="instruction">DEFB $42,$13,$47,$FF</td>
+<td class="comment-1" rowspan="1">DO 19 <a href="57152.html">EXAMINE</a>: 71 bloodstained sofa, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59887"></span>E9EF</td>
+<td class="instruction">DEFB $52,$1C,$42,$FF,$F9,$E9</td>
+<td class="comment-1" rowspan="1">DO 28 <a href="56407.html">GO THROUGH</a>: 66 bookcase, - [busy; fail <a href="59367.html#59897">E9F9</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59893"></span>E9F5</td>
+<td class="instruction">DEFB $42,$13,$43,$FF</td>
+<td class="comment-1" rowspan="1">DO 19 <a href="57152.html">EXAMINE</a>: 67 bloodstained clothes, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59897"></span>E9F9</td>
+<td class="instruction">DEFB $42,$1C,$42,$FF</td>
+<td class="comment-1" rowspan="1">DO 28 <a href="56407.html">GO THROUGH</a>: 66 bookcase, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59901"></span>E9FD</td>
+<td class="instruction">DEFB $43,$47,$EB</td>
+<td class="comment-1" rowspan="1">RUN <a href="60231.html">EB47</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59904"></span>EA00</td>
+<td class="instruction">DEFB $41,$01</td>
+<td class="comment-1" rowspan="1">DO 1 <a href="56579.html">NORTH</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59906"></span>EA02</td>
+<td class="instruction">DEFB $41,$04</td>
+<td class="comment-1" rowspan="1">DO 4 <a href="56579.html">WEST</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59908"></span>EA04</td>
+<td class="instruction">DEFB $41,$01</td>
+<td class="comment-1" rowspan="1">DO 1 <a href="56579.html">NORTH</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59910"></span>EA06</td>
+<td class="instruction">DEFB $45,$04,$90,$6F</td>
+<td class="comment-1" rowspan="1">SAY TO 4 chief constable straker message <a href="28560.html">6F90</a>: "KEEP ME POSTED ON ANY NEW EVENTS." [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59914"></span>EA0A</td>
+<td class="instruction">DEFB $43,$28,$EB</td>
+<td class="comment-1" rowspan="1">RUN <a href="60200.html">EB28</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59917"></span>EA0D</td>
+<td class="instruction">DEFB $42,$80,$5D,$00</td>
+<td class="comment-1" rowspan="1">DO 128 <a href="58519.html">PUT</a>: 93 large rock, room 0 (off stage) [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59921"></span>EA11</td>
+<td class="instruction">DEFB $52,$88,$15,$FF,$11,$EA</td>
+<td class="comment-1" rowspan="1">DO 136 <a href="61910.html">IS HOUR</a> 21 [busy; fail: wait here]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59927"></span>EA17</td>
+<td class="instruction">DEFB $42,$80,$FB,$00</td>
+<td class="comment-1" rowspan="1">DO 128 <a href="58519.html">PUT</a>: self, room 0 (off stage) [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59931"></span>EA1B</td>
+<td class="instruction">DEFB $52,$88,$07,$FF,$1B,$EA</td>
+<td class="comment-1" rowspan="1">DO 136 <a href="61910.html">IS HOUR</a> 7 [busy; fail: wait here]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59937"></span>EA21</td>
+<td class="instruction">DEFB $42,$80,$FB,$0B</td>
+<td class="comment-1" rowspan="1">DO 128 <a href="58519.html">PUT</a>: self, room 11 (scotland yard) [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59941"></span>EA25</td>
+<td class="instruction">DEFB $0F</td>
+<td class="comment-1" rowspan="1">PASS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59942"></span>EA26</td>
+<td class="instruction">DEFB $C2,$88,$15,$FF,$A9,$EA</td>
+<td class="comment-1" rowspan="1">DO 136 <a href="61910.html">IS HOUR</a> 21 [busy; ok <a href="59367.html#60073">EAA9</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59948"></span>EA2C</td>
+<td class="instruction">DEFB $53,$19,$EB,$25,$EA</td>
+<td class="comment-1" rowspan="1">RUN <a href="60185.html">EB19</a> [busy; fail <a href="59367.html#59941">EA25</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59953"></span>EA31</td>
+<td class="instruction">DEFB $C3,$11,$EB,$5B,$EA</td>
+<td class="comment-1" rowspan="1">RUN <a href="60177.html">EB11</a> [busy; ok <a href="59367.html#59995">EA5B</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59958"></span>EA36</td>
+<td class="instruction">DEFB $C2,$88,$15,$FF,$A9,$EA</td>
+<td class="comment-1" rowspan="1">DO 136 <a href="61910.html">IS HOUR</a> 21 [busy; ok <a href="59367.html#60073">EAA9</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59964"></span>EA3C</td>
+<td class="instruction">DEFB $0F</td>
+<td class="comment-1" rowspan="1">PASS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59965"></span>EA3D</td>
+<td class="instruction">DEFB $C2,$81,$FB,$00,$31,$EA</td>
+<td class="comment-1" rowspan="1">DO 129 <a href="58840.html">IS WITH</a>: self, 0 you [busy; ok <a href="59367.html#59953">EA31</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59971"></span>EA43</td>
+<td class="instruction">DEFB $C3,$11,$EB,$5B,$EA</td>
+<td class="comment-1" rowspan="1">RUN <a href="60177.html">EB11</a> [busy; ok <a href="59367.html#59995">EA5B</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59976"></span>EA48</td>
+<td class="instruction">DEFB $C2,$88,$15,$FF,$A9,$EA</td>
+<td class="comment-1" rowspan="1">DO 136 <a href="61910.html">IS HOUR</a> 21 [busy; ok <a href="59367.html#60073">EAA9</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59982"></span>EA4E</td>
+<td class="instruction">DEFB $0F</td>
+<td class="comment-1" rowspan="1">PASS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59983"></span>EA4F</td>
+<td class="instruction">DEFB $52,$81,$FB,$00,$43,$EA</td>
+<td class="comment-1" rowspan="1">DO 129 <a href="58840.html">IS WITH</a>: self, 0 you [busy; fail <a href="59367.html#59971">EA43</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59989"></span>EA55</td>
+<td class="instruction">DEFB $C5,$00,$C0,$70,$31,$EA</td>
+<td class="comment-1" rowspan="1">SAY TO 0 you message <a href="28864.html">70C0</a>: "HAVE YOU FOUND WHERE THE SALE LOCATION IS." [busy; ok <a href="59367.html#59953">EA31</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59995"></span>EA5B</td>
+<td class="instruction">DEFB $41,$04</td>
+<td class="comment-1" rowspan="1">DO 4 <a href="56579.html">WEST</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59997"></span>EA5D</td>
+<td class="instruction">DEFB $48,$04</td>
+<td class="comment-1" rowspan="1">SIGNAL 4 chief constable straker [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59999"></span>EA5F</td>
+<td class="instruction">DEFB $47,$F6,$EA,$6D,$0B</td>
+<td class="comment-1" rowspan="1">RUN <a href="60150.html">EAF6</a> (109 police cab, 11 local police man) [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60004"></span>EA64</td>
+<td class="instruction">DEFB $43,$72,$EB</td>
+<td class="comment-1" rowspan="1">RUN <a href="60274.html">EB72</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60007"></span>EA67</td>
+<td class="instruction">DEFB $41,$02</td>
+<td class="comment-1" rowspan="1">DO 2 <a href="56579.html">SOUTH</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60009"></span>EA69</td>
+<td class="instruction">DEFB $42,$0C,$6D,$FF</td>
+<td class="comment-1" rowspan="1">DO 12 <a href="58378.html">CLIMB INTO</a>: 109 police cab, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60013"></span>EA6D</td>
+<td class="instruction">DEFB $44,$0B,$1E,$67,$FF</td>
+<td class="comment-1" rowspan="1">ASK 11 local police man TO 30 <a href="39627.html">GO FURIOUSLY TO</a>: 103 tricias front door, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60018"></span>EA72</td>
+<td class="instruction">DEFB $52,$83,$FB,$67,$72,$EA</td>
+<td class="comment-1" rowspan="1">DO 131 <a href="58797.html">IS IN</a>: self, room 103 (old mill road) [busy; fail: wait here]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60024"></span>EA78</td>
+<td class="instruction">DEFB $52,$82,$00,$FF,$84,$EA</td>
+<td class="comment-1" rowspan="1">DO 130 <a href="58877.html">IS HERE</a>: 0 you, - [busy; fail <a href="59367.html#60036">EA84</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60030"></span>EA7E</td>
+<td class="instruction">DEFB $C2,$83,$06,$67,$B6,$EA</td>
+<td class="comment-1" rowspan="1">DO 131 <a href="58797.html">IS IN</a>: 6 phipps, room 103 (old mill road) [busy; ok <a href="59367.html#60086">EAB6</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60036"></span>EA84</td>
+<td class="instruction">DEFB $44,$0B,$1D,$32,$FF</td>
+<td class="comment-1" rowspan="1">ASK 11 local police man TO 29 <a href="39577.html">GO TO</a>: 50 plain door, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60041"></span>EA89</td>
+<td class="instruction">DEFB $52,$83,$FB,$32,$89,$EA</td>
+<td class="comment-1" rowspan="1">DO 131 <a href="58797.html">IS IN</a>: self, room 50 (main street) [busy; fail: wait here]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60047"></span>EA8F</td>
+<td class="instruction">DEFB $42,$0D,$6D,$FF</td>
+<td class="comment-1" rowspan="1">DO 13 <a href="58418.html">CLIMB OUT OF</a>: 109 police cab, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60051"></span>EA93</td>
+<td class="instruction">DEFB $41,$01</td>
+<td class="comment-1" rowspan="1">DO 1 <a href="56579.html">NORTH</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60053"></span>EA95</td>
+<td class="instruction">DEFB $43,$28,$EB</td>
+<td class="comment-1" rowspan="1">RUN <a href="60200.html">EB28</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60056"></span>EA98</td>
+<td class="instruction">DEFB $0F</td>
+<td class="comment-1" rowspan="1">PASS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60057"></span>EA99</td>
+<td class="instruction">DEFB $82,$81,$FB,$00,$A5,$EA</td>
+<td class="comment-1" rowspan="1">DO 129 <a href="58840.html">IS WITH</a>: self, 0 you [ok <a href="59367.html#60069">EAA5</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60063"></span>EA9F</td>
+<td class="instruction">DEFB $52,$88,$16,$FF,$98,$EA</td>
+<td class="comment-1" rowspan="1">DO 136 <a href="61910.html">IS HOUR</a> 22 [busy; fail <a href="59367.html#60056">EA98</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60069"></span>EAA5</td>
+<td class="instruction">DEFB $45,$00,$C7,$70</td>
+<td class="comment-1" rowspan="1">SAY TO 0 you message <a href="28871.html">70C7</a>: "I AM AFRAID THAT BASIL HAS ELUDED US HOLMES." [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60073"></span>EAA9</td>
+<td class="instruction">DEFB $42,$80,$FB,$00</td>
+<td class="comment-1" rowspan="1">DO 128 <a href="58519.html">PUT</a>: self, room 0 (off stage) [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60077"></span>EAAD</td>
+<td class="instruction">DEFB $52,$88,$0A,$FF,$AD,$EA</td>
+<td class="comment-1" rowspan="1">DO 136 <a href="61910.html">IS HOUR</a> 10 [busy; fail: wait here]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60083"></span>EAB3</td>
+<td class="instruction">DEFB $03,$A2,$9E</td>
+<td class="comment-1" rowspan="1">RUN <a href="40610.html">9EA2</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="60086"></span>EAB6</td>
+<td class="instruction">DEFB $0F</td>
+<td class="comment-1" rowspan="1">PASS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60087"></span>EAB7</td>
+<td class="instruction">DEFB $44,$0B,$1E,$32,$FF</td>
+<td class="comment-1" rowspan="1">ASK 11 local police man TO 30 <a href="39627.html">GO FURIOUSLY TO</a>: 50 plain door, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60092"></span>EABC</td>
+<td class="instruction">DEFB $52,$83,$FB,$32,$BC,$EA</td>
+<td class="comment-1" rowspan="1">DO 131 <a href="58797.html">IS IN</a>: self, room 50 (main street) [busy; fail: wait here]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60098"></span>EAC2</td>
+<td class="instruction">DEFB $42,$0D,$6D,$FF</td>
+<td class="comment-1" rowspan="1">DO 13 <a href="58418.html">CLIMB OUT OF</a>: 109 police cab, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60102"></span>EAC6</td>
+<td class="instruction">DEFB $41,$01</td>
+<td class="comment-1" rowspan="1">DO 1 <a href="56579.html">NORTH</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60104"></span>EAC8</td>
+<td class="instruction">DEFB $41,$01</td>
+<td class="comment-1" rowspan="1">DO 1 <a href="56579.html">NORTH</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60106"></span>EACA</td>
+<td class="instruction">DEFB $41,$01</td>
+<td class="comment-1" rowspan="1">DO 1 <a href="56579.html">NORTH</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60108"></span>EACC</td>
+<td class="instruction">DEFB $45,$00,$C7,$70</td>
+<td class="comment-1" rowspan="1">SAY TO 0 you message <a href="28871.html">70C7</a>: "I AM AFRAID THAT BASIL HAS ELUDED US HOLMES." [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60112"></span>EAD0</td>
+<td class="instruction">DEFB $82,$81,$FB,$2A,$95,$EA</td>
+<td class="comment-1" rowspan="1">DO 129 <a href="58840.html">IS WITH</a>: self, 42 steam train [ok <a href="59367.html#60053">EA95</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60118"></span>EAD6</td>
+<td class="instruction">DEFB $82,$81,$FB,$2B,$95,$EA</td>
+<td class="comment-1" rowspan="1">DO 129 <a href="58840.html">IS WITH</a>: self, 43 steam train [ok <a href="59367.html#60053">EA95</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60124"></span>EADC</td>
+<td class="instruction">DEFB $82,$83,$FB,$37,$D0,$EA</td>
+<td class="comment-1" rowspan="1">DO 131 <a href="58797.html">IS IN</a>: self, room 55 (platform two) [ok <a href="59367.html#60112">EAD0</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60130"></span>EAE2</td>
+<td class="instruction">DEFB $02,$86,$00,$1E</td>
+<td class="comment-1" rowspan="1">DO 134 <a href="60299.html">FOLLOW UNTIL IN</a>: 0 you, room 30 (platform one)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60134"></span>EAE6</td>
+<td class="instruction">DEFB $41,$04</td>
+<td class="comment-1" rowspan="1">DO 4 <a href="56579.html">WEST</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60136"></span>EAE8</td>
+<td class="instruction">DEFB $41,$04</td>
+<td class="comment-1" rowspan="1">DO 4 <a href="56579.html">WEST</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60138"></span>EAEA</td>
+<td class="instruction">DEFB $07,$A4,$EB,$FF,$0A</td>
+<td class="comment-1" rowspan="1">RUN <a href="60324.html">EBA4</a> (-, 10 maid)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60143"></span>EAEF</td>
+<td class="instruction">DEFB $42,$80,$FB,$0B</td>
+<td class="comment-1" rowspan="1">DO 128 <a href="58519.html">PUT</a>: self, room 11 (scotland yard) [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60147"></span>EAF3</td>
+<td class="instruction">DEFB $0E,$98,$EA</td>
+<td class="comment-1" rowspan="1">GOTO <a href="59367.html#60056">EA98</a></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="59362.html">E7E2</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#59367">Map</a></td>
+<td class="next">
+Next: <a href="60150.html">EAF6</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at F198 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="61786.html">F15A</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#61848">Map</a></td>
+<td class="next">
+Next: <a href="61864.html">F1A8</a>
+</td>
+</tr>
+</table>
+<div class="description">F198: Script helper: succeed by chance (n in 100)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+RUN <a href="61848.html">F198</a> / n: refuses unless a random number from 1 to 99 (<a href="53917.html">D29D</a>) is at most n.
+</div>
+<div class="paragraph">
+Used by: RUN at <a href="59367.html#59815">E9A7</a>; RUN at <a href="59367.html#59829">E9B5</a>; RUN at <a href="59367.html#59843">E9C3</a>; RUN at <a href="59367.html#59855">E9CF</a>; RUN at <a href="60747.html#60751">ED4F</a>; RUN at <a href="60747.html#60778">ED6A</a>; RUN at <a href="60747.html#60785">ED71</a>; RUN at <a href="60893.html#60897">EDE1</a>; RUN at <a href="60905.html#60912">EDF0</a>; RUN at <a href="60920.html#60924">EDFC</a>; RUN at <a href="60920.html#60931">EE03</a>; RUN at <a href="61463.html#61468">F01C</a>; RUN at <a href="61463.html#61482">F02A</a>; RUN at <a href="61463.html#61492">F034</a>; RUN at <a href="61463.html#61499">F03B</a>; RUN at <a href="61538.html#61610">F0AA</a>; RUN at <a href="61538.html#61678">F0EE</a>.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$A034</td>
+<td class="register-desc">n</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ when a random number from 1 to 99 is not above n; otherwise $DC15</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="61848"></span>F198</td>
+<td class="instruction">DEFB $07,$00</td>
+<td class="comment-1" rowspan="1">Action record header: flags $07; byte 1 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61850"></span>F19A</td>
+<td class="instruction">CALL <a href="53917.html">$D29D</a></td>
+<td class="comment-1" rowspan="1">Call the routine "A random number from 1 to 100" (<a href="53917.html">D29D</a>) - A random number, 1-99</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61853"></span>F19D</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">Copy A into B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61854"></span>F19E</td>
+<td class="instruction">LD A,($A034)</td>
+<td class="comment-1" rowspan="1">n</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61857"></span>F1A1</td>
+<td class="instruction">CP B</td>
+<td class="comment-1" rowspan="1">Is n below it?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61858"></span>F1A2</td>
+<td class="instruction">JP C,<a href="56341.html">$DC15</a></td>
+<td class="comment-1" rowspan="1">Yes: refuse</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61861"></span>F1A5</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - No: succeed</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61863"></span>F1A7</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="61786.html">F15A</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#61848">Map</a></td>
+<td class="next">
+Next: <a href="61864.html">F1A8</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

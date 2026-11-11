@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at D3D5 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="54171.html">D39B</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#54229">Map</a></td>
+<td class="next">
+Next: <a href="54248.html">D3E8</a>
+</td>
+</tr>
+</table>
+<div class="description">D3D5: Print thing IX's name</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+IY = IX + 7, its name words, then <a href="54248.html">D3E8</a>. Callers: <a href="53523.html#53575">$D148</a>, <a href="54672.html#54711">$D5B8</a>, <a href="54795.html#54872">$D659</a>, <a href="57152.html#57206">$DF77</a>.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">A thing's record</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">The</td>
+<td class="register-desc">thing's name printed; IY kept</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="54229"></span>D3D5</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack - IY = the thing's record + 7: its name words</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54231"></span>D3D7</td>
+<td class="instruction">POP IY</td>
+<td class="comment-1" rowspan="1">Restore IY from the stack</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="54233"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="54566.html">D526</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="54233"></span>D3D9</td>
+<td class="instruction">PUSH IY</td>
+<td class="comment-1" rowspan="1">Save IY on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54235"></span>D3DB</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54236"></span>D3DC</td>
+<td class="instruction">LD DE,$0007</td>
+<td class="comment-1" rowspan="1">Load DE with $0007, the amount that is added next</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54239"></span>D3DF</td>
+<td class="instruction">ADD IY,DE</td>
+<td class="comment-1" rowspan="1">Add DE to IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54241"></span>D3E1</td>
+<td class="instruction">CALL <a href="54248.html">$D3E8</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print the name words at IY" (<a href="54248.html">D3E8</a>) - Print them (<a href="54248.html">D3E8</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54244"></span>D3E4</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54245"></span>D3E5</td>
+<td class="instruction">POP IY</td>
+<td class="comment-1" rowspan="1">Restore IY from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54247"></span>D3E7</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="54171.html">D39B</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#54229">Map</a></td>
+<td class="next">
+Next: <a href="54248.html">D3E8</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

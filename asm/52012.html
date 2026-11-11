@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at CB2C - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="52008.html">CB28</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#52012">Map</a></td>
+<td class="next">
+Next: <a href="52032.html">CB40</a>
+</td>
+</tr>
+</table>
+<div class="description">CB2C: Dispatch to a handler routine via a computed jump</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Loads IX and IY from a saved 'action context' (<a href="52008.html">CB28</a>/<a href="52008.html#52010">CB2A</a>), calls through to a plain `JP (HL)` at <a href="52032.html">CB40</a>, then stores whatever IX/IY the handler left behind back into <a href="52008.html">CB28</a>/<a href="52008.html#52010">CB2A</a>. So IX/IY persist from one dispatched handler to the next, like a pair of global registers - the caller's own IX/IY are not protected. <a href="52012.html#52020">CB34</a> is a second entry point that skips the load (used by the action-record interpreter at <a href="51647.html#51691">C9EB</a> to run a record's pre-check routine with the current IX/IY).
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">The handler</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F,</td>
+<td class="register-desc">HL From the handler</td>
+</tr>
+<tr>
+<td class="register">CB28, </td>
+<td class="register-desc">CB2A The IX and IY the handler left</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="52012"></span>CB2C</td>
+<td class="instruction">LD IX,($CB28)</td>
+<td class="comment-1" rowspan="1">Load the action context's IX...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52016"></span>CB30</td>
+<td class="instruction">LD IY,($CB2A)</td>
+<td class="comment-1" rowspan="1">...and IY</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="52020"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="51647.html">C9BF</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="52020"></span>CB34</td>
+<td class="instruction">CALL <a href="52032.html">$CB40</a></td>
+<td class="comment-1" rowspan="1">Run the handler (second entry point: keep current IX/IY)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52023"></span>CB37</td>
+<td class="instruction">LD ($CB28),IX</td>
+<td class="comment-1" rowspan="1">Save whatever IX the handler left as the new context...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52027"></span>CB3B</td>
+<td class="instruction">LD ($CB2A),IY</td>
+<td class="comment-1" rowspan="1">...and IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52031"></span>CB3F</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="52008.html">CB28</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#52012">Map</a></td>
+<td class="next">
+Next: <a href="52032.html">CB40</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

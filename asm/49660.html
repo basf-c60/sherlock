@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at C1FC - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="49652.html">C1F4</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#49660">Map</a></td>
+<td class="next">
+Next: <a href="49728.html">C240</a>
+</td>
+</tr>
+</table>
+<div class="description">C1FC: Echo a typed character in the command window</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Letters are shown in capitals (<a href="49728.html">C240</a>); ENTER becomes a space and a new line, DELETE steps back 7 pixels (<a href="49737.html">C249</a>, <a href="49767.html">C267</a>); at the end of a line the window scrolls (<a href="49777.html">C271</a>).
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. ENTER prints a space over the cursor and starts a new line; DELETE rubs the last character out (<a href="49737.html">C249</a>).
+</div>
+<div class="paragraph">
+2. Anything else is shown in capitals (<a href="49728.html">C240</a>) and printed (<a href="50056.html">C388</a>).
+</div>
+<div class="paragraph">
+3. When the line is full, or after ENTER, the window scrolls up (<a href="49777.html">C271</a>) and 36 characters are available again.
+</div>
+<div class="paragraph">
+4. Save the characters left, pixel shift and print position. Draw a '+' cursor after the character.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">The character typed (ENTER $0D, DELETE $08, anything else)</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">All</td>
+<td class="register-desc">registers kept</td>
+</tr>
+<tr>
+<td class="register">The</td>
+<td class="register-desc">character shown in the command window</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="49660"></span>C1FC</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack - Restore AF, then (entry <a href="49660.html#49661">C1FD</a>) save HL, BC, AF</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="49661"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routines at <a href="49600.html">C1C0</a> and <a href="49611.html">C1CB</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="49661"></span>C1FD</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49662"></span>C1FE</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Save BC on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49663"></span>C1FF</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49664"></span>C200</td>
+<td class="instruction">LD A,($C1FB)</td>
+<td class="comment-1" rowspan="1">Read <a href="49652.html#49659">C1FB</a> in "Command-window state" into A - C = the command window's pixel shift, HL = its print position</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49667"></span>C203</td>
+<td class="instruction">LD C,A</td>
+<td class="comment-1" rowspan="1">Copy A into C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49668"></span>C204</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49669"></span>C205</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49670"></span>C206</td>
+<td class="instruction">LD HL,($C1F6)</td>
+<td class="comment-1" rowspan="1">Read <a href="49652.html#49654">C1F6</a> in "Command-window state" into HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49673"></span>C209</td>
+<td class="instruction">CP $0D</td>
+<td class="comment-1" rowspan="1">Compare A with $0D - ENTER: print a space over the cursor and start a new line</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49675"></span>C20B</td>
+<td class="instruction">JR NZ,$C214</td>
+<td class="comment-1" rowspan="1">If A differs from $0D, skip ahead to <a href="49660.html#49684">C214</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="49677"></span>C20D</td>
+<td class="instruction">LD A,$20</td>
+<td class="comment-1" rowspan="1">Load A with $20</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49679"></span>C20F</td>
+<td class="instruction">CALL <a href="50056.html">$C388</a></td>
+<td class="comment-1" rowspan="1">Call the routine "PLOT-CHAR: draw one character glyph at HL, shifted by..." (<a href="50056.html">C388</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49682"></span>C212</td>
+<td class="instruction">JR $C224</td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="49660.html#49700">C224</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="49684"></span>C214</td>
+<td class="instruction">CP $08</td>
+<td class="comment-1" rowspan="1">Compare A with $08 - DELETE: rub the last character out (<a href="49737.html">C249</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49686"></span>C216</td>
+<td class="instruction">JR Z,<a href="49737.html">$C249</a></td>
+<td class="comment-1" rowspan="1">If A equals $08, jump on to the routine "Rub out the last character in the command window" (<a href="49737.html">C249</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49688"></span>C218</td>
+<td class="instruction">CALL <a href="49728.html">$C240</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Upper-case A if it is a lower-case letter" (<a href="49728.html">C240</a>) - Anything else: in capitals (<a href="49728.html">C240</a>), printed</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49691"></span>C21B</td>
+<td class="instruction">CALL <a href="50056.html">$C388</a></td>
+<td class="comment-1" rowspan="1">Call the routine "PLOT-CHAR: draw one character glyph at HL, shifted by..." (<a href="50056.html">C388</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49694"></span>C21E</td>
+<td class="instruction">LD A,($C1F4)</td>
+<td class="comment-1" rowspan="1">Read "Command-window state" (<a href="49652.html">C1F4</a>) into A - Line full?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49697"></span>C221</td>
+<td class="instruction">DEC A</td>
+<td class="comment-1" rowspan="1">Subtract one from A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49698"></span>C222</td>
+<td class="instruction">JR NZ,$C22D</td>
+<td class="comment-1" rowspan="1">If A is not zero, skip ahead to <a href="49660.html#49709">C22D</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="49700"></span>C224</td>
+<td class="instruction">LD L,$E0</td>
+<td class="comment-1" rowspan="1">Load L with $E0 - New line: back to the start of the bottom row, pixel shift 2...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49702"></span>C226</td>
+<td class="instruction">LD C,$02</td>
+<td class="comment-1" rowspan="1">Load C with $02</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49704"></span>C228</td>
+<td class="instruction">CALL <a href="49777.html">$C271</a></td>
+<td class="comment-1" rowspan="1">...scroll the window up (<a href="49777.html">C271</a>)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49707"></span>C22B</td>
+<td class="instruction">LD A,$24</td>
+<td class="comment-1" rowspan="1">...and 36 characters to go</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="49709"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="49737.html">C249</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="49709"></span>C22D</td>
+<td class="instruction">LD ($C1F4),A</td>
+<td class="comment-1" rowspan="1">Store A in "Command-window state" (<a href="49652.html">C1F4</a>) - Save the characters left, pixel shift and print position</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49712"></span>C230</td>
+<td class="instruction">LD A,C</td>
+<td class="comment-1" rowspan="1">Copy C into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49713"></span>C231</td>
+<td class="instruction">LD ($C1FB),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="49652.html#49659">C1FB</a> in "Command-window state"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49716"></span>C234</td>
+<td class="instruction">LD ($C1F6),HL</td>
+<td class="comment-1" rowspan="1">Store HL in <a href="49652.html#49654">C1F6</a> in "Command-window state"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49719"></span>C237</td>
+<td class="instruction">LD A,$2B</td>
+<td class="comment-1" rowspan="1">Load A with $2B - Draw the '+' cursor after it (overwritten by the next character)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49721"></span>C239</td>
+<td class="instruction">CALL <a href="50056.html">$C388</a></td>
+<td class="comment-1" rowspan="1">Call the routine "PLOT-CHAR: draw one character glyph at HL, shifted by..." (<a href="50056.html">C388</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49724"></span>C23C</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49725"></span>C23D</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore BC from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49726"></span>C23E</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49727"></span>C23F</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="49652.html">C1F4</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#49660">Map</a></td>
+<td class="next">
+Next: <a href="49728.html">C240</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

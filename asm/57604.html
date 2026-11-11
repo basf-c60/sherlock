@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at E104 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="57597.html">E0FD</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#57604">Map</a></td>
+<td class="next">
+Next: <a href="57653.html">E135</a>
+</td>
+</tr>
+</table>
+<div class="description">E104: Action record: the bookcase swings away (shared 18)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+EXAMINE CLOSELY BOOKCASE. The first time, the bookcase (thing 66) is marked open (+5 bit 5), its description message is changed to 'It has been swung away from the wall revealing a small room' (<a href="31735.html">7BF7</a>), and 'As you run your hands over the books you touch a hidden spring...' is printed (<a href="31763.html">7C13</a>).
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$A013</td>
+<td class="register-desc">The bookcase's record</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ; the bookcase swung away the first time</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="57604"></span>E104</td>
+<td class="instruction">DEFB $08,$60</td>
+<td class="comment-1" rowspan="1">Action record header: flags $08; byte 1 $60</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57606"></span>E106</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="1">Load A with $01 - <a href="51886.html">CAAE</a> = 1 (the 'describe the room again' flag)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57608"></span>E108</td>
+<td class="instruction">LD ($CAAE),A</td>
+<td class="comment-1" rowspan="1">Store A in "Flag: the player's view has changed" (<a href="51886.html">CAAE</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57611"></span>E10B</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A036</a> in "Game variables" into A - Only the player (<a href="40918.html#41010">$A036</a> = 0) goes on</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57614"></span>E10E</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Clear the carry flag for the caller (A is unchanged)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57615"></span>E10F</td>
+<td class="instruction">RET NZ</td>
+<td class="comment-1" rowspan="1">If A is not zero, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57616"></span>E110</td>
+<td class="instruction">CALL <a href="57152.html#57179">$DF5B</a></td>
+<td class="comment-1" rowspan="1">(<a href="57152.html#57179">DF5B</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57619"></span>E113</td>
+<td class="instruction">LD IX,($A013)</td>
+<td class="comment-1" rowspan="1">IX = the direct object's record (<a href="40918.html#40978">$A013</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57623"></span>E117</td>
+<td class="instruction">BIT 5,(IX+$05)</td>
+<td class="comment-1" rowspan="1">Test bit 5 of byte +5 of the record at IX - Already marked (+5 bit 5)? Return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57627"></span>E11B</td>
+<td class="instruction">RET NZ</td>
+<td class="comment-1" rowspan="1">If bit 5 of byte +5 of the record at IX is set, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57628"></span>E11C</td>
+<td class="instruction">SET 5,(IX+$05)</td>
+<td class="comment-1" rowspan="1">Mark it (+5 bit 5)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57632"></span>E120</td>
+<td class="instruction">LD HL,$7BF7</td>
+<td class="comment-1" rowspan="1">Point HL at the message "IT HAS BEEN SWUNG AWAY FROM THE WALL REVEALING A... (<a href="31735.html">7BF7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57635"></span>E123</td>
+<td class="instruction">LD (IX+$0D),L</td>
+<td class="comment-1" rowspan="1">Store L in byte +13 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57638"></span>E126</td>
+<td class="instruction">LD (IX+$0E),H</td>
+<td class="comment-1" rowspan="1">Store H in byte +14 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57641"></span>E129</td>
+<td class="instruction">LD HL,$7C13</td>
+<td class="comment-1" rowspan="1">Point HL at the message "AS YOU RUN YOUR HANDS OVER THE BOOKS YOU TOUCH A... (<a href="31763.html">7C13</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57644"></span>E12C</td>
+<td class="instruction">CALL <a href="42399.html">$A59F</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print the message at HL" (<a href="42399.html">A59F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57647"></span>E12F</td>
+<td class="instruction">CALL <a href="41634.html">$A2A2</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print a newline (A kept)" (<a href="41634.html">A2A2</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57650"></span>E132</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57652"></span>E134</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="57597.html">E0FD</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#57604">Map</a></td>
+<td class="next">
+Next: <a href="57653.html">E135</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

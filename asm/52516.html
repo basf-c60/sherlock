@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at CD24 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="52344.html">CC78</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#52516">Map</a></td>
+<td class="next">
+Next: <a href="52551.html">CD47</a>
+</td>
+</tr>
+</table>
+<div class="description">CD24: Plan opcode 8, SIGNAL: leave a token for another actor</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Allocates a 2-byte node (this actor, the argument) on the list headed at <a href="40918.html#40935">9FE7</a>. AWAIT (opcode 9) in the other actor's script looks for it. Always succeeds.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">The instruction (+1 the actor signalled)</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">The</td>
+<td class="register-desc">token left on the list at $9FE7; the step succeeds</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="52516"></span>CD24</td>
+<td class="instruction">LD A,(IX+$01)</td>
+<td class="comment-1" rowspan="1">Read byte +1 of the record at IX into A - The actor being signalled</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52519"></span>CD27</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52520"></span>CD28</td>
+<td class="instruction">LD A,$02</td>
+<td class="comment-1" rowspan="1">Load A with $02 - Allocate a 2-byte node</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52522"></span>CD2A</td>
+<td class="instruction">CALL <a href="41244.html">$A11C</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Allocate A + 3 bytes from the free list, cleared" (<a href="41244.html">A11C</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52525"></span>CD2D</td>
+<td class="instruction">LD HL,($9FE7)</td>
+<td class="comment-1" rowspan="1">Read SIGNAL tokens (<a href="40918.html#40935">9FE7</a>) into HL - Link it in at the head of the <a href="40918.html#40935">9FE7</a> list</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52528"></span>CD30</td>
+<td class="instruction">LD ($9FE7),IX</td>
+<td class="comment-1" rowspan="1">Store IX in SIGNAL tokens (<a href="40918.html#40935">9FE7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52532"></span>CD34</td>
+<td class="instruction">LD (IX-$02),L</td>
+<td class="comment-1" rowspan="1">Store L in byte -2 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52535"></span>CD37</td>
+<td class="instruction">LD (IX-$01),H</td>
+<td class="comment-1" rowspan="1">Store H in byte -1 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52538"></span>CD3A</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A036</a> in "Game variables" into A - Node +0 = who signalled</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52541"></span>CD3D</td>
+<td class="instruction">LD (IX+$00),A</td>
+<td class="comment-1" rowspan="1">Store A in the first byte of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52544"></span>CD40</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack - Node +1 = who it is for</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52545"></span>CD41</td>
+<td class="instruction">LD (IX+$01),A</td>
+<td class="comment-1" rowspan="1">Store A in byte +1 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52548"></span>CD44</td>
+<td class="instruction">JP <a href="52879.html">$CE8F</a></td>
+<td class="comment-1" rowspan="1">Succeed</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="52344.html">CC78</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#52516">Map</a></td>
+<td class="next">
+Next: <a href="52551.html">CD47</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

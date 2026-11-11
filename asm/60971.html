@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Data at EE2B - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-b">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Data</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="60959.html">EE1F</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#60971">Map</a></td>
+<td class="next">
+Next: <a href="61340.html">EF9C</a>
+</td>
+</tr>
+</table>
+<div class="description">EE2B: Plan script: Basil Phipps (actor 6) - the spy with the plans</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Entry point: <a href="60971.html">EE2B</a> = phipps (actor 6).
+</div>
+<div class="paragraph">
+Each sub-block is one instruction. Split off from the block before, which it merely follows in memory.
+</div>
+<div class="paragraph">
+In an instruction, 'plan dobj' and 'plan iobj' are not fixed objects: they mean the direct and indirect object currently held in the actor's plan registers (bytes +4 and +5 of its actor record), so the same step works on whatever the actor is dealing with - for the player, the objects of the command just typed. 'plan verb' is the verb register (+3), 'self' is the acting character, and '-' means none.
+</div>
+<div class="paragraph">
+At Old Mill Road (<a href="60971.html#61222">EF26</a>) he waits for 3pm, then starts a countdown of 16 minutes plus a random number (<a href="60971.html#61236">EF34</a>). Each minute he checks whether you are at Old Mill Road (<a href="60971.html#61241">EF39</a>). If you arrive in time, 'AS YOU ENTER HE WHIPS HIS HORSES INTO ACTION AND SPEEDS OFF DOWN THE ROAD.' (<a href="60971.html#61255">EF47</a>, message <a href="30067.html">7573</a>): he is put in Leatherhead's Main Street, waits for 4pm and 48 minutes more, walks to the station, takes a train to platform four in London, walks five steps south-west to Kings Cross Road, takes a cab to Buckingham Palace Road and walks east twice, to platform one at Victoria (room 30). If you are there (<a href="60971.html#61315">EF83</a>) he runs <a href="40520.html">9E48</a> - the last scene; if not, he leaves the game (<a href="60971.html#61324">EF8C</a>).
+</div>
+<div class="paragraph">
+With Watson and Lestrade beside you: 'Basil Phipps enters. ... As Basil enters he sees you and pulls a gun. With suprising agility Watson pushes you out of the way of Basils first shot allowing Lestrade time to pull his gun and capture the culprits. As incredible as it may seem you have solved this case. You truly deserve the title of worlds greatest detective.' Without Lestrade, or without Watson: '...With his usual skill his first shot disposes of you. Perhaps you should try again.' With you one room away, he walked in and left the game.
+</div>
+<div class="paragraph">
+The flight from <a href="60971.html#61258">EF4A</a> on is shared with the German agent (<a href="61430.html">EFF6</a>), who waits at Old Mill Road too.
+</div>
+<div class="paragraph">
+Phipps is in the bedroom (room 35) through the night, in the hall (33) at 10:06, in Camden Street (32) at 10:09 and in his cab (room 1) at 10:15 - the same whether the player is in room 102 or in the street. At 9:50am he shoots whoever is in the bedroom, in disguise or not.
+</div>
+<div class="paragraph">
+Why Phipps's Wednesday morning differs between logs: at <a href="60971.html#61161">EEE9</a> his script tests whether you are in Camden Street or Basil's front yard, or the china man is in either. If so he plays the messenger scene (<a href="61356.html">EFAC</a>) and waits 15 minutes before leaving the bedroom; if not he goes at once. With the player indoors he is in Camden Street at 9:55am; with the player in the front yard, as in the winning route, about 10:06-10:10.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60971"></span>EE2B</td>
+<td class="instruction">DEFB $59,$04,$2B,$EE</td>
+<td class="comment-1" rowspan="1">AWAIT 4 chief constable straker [busy; fail: wait here]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60975"></span>EE2F</td>
+<td class="instruction">DEFB $42,$80,$FB,$00</td>
+<td class="comment-1" rowspan="1">DO 128 <a href="58519.html">PUT</a>: self, room 0 (off stage) [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60979"></span>EE33</td>
+<td class="instruction">DEFB $12,$88,$17,$FF,$33,$EE</td>
+<td class="comment-1" rowspan="1">DO 136 <a href="61910.html">IS HOUR</a> 23 [fail: wait here]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60985"></span>EE39</td>
+<td class="instruction">DEFB $02,$80,$FB,$3D</td>
+<td class="comment-1" rowspan="1">DO 128 <a href="58519.html">PUT</a>: self, room 61 (basils bedroom)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60989"></span>EE3D</td>
+<td class="instruction">DEFB $03,$B3,$EF</td>
+<td class="comment-1" rowspan="1">RUN <a href="61363.html">EFB3</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="60992"></span>EE40</td>
+<td class="instruction">DEFB $52,$88,$07,$FF,$40,$EE</td>
+<td class="comment-1" rowspan="1">DO 136 <a href="61910.html">IS HOUR</a> 7 [busy; fail: wait here]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60998"></span>EE46</td>
+<td class="instruction">DEFB $03,$C7,$EF</td>
+<td class="comment-1" rowspan="1">RUN <a href="61383.html">EFC7</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="61001"></span>EE49</td>
+<td class="instruction">DEFB $41,$0A</td>
+<td class="comment-1" rowspan="1">DO 10 <a href="56579.html">DOWN</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61003"></span>EE4B</td>
+<td class="instruction">DEFB $42,$87,$13,$FF</td>
+<td class="comment-1" rowspan="1">DO 135 <a href="60712.html">GO THROUGH DOOR</a>: 19 front door, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61007"></span>EE4F</td>
+<td class="instruction">DEFB $41,$01</td>
+<td class="comment-1" rowspan="1">DO 1 <a href="56579.html">NORTH</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61009"></span>EE51</td>
+<td class="instruction">DEFB $41,$01</td>
+<td class="comment-1" rowspan="1">DO 1 <a href="56579.html">NORTH</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61011"></span>EE53</td>
+<td class="instruction">DEFB $41,$01</td>
+<td class="comment-1" rowspan="1">DO 1 <a href="56579.html">NORTH</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61013"></span>EE55</td>
+<td class="instruction">DEFB $41,$01</td>
+<td class="comment-1" rowspan="1">DO 1 <a href="56579.html">NORTH</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61015"></span>EE57</td>
+<td class="instruction">DEFB $47,$E1,$EB,$17,$FF</td>
+<td class="comment-1" rowspan="1">RUN <a href="60385.html">EBE1</a> (23 your armchair, -) [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61020"></span>EE5C</td>
+<td class="instruction">DEFB $41,$08</td>
+<td class="comment-1" rowspan="1">DO 8 <a href="56579.html">SOUTHWEST</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61022"></span>EE5E</td>
+<td class="instruction">DEFB $41,$08</td>
+<td class="comment-1" rowspan="1">DO 8 <a href="56579.html">SOUTHWEST</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61024"></span>EE60</td>
+<td class="instruction">DEFB $41,$08</td>
+<td class="comment-1" rowspan="1">DO 8 <a href="56579.html">SOUTHWEST</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61026"></span>EE62</td>
+<td class="instruction">DEFB $41,$08</td>
+<td class="comment-1" rowspan="1">DO 8 <a href="56579.html">SOUTHWEST</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61028"></span>EE64</td>
+<td class="instruction">DEFB $41,$08</td>
+<td class="comment-1" rowspan="1">DO 8 <a href="56579.html">SOUTHWEST</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61030"></span>EE66</td>
+<td class="instruction">DEFB $47,$A4,$EB,$FF,$20</td>
+<td class="comment-1" rowspan="1">RUN <a href="60324.html">EBA4</a> (-, 32 money) [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61035"></span>EE6B</td>
+<td class="instruction">DEFB $42,$85,$5B,$FF</td>
+<td class="comment-1" rowspan="1">DO 133 <a href="61955.html">UNLOCK</a>: 91 front door, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61039"></span>EE6F</td>
+<td class="instruction">DEFB $42,$87,$5B,$FF</td>
+<td class="comment-1" rowspan="1">DO 135 <a href="60712.html">GO THROUGH DOOR</a>: 91 front door, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61043"></span>EE73</td>
+<td class="instruction">DEFB $42,$84,$5B,$FF</td>
+<td class="comment-1" rowspan="1">DO 132 <a href="61968.html">LOCK</a>: 91 front door, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61047"></span>EE77</td>
+<td class="instruction">DEFB $12,$88,$0D,$FF,$77,$EE</td>
+<td class="comment-1" rowspan="1">DO 136 <a href="61910.html">IS HOUR</a> 13 [fail: wait here]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61053"></span>EE7D</td>
+<td class="instruction">DEFB $82,$83,$00,$20,$95,$EE</td>
+<td class="comment-1" rowspan="1">DO 131 <a href="58797.html">IS IN</a>: 0 you, room 32 (camden street) [ok <a href="60971.html#61077">EE95</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61059"></span>EE83</td>
+<td class="instruction">DEFB $82,$83,$00,$66,$95,$EE</td>
+<td class="comment-1" rowspan="1">DO 131 <a href="58797.html">IS IN</a>: 0 you, room 102 (basils front yard) [ok <a href="60971.html#61077">EE95</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61065"></span>EE89</td>
+<td class="instruction">DEFB $82,$83,$01,$66,$95,$EE</td>
+<td class="comment-1" rowspan="1">DO 131 <a href="58797.html">IS IN</a>: 1 china man, room 102 (basils front yard) [ok <a href="60971.html#61077">EE95</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61071"></span>EE8F</td>
+<td class="instruction">DEFB $12,$83,$01,$20,$98,$EE</td>
+<td class="comment-1" rowspan="1">DO 131 <a href="58797.html">IS IN</a>: 1 china man, room 32 (camden street) [fail <a href="60971.html#61080">EE98</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61077"></span>EE95</td>
+<td class="instruction">DEFB $03,$9C,$EF</td>
+<td class="comment-1" rowspan="1">RUN <a href="61340.html">EF9C</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="61080"></span>EE98</td>
+<td class="instruction">DEFB $12,$88,$16,$FF,$98,$EE</td>
+<td class="comment-1" rowspan="1">DO 136 <a href="61910.html">IS HOUR</a> 22 [fail: wait here]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61086"></span>EE9E</td>
+<td class="instruction">DEFB $02,$80,$FB,$23</td>
+<td class="comment-1" rowspan="1">DO 128 <a href="58519.html">PUT</a>: self, room 35 (basils bedroom)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61090"></span>EEA2</td>
+<td class="instruction">DEFB $02,$85,$4F,$FF</td>
+<td class="comment-1" rowspan="1">DO 133 <a href="61955.html">UNLOCK</a>: 79 window, -</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61094"></span>EEA6</td>
+<td class="instruction">DEFB $02,$24,$4F,$FF</td>
+<td class="comment-1" rowspan="1">DO 36 <a href="56989.html">OPEN</a>: 79 window, -</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61098"></span>EEAA</td>
+<td class="instruction">DEFB $07,$2F,$E5,$37,$14</td>
+<td class="comment-1" rowspan="1">RUN <a href="58671.html">E52F</a> START COUNTDOWN of (dobj) plus a random number up to (iobj) (55, 20)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61103"></span>EEAF</td>
+<td class="instruction">DEFB $82,$81,$FB,$00,$96,$EF</td>
+<td class="comment-1" rowspan="1">DO 129 <a href="58840.html">IS WITH</a>: self, 0 you [ok <a href="60971.html#61334">EF96</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61109"></span>EEB5</td>
+<td class="instruction">DEFB $0F</td>
+<td class="comment-1" rowspan="1">PASS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61110"></span>EEB6</td>
+<td class="instruction">DEFB $83,$7A,$E5,$AF,$EE</td>
+<td class="comment-1" rowspan="1">RUN <a href="58746.html">E57A</a> TICK the countdown (fails, and deletes it, when it runs out) [ok <a href="60971.html#61103">EEAF</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61115"></span>EEBB</td>
+<td class="instruction">DEFB $03,$B3,$EF</td>
+<td class="comment-1" rowspan="1">RUN <a href="61363.html">EFB3</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="61118"></span>EEBE</td>
+<td class="instruction">DEFB $47,$BE,$DD,$28,$FF</td>
+<td class="comment-1" rowspan="1">RUN <a href="56766.html">DDBE</a> WAIT (dobj) minutes (40, -) [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61123"></span>EEC3</td>
+<td class="instruction">DEFB $03,$C7,$EF</td>
+<td class="comment-1" rowspan="1">RUN <a href="61383.html">EFC7</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="61126"></span>EEC6</td>
+<td class="instruction">DEFB $12,$83,$53,$26,$DA,$EE</td>
+<td class="comment-1" rowspan="1">DO 131 <a href="58797.html">IS IN</a>: 83 ripped coded baker note, room 38 (basils library) [fail <a href="60971.html#61146">EEDA</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61132"></span>EECC</td>
+<td class="instruction">DEFB $12,$83,$51,$27,$DA,$EE</td>
+<td class="comment-1" rowspan="1">DO 131 <a href="58797.html">IS IN</a>: 81 torn coded ?0f8 note, room 39 (basils yard) [fail <a href="60971.html#61146">EEDA</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61138"></span>EED2</td>
+<td class="instruction">DEFB $02,$80,$51,$00</td>
+<td class="comment-1" rowspan="1">DO 128 <a href="58519.html">PUT</a>: 81 torn coded ?0f8 note, room 0 (off stage)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61142"></span>EED6</td>
+<td class="instruction">DEFB $02,$80,$53,$00</td>
+<td class="comment-1" rowspan="1">DO 128 <a href="58519.html">PUT</a>: 83 ripped coded baker note, room 0 (off stage)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61146"></span>EEDA</td>
+<td class="instruction">DEFB $0F</td>
+<td class="comment-1" rowspan="1">PASS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61147"></span>EEDB</td>
+<td class="instruction">DEFB $03,$C7,$EF</td>
+<td class="comment-1" rowspan="1">RUN <a href="61383.html">EFC7</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="61150"></span>EEDE</td>
+<td class="instruction">DEFB $12,$88,$09,$FF,$DA,$EE</td>
+<td class="comment-1" rowspan="1">DO 136 <a href="61910.html">IS HOUR</a> 9 [fail <a href="60971.html#61146">EEDA</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61156"></span>EEE4</td>
+<td class="instruction">DEFB $07,$BE,$DD,$32,$FF</td>
+<td class="comment-1" rowspan="1">RUN <a href="56766.html">DDBE</a> WAIT (dobj) minutes (50, -)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61161"></span>EEE9</td>
+<td class="instruction">DEFB $82,$83,$00,$20,$01,$EF</td>
+<td class="comment-1" rowspan="1">DO 131 <a href="58797.html">IS IN</a>: 0 you, room 32 (camden street) [ok <a href="60971.html#61185">EF01</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61167"></span>EEEF</td>
+<td class="instruction">DEFB $82,$83,$00,$66,$01,$EF</td>
+<td class="comment-1" rowspan="1">DO 131 <a href="58797.html">IS IN</a>: 0 you, room 102 (basils front yard) [ok <a href="60971.html#61185">EF01</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61173"></span>EEF5</td>
+<td class="instruction">DEFB $82,$83,$01,$66,$01,$EF</td>
+<td class="comment-1" rowspan="1">DO 131 <a href="58797.html">IS IN</a>: 1 china man, room 102 (basils front yard) [ok <a href="60971.html#61185">EF01</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61179"></span>EEFB</td>
+<td class="instruction">DEFB $12,$83,$01,$20,$09,$EF</td>
+<td class="comment-1" rowspan="1">DO 131 <a href="58797.html">IS IN</a>: 1 china man, room 32 (camden street) [fail <a href="60971.html#61193">EF09</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61185"></span>EF01</td>
+<td class="instruction">DEFB $03,$AC,$EF</td>
+<td class="comment-1" rowspan="1">RUN <a href="61356.html">EFAC</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="61188"></span>EF04</td>
+<td class="instruction">DEFB $07,$BE,$DD,$0F,$FF</td>
+<td class="comment-1" rowspan="1">RUN <a href="56766.html">DDBE</a> WAIT (dobj) minutes (15, -)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61193"></span>EF09</td>
+<td class="instruction">DEFB $03,$C7,$EF</td>
+<td class="comment-1" rowspan="1">RUN <a href="61383.html">EFC7</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="61196"></span>EF0C</td>
+<td class="instruction">DEFB $47,$F6,$F1,$55,$FF</td>
+<td class="comment-1" rowspan="1">RUN <a href="61942.html">F1F6</a> (85 burning note, -) [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61201"></span>EF11</td>
+<td class="instruction">DEFB $02,$80,$FB,$21</td>
+<td class="comment-1" rowspan="1">DO 128 <a href="58519.html">PUT</a>: self, room 33 (entrance hall)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61205"></span>EF15</td>
+<td class="instruction">DEFB $42,$85,$5B,$FF</td>
+<td class="comment-1" rowspan="1">DO 133 <a href="61955.html">UNLOCK</a>: 91 front door, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61209"></span>EF19</td>
+<td class="instruction">DEFB $42,$87,$5B,$FF</td>
+<td class="comment-1" rowspan="1">DO 135 <a href="60712.html">GO THROUGH DOOR</a>: 91 front door, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61213"></span>EF1D</td>
+<td class="instruction">DEFB $42,$84,$5B,$FF</td>
+<td class="comment-1" rowspan="1">DO 132 <a href="61968.html">LOCK</a>: 91 front door, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61217"></span>EF21</td>
+<td class="instruction">DEFB $43,$72,$EB</td>
+<td class="comment-1" rowspan="1">RUN <a href="60274.html">EB72</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61220"></span>EF24</td>
+<td class="instruction">DEFB $41,$02</td>
+<td class="comment-1" rowspan="1">DO 2 <a href="56579.html">SOUTH</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61222"></span>EF26</td>
+<td class="instruction">DEFB $41,$03</td>
+<td class="comment-1" rowspan="1">DO 3 <a href="56579.html">EAST</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61224"></span>EF28</td>
+<td class="instruction">DEFB $08,$68</td>
+<td class="comment-1" rowspan="1">SIGNAL 104 german agent</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61226"></span>EF2A</td>
+<td class="instruction">DEFB $42,$80,$FB,$67</td>
+<td class="comment-1" rowspan="1">DO 128 <a href="58519.html">PUT</a>: self, room 103 (old mill road) [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61230"></span>EF2E</td>
+<td class="instruction">DEFB $12,$88,$0F,$FF,$2E,$EF</td>
+<td class="comment-1" rowspan="1">DO 136 <a href="61910.html">IS HOUR</a> 15 [fail: wait here]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61236"></span>EF34</td>
+<td class="instruction">DEFB $07,$2F,$E5,$10,$FF</td>
+<td class="comment-1" rowspan="1">RUN <a href="58671.html">E52F</a> START COUNTDOWN of (dobj) plus a random number up to (iobj) (16, -)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61241"></span>EF39</td>
+<td class="instruction">DEFB $82,$83,$00,$67,$47,$EF</td>
+<td class="comment-1" rowspan="1">DO 131 <a href="58797.html">IS IN</a>: 0 you, room 103 (old mill road) [ok <a href="60971.html#61255">EF47</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61247"></span>EF3F</td>
+<td class="instruction">DEFB $0F</td>
+<td class="comment-1" rowspan="1">PASS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61248"></span>EF40</td>
+<td class="instruction">DEFB $93,$7A,$E5,$39,$EF,$8C,$EF</td>
+<td class="comment-1" rowspan="1">RUN <a href="58746.html">E57A</a> TICK the countdown (fails, and deletes it, when it runs out) [ok <a href="60971.html#61241">EF39</a>; fail <a href="60971.html#61324">EF8C</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61255"></span>EF47</td>
+<td class="instruction">DEFB $06,$73,$75</td>
+<td class="comment-1" rowspan="1">PRINT message <a href="30067.html">7573</a>: "AS YOU ENTER YOU WHIPS HIS HORSES INTO ACTION AND SPEEDS OFF DOWN T..."</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61258"></span>EF4A</td>
+<td class="instruction">DEFB $02,$80,$FB,$32</td>
+<td class="comment-1" rowspan="1">DO 128 <a href="58519.html">PUT</a>: self, room 50 (main street)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61262"></span>EF4E</td>
+<td class="instruction">DEFB $12,$88,$10,$FF,$4E,$EF</td>
+<td class="comment-1" rowspan="1">DO 136 <a href="61910.html">IS HOUR</a> 16 [fail: wait here]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61268"></span>EF54</td>
+<td class="instruction">DEFB $07,$BE,$DD,$30,$FF</td>
+<td class="comment-1" rowspan="1">RUN <a href="56766.html">DDBE</a> WAIT (dobj) minutes (48, -)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61273"></span>EF59</td>
+<td class="instruction">DEFB $01,$01</td>
+<td class="comment-1" rowspan="1">DO 1 <a href="56579.html">NORTH</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="61275"></span>EF5B</td>
+<td class="instruction">DEFB $01,$01</td>
+<td class="comment-1" rowspan="1">DO 1 <a href="56579.html">NORTH</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="61277"></span>EF5D</td>
+<td class="instruction">DEFB $01,$01</td>
+<td class="comment-1" rowspan="1">DO 1 <a href="56579.html">NORTH</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="61279"></span>EF5F</td>
+<td class="instruction">DEFB $11,$0C,$5F,$EF</td>
+<td class="comment-1" rowspan="1">DO 12 <a href="58378.html">CLIMB INTO</a> [fail: wait here]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61283"></span>EF63</td>
+<td class="instruction">DEFB $12,$83,$FB,$17,$63,$EF</td>
+<td class="comment-1" rowspan="1">DO 131 <a href="58797.html">IS IN</a>: self, room 23 (platform four) [fail: wait here]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61289"></span>EF69</td>
+<td class="instruction">DEFB $01,$0D</td>
+<td class="comment-1" rowspan="1">DO 13 <a href="58418.html">CLIMB OUT OF</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="61291"></span>EF6B</td>
+<td class="instruction">DEFB $01,$08</td>
+<td class="comment-1" rowspan="1">DO 8 <a href="56579.html">SOUTHWEST</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="61293"></span>EF6D</td>
+<td class="instruction">DEFB $01,$08</td>
+<td class="comment-1" rowspan="1">DO 8 <a href="56579.html">SOUTHWEST</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="61295"></span>EF6F</td>
+<td class="instruction">DEFB $01,$08</td>
+<td class="comment-1" rowspan="1">DO 8 <a href="56579.html">SOUTHWEST</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="61297"></span>EF71</td>
+<td class="instruction">DEFB $01,$08</td>
+<td class="comment-1" rowspan="1">DO 8 <a href="56579.html">SOUTHWEST</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="61299"></span>EF73</td>
+<td class="instruction">DEFB $01,$08</td>
+<td class="comment-1" rowspan="1">DO 8 <a href="56579.html">SOUTHWEST</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="61301"></span>EF75</td>
+<td class="instruction">DEFB $07,$BE,$DD,$05,$FF</td>
+<td class="comment-1" rowspan="1">RUN <a href="56766.html">DDBE</a> WAIT (dobj) minutes (5, -)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61306"></span>EF7A</td>
+<td class="instruction">DEFB $07,$A4,$EB,$FF,$1C</td>
+<td class="comment-1" rowspan="1">RUN <a href="60324.html">EBA4</a> (-, 28 ?960 money)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61311"></span>EF7F</td>
+<td class="instruction">DEFB $01,$03</td>
+<td class="comment-1" rowspan="1">DO 3 <a href="56579.html">EAST</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="61313"></span>EF81</td>
+<td class="instruction">DEFB $01,$03</td>
+<td class="comment-1" rowspan="1">DO 3 <a href="56579.html">EAST</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="61315"></span>EF83</td>
+<td class="instruction">DEFB $12,$81,$FB,$00,$8C,$EF</td>
+<td class="comment-1" rowspan="1">DO 129 <a href="58840.html">IS WITH</a>: self, 0 you [fail <a href="60971.html#61324">EF8C</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61321"></span>EF89</td>
+<td class="instruction">DEFB $03,$48,$9E</td>
+<td class="comment-1" rowspan="1">RUN <a href="40520.html">9E48</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="61324"></span>EF8C</td>
+<td class="instruction">DEFB $02,$80,$FB,$00</td>
+<td class="comment-1" rowspan="1">DO 128 <a href="58519.html">PUT</a>: self, room 0 (off stage)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61328"></span>EF90</td>
+<td class="instruction">DEFB $03,$A8,$E5</td>
+<td class="comment-1" rowspan="1">RUN <a href="58792.html">E5A8</a> IDLE (no checks; takes a minute)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61331"></span>EF93</td>
+<td class="instruction">DEFB $0E,$90,$EF</td>
+<td class="comment-1" rowspan="1">GOTO <a href="60971.html#61328">EF90</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="61334"></span>EF96</td>
+<td class="instruction">DEFB $03,$88,$E5</td>
+<td class="comment-1" rowspan="1">RUN <a href="58760.html">E588</a> CANCEL the countdown</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61337"></span>EF99</td>
+<td class="instruction">DEFB $03,$CA,$DF</td>
+<td class="comment-1" rowspan="1">RUN <a href="57290.html">DFCA</a></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="60959.html">EE1F</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#60971">Map</a></td>
+<td class="next">
+Next: <a href="61340.html">EF9C</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

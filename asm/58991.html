@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at E66F - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="58964.html">E654</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#58991">Map</a></td>
+<td class="next">
+Next: <a href="59068.html">E6BC</a>
+</td>
+</tr>
+</table>
+<div class="description">E66F: Action record: is the account settled? (RUN at $F309, $F321, $F33E)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="62130.html#62217">F309</a>, <a href="62130.html#62241">F321</a>, <a href="62130.html#62270">F33E</a>.
+</div>
+<div class="paragraph">
+No body; the pre-check passes when the cabbie has no purse or its balance is exactly zero. The cabbie's script at <a href="62130.html#62134">F2B6</a> reads the balance of his purse (+9/+10 of the money he holds): negative while a fare is owed, positive when change is due, zero when settled.
+</div>
+<div class="paragraph">
+The block also holds two routines that merely follow it in memory (<a href="58991.html#59014">E686</a> and <a href="58991.html#59025">E691</a>): a 50 percent roll used by Watson's after-turn code, and the remark in which Watson asks 'why do you think that ...?' about a statement chosen at random from the list of statements already made.
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ if the cabbie has no purse or its balance is zero; otherwise $DC15</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="58991"></span>E66F</td>
+<td class="instruction">DEFB $40,$00,$73,$E6</td>
+<td class="comment-1" rowspan="1">Action record header: flags $40; bit 6: pre-check at <a href="58991.html#58995">E673</a>; byte 1 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58995"></span>E673</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">Pre-check: A = the current actor (<a href="40918.html#41010">$A036</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58998"></span>E676</td>
+<td class="instruction">CALL <a href="58877.html#58905">$E619</a></td>
+<td class="comment-1" rowspan="1">Is anything held by that actor (<a href="58877.html#58905">E619</a>)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59001"></span>E679</td>
+<td class="instruction">JR Z,$E683</td>
+<td class="comment-1" rowspan="1">None: succeed (<a href="58991.html#59011">E683</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59003"></span>E67B</td>
+<td class="instruction">CALL <a href="58268.html">$E39C</a></td>
+<td class="comment-1" rowspan="1">Otherwise check the result (<a href="58268.html">E39C</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59006"></span>E67E</td>
+<td class="instruction">LD A,H</td>
+<td class="comment-1" rowspan="1">Copy H into A - HL non-zero: fail (<a href="56341.html">DC15</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59007"></span>E67F</td>
+<td class="instruction">OR L</td>
+<td class="comment-1" rowspan="1">Set in A the bits that are set in L</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59008"></span>E680</td>
+<td class="instruction">JP NZ,<a href="56341.html">$DC15</a></td>
+<td class="comment-1" rowspan="1">If the result is not zero, go back to the routine "Fail: A = 0, HL = 0, Z set" (<a href="56341.html">DC15</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="59011"></span>E683</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - Succeed, NZ</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59013"></span>E685</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="59014"></span>E686</td>
+<td class="instruction">CALL <a href="53917.html">$D29D</a></td>
+<td class="comment-1" rowspan="1">Call the routine "A random number from 1 to 100" (<a href="53917.html">D29D</a>) - Roll 1-100 (<a href="53917.html">D29D</a>)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59017"></span>E689</td>
+<td class="instruction">CP $32</td>
+<td class="comment-1" rowspan="1">Compare A with $32</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59019"></span>E68B</td>
+<td class="instruction">JP C,<a href="56341.html">$DC15</a></td>
+<td class="comment-1" rowspan="1">...under 50: fail</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59022"></span>E68E</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - 50 or more: NZ</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59024"></span>E690</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="59025"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="40211.html">9D13</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="59025"></span>E691</td>
+<td class="instruction">CALL $E686</td>
+<td class="comment-1" rowspan="1">Watson's after-turn remark about something already said: the 50% roll first</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59028"></span>E694</td>
+<td class="instruction">RET Z</td>
+<td class="comment-1" rowspan="1">Failed the roll: nothing to say</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59029"></span>E695</td>
+<td class="instruction">CALL <a href="53917.html">$D29D</a></td>
+<td class="comment-1" rowspan="1">Call the routine "A random number from 1 to 100" (<a href="53917.html">D29D</a>) - Another roll 1-100 into B: how far along the list of remembered statements to go</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59032"></span>E698</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">Copy A into B</td>
+</tr>
+<tr>
+<td class="address-2"><span id="59033"></span>E699</td>
+<td class="instruction">LD IX,$9FF6</td>
+<td class="comment-1" rowspan="1">IX = the head of the list at <a href="40918.html#40946">$9FF6</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="59037"></span>E69D</td>
+<td class="instruction">DJNZ $E6A6</td>
+<td class="comment-1" rowspan="1">Count B down (<a href="58991.html#59046">E6A6</a> when done)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59039"></span>E69F</td>
+<td class="instruction">CALL <a href="41207.html">$A0F7</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Move IX to the next node of a list" (<a href="41207.html">A0F7</a>) - Next node (<a href="41207.html">A0F7</a>); at the end of the list start again</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59042"></span>E6A2</td>
+<td class="instruction">JR Z,$E699</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, go back to <a href="58991.html#59033">E699</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="59044"></span>E6A4</td>
+<td class="instruction">JR $E69D</td>
+<td class="comment-1" rowspan="1">Go back to <a href="58991.html#59037">E69D</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="59046"></span>E6A6</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack - Is it the head itself (an empty list)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59048"></span>E6A8</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59049"></span>E6A9</td>
+<td class="instruction">LD DE,$9FF6</td>
+<td class="comment-1" rowspan="1">Point DE at <a href="40918.html#40946">$9FF6</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59052"></span>E6AC</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Clear the carry flag, so that the subtraction that follows is a plain one (a compare)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59053"></span>E6AD</td>
+<td class="instruction">SBC HL,DE</td>
+<td class="comment-1" rowspan="1">Subtract DE from HL (a compare: carry = HL was smaller, zero = equal)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59055"></span>E6AF</td>
+<td class="instruction">JR Z,$E6B9</td>
+<td class="comment-1" rowspan="1">If the two values are equal, skip ahead to <a href="58991.html#59065">E6B9</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="59057"></span>E6B1</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">No: print the question about that statement with IX as its subject (<a href="28544.html">6F80</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59059"></span>E6B3</td>
+<td class="instruction">LD HL,$6F80</td>
+<td class="comment-1" rowspan="1">Point HL at the message "YOU SAY" WHY DO YOU THINK THAT YOU AND YOU?"." (<a href="28544.html">6F80</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59062"></span>E6B6</td>
+<td class="instruction">CALL <a href="42399.html">$A59F</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print the message at HL" (<a href="42399.html">A59F</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="59065"></span>E6B9</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - Return NZ</td>
+</tr>
+<tr>
+<td class="address-1"><span id="59067"></span>E6BB</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="58964.html">E654</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#58991">Map</a></td>
+<td class="next">
+Next: <a href="59068.html">E6BC</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

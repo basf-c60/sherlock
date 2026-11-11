@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at E188 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="57723.html">E17B</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#57736">Map</a></td>
+<td class="next">
+Next: <a href="57763.html">E1A3</a>
+</td>
+</tr>
+</table>
+<div class="description">E188: Action record: Mrs Jones is asked what happened or about her alibi (RUN at $E17D)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="57723.html#57725">E17D</a>.
+</div>
+<div class="paragraph">
+If the topic (indirect object) is thing 16 (WHAT HAPPENED), 67 (BLOODSTAINED CLOTHES) or 17 (YOUR ALIBI), bit 1 of the statement at <a href="39269.html#39315">9993</a> is set; Mrs Jones (Tricia Fender in disguise) has then been asked.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$A035</td>
+<td class="register-desc">The topic</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">The</td>
+<td class="register-desc">statement at $9993 marked when the topic is the right one</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="57736"></span>E188</td>
+<td class="instruction">DEFB $0D,$07</td>
+<td class="comment-1" rowspan="1">Action record header: flags $0D; byte 1 $07</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57738"></span>E18A</td>
+<td class="instruction">LD A,($A035)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A035</a> in "Game variables" into A - The indirect object (<a href="40918.html#41010">$A035</a>): thing 16 (WHAT HAPPENED), 67 (BLOODSTAINED CLOTHES) or 17 (YOUR ALIBI)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57741"></span>E18D</td>
+<td class="instruction">CP $10</td>
+<td class="comment-1" rowspan="1">Compare A with $10</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57743"></span>E18F</td>
+<td class="instruction">JR Z,$E199</td>
+<td class="comment-1" rowspan="1">If A equals $10, skip ahead to <a href="57736.html#57753">E199</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="57745"></span>E191</td>
+<td class="instruction">CP $43</td>
+<td class="comment-1" rowspan="1">Compare A with $43</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57747"></span>E193</td>
+<td class="instruction">JR Z,$E199</td>
+<td class="comment-1" rowspan="1">If A equals $43, skip ahead to <a href="57736.html#57753">E199</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="57749"></span>E195</td>
+<td class="instruction">CP $11</td>
+<td class="comment-1" rowspan="1">Compare A with $11</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57751"></span>E197</td>
+<td class="instruction">JR NZ,<a href="57778.html#57811">$E1D3</a></td>
+<td class="comment-1" rowspan="1">No: skip to <a href="57778.html#57811">E1D3</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="57753"></span>E199</td>
+<td class="instruction">LD IX,$9993</td>
+<td class="comment-1" rowspan="1">Point IX at <a href="39269.html#39315">9993</a> in "The case: statements about the crime, and..." - Yes: set bit 1 of the empty statement at <a href="39269.html#39315">9993</a> - set once Mrs Jones (Tricia Fender in disguise) has been asked what happened or about her alibi</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57757"></span>E19D</td>
+<td class="instruction">SET 1,(IX+$03)</td>
+<td class="comment-1" rowspan="1">Set bit 1 of byte +3 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57761"></span>E1A1</td>
+<td class="instruction">JR <a href="57778.html#57811">$E1D3</a></td>
+<td class="comment-1" rowspan="1">Jump on to <a href="57778.html#57811">E1D3</a></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="57723.html">E17B</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#57736">Map</a></td>
+<td class="next">
+Next: <a href="57763.html">E1A3</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

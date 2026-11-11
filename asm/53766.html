@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at D206 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="53724.html">D1DC</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#53766">Map</a></td>
+<td class="next">
+Next: <a href="53788.html">D21C</a>
+</td>
+</tr>
+</table>
+<div class="description">D206: Step to the next 3-byte entry</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Moves IX on 3 bytes (one exit) and tests for the $FF that ends a list. Also loads IY with the entry's bytes 1-2, which the exit walkers ignore.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">An entry</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">The next entry</td>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Z set at the end ($FF)</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="53766"></span>D206</td>
+<td class="instruction">EXX</td>
+<td class="comment-1" rowspan="1">Swap BC, DE and HL with their shadow copies</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53767"></span>D207</td>
+<td class="instruction">LD DE,$0003</td>
+<td class="comment-1" rowspan="1">Load DE with $0003, the amount that is added next</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53770"></span>D20A</td>
+<td class="instruction">ADD IX,DE</td>
+<td class="comment-1" rowspan="1">Add DE to IX - Next entry</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53772"></span>D20C</td>
+<td class="instruction">LD D,(IX+$02)</td>
+<td class="comment-1" rowspan="1">Read byte +2 of the record at IX into D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53775"></span>D20F</td>
+<td class="instruction">LD E,(IX+$01)</td>
+<td class="comment-1" rowspan="1">Read byte +1 of the record at IX into E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53778"></span>D212</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53779"></span>D213</td>
+<td class="instruction">POP IY</td>
+<td class="comment-1" rowspan="1">Restore IY from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53781"></span>D215</td>
+<td class="instruction">LD A,(IX+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IX into A - End of the list?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53784"></span>D218</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1">Compare A with $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53786"></span>D21A</td>
+<td class="instruction">EXX</td>
+<td class="comment-1" rowspan="1">Swap BC, DE and HL with their shadow copies</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53787"></span>D21B</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="53724.html">D1DC</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#53766">Map</a></td>
+<td class="next">
+Next: <a href="53788.html">D21C</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

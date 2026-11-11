@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at A7D0 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="42949.html">A7C5</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#42960">Map</a></td>
+<td class="next">
+Next: <a href="42986.html">A7EA</a>
+</td>
+</tr>
+</table>
+<div class="description">A7D0: Print an article, or note whether the word is YOU</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Sets <a href="42986.html">A7EA</a> to 1 unless DE is a word reference to YOU ($09EE). When DE is not a word reference at all (bit 7 of D clear) it is an article code: <a href="42987.html">A7EB</a> prints THE, A, AN or SOME from <a href="41549.html">A24D</a> - or from <a href="41549.html#41557">A255</a>, all THE but SOME, when <a href="40918.html#40994">$A027</a> or <a href="41642.html">A2AA</a> is set. Also used by <a href="53469.html#53473">$D0E3</a>, <a href="54248.html#54256">$D3F1</a> and <a href="54277.html#54285">$D40E</a>.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">DE</td>
+<td class="register-desc">A word reference or an article code</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">$A7EA</td>
+<td class="register-desc">1 unless the word is YOU</td>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Z if the word is YOU</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="42960"></span>A7D0</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag) - <a href="42986.html">A7EA</a> = 0: the word is not YOU</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42961"></span>A7D1</td>
+<td class="instruction">LD ($A7EA),A</td>
+<td class="comment-1" rowspan="1">Store A in "<a href="42960.html">A7D0</a>: set when the word was not YOU" (<a href="42986.html">A7EA</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42964"></span>A7D4</td>
+<td class="instruction">BIT 7,D</td>
+<td class="comment-1" rowspan="1">Test bit 7 of D - Bit 7 of D clear: print the article by code (<a href="42987.html">A7EB</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42966"></span>A7D6</td>
+<td class="instruction">JR Z,<a href="42987.html">$A7EB</a></td>
+<td class="comment-1" rowspan="1">If bit 7 of D is clear, skip ahead to the routine "Print the article for article code DE" (<a href="42987.html">A7EB</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42968"></span>A7D8</td>
+<td class="instruction">LD A,E</td>
+<td class="comment-1" rowspan="1">Copy E into A - Is the word reference $09EE (YOU)? Then print nothing</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42969"></span>A7D9</td>
+<td class="instruction">LD HL,$09EE</td>
+<td class="comment-1" rowspan="1">Load HL with $09EE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42972"></span>A7DC</td>
+<td class="instruction">CP L</td>
+<td class="comment-1" rowspan="1">Compare A with L</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42973"></span>A7DD</td>
+<td class="instruction">JR NZ,$A7E4</td>
+<td class="comment-1" rowspan="1">If A differs from L, skip ahead to <a href="42960.html#42980">A7E4</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42975"></span>A7DF</td>
+<td class="instruction">LD A,D</td>
+<td class="comment-1" rowspan="1">Copy D into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42976"></span>A7E0</td>
+<td class="instruction">AND $0F</td>
+<td class="comment-1" rowspan="1">Keep only bits 0, 1, 2, 3 of A (mask $0F)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42978"></span>A7E2</td>
+<td class="instruction">CP H</td>
+<td class="comment-1" rowspan="1">Compare A with H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42979"></span>A7E3</td>
+<td class="instruction">RET Z</td>
+<td class="comment-1" rowspan="1">If A equals H, return</td>
+</tr>
+<tr>
+<td class="address-2"><span id="42980"></span>A7E4</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="1">Load A with $01 - Otherwise note a word that is not YOU (<a href="42986.html">A7EA</a> = 1) and return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42982"></span>A7E6</td>
+<td class="instruction">LD ($A7EA),A</td>
+<td class="comment-1" rowspan="1">Store A in "<a href="42960.html">A7D0</a>: set when the word was not YOU" (<a href="42986.html">A7EA</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42985"></span>A7E9</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="42949.html">A7C5</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#42960">Map</a></td>
+<td class="next">
+Next: <a href="42986.html">A7EA</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

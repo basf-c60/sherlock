@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at B34F - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="45869.html">B32D</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#45903">Map</a></td>
+<td class="next">
+Next: <a href="45931.html">B36B</a>
+</td>
+</tr>
+</table>
+<div class="description">B34F: Start the direct-object search afresh</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+<a href="45421.html">$B170</a> = 0, the number flag <a href="46242.html">B4A2</a> = $FF, and the search position <a href="45421.html#45437">$B17E</a> at the first thing (<a href="53327.html">D04F</a>) - or 0 when the requirement code (<a href="40918.html#40970">$A00F</a>) is below 7.
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">$B17E</td>
+<td class="register-desc">The first thing to search, or 0 for a room</td>
+</tr>
+<tr>
+<td class="register">B170 0, </td>
+<td class="register-desc">B4A2 $FF</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="45903"></span>B34F</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag) - No direct-object candidates counted yet (<a href="45421.html">$B170</a> = 0)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45904"></span>B350</td>
+<td class="instruction">LD ($B170),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="45421.html">$B170</a> in "Parser variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45907"></span>B353</td>
+<td class="instruction">LD A,$FF</td>
+<td class="comment-1" rowspan="1">Load A with $FF - Number flag <a href="46242.html">B4A2</a> = $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45909"></span>B355</td>
+<td class="instruction">LD ($B4A2),A</td>
+<td class="comment-1" rowspan="1">Store A in "<a href="46273.html">B4C1</a>: $FF until the number in the direct-object..." (<a href="46242.html">B4A2</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45912"></span>B358</td>
+<td class="instruction">CALL <a href="53327.html">$D04F</a></td>
+<td class="comment-1" rowspan="1">IX = the first thing (<a href="53327.html">D04F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45915"></span>B35B</td>
+<td class="instruction">LD A,($A00F)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40970">$A00F</a> in "Game variables" into A - Requirement code below 7 (<a href="40918.html#40970">$A00F</a>): not a thing, so start at 0</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45918"></span>B35E</td>
+<td class="instruction">CP $07</td>
+<td class="comment-1" rowspan="1">Compare A with $07</td>
+</tr>
+<tr>
+<td class="address-1"><span id="45920"></span>B360</td>
+<td class="instruction">JR NC,$B366</td>
+<td class="comment-1" rowspan="1">If A is $07 or more, skip ahead to <a href="45903.html#45926">B366</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45922"></span>B362</td>
+<td class="instruction">LD IX,$0000</td>
+<td class="comment-1" rowspan="1">Load IX with $0000</td>
+</tr>
+<tr>
+<td class="address-2"><span id="45926"></span>B366</td>
+<td class="instruction">LD ($B17E),IX</td>
+<td class="comment-1" rowspan="1">Store IX in <a href="45421.html#45437">$B17E</a> in "Parser variables" - Save the search position in <a href="45421.html#45437">$B17E</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="45930"></span>B36A</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="45869.html">B32D</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#45903">Map</a></td>
+<td class="next">
+Next: <a href="45931.html">B36B</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

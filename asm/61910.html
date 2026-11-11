@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at F1D6 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="61889.html">F1C1</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#61910">Map</a></td>
+<td class="next">
+Next: <a href="61942.html">F1F6</a>
+</td>
+</tr>
+</table>
+<div class="description">F1D6: Verb 136 (scripts only): is it hour n?</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+n counts 1-24. Succeeds only when the clock shows that hour: 13-24 are the pm hours, 1-12 the am ones.
+</div>
+<div class="paragraph">
+Used by: internal verb <a href="61910.html">136</a> (IS HOUR: is the clock's hour (1-24) the direct object?).
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$A034</td>
+<td class="register-desc">The hour, 1 to 24</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ if the clock shows it; otherwise $DC15</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="61910"></span>F1D6</td>
+<td class="instruction">DEFB $07,$00</td>
+<td class="comment-1" rowspan="1">Action record header: flags $07; byte 1 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61912"></span>F1D8</td>
+<td class="instruction">LD A,($A034)</td>
+<td class="comment-1" rowspan="1">n</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61915"></span>F1DB</td>
+<td class="instruction">LD B,$61</td>
+<td class="comment-1" rowspan="1">'a'...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61917"></span>F1DD</td>
+<td class="instruction">CP $0D</td>
+<td class="comment-1" rowspan="1">Compare A with $0D - ...unless n is 13 or more:</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61919"></span>F1DF</td>
+<td class="instruction">JR C,$F1E5</td>
+<td class="comment-1" rowspan="1">If A is below $0D, skip ahead to <a href="61910.html#61925">F1E5</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="61921"></span>F1E1</td>
+<td class="instruction">LD B,$70</td>
+<td class="comment-1" rowspan="1">'p'</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61923"></span>F1E3</td>
+<td class="instruction">SUB $0C</td>
+<td class="comment-1" rowspan="1">and 12 less</td>
+</tr>
+<tr>
+<td class="address-2"><span id="61925"></span>F1E5</td>
+<td class="instruction">LD HL,$9FE0</td>
+<td class="comment-1" rowspan="1">Point HL at the hour, 1-12 (<a href="40918.html#40928">9FE0</a>) - Is that the hour?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61928"></span>F1E8</td>
+<td class="instruction">CP (HL)</td>
+<td class="comment-1" rowspan="1">Compare A with the byte at the hour, 1-12 (<a href="40918.html#40928">9FE0</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61929"></span>F1E9</td>
+<td class="instruction">JP NZ,<a href="56341.html">$DC15</a></td>
+<td class="comment-1" rowspan="1">No: refuse</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61932"></span>F1EC</td>
+<td class="instruction">LD A,($9FE2)</td>
+<td class="comment-1" rowspan="1">Read 'a' or 'p' (<a href="40918.html#40930">9FE2</a>) into A - And is it 'a' or 'p' as wanted?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61935"></span>F1EF</td>
+<td class="instruction">CP B</td>
+<td class="comment-1" rowspan="1">Compare A with B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61936"></span>F1F0</td>
+<td class="instruction">JP NZ,<a href="56341.html">$DC15</a></td>
+<td class="comment-1" rowspan="1">No: refuse</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61939"></span>F1F3</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - Yes: succeed</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61941"></span>F1F5</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="61889.html">F1C1</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#61910">Map</a></td>
+<td class="next">
+Next: <a href="61942.html">F1F6</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

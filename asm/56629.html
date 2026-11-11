@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at DD35 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="56579.html">DD03</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#56629">Map</a></td>
+<td class="next">
+Next: <a href="56658.html">DD52</a>
+</td>
+</tr>
+</table>
+<div class="description">DD35: Can the actor get past the thing in an exit?</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Nothing in the way (A = 0) always lets the actor through. Otherwise the thing must be open - +5 bit 5, or bit 3 - and its size (+2) must be at least the actor's size (IY+2).
+</div>
+<div class="paragraph">
+This is how guards work: the local police men at Browns and Jones front gates are themselves the 'door' of the exit they stand in. They are 'open' (bit 5) with size 69, smaller than the player (96) and Watson (96), so neither can pass, while Lestrade (32) could. The hidden door into the opium den (85) and the front door between Camden Street and the entrance hall (32) are narrower than the player too.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">The thing in the way (0 = nothing)</td>
+</tr>
+<tr>
+<td class="register">IY</td>
+<td class="register-desc">The actor</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Z set if the actor can pass</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56629"></span>DD35</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Nothing in the way...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56630"></span>DD36</td>
+<td class="instruction">RET Z</td>
+<td class="comment-1" rowspan="1">If A is zero, return - ...pass</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56631"></span>DD37</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56633"></span>DD39</td>
+<td class="instruction">CALL <a href="53815.html">$D237</a></td>
+<td class="comment-1" rowspan="1">The thing's record</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56636"></span>DD3C</td>
+<td class="instruction">LD A,(IX+$05)</td>
+<td class="comment-1" rowspan="1">Read the flags byte (+5) of the thing record at IX into A - Open?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56639"></span>DD3F</td>
+<td class="instruction">AND $28</td>
+<td class="comment-1" rowspan="1">Keep only bits 3, 5 of A (mask $28)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56641"></span>DD41</td>
+<td class="instruction">LD A,(IX+$02)</td>
+<td class="comment-1" rowspan="1">Read the size byte (+2) of the thing record at IX into A - Its size</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56644"></span>DD44</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56646"></span>DD46</td>
+<td class="instruction">JR Z,$DD4F</td>
+<td class="comment-1" rowspan="1">Not open: refuse</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56648"></span>DD48</td>
+<td class="instruction">CP (IY+$02)</td>
+<td class="comment-1" rowspan="1">At least the actor's size?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56651"></span>DD4B</td>
+<td class="instruction">JR C,$DD4F</td>
+<td class="comment-1" rowspan="1">Too small: refuse</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56653"></span>DD4D</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Set A to zero, which sets the zero flag for the caller - Pass (Z)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56654"></span>DD4E</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56655"></span>DD4F</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - Refuse (NZ)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56657"></span>DD51</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="56579.html">DD03</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#56629">Map</a></td>
+<td class="next">
+Next: <a href="56658.html">DD52</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

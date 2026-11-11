@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at BF79 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="48985.html">BF59</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#49017">Map</a></td>
+<td class="next">
+Next: <a href="49113.html">BFD9</a>
+</td>
+</tr>
+</table>
+<div class="description">BF79: Print the clock: day, hour, minute, a or p</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Builds 'Mon 08:02am' in <a href="48985.html#49006">BF6E</a> from the day (<a href="40918.html#40929">9FE1</a>), the hour (<a href="40918.html#40928">9FE0</a>), the minute (<a href="40918.html#40927">9FDF</a>) and the letter (<a href="40918.html#40930">9FE2</a>), and prints it in the status bar (<a href="49576.html">C1A8</a>).
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. Write the three-letter day name into the buffer at <a href="48985.html#49006">BF6E</a>, choosing it from the table at <a href="48985.html">BF59</a> by the day number (<a href="40918.html#40929">9FE1</a>).
+</div>
+<div class="paragraph">
+2. Write the hour (<a href="40918.html#40928">9FE0</a>) and the minute (<a href="40918.html#40927">9FDF</a>) as two digits each, found by repeated subtraction of ten (<a href="49017.html#49083">BFBB</a>), with the space and colon already in the buffer.
+</div>
+<div class="paragraph">
+3. Write the letter a or p (<a href="40918.html#40930">9FE2</a>) and print the eleven characters, for example 'Mon 08:02am', in the status bar (<a href="49576.html">C1A8</a>).
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">The</td>
+<td class="register-desc">clock printed in the status bar ($C1A8)</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="49017"></span>BF79</td>
+<td class="instruction">LD IX,$BF6E</td>
+<td class="comment-1" rowspan="1">IX = the text buffer <a href="48985.html#49006">BF6E</a> ('Mon 08:02am'; the space and colon are already in it)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49021"></span>BF7D</td>
+<td class="instruction">LD A,($9FE1)</td>
+<td class="comment-1" rowspan="1">Day number...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49024"></span>BF80</td>
+<td class="instruction">LD HL,$BF59</td>
+<td class="comment-1" rowspan="1">...three letters per day from the table at <a href="48985.html">BF59</a> (<a href="49017.html#49094">BFC6</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49027"></span>BF83</td>
+<td class="instruction">CALL $BFC6</td>
+<td class="comment-1" rowspan="1">...as three letters</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49030"></span>BF86</td>
+<td class="instruction">INC IX</td>
+<td class="comment-1" rowspan="1">Step over the space</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49032"></span>BF88</td>
+<td class="instruction">LD A,($9FE0)</td>
+<td class="comment-1" rowspan="1">Read the hour, 1-12 (<a href="40918.html#40928">9FE0</a>) into A - Hour: two digits (<a href="49017.html#49072">BFB0</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49035"></span>BF8B</td>
+<td class="instruction">CALL $BFB0</td>
+<td class="comment-1" rowspan="1">Call <a href="49017.html#49072">BFB0</a> (inside "Print the clock: day, hour, minute, a or p")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49038"></span>BF8E</td>
+<td class="instruction">INC IX</td>
+<td class="comment-1" rowspan="1">Step over the colon</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49040"></span>BF90</td>
+<td class="instruction">LD A,($9FDF)</td>
+<td class="comment-1" rowspan="1">Read the minute (<a href="40918.html#40927">9FDF</a>) into A - Minute: two digits</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49043"></span>BF93</td>
+<td class="instruction">CALL $BFB0</td>
+<td class="comment-1" rowspan="1">Call <a href="49017.html#49072">BFB0</a> (inside "Print the clock: day, hour, minute, a or p")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49046"></span>BF96</td>
+<td class="instruction">LD A,($9FE2)</td>
+<td class="comment-1" rowspan="1">Read 'a' or 'p' (<a href="40918.html#40930">9FE2</a>) into A - The a or p</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49049"></span>BF99</td>
+<td class="instruction">LD (IX+$00),A</td>
+<td class="comment-1" rowspan="1">Store A in the first byte of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49052"></span>BF9C</td>
+<td class="instruction">LD HL,$BF6E</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="48985.html#49006">BF6E</a> - Print the 11 characters in the status bar (<a href="49576.html">C1A8</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49055"></span>BF9F</td>
+<td class="instruction">LD B,$0B</td>
+<td class="comment-1" rowspan="1">Load B with $0B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49057"></span>BFA1</td>
+<td class="instruction">JP <a href="49576.html">$C1A8</a></td>
+<td class="comment-1" rowspan="1">Jump on to the routine "Print the clock line: B characters from HL at..." (<a href="49576.html">C1A8</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="49060"></span>BFA4</td>
+<td class="instruction">CALL $BFAA</td>
+<td class="comment-1" rowspan="1">Two-digit writer: tens digit, then...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49063"></span>BFA7</td>
+<td class="instruction">LD A,L</td>
+<td class="comment-1" rowspan="1">Copy L into A - ...the units as a digit</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49064"></span>BFA8</td>
+<td class="instruction">ADD A,$30</td>
+<td class="comment-1" rowspan="1">Add $30 to A</td>
+</tr>
+<tr>
+<td class="address-2"><span id="49066"></span>BFAA</td>
+<td class="instruction">LD (IX+$00),A</td>
+<td class="comment-1" rowspan="1">Store A in the first byte of the record at IX - Store the character at IX and move on</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49069"></span>BFAD</td>
+<td class="instruction">INC IX</td>
+<td class="comment-1" rowspan="1">Step IX on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49071"></span>BFAF</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="49072"></span>BFB0</td>
+<td class="instruction">LD L,A</td>
+<td class="comment-1" rowspan="1">Copy A into L - Split A by 10 into tens (A) and units (L) (<a href="49017.html#49083">BFBB</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49073"></span>BFB1</td>
+<td class="instruction">LD H,$00</td>
+<td class="comment-1" rowspan="1">Load H with $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49075"></span>BFB3</td>
+<td class="instruction">LD DE,$000A</td>
+<td class="comment-1" rowspan="1">Load DE with $000A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49078"></span>BFB6</td>
+<td class="instruction">CALL $BFBB</td>
+<td class="comment-1" rowspan="1">Call <a href="49017.html#49083">BFBB</a> (inside "Print the clock: day, hour, minute, a or p")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49081"></span>BFB9</td>
+<td class="instruction">JR $BFA4</td>
+<td class="comment-1" rowspan="1">Go back to <a href="49017.html#49060">BFA4</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="49083"></span>BFBB</td>
+<td class="instruction">LD C,$2F</td>
+<td class="comment-1" rowspan="1">Load C with $2F - Repeated subtraction: C counts from '0'</td>
+</tr>
+<tr>
+<td class="address-2"><span id="49085"></span>BFBD</td>
+<td class="instruction">INC C</td>
+<td class="comment-1" rowspan="1">Add one to C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49086"></span>BFBE</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Clear the carry flag, so that the subtraction that follows is a plain one (a compare)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49087"></span>BFBF</td>
+<td class="instruction">SBC HL,DE</td>
+<td class="comment-1" rowspan="1">Subtract DE from HL (a compare: carry = HL was smaller, zero = equal)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49089"></span>BFC1</td>
+<td class="instruction">JR NC,$BFBD</td>
+<td class="comment-1" rowspan="1">If it did not go below zero, go back to <a href="49017.html#49085">BFBD</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="49091"></span>BFC3</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1">Add DE to HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49092"></span>BFC4</td>
+<td class="instruction">LD A,C</td>
+<td class="comment-1" rowspan="1">Copy C into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49093"></span>BFC5</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="49094"></span>BFC6</td>
+<td class="instruction">LD C,A</td>
+<td class="comment-1" rowspan="1">Copy A into C - Copy three characters of day name number A (x3 into the table)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49095"></span>BFC7</td>
+<td class="instruction">ADD A,A</td>
+<td class="comment-1" rowspan="1">Double A (shift it left one bit)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49096"></span>BFC8</td>
+<td class="instruction">ADD A,C</td>
+<td class="comment-1" rowspan="1">Add C to A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49097"></span>BFC9</td>
+<td class="instruction">LD C,A</td>
+<td class="comment-1" rowspan="1">Copy A into C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49098"></span>BFCA</td>
+<td class="instruction">LD B,$00</td>
+<td class="comment-1" rowspan="1">Load B with $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49100"></span>BFCC</td>
+<td class="instruction">ADD HL,BC</td>
+<td class="comment-1" rowspan="1">Add BC to HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49101"></span>BFCD</td>
+<td class="instruction">LD B,$03</td>
+<td class="comment-1" rowspan="1">Load B with $03</td>
+</tr>
+<tr>
+<td class="address-2"><span id="49103"></span>BFCF</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49104"></span>BFD0</td>
+<td class="instruction">LD (IX+$00),A</td>
+<td class="comment-1" rowspan="1">Store A in the first byte of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49107"></span>BFD3</td>
+<td class="instruction">INC IX</td>
+<td class="comment-1" rowspan="1">Step IX on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49109"></span>BFD5</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49110"></span>BFD6</td>
+<td class="instruction">DJNZ $BFCF</td>
+<td class="comment-1" rowspan="1">Count B down and, while it is not zero, go back to <a href="49017.html#49103">BFCF</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="49112"></span>BFD8</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="48985.html">BF59</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#49017">Map</a></td>
+<td class="next">
+Next: <a href="49113.html">BFD9</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

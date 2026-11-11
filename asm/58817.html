@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at E5C1 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="58797.html">E5AD</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#58817">Map</a></td>
+<td class="next">
+Next: <a href="58840.html">E5D8</a>
+</td>
+</tr>
+</table>
+<div class="description">E5C1: Action record: is the player in my room? (RUN at $E781)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="59183.html#59265">E781</a>.
+</div>
+<div class="paragraph">
+Compares the room of the first actor in the table (the player, <a href="39008.html">9860</a>) with the current actor's and goes on to <a href="58840.html#58864">E5F0</a>, which refuses if they differ (and if the actor is the direct object). It is used in Watson's script (actor 3, <a href="59183.html">E72F</a>, at <a href="59183.html#59265">E781</a>).
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$A017</td>
+<td class="register-desc">The thing to compare with</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">From $E5F0: NZ if the player is in the same room</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="58817"></span>E5C1</td>
+<td class="instruction">DEFB $00,$00</td>
+<td class="comment-1" rowspan="1">Action record header: flags $00; byte 1 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58819"></span>E5C3</td>
+<td class="instruction">LD A,($9860)</td>
+<td class="comment-1" rowspan="1">The first actor in the table (<a href="39008.html">9860</a>, the player)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58822"></span>E5C6</td>
+<td class="instruction">CALL <a href="53815.html">$D237</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Resolve an id (in A) to its full entity record" (<a href="53815.html">D237</a>) - ...its record (<a href="53815.html">D237</a>): its room (+15)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58825"></span>E5C9</td>
+<td class="instruction">LD A,(IX+$0F)</td>
+<td class="comment-1" rowspan="1">Read byte +15 of the record at IX into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58828"></span>E5CC</td>
+<td class="instruction">LD IX,($A017)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40978">$A017</a> in "Game variables" into IX - Compare with the room of the thing at (<a href="40918.html#40978">$A017</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58832"></span>E5D0</td>
+<td class="instruction">CP (IX+$0F)</td>
+<td class="comment-1" rowspan="1">Compare A with byte +15 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58835"></span>E5D3</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A036</a> in "Game variables" into A - The current actor into A; on to <a href="58840.html#58864">E5F0</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="58838"></span>E5D6</td>
+<td class="instruction">JR <a href="58840.html#58864">$E5F0</a></td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="58840.html#58864">E5F0</a></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="58797.html">E5AD</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#58817">Map</a></td>
+<td class="next">
+Next: <a href="58840.html">E5D8</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

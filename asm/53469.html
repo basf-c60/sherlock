@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at D0DD - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="53468.html">D0DC</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#53469">Map</a></td>
+<td class="next">
+Next: <a href="53506.html">D102</a>
+</td>
+</tr>
+</table>
+<div class="description">D0DD: Get the room's opening: 'YOU ARE ON/IN/AT ...' or 'YOU CAN SEE'</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+HL = the message to start the description with; for 'YOU ARE' the preposition is chosen from <a href="53338.html">D05A</a> by the room's kind.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">A room number</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">The message to start the description with</td>
+</tr>
+<tr>
+<td class="register">AF</td>
+<td class="register-desc">Kept</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="53469"></span>D0DD</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack - Save A; room record (<a href="53796.html">D224</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53470"></span>D0DE</td>
+<td class="instruction">CALL <a href="53796.html">$D224</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Find a room record" (<a href="53796.html">D224</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53473"></span>D0E1</td>
+<td class="instruction">LD A,($D0DC)</td>
+<td class="comment-1" rowspan="1">Read "Set to use 'YOU CAN SEE' instead of 'YOU ARE ...'" (<a href="53468.html">D0DC</a>) into A - Test the flag at <a href="53468.html">D0DC</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="53476"></span>D0E4</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53477"></span>D0E5</td>
+<td class="instruction">LD HL,$68E4</td>
+<td class="comment-1" rowspan="1">Point HL at the message "YOU CAN SEE" (<a href="26852.html">68E4</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53480"></span>D0E8</td>
+<td class="instruction">JR NZ,$D100</td>
+<td class="comment-1" rowspan="1">If A is not zero, skip ahead to <a href="53469.html#53504">D100</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="53482"></span>D0EA</td>
+<td class="instruction">LD A,(IX+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IX into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53485"></span>D0ED</td>
+<td class="instruction">AND $0E</td>
+<td class="comment-1" rowspan="1">Keep only bits 1, 2, 3 of A (mask $0E)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53487"></span>D0EF</td>
+<td class="instruction">LD E,A</td>
+<td class="comment-1" rowspan="1">Copy A into E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53488"></span>D0F0</td>
+<td class="instruction">LD D,$00</td>
+<td class="comment-1" rowspan="1">Load D with $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53490"></span>D0F2</td>
+<td class="instruction">LD HL,$D05A</td>
+<td class="comment-1" rowspan="1">Point HL at "How a room is entered in words: 'You are ON Baker..." (<a href="53338.html">D05A</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53493"></span>D0F5</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1">Add DE to HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53494"></span>D0F6</td>
+<td class="instruction">LD E,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53495"></span>D0F7</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53496"></span>D0F8</td>
+<td class="instruction">LD D,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53497"></span>D0F9</td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-1" rowspan="1">Swap DE and HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53498"></span>D0FA</td>
+<td class="instruction">CALL <a href="53456.html">$D0D0</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Put word HL into the 'YOU ARE ...' message" (<a href="53456.html">D0D0</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53501"></span>D0FD</td>
+<td class="instruction">LD HL,$68DD</td>
+<td class="comment-1" rowspan="1">Point HL at the message "YOU ARE IN" (<a href="26845.html">68DD</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="53504"></span>D100</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="53505"></span>D101</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="53468.html">D0DC</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#53469">Map</a></td>
+<td class="next">
+Next: <a href="53506.html">D102</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

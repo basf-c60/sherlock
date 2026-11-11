@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at E1D6 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="57778.html">E1B2</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#57814">Map</a></td>
+<td class="next">
+Next: <a href="57898.html">E22A</a>
+</td>
+</tr>
+</table>
+<div class="description">E1D6: Action record: default for TELL and TELL ABOUT (verbs 47 and 48)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The interview table at <a href="57898.html">E22A</a>: the actor is looked up (<a href="57814.html#57863">E207</a>), then the topic (<a href="57814.html#57857">E201</a>); a match prints that entry's reply (<a href="26672.html">6830</a> with the entry's message as its parameter), otherwise 'I AM SORRY I CANNOT HELP YOU WITH THAT' (<a href="30237.html">761D</a>).
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$A036</td>
+<td class="register-desc">The actor</td>
+</tr>
+<tr>
+<td class="register">$A035</td>
+<td class="register-desc">The topic</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ; the answer printed, or the refusal if there is none</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="57814"></span>E1D6</td>
+<td class="instruction">DEFB $0D,$17</td>
+<td class="comment-1" rowspan="1">Action record header: flags $0D; byte 1 $17</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57816"></span>E1D8</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">The actor (<a href="40918.html#41010">$A036</a>)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57819"></span>E1DB</td>
+<td class="instruction">CALL $E207</td>
+<td class="comment-1" rowspan="1">...looked up in the list at <a href="57898.html">E22A</a> (<a href="57814.html#57863">E207</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57822"></span>E1DE</td>
+<td class="instruction">JR Z,$E1FC</td>
+<td class="comment-1" rowspan="1">Not there: message <a href="30237.html">761D</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="57824"></span>E1E0</td>
+<td class="instruction">INC IX</td>
+<td class="comment-1" rowspan="1">Step IX on to the next byte - Next entry: the indirect object (<a href="40918.html#41010">$A035</a>) is searched for (<a href="57814.html#57857">E201</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57826"></span>E1E2</td>
+<td class="instruction">LD A,($A035)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A035</a> in "Game variables" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57829"></span>E1E5</td>
+<td class="instruction">CALL $E201</td>
+<td class="comment-1" rowspan="1">Call <a href="57814.html#57857">E201</a> (inside "Action record: default for TELL and TELL...")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57832"></span>E1E8</td>
+<td class="instruction">JR Z,$E1FC</td>
+<td class="comment-1" rowspan="1">Not there: message <a href="30237.html">761D</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="57834"></span>E1EA</td>
+<td class="instruction">LD L,(IX+$01)</td>
+<td class="comment-1" rowspan="1">Read byte +1 of the record at IX into L - HL = the entry's word at +1/+2</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57837"></span>E1ED</td>
+<td class="instruction">LD H,(IX+$02)</td>
+<td class="comment-1" rowspan="1">Read byte +2 of the record at IX into H</td>
+</tr>
+<tr>
+<td class="address-2"><span id="57840"></span>E1F0</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57841"></span>E1F1</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57842"></span>E1F2</td>
+<td class="instruction">LD HL,$6830</td>
+<td class="comment-1" rowspan="1">Point HL at the message "YOU SAY TO THE OIL LAMP" W" (<a href="26672.html">6830</a>) - Print <a href="26672.html">6830</a> with it as a parameter</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57845"></span>E1F5</td>
+<td class="instruction">CALL <a href="42399.html">$A59F</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print the message at HL" (<a href="42399.html">A59F</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="57848"></span>E1F8</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-2"><span id="57849"></span>E1F9</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - Return NZ</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57851"></span>E1FB</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="57852"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="57778.html">E1B2</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="57852"></span>E1FC</td>
+<td class="instruction">LD HL,$761D</td>
+<td class="comment-1" rowspan="1">Point HL at the message "I AM SORRY I CANNOT HELP YOU WITH THAT." (<a href="30237.html">761D</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57855"></span>E1FF</td>
+<td class="instruction">JR $E1F0</td>
+<td class="comment-1" rowspan="1">Go back to <a href="57814.html#57840">E1F0</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="57857"></span>E201</td>
+<td class="instruction">CALL <a href="54094.html">$D34E</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Find a 3-byte record by id, in a sentinel-terminated..." (<a href="54094.html">D34E</a>) - Search the thing table (<a href="54094.html">D34E</a>) and test the result against $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57860"></span>E204</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1">Compare A with $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57862"></span>E206</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="57863"></span>E207</td>
+<td class="instruction">LD IX,$E22A</td>
+<td class="comment-1" rowspan="1">IX = the id list at <a href="57898.html">E22A</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="57867"></span>E20B</td>
+<td class="instruction">CP (IX+$00)</td>
+<td class="comment-1" rowspan="1">Compare A with the first byte of the record at IX - Compare A with each id; a match goes to <a href="57814.html#57849">E1F9</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="57870"></span>E20E</td>
+<td class="instruction">JR Z,$E1F9</td>
+<td class="comment-1" rowspan="1">If A equals the first byte of the record at IX, go back to <a href="57814.html#57849">E1F9</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="57872"></span>E210</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57873"></span>E211</td>
+<td class="instruction">LD A,(IX+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IX into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57876"></span>E214</td>
+<td class="instruction">CP $FE</td>
+<td class="comment-1" rowspan="1">Compare A with $FE - $FE entry: go to <a href="57814.html#57848">E1F8</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="57878"></span>E216</td>
+<td class="instruction">JR Z,$E1F8</td>
+<td class="comment-1" rowspan="1">If A equals $FE, go back to <a href="57814.html#57848">E1F8</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="57880"></span>E218</td>
+<td class="instruction">INC A</td>
+<td class="comment-1" rowspan="1">Add one to A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57881"></span>E219</td>
+<td class="instruction">JR Z,$E227</td>
+<td class="comment-1" rowspan="1">$FF entry (the end): none matched, return A = 0</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57883"></span>E21B</td>
+<td class="instruction">INC IX</td>
+<td class="comment-1" rowspan="1">Step IX on to the next byte - Otherwise step on and search the table for the entry (<a href="54094.html">D34E</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57885"></span>E21D</td>
+<td class="instruction">LD A,$FF</td>
+<td class="comment-1" rowspan="1">Load A with $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57887"></span>E21F</td>
+<td class="instruction">CALL <a href="54094.html">$D34E</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Find a 3-byte record by id, in a sentinel-terminated..." (<a href="54094.html">D34E</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57890"></span>E222</td>
+<td class="instruction">INC IX</td>
+<td class="comment-1" rowspan="1">Step IX on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57892"></span>E224</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57893"></span>E225</td>
+<td class="instruction">JR $E20B</td>
+<td class="comment-1" rowspan="1">Go back to <a href="57814.html#57867">E20B</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="57895"></span>E227</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57896"></span>E228</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Set A to zero, which sets the zero flag for the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="57897"></span>E229</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="57778.html">E1B2</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#57814">Map</a></td>
+<td class="next">
+Next: <a href="57898.html">E22A</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

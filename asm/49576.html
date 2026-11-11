@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at C1A8 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="49552.html">C190</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#49576">Map</a></td>
+<td class="next">
+Next: <a href="49600.html">C1C0</a>
+</td>
+</tr>
+</table>
+<div class="description">C1A8: Print the clock line: B characters from HL at screen address $5041</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+A space, the B characters, a space, through PRINT-CHAR (<a href="50056.html">C388</a>). The clock printer jumps here (<a href="49017.html#49057">BFA1</a>) with the eleven characters of 'Mon 08:02am' built at <a href="48985.html#49006">BF6E</a>.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">The text</td>
+</tr>
+<tr>
+<td class="register">B</td>
+<td class="register-desc">The number of characters</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">The</td>
+<td class="register-desc">text printed at the status bar</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="49576"></span>C1A8</td>
+<td class="instruction">LD DE,$5041</td>
+<td class="comment-1" rowspan="1">Load DE with $5041 - DE = the text, HL = screen address $5041 (row 18)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49579"></span>C1AB</td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-1" rowspan="1">Swap DE and HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49580"></span>C1AC</td>
+<td class="instruction">LD C,$00</td>
+<td class="comment-1" rowspan="1">C = pixel shift 0</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49582"></span>C1AE</td>
+<td class="instruction">LD A,$20</td>
+<td class="comment-1" rowspan="1">Load A with $20 - A space first (<a href="50056.html">C388</a> prints a character)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49584"></span>C1B0</td>
+<td class="instruction">CALL <a href="50056.html">$C388</a></td>
+<td class="comment-1" rowspan="1">Call the routine "PLOT-CHAR: draw one character glyph at HL, shifted by..." (<a href="50056.html">C388</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="49587"></span>C1B3</td>
+<td class="instruction">LD A,(DE)</td>
+<td class="comment-1" rowspan="1">Read the byte DE points at into A - Then B characters from DE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49588"></span>C1B4</td>
+<td class="instruction">CALL <a href="50056.html">$C388</a></td>
+<td class="comment-1" rowspan="1">Call the routine "PLOT-CHAR: draw one character glyph at HL, shifted by..." (<a href="50056.html">C388</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49591"></span>C1B7</td>
+<td class="instruction">INC DE</td>
+<td class="comment-1" rowspan="1">Step DE on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49592"></span>C1B8</td>
+<td class="instruction">DJNZ $C1B3</td>
+<td class="comment-1" rowspan="1">Count B down and, while it is not zero, go back to <a href="49576.html#49587">C1B3</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="49594"></span>C1BA</td>
+<td class="instruction">LD A,$20</td>
+<td class="comment-1" rowspan="1">Load A with $20 - And a space after</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49596"></span>C1BC</td>
+<td class="instruction">CALL <a href="50056.html">$C388</a></td>
+<td class="comment-1" rowspan="1">Call the routine "PLOT-CHAR: draw one character glyph at HL, shifted by..." (<a href="50056.html">C388</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49599"></span>C1BF</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="49552.html">C190</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#49576">Map</a></td>
+<td class="next">
+Next: <a href="49600.html">C1C0</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at DC19 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="56341.html">DC15</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#56345">Map</a></td>
+<td class="next">
+Next: <a href="56407.html">DC57</a>
+</td>
+</tr>
+</table>
+<div class="description">DC19: Action record: default for verb 35 (LOOK THROUGH)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+LOOK THROUGH &lt;door&gt;: after the pre-check at <a href="56407.html#56428">DC6C</a>, finds the exit through the door (<a href="54380.html">D46C</a>); if it leads to a room (+2), moves the actor there for a moment (<a href="56579.html#56587">DD0B</a>), describes the room with 'YOU CAN SEE' instead of 'YOU ARE' (<a href="53468.html">D0DC</a> = 1, <a href="53682.html">D1B2</a>) and moves it back. LOOK THROUGH WINDOWS gets YOU CANNOT LOOK THROUGH THE WINDOW, LOOK THROUGH DOOR asks WHICH DOOR ?. The record's first seven bytes are header and arguments, not code.
+</div>
+<div class="paragraph">
+You can see a hall.' - this is the only way found to run the body, so the door must be open.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$A034</td>
+<td class="register-desc">The door</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ (done); the room beyond described as seen through the door</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56345"></span>DC19</td>
+<td class="instruction">DEFB $1B,$20,$40,$28,$00,$00,$00</td>
+<td class="comment-1" rowspan="1">Action record header: flags $1B; bit 4: five extra bytes; byte 1 $20</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56352"></span>DC20</td>
+<td class="instruction">CALL <a href="56407.html#56428">$DC6C</a></td>
+<td class="comment-1" rowspan="1">Call <a href="56407.html#56428">DC6C</a> (inside "Action record: default for verb <a href="56407.html">28</a> (GO...") - Pre-check (<a href="56407.html#56428">DC6C</a>): fail if not a door</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56355"></span>DC23</td>
+<td class="instruction">RET NZ</td>
+<td class="comment-1" rowspan="1">If the zero flag is clear, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56356"></span>DC24</td>
+<td class="instruction">LD A,($A034)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A034</a> in "Game variables" into A - A = the door; find its exit (<a href="54380.html">D46C</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56359"></span>DC27</td>
+<td class="instruction">CALL <a href="54380.html">$D46C</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Find the exit from the actor's room through door A..." (<a href="54380.html">D46C</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56362"></span>DC2A</td>
+<td class="instruction">LD A,(IX+$02)</td>
+<td class="comment-1" rowspan="1">Read byte +2 of the record at IX into A - +2: the room beyond (none: just succeed)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56365"></span>DC2D</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56366"></span>DC2E</td>
+<td class="instruction">JR Z,$DC4B</td>
+<td class="comment-1" rowspan="1">If A is zero, skip ahead to <a href="56345.html#56395">DC4B</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="56368"></span>DC30</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">Copy A into B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56369"></span>DC31</td>
+<td class="instruction">LD A,($A00A)</td>
+<td class="comment-1" rowspan="1">Read the current actor's room (<a href="40918.html#40970">A00A</a>) into A - Remember the current room</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56372"></span>DC34</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56373"></span>DC35</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="1">Load A with $01 - 'YOU CAN SEE' wording on (<a href="53468.html">D0DC</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56375"></span>DC37</td>
+<td class="instruction">LD ($D0DC),A</td>
+<td class="comment-1" rowspan="1">Store A in "Set to use 'YOU CAN SEE' instead of 'YOU ARE ...'" (<a href="53468.html">D0DC</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56378"></span>DC3A</td>
+<td class="instruction">CALL <a href="56579.html#56587">$DD0B</a></td>
+<td class="comment-1" rowspan="1">Move the actor to the room beyond for a moment (<a href="56579.html#56587">DD0B</a>, B = the room)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56381"></span>DC3D</td>
+<td class="instruction">LD A,($A00A)</td>
+<td class="comment-1" rowspan="1">Read the current actor's room (<a href="40918.html#40970">A00A</a>) into A - Describe the room it is in now (<a href="53682.html">D1B2</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56384"></span>DC40</td>
+<td class="instruction">CALL <a href="53682.html">$D1B2</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Describe room A briefly (a room seen before)" (<a href="53682.html">D1B2</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56387"></span>DC43</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore BC from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56388"></span>DC44</td>
+<td class="instruction">CALL <a href="56579.html#56587">$DD0B</a></td>
+<td class="comment-1" rowspan="1">Call <a href="56579.html#56587">DD0B</a> (inside "Default action: move in a direction (verbs...") - Move back to the room it was in</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56391"></span>DC47</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56392"></span>DC48</td>
+<td class="instruction">LD ($D0DC),A</td>
+<td class="comment-1" rowspan="1">Store A in "Set to use 'YOU CAN SEE' instead of 'YOU ARE ...'" (<a href="53468.html">D0DC</a>) - Wording back to normal</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56395"></span>DC4B</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56397"></span>DC4D</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56398"></span>DC4E</td>
+<td class="instruction">LD A,($A034)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A034</a> in "Game variables" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56401"></span>DC51</td>
+<td class="instruction">CALL <a href="54380.html">$D46C</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Find the exit from the actor's room through door A..." (<a href="54380.html">D46C</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56404"></span>DC54</td>
+<td class="instruction">JP <a href="56530.html#56541">$DCDD</a></td>
+<td class="comment-1" rowspan="1">Jump on to <a href="56530.html#56541">DCDD</a></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="56341.html">DC15</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#56345">Map</a></td>
+<td class="next">
+Next: <a href="56407.html">DC57</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at BF08 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="48785.html">BE91</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#48904">Map</a></td>
+<td class="next">
+Next: <a href="48924.html">BF1C</a>
+</td>
+</tr>
+</table>
+<div class="description">BF08: Check every piece of evidence in the group after IX (Z if one fails)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Used by the routines at <a href="48329.html">BCC9</a> and <a href="48785.html">BE91</a>.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">A case record</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Z if a piece of evidence fails; NZ if all are satisfied</td>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">Moved on</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="48904"></span>BF08</td>
+<td class="instruction">CALL <a href="48730.html">$BE5A</a></td>
+<td class="comment-1" rowspan="1">Step over the first case record (<a href="48730.html">BE5A</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="48907"></span>BF0B</td>
+<td class="instruction">BIT 3,(IX+$03)</td>
+<td class="comment-1" rowspan="1">Test bit 3 of byte +3 of the record at IX - Bit 3 (the last of the group) noted in the flags</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48911"></span>BF0F</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48912"></span>BF10</td>
+<td class="instruction">CALL <a href="48785.html">$BE91</a></td>
+<td class="comment-1" rowspan="1">Is this record's evidence satisfied? (<a href="48785.html">BE91</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48915"></span>BF13</td>
+<td class="instruction">JR NZ,$BF18</td>
+<td class="comment-1" rowspan="1">If the zero flag is clear, skip ahead to <a href="48904.html#48920">BF18</a> - Not: Z result, stop</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48917"></span>BF15</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48918"></span>BF16</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Set A to zero, which sets the zero flag for the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48919"></span>BF17</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="48920"></span>BF18</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack - Satisfied: go on to the next record unless that was the last</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48921"></span>BF19</td>
+<td class="instruction">JR Z,$BF0B</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, go back to <a href="48904.html#48907">BF0B</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="48923"></span>BF1B</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="48785.html">BE91</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#48904">Map</a></td>
+<td class="next">
+Next: <a href="48924.html">BF1C</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at DA7D - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="55860.html">DA34</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#55933">Map</a></td>
+<td class="next">
+Next: <a href="56006.html">DAC6</a>
+</td>
+</tr>
+</table>
+<div class="description">DA7D: Compare the typed word against one dictionary candidate</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+On a match, also follows a synonym chain (a bit in the next word's own flag byte marks 'this is the last synonym in the group'; otherwise a 16-bit offset follows, pointing at another word to also accept as equivalent).
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$5C0B</td>
+<td class="register-desc">The typed word</td>
+</tr>
+<tr>
+<td class="register">$5C42</td>
+<td class="register-desc">The candidate word</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">The</td>
+<td class="register-desc">best match so far updated ($DC14)</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="55933"></span>DA7D</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55934"></span>DA7E</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55935"></span>DA7F</td>
+<td class="instruction">LD A,($DC13)</td>
+<td class="comment-1" rowspan="1">Read "The number reader's working bytes" (<a href="56339.html">DC13</a>) into A - Already matched every typed letter with an earlier word: skip this one</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55938"></span>DA82</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">Copy A into B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55939"></span>DA83</td>
+<td class="instruction">LD A,($DC14)</td>
+<td class="comment-1" rowspan="1">Read <a href="56339.html">$DC14</a> in "The number reader's working bytes" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55942"></span>DA86</td>
+<td class="instruction">CP B</td>
+<td class="comment-1" rowspan="1">Compare A with B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55943"></span>DA87</td>
+<td class="instruction">JR NC,$DAA5</td>
+<td class="comment-1" rowspan="1">If A is B or more, skip ahead to <a href="55933.html#55973">DAA5</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55945"></span>DA89</td>
+<td class="instruction">LD B,$01</td>
+<td class="comment-1" rowspan="1">Load B with $01 - Count the letters of the typed word (<a href="../rom_symbols.html#a5C0B">$5C0B</a>) that agree with this word (<a href="../rom_symbols.html#a5C42">$5C42</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55947"></span>DA8B</td>
+<td class="instruction">LD DE,$5C0B</td>
+<td class="comment-1" rowspan="1">Point DE at the tape header workspace (<a href="../rom_symbols.html#a5C0B">$5C0B</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55950"></span>DA8E</td>
+<td class="instruction">LD HL,$5C42</td>
+<td class="comment-1" rowspan="1">Point HL at the BASIC workspace (<a href="../rom_symbols.html#a5C42">$5C42</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="55953"></span>DA91</td>
+<td class="instruction">LD A,(DE)</td>
+<td class="comment-1" rowspan="1">Read the byte DE points at into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55954"></span>DA92</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55955"></span>DA93</td>
+<td class="instruction">JR Z,$DA9D</td>
+<td class="comment-1" rowspan="1">If A is zero, skip ahead to <a href="55933.html#55965">DA9D</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55957"></span>DA95</td>
+<td class="instruction">CP (HL)</td>
+<td class="comment-1" rowspan="1">Compare A with the byte HL points at</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55958"></span>DA96</td>
+<td class="instruction">JR NZ,$DA9D</td>
+<td class="comment-1" rowspan="1">If A differs from the byte HL points at, skip ahead to <a href="55933.html#55965">DA9D</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55960"></span>DA98</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55961"></span>DA99</td>
+<td class="instruction">INC DE</td>
+<td class="comment-1" rowspan="1">Step DE on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55962"></span>DA9A</td>
+<td class="instruction">INC B</td>
+<td class="comment-1" rowspan="1">Add one to B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55963"></span>DA9B</td>
+<td class="instruction">JR $DA91</td>
+<td class="comment-1" rowspan="1">Go back to <a href="55933.html#55953">DA91</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="55965"></span>DA9D</td>
+<td class="instruction">LD A,($DC14)</td>
+<td class="comment-1" rowspan="1">Read <a href="56339.html">$DC14</a> in "The number reader's working bytes" into A - As good as the best so far? Then this word becomes the best (<a href="56339.html">$DC14</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55968"></span>DAA0</td>
+<td class="instruction">CP B</td>
+<td class="comment-1" rowspan="1">Compare A with B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55969"></span>DAA1</td>
+<td class="instruction">JR Z,$DAA9</td>
+<td class="comment-1" rowspan="1">If A equals B, skip ahead to <a href="55933.html#55977">DAA9</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55971"></span>DAA3</td>
+<td class="instruction">JR C,$DAA9</td>
+<td class="comment-1" rowspan="1">If A is below B, skip ahead to <a href="55933.html#55977">DAA9</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="55973"></span>DAA5</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55974"></span>DAA6</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55975"></span>DAA7</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Set A to zero, which sets the zero flag for the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55976"></span>DAA8</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="55977"></span>DAA9</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">Copy B into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55978"></span>DAAA</td>
+<td class="instruction">LD ($DC14),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="56339.html">$DC14</a> in "The number reader's working bytes"</td>
+</tr>
+<tr>
+<td class="address-2"><span id="55981"></span>DAAD</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack - A record whose count byte has bit 7 set holds the offset of another record in its next two bytes: follow such links</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55982"></span>DAAE</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55983"></span>DAAF</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55984"></span>DAB0</td>
+<td class="instruction">BIT 7,(HL)</td>
+<td class="comment-1" rowspan="1">Test bit 7 of the byte HL points at</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55986"></span>DAB2</td>
+<td class="instruction">DEC HL</td>
+<td class="comment-1" rowspan="1">Step HL back one byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55987"></span>DAB3</td>
+<td class="instruction">JR Z,$DAC1</td>
+<td class="comment-1" rowspan="1">If bit 7 of the byte HL points at is clear, skip ahead to <a href="55933.html#56001">DAC1</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55989"></span>DAB5</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55990"></span>DAB6</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55991"></span>DAB7</td>
+<td class="instruction">LD E,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55992"></span>DAB8</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55993"></span>DAB9</td>
+<td class="instruction">LD D,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55994"></span>DABA</td>
+<td class="instruction">LD HL,$5DBF</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="23936.html#23998">$5DBF</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55997"></span>DABD</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1">Add DE to HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55998"></span>DABE</td>
+<td class="instruction">EX (SP),HL</td>
+<td class="comment-1" rowspan="1">Swap HL with the word on top of the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55999"></span>DABF</td>
+<td class="instruction">JR $DAAD</td>
+<td class="comment-1" rowspan="1">Go back to <a href="55933.html#55981">DAAD</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="56001"></span>DAC1</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack - NZ: more words to try</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56002"></span>DAC2</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56003"></span>DAC3</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56005"></span>DAC5</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="55860.html">DA34</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#55933">Map</a></td>
+<td class="next">
+Next: <a href="56006.html">DAC6</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

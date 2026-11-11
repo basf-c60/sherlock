@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at AC94 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="44175.html">AC8F</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#44180">Map</a></td>
+<td class="next">
+Next: <a href="44198.html">ACA6</a>
+</td>
+</tr>
+</table>
+<div class="description">AC94: Put word BC in the first empty pair at $AAAE (NZ if both are taken)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="43633.html#43691">$AAAE</a>.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">BC</td>
+<td class="register-desc">The word</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Z when stored in one of the two slots at $AAAE; NZ when both are taken</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="44180"></span>AC94</td>
+<td class="instruction">LD HL,$AAAE</td>
+<td class="comment-1" rowspan="1">The two word slots at <a href="43633.html#43691">$AAAE</a> (2 bytes each)</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="44183"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="44175.html">AC8F</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="44183"></span>AC97</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into A - First slot empty?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44184"></span>AC98</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44185"></span>AC99</td>
+<td class="instruction">OR (HL)</td>
+<td class="comment-1" rowspan="1">Set in A the bits that are set in the byte HL points at</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44186"></span>AC9A</td>
+<td class="instruction">JR Z,$ACA1</td>
+<td class="comment-1" rowspan="1">If the result is zero, skip ahead to <a href="44180.html#44193">ACA1</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44188"></span>AC9C</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte - No: second slot empty?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44189"></span>AC9D</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44190"></span>AC9E</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44191"></span>AC9F</td>
+<td class="instruction">OR (HL)</td>
+<td class="comment-1" rowspan="1">Set in A the bits that are set in the byte HL points at</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44192"></span>ACA0</td>
+<td class="instruction">RET NZ</td>
+<td class="comment-1" rowspan="1">Both taken: return NZ</td>
+</tr>
+<tr>
+<td class="address-2"><span id="44193"></span>ACA1</td>
+<td class="instruction">LD (HL),B</td>
+<td class="comment-1" rowspan="1">Store B at the address HL points to - Store the word BC in the empty slot...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44194"></span>ACA2</td>
+<td class="instruction">DEC HL</td>
+<td class="comment-1" rowspan="1">Step HL back one byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44195"></span>ACA3</td>
+<td class="instruction">LD (HL),C</td>
+<td class="comment-1" rowspan="1">Store C at the address HL points to</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44196"></span>ACA4</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Set A to zero, which sets the zero flag for the caller - ...Z: done</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44197"></span>ACA5</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="44175.html">AC8F</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#44180">Map</a></td>
+<td class="next">
+Next: <a href="44198.html">ACA6</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

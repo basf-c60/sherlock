@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at D57C - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="54566.html">D526</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#54652">Map</a></td>
+<td class="next">
+Next: <a href="54672.html">D590</a>
+</td>
+</tr>
+</table>
+<div class="description">D57C: The next listable thing in place A (carry at the end)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Steps through the things (<a href="53788.html">D21C</a>) and returns the next for which <a href="54511.html">D4EF</a> says yes.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">A place</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">The next thing's id</td>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Carry set at the end; Z if it is thing 0</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="54652"></span>D57C</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack - Next thing in the place (<a href="53788.html">D21C</a>); Z at the end: return with carry set</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="54653"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="54566.html">D526</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="54653"></span>D57D</td>
+<td class="instruction">CALL <a href="53788.html">$D21C</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Step to the next thing's record (<a href="53766.html">D206</a>), keeping A" (<a href="53788.html">D21C</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54656"></span>D580</td>
+<td class="instruction">JR NZ,$D584</td>
+<td class="comment-1" rowspan="1">If the zero flag is clear, skip ahead to <a href="54652.html#54660">D584</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="54658"></span>D582</td>
+<td class="instruction">SCF</td>
+<td class="comment-1" rowspan="1">Set the carry flag for the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54659"></span>D583</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="54660"></span>D584</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54661"></span>D585</td>
+<td class="instruction">CALL <a href="54511.html">$D4EF</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Should this thing be listed here?" (<a href="54511.html">D4EF</a>) - Is it listable (<a href="54511.html">D4EF</a>)? Carry: no, try the next</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54664"></span>D588</td>
+<td class="instruction">JR NC,$D57C</td>
+<td class="comment-1" rowspan="1">If the carry flag is clear, go back to the routine "The next listable thing in place A (carry at the..." (<a href="54652.html">D57C</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54666"></span>D58A</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54667"></span>D58B</td>
+<td class="instruction">LD A,(IX+$00)</td>
+<td class="comment-1" rowspan="1">Read the number byte (+0) of the thing record at IX into A - Found: A = its id; Z if it is thing 0</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54670"></span>D58E</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Clear the carry flag for the caller (A is unchanged)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54671"></span>D58F</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="54566.html">D526</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#54652">Map</a></td>
+<td class="next">
+Next: <a href="54672.html">D590</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at A040 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="40918.html">9FD6</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#41024">Map</a></td>
+<td class="next">
+Next: <a href="41060.html">A064</a>
+</td>
+</tr>
+</table>
+<div class="description">A040: Start the game</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The game's own entry point. Clears two flag bytes, resets the stack to <a href="23936.html">5D80</a> (reusing the loader's own workspace, which is no longer needed), and clears the screen.
+</div>
+<div class="paragraph">
+Then it waits for a single keypress to choose New Game vs Continue: pressing 'n' or 'N' starts a new game (clears a flag at <a href="40918.html#40970">$A011</a>); anything else leaves that flag set, and the code that follows loads state back from a table at <a href="39008.html">9860</a>, so this is very likely also how a restored/continued game resumes its characters' positions.
+</div>
+<div class="paragraph">
+Seeds a simple RNG from the Z80 refresh register (R) - a common period-accurate trick, since R free-runs on every instruction fetch and so is effectively unpredictable at the moment the player first presses a key.
+</div>
+<div class="paragraph">
+From <a href="41060.html">A064</a> on is the game's main loop - see there.
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">None: this routine never returns, it falls into the main loop</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="41024"></span>A040</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear the 'currently examining' flag</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41025"></span>A041</td>
+<td class="instruction">LD ($D6B8),A</td>
+<td class="comment-1" rowspan="1">Store A in "A flag of the player's script step, and spare..." (<a href="54968.html">D6B8</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41028"></span>A044</td>
+<td class="instruction">LD ($A01B),A</td>
+<td class="comment-1" rowspan="1">Clear another one-shot flag</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41031"></span>A047</td>
+<td class="instruction">DI</td>
+<td class="comment-1" rowspan="1">No interrupts while we set things up</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41032"></span>A048</td>
+<td class="instruction">CALL <a href="49482.html">$C14A</a></td>
+<td class="comment-1" rowspan="1">Clear the screen and set up the text window</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41035"></span>A04B</td>
+<td class="instruction">LD SP,$5D80</td>
+<td class="comment-1" rowspan="1">Stack now safely below the game's own code/data</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41038"></span>A04E</td>
+<td class="instruction">CALL <a href="50197.html">$C415</a></td>
+<td class="comment-1" rowspan="1">Wait here for the player's very first keypress</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41041"></span>A051</td>
+<td class="instruction">CP $6E</td>
+<td class="comment-1" rowspan="1">Did they press lowercase 'n'?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41043"></span>A053</td>
+<td class="instruction">JR Z,$A05B</td>
+<td class="comment-1" rowspan="1">If A equals $6E, skip ahead to <a href="41024.html#41051">A05B</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="41045"></span>A055</td>
+<td class="instruction">CP $4E</td>
+<td class="comment-1" rowspan="1">...or uppercase 'N'?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41047"></span>A057</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="1">Default: treat as "continue" (flag = 1)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41049"></span>A059</td>
+<td class="instruction">JR NZ,$A05C</td>
+<td class="comment-1" rowspan="1">If A differs from $4E, skip ahead to <a href="41024.html#41052">A05C</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="41051"></span>A05B</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">"New game" was chosen instead (flag = 0)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="41052"></span>A05C</td>
+<td class="instruction">LD ($A011),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#40970">$A011</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41055"></span>A05F</td>
+<td class="instruction">LD A,R</td>
+<td class="comment-1" rowspan="1">A = the free-running refresh register...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41057"></span>A061</td>
+<td class="instruction">LD ($A037),A</td>
+<td class="comment-1" rowspan="1">...used as an unpredictable RNG seed</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="40918.html">9FD6</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#41024">Map</a></td>
+<td class="next">
+Next: <a href="41060.html">A064</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

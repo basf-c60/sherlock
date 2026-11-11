@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at D39B - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="54122.html">D36A</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#54171">Map</a></td>
+<td class="next">
+Next: <a href="54229.html">D3D5</a>
+</td>
+</tr>
+</table>
+<div class="description">D39B: Find the next room that matches a word slot of the parse</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The room counterpart of <a href="54122.html">D36A</a>: B counts on through the rooms (up to 105, then A = $FF for none), each room's record (<a href="53796.html">D224</a>) has its name words matched against the slot (<a href="42189.html#42208">A4E0</a>), and - unless <a href="40918.html#41010">$A038</a> is set - only rooms that pass <a href="54380.html#54385">D471</a> count. Returns the room in A and IX. Its address is handed to the parser's search at <a href="46273.html#46311">$B4E9</a> and <a href="46440.html#46478">$B590</a> (LD IY,<a href="54171.html">D39B</a>), as <a href="54122.html">D36A</a>'s is for things.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">A word slot of the parse</td>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">The search position (a room number in B)</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">The next matching room, $FF if none</td>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">The search position</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="54171"></span>D39B</td>
+<td class="instruction">PUSH IY</td>
+<td class="comment-1" rowspan="1">Save IY on the stack - BC = where the last search stopped (a room number in B)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54173"></span>D39D</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54174"></span>D39E</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Save BC on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54175"></span>D39F</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54177"></span>D3A1</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore BC from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54178"></span>D3A2</td>
+<td class="instruction">LD DE,$0001</td>
+<td class="comment-1" rowspan="1">Load DE with $0001</td>
+</tr>
+<tr>
+<td class="address-2"><span id="54181"></span>D3A5</td>
+<td class="instruction">INC B</td>
+<td class="comment-1" rowspan="1">Add one to B - Next room</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54182"></span>D3A6</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">Copy B into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54183"></span>D3A7</td>
+<td class="instruction">CP $6A</td>
+<td class="comment-1" rowspan="1">Compare A with $6A - $6A rooms: the end (A = $FF)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54185"></span>D3A9</td>
+<td class="instruction">LD A,$FF</td>
+<td class="comment-1" rowspan="1">Load A with $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54187"></span>D3AB</td>
+<td class="instruction">JR Z,$D3CD</td>
+<td class="comment-1" rowspan="1">If A equals $6A, skip ahead to <a href="54171.html#54221">D3CD</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="54189"></span>D3AD</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">Copy B into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54190"></span>D3AE</td>
+<td class="instruction">CALL <a href="53796.html">$D224</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Find a room record" (<a href="53796.html">D224</a>) - That room's record (<a href="53796.html">D224</a>)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54193"></span>D3B1</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54195"></span>D3B3</td>
+<td class="instruction">POP IY</td>
+<td class="comment-1" rowspan="1">Restore IY from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54197"></span>D3B5</td>
+<td class="instruction">ADD IY,DE</td>
+<td class="comment-1" rowspan="1">Add DE to IY - ...and its words (+1): do they name the slot's words? (<a href="42189.html#42208">A4E0</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54199"></span>D3B7</td>
+<td class="instruction">CALL <a href="42189.html#42208">$A4E0</a></td>
+<td class="comment-1" rowspan="1">Call <a href="42189.html#42208">A4E0</a> (inside "Do the pattern words at IY name the words...")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54202"></span>D3BA</td>
+<td class="instruction">JR NZ,$D3A5</td>
+<td class="comment-1" rowspan="1">If the zero flag is clear, go back to <a href="54171.html#54181">D3A5</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="54204"></span>D3BC</td>
+<td class="instruction">LD A,($A038)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A038</a> in "Game variables" into A - A match: if the room need not be next door (<a href="40918.html#41010">$A038</a>), take it</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54207"></span>D3BF</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54208"></span>D3C0</td>
+<td class="instruction">JR NZ,$D3CC</td>
+<td class="comment-1" rowspan="1">If A is not zero, skip ahead to <a href="54171.html#54220">D3CC</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="54210"></span>D3C2</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Save BC on the stack - Otherwise only if it is next to the actor's room (<a href="54380.html#54385">D471</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54211"></span>D3C3</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">Copy B into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54212"></span>D3C4</td>
+<td class="instruction">CALL <a href="54380.html#54385">$D471</a></td>
+<td class="comment-1" rowspan="1">Call <a href="54380.html#54385">D471</a> (inside "Find the exit from the actor's room through...")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54215"></span>D3C7</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore BC from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54216"></span>D3C8</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1">Compare A with $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54218"></span>D3CA</td>
+<td class="instruction">JR Z,$D3A5</td>
+<td class="comment-1" rowspan="1">If A equals $FF, go back to <a href="54171.html#54181">D3A5</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="54220"></span>D3CC</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">Copy B into A - Return it in A, and the search position in IX</td>
+</tr>
+<tr>
+<td class="address-2"><span id="54221"></span>D3CD</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Save BC on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54222"></span>D3CE</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54224"></span>D3D0</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore BC from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54225"></span>D3D1</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54226"></span>D3D2</td>
+<td class="instruction">POP IY</td>
+<td class="comment-1" rowspan="1">Restore IY from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54228"></span>D3D4</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="54122.html">D36A</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#54171">Map</a></td>
+<td class="next">
+Next: <a href="54229.html">D3D5</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

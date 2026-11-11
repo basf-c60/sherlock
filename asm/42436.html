@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at A5C4 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="42399.html">A59F</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#42436">Map</a></td>
+<td class="next">
+Next: <a href="42445.html">A5CD</a>
+</td>
+</tr>
+</table>
+<div class="description">A5C4: Interpret message bytes until the end of the message</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+IX walks the message; <a href="42445.html">A5CD</a> handles one element - a dictionary word (bit 7 set: two bytes), packed letters, a literal character or a control code (<a href="42529.html">A621</a>) - and returns Z at the end.
+</div>
+<div class="paragraph">
+Only the driver loop: <a href="42445.html">A5CD</a> does the work for each element of the message (its own block, with the element types listed there). Every message the game prints goes through here.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">The message</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">From the last element</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="42436"></span>A5C4</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack - IX = the message at HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42437"></span>A5C5</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack</td>
+</tr>
+<tr>
+<td class="address-2"><span id="42439"></span>A5C7</td>
+<td class="instruction">CALL <a href="42445.html">$A5CD</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Interpret one message element at IX" (<a href="42445.html">A5CD</a>) - Run the interpreter one step at a time (<a href="42445.html">A5CD</a>) until it says stop</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42442"></span>A5CA</td>
+<td class="instruction">JR NZ,$A5C7</td>
+<td class="comment-1" rowspan="1">If the zero flag is clear, go back to <a href="42436.html#42439">A5C7</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42444"></span>A5CC</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="42399.html">A59F</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#42436">Map</a></td>
+<td class="next">
+Next: <a href="42445.html">A5CD</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

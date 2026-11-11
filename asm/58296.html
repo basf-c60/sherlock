@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at E3B8 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="58281.html">E3A9</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#58296">Map</a></td>
+<td class="next">
+Next: <a href="58346.html">E3EA</a>
+</td>
+</tr>
+</table>
+<div class="description">E3B8: Pre-check for getting into a cab</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Named in the header of the shared GET INTO action at <a href="58346.html">E3EA</a>. Runs <a href="58357.html">E3F5</a> first (busy? already there? will you fit?); then, for a moment taking the next number after the cab (its driver) as the actor, asks <a href="53120.html#53174">CFB6</a>, and if that says yes requires the thing at the cab's +3 and the actor to share one of bits 4-6 of +4, refusing (<a href="56341.html">DC15</a>) otherwise.
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. Run the checks for sitting on or getting into things (<a href="58357.html">E3F5</a>: not busy, not already in it, will it fit).
+</div>
+<div class="paragraph">
+2. With the actor temporarily the thing after the cab (its driver), see whether the driver has a step in progress (<a href="53120.html#53174">CFB6</a>).
+</div>
+<div class="paragraph">
+3. If so, the thing at the cab's +3 and the actor must share one of bits 4 to 6 of +4, or the move is refused.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$A034</td>
+<td class="register-desc">The cab</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ if the actor may get in; Z or $DC15 if not</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="58296"></span>E3B8</td>
+<td class="instruction">CALL <a href="58357.html">$E3F5</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Pre-check for sitting on or getting into something" (<a href="58357.html">E3F5</a>) - The common checks (<a href="58357.html">E3F5</a>): busy, already there, will it fit?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58299"></span>E3BB</td>
+<td class="instruction">RET Z</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58300"></span>E3BC</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A036</a> in "Game variables" into A - Keep the actor, and take the thing after the cab (its driver) as the actor...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58303"></span>E3BF</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58304"></span>E3C0</td>
+<td class="instruction">LD A,($A034)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A034</a> in "Game variables" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58307"></span>E3C3</td>
+<td class="instruction">INC A</td>
+<td class="comment-1" rowspan="1">Add one to A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58308"></span>E3C4</td>
+<td class="instruction">LD ($A036),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41010">$A036</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58311"></span>E3C7</td>
+<td class="instruction">CALL <a href="53120.html#53174">$CFB6</a></td>
+<td class="comment-1" rowspan="1">Call <a href="53120.html#53174">CFB6</a> (inside "Save a sub-script call frame") - ...and ask <a href="53120.html#53174">CFB6</a> (Z: no)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58314"></span>E3CA</td>
+<td class="instruction">EX AF,AF'</td>
+<td class="comment-1" rowspan="1">Swap AF with the shadow copy</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58315"></span>E3CB</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58316"></span>E3CC</td>
+<td class="instruction">LD ($A036),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41010">$A036</a> in "Game variables" - Actor restored</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58319"></span>E3CF</td>
+<td class="instruction">EX AF,AF'</td>
+<td class="comment-1" rowspan="1">Swap AF with the shadow copy</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58320"></span>E3D0</td>
+<td class="instruction">JR Z,$E3E7</td>
+<td class="comment-1" rowspan="1">No driver step: allowed</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58322"></span>E3D2</td>
+<td class="instruction">LD A,(IX+$03)</td>
+<td class="comment-1" rowspan="1">Read byte +3 of the record at IX into A - The thing at the cab's +3 (<a href="53815.html">D237</a>)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58325"></span>E3D5</td>
+<td class="instruction">CALL <a href="53815.html">$D237</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Resolve an id (in A) to its full entity record" (<a href="53815.html">D237</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58328"></span>E3D8</td>
+<td class="instruction">LD IY,($A017)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40978">$A017</a> in "Game variables" into IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58332"></span>E3DC</td>
+<td class="instruction">LD A,(IX+$04)</td>
+<td class="comment-1" rowspan="1">Read byte +4 of the record at IX into A - ...must share one of bits 4-6 with the actor's +4 (the AND with $70)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58335"></span>E3DF</td>
+<td class="instruction">AND (IY+$04)</td>
+<td class="comment-1" rowspan="1">Keep only the bits of A that are set in byte +4 of the record at IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58338"></span>E3E2</td>
+<td class="instruction">AND $70</td>
+<td class="comment-1" rowspan="1">Keep only bits 4, 5, 6 of A (mask $70)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58340"></span>E3E4</td>
+<td class="instruction">JP Z,<a href="56341.html">$DC15</a></td>
+<td class="comment-1" rowspan="1">Otherwise refuse (<a href="56341.html">DC15</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="58343"></span>E3E7</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - Succeed</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58345"></span>E3E9</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="58281.html">E3A9</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#58296">Map</a></td>
+<td class="next">
+Next: <a href="58346.html">E3EA</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

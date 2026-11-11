@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at EB19 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="60177.html">EB11</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#60185">Map</a></td>
+<td class="next">
+Next: <a href="60200.html">EB28</a>
+</td>
+</tr>
+</table>
+<div class="description">EB19: Action record: has Lestrade's statement been proven? (RUN at $EA2C)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="59367.html#59948">EA2C</a>.
+</div>
+<div class="paragraph">
+Tests bit 1 of the case record at <a href="39269.html#39319">9997</a> and returns NZ if it is set. Lestrade's script at <a href="59367.html#59941">EA25</a> waits here until it is.
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ if the statement at $9997 is proven; Z if not</td>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">0</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="60185"></span>EB19</td>
+<td class="instruction">DEFB $00,$00</td>
+<td class="comment-1" rowspan="1">Action record header: flags $00; byte 1 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60187"></span>EB1B</td>
+<td class="instruction">LD IX,$9997</td>
+<td class="comment-1" rowspan="1">Case record <a href="39269.html#39319">9997</a>: is bit 1 of its +3 set (the statement is established)?</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="60191"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="60177.html">EB11</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="60191"></span>EB1F</td>
+<td class="instruction">LD HL,$0000</td>
+<td class="comment-1" rowspan="1">Load HL with $0000 - HL = 0; the result is NZ if it is set, Z if not</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60194"></span>EB22</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60195"></span>EB23</td>
+<td class="instruction">BIT 1,(IX+$03)</td>
+<td class="comment-1" rowspan="1">Test bit 1 of byte +3 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="60199"></span>EB27</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="60177.html">EB11</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#60185">Map</a></td>
+<td class="next">
+Next: <a href="60200.html">EB28</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

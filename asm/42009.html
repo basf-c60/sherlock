@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at A419 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="41853.html">A37D</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#42009">Map</a></td>
+<td class="next">
+Next: <a href="42102.html">A476</a>
+</td>
+</tr>
+</table>
+<div class="description">A419: Print an amount of money</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+HL = a sum in the packed form the parser makes (<a href="56167.html">DB67</a>). Prints it the old way: '£n' if there are pounds, then shillings and pence as 's/d', 's/-' or 'dD'. Divides with <a href="42102.html">A476</a> and prints digits with <a href="42128.html">A490</a>. 30 pence prints as '2/6', 36 as '3/-', 240 as '£1'.
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. Take away the marker bit and convert the packed sum to pence, then print a space.
+</div>
+<div class="paragraph">
+2. Pounds = pence / 240. If there are any, print the pound sign and the number. Stop if nothing is left; otherwise print a space.
+</div>
+<div class="paragraph">
+3. Shillings = what is left / 12. If there are none, print the pence and 'D.' (as in '6D.').
+</div>
+<div class="paragraph">
+4. Otherwise print the shillings, a stroke, and the pence, or '-' for none, as in '2/6' or '1/-'.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">A sum of money in the parser's packed form</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">The</td>
+<td class="register-desc">sum printed as pounds, shillings and pence</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="42009"></span>A419</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Save BC on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42010"></span>A41A</td>
+<td class="instruction">RES 7,H</td>
+<td class="comment-1" rowspan="1">Clear bit 7 of H - Unpack the sum: HL = total pence (seven bits a byte, marker bit dropped)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42012"></span>A41C</td>
+<td class="instruction">SLA L</td>
+<td class="comment-1" rowspan="1">Shift L left (double it)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42014"></span>A41E</td>
+<td class="instruction">SRL H</td>
+<td class="comment-1" rowspan="1">Shift H right (halve it)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42016"></span>A420</td>
+<td class="instruction">RR L</td>
+<td class="comment-1" rowspan="1">Rotate L right through the carry</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42018"></span>A422</td>
+<td class="instruction">LD A,$20</td>
+<td class="comment-1" rowspan="1">Load A with $20 - A space</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42020"></span>A424</td>
+<td class="instruction">CALL <a href="43447.html">$A9B7</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print character A, a word at a time (word wrap)" (<a href="43447.html">A9B7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42023"></span>A427</td>
+<td class="instruction">LD DE,$00F0</td>
+<td class="comment-1" rowspan="1">Load DE with $00F0 - Pounds = pence / 240 (<a href="42102.html">A476</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42026"></span>A42A</td>
+<td class="instruction">CALL <a href="42102.html">$A476</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Divide HL by DE: A = quotient, HL = remainder" (<a href="42102.html">A476</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42029"></span>A42D</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42030"></span>A42E</td>
+<td class="instruction">JR Z,$A442</td>
+<td class="comment-1" rowspan="1">If A is zero, skip ahead to <a href="42009.html#42050">A442</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42032"></span>A430</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">Copy A into B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42033"></span>A431</td>
+<td class="instruction">LD A,$60</td>
+<td class="comment-1" rowspan="1">Load A with $60 - Any: the pound sign (character $60 in the Spectrum's set) and the pounds</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42035"></span>A433</td>
+<td class="instruction">CALL <a href="43447.html">$A9B7</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print character A, a word at a time (word wrap)" (<a href="43447.html">A9B7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42038"></span>A436</td>
+<td class="instruction">CALL <a href="42128.html">$A490</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print the number B (0-255) in decimal" (<a href="42128.html">A490</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42041"></span>A439</td>
+<td class="instruction">LD A,L</td>
+<td class="comment-1" rowspan="1">Copy L into A - Nothing left: done</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42042"></span>A43A</td>
+<td class="instruction">OR H</td>
+<td class="comment-1" rowspan="1">Set in A the bits that are set in H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42043"></span>A43B</td>
+<td class="instruction">JR Z,$A467</td>
+<td class="comment-1" rowspan="1">If the result is zero, jump on to <a href="42009.html#42087">A467</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42045"></span>A43D</td>
+<td class="instruction">LD A,$20</td>
+<td class="comment-1" rowspan="1">Load A with $20</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42047"></span>A43F</td>
+<td class="instruction">CALL <a href="43447.html">$A9B7</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print character A, a word at a time (word wrap)" (<a href="43447.html">A9B7</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="42050"></span>A442</td>
+<td class="instruction">LD DE,$000C</td>
+<td class="comment-1" rowspan="1">Load DE with $000C - Shillings = what is left / 12</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42053"></span>A445</td>
+<td class="instruction">CALL <a href="42102.html">$A476</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Divide HL by DE: A = quotient, HL = remainder" (<a href="42102.html">A476</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42056"></span>A448</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42057"></span>A449</td>
+<td class="instruction">JR Z,$A469</td>
+<td class="comment-1" rowspan="1">None: just the pence and 'D.' (<a href="42009.html#42089">A469</a>), as in '6D.'</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42059"></span>A44B</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">Copy A into B - The shillings, a stroke, and the pence - or '-' for none: '2/6', '1/-'</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42060"></span>A44C</td>
+<td class="instruction">CALL <a href="42128.html">$A490</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print the number B (0-255) in decimal" (<a href="42128.html">A490</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42063"></span>A44F</td>
+<td class="instruction">LD A,$2F</td>
+<td class="comment-1" rowspan="1">Load A with $2F</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42065"></span>A451</td>
+<td class="instruction">CALL <a href="43447.html">$A9B7</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print character A, a word at a time (word wrap)" (<a href="43447.html">A9B7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42068"></span>A454</td>
+<td class="instruction">LD A,L</td>
+<td class="comment-1" rowspan="1">Copy L into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42069"></span>A455</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42070"></span>A456</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">Copy A into B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42071"></span>A457</td>
+<td class="instruction">JR Z,$A45E</td>
+<td class="comment-1" rowspan="1">If A is zero, skip ahead to <a href="42009.html#42078">A45E</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42073"></span>A459</td>
+<td class="instruction">CALL <a href="42128.html">$A490</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print the number B (0-255) in decimal" (<a href="42128.html">A490</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42076"></span>A45C</td>
+<td class="instruction">JR $A467</td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="42009.html#42087">A467</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="42078"></span>A45E</td>
+<td class="instruction">LD A,$2D</td>
+<td class="comment-1" rowspan="1">Load A with $2D</td>
+</tr>
+<tr>
+<td class="address-2"><span id="42080"></span>A460</td>
+<td class="instruction">CALL <a href="43447.html">$A9B7</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print character A, a word at a time (word wrap)" (<a href="43447.html">A9B7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42083"></span>A463</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag) - (<a href="40918.html#40994">$A026</a> = 0)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42084"></span>A464</td>
+<td class="instruction">LD ($A026),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#40994">$A026</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-2"><span id="42087"></span>A467</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore BC from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42088"></span>A468</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="42089"></span>A469</td>
+<td class="instruction">LD B,L</td>
+<td class="comment-1" rowspan="1">Copy L into B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42090"></span>A46A</td>
+<td class="instruction">CALL <a href="42128.html">$A490</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print the number B (0-255) in decimal" (<a href="42128.html">A490</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42093"></span>A46D</td>
+<td class="instruction">LD A,$44</td>
+<td class="comment-1" rowspan="1">Load A with $44</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42095"></span>A46F</td>
+<td class="instruction">CALL <a href="43447.html">$A9B7</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print character A, a word at a time (word wrap)" (<a href="43447.html">A9B7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42098"></span>A472</td>
+<td class="instruction">LD A,$2E</td>
+<td class="comment-1" rowspan="1">Load A with $2E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42100"></span>A474</td>
+<td class="instruction">JR $A460</td>
+<td class="comment-1" rowspan="1">Go back to <a href="42009.html#42080">A460</a></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="41853.html">A37D</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#42009">Map</a></td>
+<td class="next">
+Next: <a href="42102.html">A476</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

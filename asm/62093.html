@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Data at F28D - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-b">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Data</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="62072.html">F278</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#62093">Map</a></td>
+<td class="next">
+Next: <a href="62117.html">F2A5</a>
+</td>
+</tr>
+</table>
+<div class="description">F28D: Plan script: steam train (actor 43) - the Leatherhead line, first stop Leatherhead</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Entry point: <a href="62093.html">F28D</a> = steam train (actor 43).
+</div>
+<div class="paragraph">
+Each sub-block is one instruction. Split off from the block before, which it merely follows in memory.
+</div>
+<div class="paragraph">
+In an instruction, 'plan dobj' and 'plan iobj' are not fixed objects: they mean the direct and indirect object currently held in the actor's plan registers (bytes +4 and +5 of its actor record), so the same step works on whatever the actor is dealing with - for the player, the objects of the command just typed. 'plan verb' is the verb register (+3), 'self' is the acting character, and '-' means none.
+</div>
+<div class="paragraph">
+Each DO 140 is internal verb <a href="62117.html">140</a>: put the train in room n (<a href="58569.html">E4C9</a>) and wait m minutes. Rooms 2, 3 and 4 are 'between stations' - also the rooms a passenger is in while riding. The two Leatherhead trains run the same three-hour circuit half a cycle apart: 60 minutes on the way, platform four at Kings Cross (room 23) for 10, 5 minutes, platform three (22) for 10, 5 minutes, 60 minutes on the way, Leatherhead platform one (54) for 10, 5 minutes, platform two (55) for 10, 5 minutes. So a train leaves each platform every 90 minutes and the run takes about 65. This is what decides the endgame chase: Phipps catches the 4:55, and the next is 90 minutes behind him (see <a href="59367.html">E7E7</a>).
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62093"></span>F28D</td>
+<td class="instruction">DEFB $07,$BE,$DD,$3C,$FF</td>
+<td class="comment-1" rowspan="1">RUN <a href="56766.html">DDBE</a> WAIT (dobj) minutes (60, -)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62098"></span>F292</td>
+<td class="instruction">DEFB $02,$8C,$36,$0A</td>
+<td class="comment-1" rowspan="1">DO 140 <a href="62117.html">$E4C9 THEN WAIT</a>: 54 wooden door, 10</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62102"></span>F296</td>
+<td class="instruction">DEFB $02,$8C,$04,$05</td>
+<td class="comment-1" rowspan="1">DO 140 <a href="62117.html">$E4C9 THEN WAIT</a>: 4 chief constable straker, 5</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62106"></span>F29A</td>
+<td class="instruction">DEFB $02,$8C,$37,$0A</td>
+<td class="comment-1" rowspan="1">DO 140 <a href="62117.html">$E4C9 THEN WAIT</a>: 55 thick heavy door, 10</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62110"></span>F29E</td>
+<td class="instruction">DEFB $02,$8C,$03,$05</td>
+<td class="comment-1" rowspan="1">DO 140 <a href="62117.html">$E4C9 THEN WAIT</a>: 3 watson, 5</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62114"></span>F2A2</td>
+<td class="instruction">DEFB $0E,$78,$F2</td>
+<td class="comment-1" rowspan="1">GOTO <a href="62072.html">F278</a></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="62072.html">F278</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#62093">Map</a></td>
+<td class="next">
+Next: <a href="62117.html">F2A5</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

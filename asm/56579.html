@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at DD03 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="56530.html">DCD2</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#56579">Map</a></td>
+<td class="next">
+Next: <a href="56629.html">DD35</a>
+</td>
+</tr>
+</table>
+<div class="description">DD03: Default action: move in a direction (verbs 1-10)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Shared by all ten direction verbs. The pre-check (<a href="56530.html">DCD2</a>) works out where the actor would end up; the body moves the actor and, when the actor is the one being followed by the display, updates <a href="40918.html#40970">A00A</a>.
+</div>
+<div class="paragraph">
+The body also stores the destination and its room record at <a href="56530.html#56577">DD01</a> and <a href="56530.html#56575">DCFF</a> - for ANY actor that moves, not just the player. After the boot sequence they hold room 16 (platform one of Aldergate station), left there by someone moving during the first turns.
+</div>
+<div class="paragraph">
+Every compass move by every character, including the cook (EAST and WEST between rooms 65 and 68), the gardener (NORTHWEST, SOUTHWEST, NORTHEAST ...) and the player.
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. The pre-check (<a href="56530.html">DCD2</a>) finds the exit in the direction (the verb number), and refuses if there is none, the actor is inside something, the destination is 0 or the thing in the way will not let the actor through.
+</div>
+<div class="paragraph">
+2. The body sets the displayed room if the actor is the one followed, remembers the room entered (<a href="56530.html#56577">DD01</a>) and its record (<a href="56530.html#56575">DCFF</a>).
+</div>
+<div class="paragraph">
+3.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">The exit found by the pre-check</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ; the actor is in the new room</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56579"></span>DD03</td>
+<td class="instruction">DEFB $60,$20,$D2,$DC</td>
+<td class="comment-1" rowspan="1">Action record header: flags $60; bit 5: test <a href="53368.html">D078</a> first; bit 6: pre-check at <a href="56530.html">DCD2</a>; byte 1 $20</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="56583"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="56407.html">DC57</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56583"></span>DD07</td>
+<td class="instruction">LD A,(IX+$02)</td>
+<td class="comment-1" rowspan="1">Read byte +2 of the record at IX into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56586"></span>DD0A</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">Copy A into B</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="56587"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="56345.html">DC19</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56587"></span>DD0B</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A036</a> in "Game variables" into A - The actor</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="56590"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routines at <a href="39668.html">9AF4</a>, <a href="40001.html">9C41</a>, <a href="58055.html">E2C7</a>, <a href="58519.html">E497</a> and <a href="58569.html">E4C9</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56590"></span>DD0E</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56591"></span>DD0F</td>
+<td class="instruction">LD HL,$A036</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="40918.html#41010">$A036</a> in "Game variables" - Is it the one the display follows?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56594"></span>DD12</td>
+<td class="instruction">CP (HL)</td>
+<td class="comment-1" rowspan="1">Compare A with the byte at <a href="40918.html#41010">$A036</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56595"></span>DD13</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">Copy B into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56596"></span>DD14</td>
+<td class="instruction">JR NZ,$DD19</td>
+<td class="comment-1" rowspan="1">If A differs from the byte at <a href="40918.html#41010">$A036</a> in "Game variables", skip ahead to <a href="56579.html#56601">DD19</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="56598"></span>DD16</td>
+<td class="instruction">LD ($A00A),A</td>
+<td class="comment-1" rowspan="1">Store A in the current actor's room (<a href="40918.html#40970">A00A</a>) - Yes: the displayed room changes</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56601"></span>DD19</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1">Compare A with $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56603"></span>DD1B</td>
+<td class="instruction">JR NZ,$DD1E</td>
+<td class="comment-1" rowspan="1">If A differs from $FF, skip ahead to <a href="56579.html#56606">DD1E</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="56605"></span>DD1D</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56606"></span>DD1E</td>
+<td class="instruction">LD ($DD01),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="56530.html#56577">DD01</a> in "Pre-check for moving in a direction (verbs..." - Remember the room just entered (<a href="56530.html#56577">DD01</a>) and its record (<a href="56530.html#56575">DCFF</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56609"></span>DD21</td>
+<td class="instruction">CALL <a href="53796.html">$D224</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Find a room record" (<a href="53796.html">D224</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56612"></span>DD24</td>
+<td class="instruction">LD ($DCFF),IX</td>
+<td class="comment-1" rowspan="1">Store IX in <a href="56530.html#56575">DCFF</a> in "Pre-check for moving in a direction (verbs..."</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56616"></span>DD28</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56617"></span>DD29</td>
+<td class="instruction">CALL <a href="53815.html">$D237</a></td>
+<td class="comment-1" rowspan="1">The actor's own record...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56620"></span>DD2C</td>
+<td class="instruction">LD (IX+$0F),B</td>
+<td class="comment-1" rowspan="1">Store B in byte +15 of the record at IX - ...location = the new room</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56623"></span>DD2F</td>
+<td class="instruction">CALL <a href="53833.html">$D249</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Move everything inside thing A, at any depth, to room..." (<a href="53833.html">D249</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56626"></span>DD32</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56628"></span>DD34</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="56530.html">DCD2</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#56579">Map</a></td>
+<td class="next">
+Next: <a href="56629.html">DD35</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

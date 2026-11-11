@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at A6D3 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="42705.html">A6D1</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#42707">Map</a></td>
+<td class="next">
+Next: <a href="42754.html">A702</a>
+</td>
+</tr>
+</table>
+<div class="description">A6D3: Code $0A: one of the next n elements, at random</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The byte after the code is n; a random number from 1 to n (<a href="53924.html">D2A4</a> on n - 1, plus 1) picks which of the following n elements is printed (<a href="42445.html">A5CD</a>), the others being skipped (<a href="42683.html">A6BB</a>). The count and the choice are kept at <a href="42705.html">A6D1</a> and <a href="42705.html">$A6D2</a>.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">The position of the code (the byte after it is n)</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">At the end of the n elements</td>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">0</td>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Z</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="42707"></span>A6D3</td>
+<td class="instruction">INC IX</td>
+<td class="comment-1" rowspan="1">Step IX on to the next byte - The count n that follows the code</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42709"></span>A6D5</td>
+<td class="instruction">LD A,(IX+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IX into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42712"></span>A6D8</td>
+<td class="instruction">LD ($A6D1),A</td>
+<td class="comment-1" rowspan="1">Store A in "Code $0A: the count, then the choice" (<a href="42705.html">A6D1</a>) - <a href="42705.html">A6D1</a> counts the elements down from n</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42715"></span>A6DB</td>
+<td class="instruction">DEC A</td>
+<td class="comment-1" rowspan="1">Subtract one from A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42716"></span>A6DC</td>
+<td class="instruction">CALL <a href="53924.html">$D2A4</a></td>
+<td class="comment-1" rowspan="1">Call the routine "A random number from 0 to A" (<a href="53924.html">D2A4</a>) - A random number from 0 to n - 1 (<a href="53924.html">D2A4</a>), plus one: the element to print (<a href="42705.html">$A6D2</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42719"></span>A6DF</td>
+<td class="instruction">INC A</td>
+<td class="comment-1" rowspan="1">Add one to A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42720"></span>A6E0</td>
+<td class="instruction">LD ($A6D2),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="42705.html">$A6D2</a> in "Code $0A: the count, then the choice"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42723"></span>A6E3</td>
+<td class="instruction">INC IX</td>
+<td class="comment-1" rowspan="1">Step IX on to the next byte</td>
+</tr>
+<tr>
+<td class="address-2"><span id="42725"></span>A6E5</td>
+<td class="instruction">LD A,($A6D2)</td>
+<td class="comment-1" rowspan="1">Read <a href="42705.html">$A6D2</a> in "Code $0A: the count, then the choice" into A - Is this the chosen element?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42728"></span>A6E8</td>
+<td class="instruction">LD HL,$A6D1</td>
+<td class="comment-1" rowspan="1">Point HL at "Code $0A: the count, then the choice" (<a href="42705.html">A6D1</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42731"></span>A6EB</td>
+<td class="instruction">CP (HL)</td>
+<td class="comment-1" rowspan="1">Compare A with the byte at "Code $0A: the count, then the choice" (<a href="42705.html">A6D1</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42732"></span>A6EC</td>
+<td class="instruction">JR NZ,$A6F5</td>
+<td class="comment-1" rowspan="1">If A differs from the byte at "Code $0A: the count, then the choice" (<a href="42705.html">A6D1</a>), skip ahead to <a href="42707.html#42741">A6F5</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42734"></span>A6EE</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42736"></span>A6F0</td>
+<td class="instruction">CALL <a href="42445.html">$A5CD</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Interpret one message element at IX" (<a href="42445.html">A5CD</a>) - Yes: print it (the interpreter, <a href="42445.html">A5CD</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42739"></span>A6F3</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack</td>
+</tr>
+<tr>
+<td class="address-2"><span id="42741"></span>A6F5</td>
+<td class="instruction">CALL <a href="42683.html">$A6BB</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Skip one message element at IX" (<a href="42683.html">A6BB</a>) - Either way skip over it (<a href="42683.html">A6BB</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42744"></span>A6F8</td>
+<td class="instruction">LD HL,$A6D1</td>
+<td class="comment-1" rowspan="1">Point HL at "Code $0A: the count, then the choice" (<a href="42705.html">A6D1</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42747"></span>A6FB</td>
+<td class="instruction">DEC (HL)</td>
+<td class="comment-1" rowspan="1">Subtract one from the byte at "Code $0A: the count, then the choice" (<a href="42705.html">A6D1</a>) - Until all n have been passed</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42748"></span>A6FC</td>
+<td class="instruction">JR NZ,$A6E5</td>
+<td class="comment-1" rowspan="1">If the byte at "Code $0A: the count, then the choice" (<a href="42705.html">A6D1</a>) is not zero, go back to <a href="42707.html#42725">A6E5</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="42750"></span>A6FE</td>
+<td class="instruction">DEC IX</td>
+<td class="comment-1" rowspan="1">Step IX back one byte - Back one byte, ready for the next token</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42752"></span>A700</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Set A to zero, which sets the zero flag for the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42753"></span>A701</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="42705.html">A6D1</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#42707">Map</a></td>
+<td class="next">
+Next: <a href="42754.html">A702</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

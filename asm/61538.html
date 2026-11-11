@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Data at F062 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-b">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Data</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="61463.html">F017</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#61538">Map</a></td>
+<td class="next">
+Next: <a href="61699.html">F103</a>
+</td>
+</tr>
+</table>
+<div class="description">F062: Plan script: major percival ffoulkes (actor 7)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Entry point: <a href="61538.html">F062</a> = major percival ffoulkes (actor 7).
+</div>
+<div class="paragraph">
+Each sub-block is one instruction. Split off from the block before, which it merely follows in memory.
+</div>
+<div class="paragraph">
+In an instruction, 'plan dobj' and 'plan iobj' are not fixed objects: they mean the direct and indirect object currently held in the actor's plan registers (bytes +4 and +5 of its actor record), so the same step works on whatever the actor is dealing with - for the player, the objects of the command just typed. 'plan verb' is the verb register (+3), 'self' is the acting character, and '-' means none.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61538"></span>F062</td>
+<td class="instruction">DEFB $59,$02,$62,$F0</td>
+<td class="comment-1" rowspan="1">AWAIT 2 inspector lestrade [busy; fail: wait here]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61542"></span>F066</td>
+<td class="instruction">DEFB $42,$80,$FB,$5C</td>
+<td class="comment-1" rowspan="1">DO 128 <a href="58519.html">PUT</a>: self, room 92 (jones front gate) [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61546"></span>F06A</td>
+<td class="instruction">DEFB $45,$0B,$20,$6D</td>
+<td class="comment-1" rowspan="1">SAY TO 11 local police man message <a href="27936.html">6D20</a>: "PLEASE LET ME PAST OFFICER, I MUST SEE MRS JONES." [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61550"></span>F06E</td>
+<td class="instruction">DEFB $0F</td>
+<td class="comment-1" rowspan="1">PASS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61551"></span>F06F</td>
+<td class="instruction">DEFB $59,$02,$6A,$F0</td>
+<td class="comment-1" rowspan="1">AWAIT 2 inspector lestrade [busy; fail <a href="61538.html#61546">F06A</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61555"></span>F073</td>
+<td class="instruction">DEFB $45,$02,$2E,$6D</td>
+<td class="comment-1" rowspan="1">SAY TO 2 inspector lestrade message <a href="27950.html">6D2E</a>: "INSPECTOR I AM YOU A VERY CLOSE AQUAINTANCE OF MRS JONES AND I DEMA..." [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61559"></span>F077</td>
+<td class="instruction">DEFB $48,$02</td>
+<td class="comment-1" rowspan="1">SIGNAL 2 inspector lestrade [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61561"></span>F079</td>
+<td class="instruction">DEFB $42,$86,$02,$5E</td>
+<td class="comment-1" rowspan="1">DO 134 <a href="60299.html">FOLLOW UNTIL IN</a>: 2 inspector lestrade, room 94 (library) [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61565"></span>F07D</td>
+<td class="instruction">DEFB $46,$B9,$6C</td>
+<td class="comment-1" rowspan="1">PRINT message <a href="27833.html">6CB9</a>: "UPON SEEING THE BODY MAJOR FFOULKES TURNS DEATHLY PALE, THEN, RECOV..." [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61568"></span>F080</td>
+<td class="instruction">DEFB $47,$2F,$E5,$14,$05</td>
+<td class="comment-1" rowspan="1">RUN <a href="58671.html">E52F</a> START COUNTDOWN of (dobj) plus a random number up to (iobj) (20, 5) [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61573"></span>F085</td>
+<td class="instruction">DEFB $43,$A8,$E5</td>
+<td class="comment-1" rowspan="1">RUN <a href="58792.html">E5A8</a> IDLE (no checks; takes a minute) [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61576"></span>F088</td>
+<td class="instruction">DEFB $C3,$7A,$E5,$85,$F0</td>
+<td class="comment-1" rowspan="1">RUN <a href="58746.html">E57A</a> TICK the countdown (fails, and deletes it, when it runs out) [busy; ok <a href="61538.html#61573">F085</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61581"></span>F08D</td>
+<td class="instruction">DEFB $42,$87,$45,$FF</td>
+<td class="comment-1" rowspan="1">DO 135 <a href="60712.html">GO THROUGH DOOR</a>: 69 sittingroom door, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61585"></span>F091</td>
+<td class="instruction">DEFB $42,$87,$13,$FF</td>
+<td class="comment-1" rowspan="1">DO 135 <a href="60712.html">GO THROUGH DOOR</a>: 19 front door, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61589"></span>F095</td>
+<td class="instruction">DEFB $41,$01</td>
+<td class="comment-1" rowspan="1">DO 1 <a href="56579.html">NORTH</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61591"></span>F097</td>
+<td class="instruction">DEFB $43,$A8,$F1</td>
+<td class="comment-1" rowspan="1">RUN <a href="61864.html">F1A8</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61594"></span>F09A</td>
+<td class="instruction">DEFB $41,$04</td>
+<td class="comment-1" rowspan="1">DO 4 <a href="56579.html">WEST</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61596"></span>F09C</td>
+<td class="instruction">DEFB $41,$02</td>
+<td class="comment-1" rowspan="1">DO 2 <a href="56579.html">SOUTH</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61598"></span>F09E</td>
+<td class="instruction">DEFB $41,$02</td>
+<td class="comment-1" rowspan="1">DO 2 <a href="56579.html">SOUTH</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61600"></span>F0A0</td>
+<td class="instruction">DEFB $42,$80,$FB,$00</td>
+<td class="comment-1" rowspan="1">DO 128 <a href="58519.html">PUT</a>: self, room 0 (off stage) [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61604"></span>F0A4</td>
+<td class="instruction">DEFB $12,$88,$17,$FF,$A4,$F0</td>
+<td class="comment-1" rowspan="1">DO 136 <a href="61910.html">IS HOUR</a> 23 [fail: wait here]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61610"></span>F0AA</td>
+<td class="instruction">DEFB $17,$98,$F1,$14,$FF,$AA,$F0</td>
+<td class="comment-1" rowspan="1">RUN <a href="61848.html">F198</a> CHANCE: succeed if a random 1-99 is at most (dobj) (20, -) [fail: wait here]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61617"></span>F0B1</td>
+<td class="instruction">DEFB $02,$80,$FB,$28</td>
+<td class="comment-1" rowspan="1">DO 128 <a href="58519.html">PUT</a>: self, room 40 (sidmouth street)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61621"></span>F0B5</td>
+<td class="instruction">DEFB $42,$87,$30,$FF</td>
+<td class="comment-1" rowspan="1">DO 135 <a href="60712.html">GO THROUGH DOOR</a>: 48 heavy oak door, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61625"></span>F0B9</td>
+<td class="instruction">DEFB $41,$09</td>
+<td class="comment-1" rowspan="1">DO 9 <a href="56579.html">UP</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61627"></span>F0BB</td>
+<td class="instruction">DEFB $42,$24,$30,$FF</td>
+<td class="comment-1" rowspan="1">DO 36 <a href="56989.html">OPEN</a>: 48 heavy oak door, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61631"></span>F0BF</td>
+<td class="instruction">DEFB $41,$05</td>
+<td class="comment-1" rowspan="1">DO 5 <a href="56579.html">NORTHEAST</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61633"></span>F0C1</td>
+<td class="instruction">DEFB $41,$08</td>
+<td class="comment-1" rowspan="1">DO 8 <a href="56579.html">SOUTHWEST</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61635"></span>F0C3</td>
+<td class="instruction">DEFB $41,$0A</td>
+<td class="comment-1" rowspan="1">DO 10 <a href="56579.html">DOWN</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61637"></span>F0C5</td>
+<td class="instruction">DEFB $42,$87,$30,$FF</td>
+<td class="comment-1" rowspan="1">DO 135 <a href="60712.html">GO THROUGH DOOR</a>: 48 heavy oak door, - [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61641"></span>F0C9</td>
+<td class="instruction">DEFB $47,$A4,$EB,$FF,$0C</td>
+<td class="comment-1" rowspan="1">RUN <a href="60324.html">EBA4</a> (-, 12 local police man) [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61646"></span>F0CE</td>
+<td class="instruction">DEFB $41,$01</td>
+<td class="comment-1" rowspan="1">DO 1 <a href="56579.html">NORTH</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61648"></span>F0D0</td>
+<td class="instruction">DEFB $08,$02</td>
+<td class="comment-1" rowspan="1">SIGNAL 2 inspector lestrade</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61650"></span>F0D2</td>
+<td class="instruction">DEFB $0F</td>
+<td class="comment-1" rowspan="1">PASS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61651"></span>F0D3</td>
+<td class="instruction">DEFB $82,$81,$00,$FB,$E2,$F0</td>
+<td class="comment-1" rowspan="1">DO 129 <a href="58840.html">IS WITH</a>: 0 you, self [ok <a href="61538.html#61666">F0E2</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61657"></span>F0D9</td>
+<td class="instruction">DEFB $52,$88,$01,$FF,$D2,$F0</td>
+<td class="comment-1" rowspan="1">DO 136 <a href="61910.html">IS HOUR</a> 1 [busy; fail <a href="61538.html#61650">F0D2</a>]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61663"></span>F0DF</td>
+<td class="instruction">DEFB $0E,$EE,$F0</td>
+<td class="comment-1" rowspan="1">GOTO <a href="61538.html#61678">F0EE</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="61666"></span>F0E2</td>
+<td class="instruction">DEFB $45,$00,$78,$6C</td>
+<td class="comment-1" rowspan="1">SAY TO 0 you message <a href="27768.html">6C78</a>: "WELL HOLMES YOU HAVE FOUND OUT MY SHAMEFUL SECRET, I AM ADDICTED TO..." [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61670"></span>F0E6</td>
+<td class="instruction">DEFB $43,$03,$F1</td>
+<td class="comment-1" rowspan="1">RUN <a href="61699.html">F103</a> [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61673"></span>F0E9</td>
+<td class="instruction">DEFB $07,$BE,$DD,$04,$FF</td>
+<td class="comment-1" rowspan="1">RUN <a href="56766.html">DDBE</a> WAIT (dobj) minutes (4, -)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61678"></span>F0EE</td>
+<td class="instruction">DEFB $17,$98,$F1,$14,$FF,$EE,$F0</td>
+<td class="comment-1" rowspan="1">RUN <a href="61848.html">F198</a> CHANCE: succeed if a random 1-99 is at most (dobj) (20, -) [fail: wait here]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61685"></span>F0F5</td>
+<td class="instruction">DEFB $01,$02</td>
+<td class="comment-1" rowspan="1">DO 2 <a href="56579.html">SOUTH</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="61687"></span>F0F7</td>
+<td class="instruction">DEFB $59,$02,$F7,$F0</td>
+<td class="comment-1" rowspan="1">AWAIT 2 inspector lestrade [busy; fail: wait here]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61691"></span>F0FB</td>
+<td class="instruction">DEFB $42,$80,$FB,$00</td>
+<td class="comment-1" rowspan="1">DO 128 <a href="58519.html">PUT</a>: self, room 0 (off stage) [busy]</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61695"></span>F0FF</td>
+<td class="instruction">DEFB $0F</td>
+<td class="comment-1" rowspan="1">PASS</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61696"></span>F100</td>
+<td class="instruction">DEFB $0E,$FF,$F0</td>
+<td class="comment-1" rowspan="1">GOTO <a href="61538.html#61695">F0FF</a></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="61463.html">F017</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#61538">Map</a></td>
+<td class="next">
+Next: <a href="61699.html">F103</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

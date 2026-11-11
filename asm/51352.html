@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at C898 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="51310.html">C86E</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#51352">Map</a></td>
+<td class="next">
+Next: <a href="51367.html">C8A7</a>
+</td>
+</tr>
+</table>
+<div class="description">C898: Follow IY's containment chain</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Swaps IX and IY (<a href="51352.html#51358">C89E</a>), follows the chain (<a href="51310.html">C86E</a>), and swaps back.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IY</td>
+<td class="register-desc">A thing's record</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">The highest holder reached</td>
+</tr>
+<tr>
+<td class="register">IX,</td>
+<td class="register-desc">IY Kept</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="51352"></span>C898</td>
+<td class="instruction">CALL $C89E</td>
+<td class="comment-1" rowspan="1">Call <a href="51352.html#51358">C89E</a> (inside "Follow IY's containment chain") - Swap IX and IY (<a href="51352.html#51358">C89E</a>), climb the chain (<a href="51310.html">C86E</a>), swap them back</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51355"></span>C89B</td>
+<td class="instruction">CALL <a href="51310.html">$C86E</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Follow an object's containment chain to its root" (<a href="51310.html">C86E</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="51358"></span>C89E</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51360"></span>C8A0</td>
+<td class="instruction">PUSH IY</td>
+<td class="comment-1" rowspan="1">Save IY on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51362"></span>C8A2</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51364"></span>C8A4</td>
+<td class="instruction">POP IY</td>
+<td class="comment-1" rowspan="1">Restore IY from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51366"></span>C8A6</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="51310.html">C86E</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#51352">Map</a></td>
+<td class="next">
+Next: <a href="51367.html">C8A7</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

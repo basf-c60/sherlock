@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at C960 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="51507.html">C933</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#51552">Map</a></td>
+<td class="next">
+Next: <a href="51593.html">C989</a>
+</td>
+</tr>
+</table>
+<div class="description">C960: Look up a numbered entry in the table at $AA71</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="43633.html">AA71</a>.
+</div>
+<div class="paragraph">
+Given a number in (IX+1), computes <a href="43633.html">AA71</a> + (that number - 1)*2 and reads a 16-bit value from there - a plain, direct-indexed table lookup, not a search.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">A record whose +1 is a number</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">The action record at entry (number - 1) of the table at $AA71</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="51552"></span>C960</td>
+<td class="instruction">LD A,(IX+$01)</td>
+<td class="comment-1" rowspan="1">The number to look up (meaning depends on IX - see prose)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51555"></span>C963</td>
+<td class="instruction">LD E,A</td>
+<td class="comment-1" rowspan="1">Copy A into E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51556"></span>C964</td>
+<td class="instruction">LD D,$00</td>
+<td class="comment-1" rowspan="1">Load D with $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51558"></span>C966</td>
+<td class="instruction">LD HL,$AA71</td>
+<td class="comment-1" rowspan="1">The table's base</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51561"></span>C969</td>
+<td class="instruction">DEC DE</td>
+<td class="comment-1" rowspan="1">Step DE back one byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51562"></span>C96A</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1">(number-1) * 2, added twice for a word-sized stride</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51563"></span>C96B</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1">Add DE to HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51564"></span>C96C</td>
+<td class="instruction">LD E,(HL)</td>
+<td class="comment-1" rowspan="1">This entry's own table value...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51565"></span>C96D</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51566"></span>C96E</td>
+<td class="instruction">LD D,(HL)</td>
+<td class="comment-1" rowspan="1">...becomes the result</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51567"></span>C96F</td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-1" rowspan="1">Swap DE and HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51568"></span>C970</td>
+<td class="instruction">JR <a href="51606.html">$C996</a></td>
+<td class="comment-1" rowspan="1">Run it</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="51570"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routines at <a href="51497.html">C929</a> and <a href="51507.html">C933</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="51570"></span>C972</td>
+<td class="instruction">LD A,($A033)</td>
+<td class="comment-1" rowspan="1">Look the verb up in the default-action table</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51573"></span>C975</td>
+<td class="instruction">LD IX,$9F38</td>
+<td class="comment-1" rowspan="1">Point IX at "Each verb's default action record" (<a href="40760.html">9F38</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51577"></span>C979</td>
+<td class="instruction">CALL <a href="54094.html">$D34E</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Find a 3-byte record by id, in a sentinel-terminated..." (<a href="54094.html">D34E</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51580"></span>C97C</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1">No default for this verb?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51582"></span>C97E</td>
+<td class="instruction">JP Z,<a href="56341.html">$DC15</a></td>
+<td class="comment-1" rowspan="1">Then fail</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51585"></span>C981</td>
+<td class="instruction">LD L,(IX+$01)</td>
+<td class="comment-1" rowspan="1">HL = the default action record</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51588"></span>C984</td>
+<td class="instruction">LD H,(IX+$02)</td>
+<td class="comment-1" rowspan="1">Read byte +2 of the record at IX into H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51591"></span>C987</td>
+<td class="instruction">JR <a href="51606.html">$C996</a></td>
+<td class="comment-1" rowspan="1">Run it</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="51507.html">C933</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#51552">Map</a></td>
+<td class="next">
+Next: <a href="51593.html">C989</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

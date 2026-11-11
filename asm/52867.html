@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at CE83 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="52760.html">CE18</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#52867">Map</a></td>
+<td class="next">
+Next: <a href="52879.html">CE8F</a>
+</td>
+</tr>
+</table>
+<div class="description">CE83: Point IX and HL at the current plan instruction</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+IY = the actor's record, HL = IX = the instruction just run (<a href="40918.html#40921">9FD9</a>), A = its first byte.
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">IY</td>
+<td class="register-desc">The actor's record</td>
+</tr>
+<tr>
+<td class="register">HL,</td>
+<td class="register-desc">IX The current instruction</td>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">Its first byte</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="52867"></span>CE83</td>
+<td class="instruction">LD IY,($9FDB)</td>
+<td class="comment-1" rowspan="1">Read the current actor's (<a href="40918.html#40923">9FDB</a>) into IY - IY = the current plan's actor record (<a href="40918.html#40923">9FDB</a>); HL = IX = the current plan instruction (<a href="40918.html#40921">9FD9</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52871"></span>CE87</td>
+<td class="instruction">LD HL,($9FD9)</td>
+<td class="comment-1" rowspan="1">Read the plan instruction (<a href="40918.html#40921">9FD9</a>) into HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52874"></span>CE8A</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52875"></span>CE8B</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52877"></span>CE8D</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into A - A = its first byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52878"></span>CE8E</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="52760.html">CE18</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#52867">Map</a></td>
+<td class="next">
+Next: <a href="52879.html">CE8F</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

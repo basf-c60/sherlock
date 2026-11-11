@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at F490 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="62606.html">F48E</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#62608">Map</a></td>
+<td class="next">
+Next: <a href="62733.html">F50D</a>
+</td>
+</tr>
+</table>
+<div class="description">F490: Fill the area around the pen in colour A</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+A scan-line flood fill: the colour goes to <a href="62987.html">F60B</a>, seeds are kept on the stack (a $00B0 marker ends them), and each row is filled left and right, seeding the rows above and below (<a href="62606.html">F48E</a>/<a href="62606.html">$F48F</a>).
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. Keep the colour at <a href="62987.html">F60B</a> and put a marker on the stack.
+</div>
+<div class="paragraph">
+2. From the seed, go left until the pixel is set or the edge is reached, colouring as it goes.
+</div>
+<div class="paragraph">
+3. Work along the lines above and below: the first clear pixel of each run of clear pixels is pushed as a seed for later.
+</div>
+<div class="paragraph">
+4. Pop seeds and repeat until the marker is reached.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">The colour</td>
+</tr>
+<tr>
+<td class="register">DE</td>
+<td class="register-desc">The seed point</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">The</td>
+<td class="register-desc">area around the seed filled; DE, HL kept</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="62608"></span>F490</td>
+<td class="instruction">LD ($F60B),A</td>
+<td class="comment-1" rowspan="1">Store A in "Fill pattern for the picture interpreter" (<a href="62987.html">F60B</a>) - The colour to fill with</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62611"></span>F493</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62612"></span>F494</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62613"></span>F495</td>
+<td class="instruction">LD HL,$00B0</td>
+<td class="comment-1" rowspan="1">Load HL with $00B0 - A marker on the stack ($00B0: no line has E = $B0) under the seeds</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62616"></span>F498</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-2"><span id="62617"></span>F499</td>
+<td class="instruction">CALL <a href="62733.html">$F50D</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Is the pixel under the pen set? (NZ if so)" (<a href="62733.html">F50D</a>) - From the seed, go left (D - 1) while the pixel is clear...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62620"></span>F49C</td>
+<td class="instruction">JR NZ,$F4A5</td>
+<td class="comment-1" rowspan="1">If the zero flag is clear, skip ahead to <a href="62608.html#62629">F4A5</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="62622"></span>F49E</td>
+<td class="instruction">CALL <a href="62794.html#62821">$F565</a></td>
+<td class="comment-1" rowspan="1">Call <a href="62794.html#62821">F565</a> (inside "Move the pen one pixel (Z when it would...")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62625"></span>F4A1</td>
+<td class="instruction">JR NZ,$F499</td>
+<td class="comment-1" rowspan="1">If the zero flag is clear, go back to <a href="62608.html#62617">F499</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="62627"></span>F4A3</td>
+<td class="instruction">JR $F4AB</td>
+<td class="comment-1" rowspan="1">(stopped by the left edge, x = $80: start here)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="62629"></span>F4A5</td>
+<td class="instruction">CALL <a href="62930.html">$F5D2</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Plot the pen position in the current colour" (<a href="62930.html">F5D2</a>) - (stopped by a set pixel: colour it and step back right)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62632"></span>F4A8</td>
+<td class="instruction">CALL <a href="62794.html#62814">$F55E</a></td>
+<td class="comment-1" rowspan="1">Call <a href="62794.html#62814">F55E</a> (inside "Move the pen one pixel (Z when it would...")</td>
+</tr>
+<tr>
+<td class="address-2"><span id="62635"></span>F4AB</td>
+<td class="instruction">LD HL,$0000</td>
+<td class="comment-1" rowspan="1">Load HL with $0000 - Nothing seeded yet on the lines either side</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62638"></span>F4AE</td>
+<td class="instruction">LD ($F48E),HL</td>
+<td class="comment-1" rowspan="1">Store HL in "Fill state" (<a href="62606.html">F48E</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="62641"></span>F4B1</td>
+<td class="instruction">CALL <a href="62794.html">$F54A</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Move the pen one pixel (Z when it would leave the..." (<a href="62794.html">F54A</a>) - Line E + 1 (none at the edge): a clear pixel starts a run there...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62644"></span>F4B4</td>
+<td class="instruction">LD A,$00</td>
+<td class="comment-1" rowspan="1">Load A with $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62646"></span>F4B6</td>
+<td class="instruction">JR Z,$F4CD</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, skip ahead to <a href="62608.html#62669">F4CD</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="62648"></span>F4B8</td>
+<td class="instruction">CALL <a href="62733.html">$F50D</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Is the pixel under the pen set? (NZ if so)" (<a href="62733.html">F50D</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62651"></span>F4BB</td>
+<td class="instruction">LD A,$00</td>
+<td class="comment-1" rowspan="1">Load A with $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62653"></span>F4BD</td>
+<td class="instruction">JR NZ,$F4C8</td>
+<td class="comment-1" rowspan="1">If the zero flag is clear, skip ahead to <a href="62608.html#62664">F4C8</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="62655"></span>F4BF</td>
+<td class="instruction">LD A,($F48E)</td>
+<td class="comment-1" rowspan="1">Read "Fill state" (<a href="62606.html">F48E</a>) into A - ...and the first of each run is pushed as a seed (<a href="62606.html">F48E</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62658"></span>F4C2</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62659"></span>F4C3</td>
+<td class="instruction">JR NZ,$F4C8</td>
+<td class="comment-1" rowspan="1">If A is not zero, skip ahead to <a href="62608.html#62664">F4C8</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="62661"></span>F4C5</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62662"></span>F4C6</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="1">Load A with $01</td>
+</tr>
+<tr>
+<td class="address-2"><span id="62664"></span>F4C8</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62665"></span>F4C9</td>
+<td class="instruction">CALL <a href="62794.html#62805">$F555</a></td>
+<td class="comment-1" rowspan="1">Call <a href="62794.html#62805">F555</a> (inside "Move the pen one pixel (Z when it would...") - Back to the line</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62668"></span>F4CC</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-2"><span id="62669"></span>F4CD</td>
+<td class="instruction">LD ($F48E),A</td>
+<td class="comment-1" rowspan="1">Store A in "Fill state" (<a href="62606.html">F48E</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62672"></span>F4D0</td>
+<td class="instruction">CALL <a href="62794.html#62805">$F555</a></td>
+<td class="comment-1" rowspan="1">Call <a href="62794.html#62805">F555</a> (inside "Move the pen one pixel (Z when it would...") - The same for line E - 1 (<a href="62606.html">$F48F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62675"></span>F4D3</td>
+<td class="instruction">LD A,$00</td>
+<td class="comment-1" rowspan="1">Load A with $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62677"></span>F4D5</td>
+<td class="instruction">JR Z,$F4EC</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, skip ahead to <a href="62608.html#62700">F4EC</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="62679"></span>F4D7</td>
+<td class="instruction">CALL <a href="62733.html">$F50D</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Is the pixel under the pen set? (NZ if so)" (<a href="62733.html">F50D</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62682"></span>F4DA</td>
+<td class="instruction">LD A,$00</td>
+<td class="comment-1" rowspan="1">Load A with $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62684"></span>F4DC</td>
+<td class="instruction">JR NZ,$F4E7</td>
+<td class="comment-1" rowspan="1">If the zero flag is clear, skip ahead to <a href="62608.html#62695">F4E7</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="62686"></span>F4DE</td>
+<td class="instruction">LD A,($F48F)</td>
+<td class="comment-1" rowspan="1">Read <a href="62606.html">$F48F</a> in "Fill state" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62689"></span>F4E1</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62690"></span>F4E2</td>
+<td class="instruction">JR NZ,$F4E7</td>
+<td class="comment-1" rowspan="1">If A is not zero, skip ahead to <a href="62608.html#62695">F4E7</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="62692"></span>F4E4</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62693"></span>F4E5</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="1">Load A with $01</td>
+</tr>
+<tr>
+<td class="address-2"><span id="62695"></span>F4E7</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62696"></span>F4E8</td>
+<td class="instruction">CALL <a href="62794.html">$F54A</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Move the pen one pixel (Z when it would leave the..." (<a href="62794.html">F54A</a>) - Back to the line</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62699"></span>F4EB</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-2"><span id="62700"></span>F4EC</td>
+<td class="instruction">LD ($F48F),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="62606.html">$F48F</a> in "Fill state"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62703"></span>F4EF</td>
+<td class="instruction">CALL <a href="62930.html">$F5D2</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Plot the pen position in the current colour" (<a href="62930.html">F5D2</a>) - Fill this pixel and move right</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62706"></span>F4F2</td>
+<td class="instruction">CALL <a href="62794.html#62814">$F55E</a></td>
+<td class="comment-1" rowspan="1">Call <a href="62794.html#62814">F55E</a> (inside "Move the pen one pixel (Z when it would...")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62709"></span>F4F5</td>
+<td class="instruction">JR Z,$F4FF</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, skip ahead to <a href="62608.html#62719">F4FF</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="62711"></span>F4F7</td>
+<td class="instruction">CALL <a href="62733.html">$F50D</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Is the pixel under the pen set? (NZ if so)" (<a href="62733.html">F50D</a>) - Next pixel clear: carry on along the line</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62714"></span>F4FA</td>
+<td class="instruction">JR Z,$F4B1</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, go back to <a href="62608.html#62641">F4B1</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="62716"></span>F4FC</td>
+<td class="instruction">CALL <a href="62930.html">$F5D2</a></td>
+<td class="comment-1" rowspan="1">Set: colour it too, and the line is done</td>
+</tr>
+<tr>
+<td class="address-2"><span id="62719"></span>F4FF</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack - Take the next seed, until the marker</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62720"></span>F500</td>
+<td class="instruction">LD A,E</td>
+<td class="comment-1" rowspan="1">Copy E into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62721"></span>F501</td>
+<td class="instruction">CP $B0</td>
+<td class="comment-1" rowspan="1">Compare A with $B0</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62723"></span>F503</td>
+<td class="instruction">JR NZ,$F499</td>
+<td class="comment-1" rowspan="1">If A differs from $B0, go back to <a href="62608.html#62617">F499</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="62725"></span>F505</td>
+<td class="instruction">LD A,$00</td>
+<td class="comment-1" rowspan="1">Load A with $00 - Restore the colour to 0</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62727"></span>F507</td>
+<td class="instruction">LD ($F60B),A</td>
+<td class="comment-1" rowspan="1">Store A in "Fill pattern for the picture interpreter" (<a href="62987.html">F60B</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62730"></span>F50A</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62731"></span>F50B</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="62732"></span>F50C</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="62606.html">F48E</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#62608">Map</a></td>
+<td class="next">
+Next: <a href="62733.html">F50D</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

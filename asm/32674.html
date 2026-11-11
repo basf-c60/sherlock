@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Text at 7FA2 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-t">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Messages</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="32649.html">7F89</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#32674">Map</a></td>
+<td class="next">
+Next: <a href="32690.html">7FB2</a>
+</td>
+</tr>
+</table>
+<div class="description">7FA2: Message: "THE MUSIC ON THE PIANO IS BAROQUE."</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Text: "THE MUSIC ON THE PIANO IS BAROQUE."
+</div>
+<div class="paragraph">
+No instruction loads it directly. Its address is stored as the word at <a href="36026.html#37648">$9315</a>, in the record of thing 77 (basils piano).
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="32674"></span>7FA2</td>
+<td class="instruction">DEFB $60,$20,$44,$6D,$66,$91,$80,$77</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="32682"></span>7FAA</td>
+<td class="instruction">DEFB $60,$86,$82,$67,$F0,$B3,$2E,$1F</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="32649.html">7F89</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#32674">Map</a></td>
+<td class="next">
+Next: <a href="32690.html">7FB2</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

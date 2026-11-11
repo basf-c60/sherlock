@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at E52F - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="58648.html">E518</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#58671">Map</a></td>
+<td class="next">
+Next: <a href="58746.html">E57A</a>
+</td>
+</tr>
+</table>
+<div class="description">E52F: Script helper: start a countdown for the actor</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+RUN <a href="58671.html">E52F</a> / n / m: puts a 2-byte node (the actor, n plus a random number from 0 to m) on the countdown list at <a href="40918.html#40933">9FE5</a>. <a href="58746.html">E57A</a> ticks it and <a href="58760.html">E588</a> cancels it.
+</div>
+<div class="paragraph">
+Used by: RUN at <a href="58450.html#58454">E456</a>; RUN at <a href="59183.html#59186">E732</a>; RUN at <a href="59183.html#59205">E745</a>; RUN at <a href="59183.html#59217">E751</a>; RUN at <a href="60971.html#61098">EEAA</a>; RUN at <a href="60971.html#61236">EF34</a>; RUN at <a href="61430.html#61444">F004</a>; RUN at <a href="61538.html#61568">F080</a>; RUN at <a href="62130.html#62138">F2BA</a>; RUN at <a href="62130.html#62163">F2D3</a>; RUN at <a href="62130.html#62207">F2FF</a>; RUN at <a href="62130.html#62260">F334</a>.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$A034</td>
+<td class="register-desc">The fixed part</td>
+</tr>
+<tr>
+<td class="register">A035 The random part (</td>
+<td class="register-desc">FF for none)</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ; a countdown node (actor, n plus random) on the list at $9FE5</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="58671"></span>E52F</td>
+<td class="instruction">DEFB $07,$07</td>
+<td class="comment-1" rowspan="1">Action record header: flags $07; byte 1 $07</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58673"></span>E531</td>
+<td class="instruction">LD A,$02</td>
+<td class="comment-1" rowspan="1">Load A with $02 - A 2-byte node</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58675"></span>E533</td>
+<td class="instruction">CALL <a href="41244.html">$A11C</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Allocate A + 3 bytes from the free list, cleared" (<a href="41244.html">A11C</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58678"></span>E536</td>
+<td class="instruction">LD HL,($9FE5)</td>
+<td class="comment-1" rowspan="1">Read countdowns (<a href="40918.html#40933">9FE5</a>) into HL - Link it in at the head of the countdown list</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58681"></span>E539</td>
+<td class="instruction">LD ($9FE5),IX</td>
+<td class="comment-1" rowspan="1">Store IX in countdowns (<a href="40918.html#40933">9FE5</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58685"></span>E53D</td>
+<td class="instruction">LD (IX-$02),L</td>
+<td class="comment-1" rowspan="1">Store L in byte -2 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58688"></span>E540</td>
+<td class="instruction">LD (IX-$01),H</td>
+<td class="comment-1" rowspan="1">Store H in byte -1 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58691"></span>E543</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A036</a> in "Game variables" into A - +0: whose countdown</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58694"></span>E546</td>
+<td class="instruction">LD (IX+$00),A</td>
+<td class="comment-1" rowspan="1">Store A in the first byte of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58697"></span>E549</td>
+<td class="instruction">LD A,($A035)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A035</a> in "Game variables" into A - The random part, if any...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58700"></span>E54C</td>
+<td class="instruction">LD B,$00</td>
+<td class="comment-1" rowspan="1">Load B with $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58702"></span>E54E</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1">Compare A with $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58704"></span>E550</td>
+<td class="instruction">JR Z,$E556</td>
+<td class="comment-1" rowspan="1">If A equals $FF, skip ahead to <a href="58671.html#58710">E556</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="58706"></span>E552</td>
+<td class="instruction">CALL <a href="53924.html">$D2A4</a></td>
+<td class="comment-1" rowspan="1">Call the routine "A random number from 0 to A" (<a href="53924.html">D2A4</a>) - ...a random number from 0 to it</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58709"></span>E555</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">Copy A into B</td>
+</tr>
+<tr>
+<td class="address-2"><span id="58710"></span>E556</td>
+<td class="instruction">LD A,($A034)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A034</a> in "Game variables" into A - Plus the fixed part</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58713"></span>E559</td>
+<td class="instruction">ADD A,B</td>
+<td class="comment-1" rowspan="1">Add B to A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58714"></span>E55A</td>
+<td class="instruction">LD (IX+$01),A</td>
+<td class="comment-1" rowspan="1">+1: the count</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58717"></span>E55D</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - Done</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58719"></span>E55F</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="58720"></span>E560</td>
+<td class="instruction">LD IX,$9FE7</td>
+<td class="comment-1" rowspan="1">Point IX at SIGNAL tokens (<a href="40918.html#40935">9FE7</a>) - Find the actor's countdown: Z if none</td>
+</tr>
+<tr>
+<td class="address-2"><span id="58724"></span>E564</td>
+<td class="instruction">CALL <a href="41207.html">$A0F7</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Move IX to the next node of a list" (<a href="41207.html">A0F7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58727"></span>E567</td>
+<td class="instruction">RET Z</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58728"></span>E568</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A036</a> in "Game variables" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58731"></span>E56B</td>
+<td class="instruction">CP (IX+$00)</td>
+<td class="comment-1" rowspan="1">Compare A with the first byte of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58734"></span>E56E</td>
+<td class="instruction">JR NZ,$E564</td>
+<td class="comment-1" rowspan="1">If A differs from the first byte of the record at IX, go back to <a href="58671.html#58724">E564</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="58736"></span>E570</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58738"></span>E572</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58739"></span>E573</td>
+<td class="instruction">CALL $E560</td>
+<td class="comment-1" rowspan="1">Call <a href="58671.html#58720">E560</a> (inside "Script helper: start a countdown for the...") - Refuse if there is none</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58742"></span>E576</td>
+<td class="instruction">JP Z,<a href="56341.html">$DC15</a></td>
+<td class="comment-1" rowspan="1">If the zero flag is set, go back to the routine "Fail: A = 0, HL = 0, Z set" (<a href="56341.html">DC15</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="58745"></span>E579</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="58648.html">E518</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#58671">Map</a></td>
+<td class="next">
+Next: <a href="58746.html">E57A</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

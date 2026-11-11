@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at 9ACB - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="39577.html">9A99</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#39627">Map</a></td>
+<td class="next">
+Next: <a href="39649.html">9AE1</a>
+</td>
+</tr>
+</table>
+<div class="description">9ACB: Shared action 2: the police cab, GO FURIOUSLY TO - 20 minutes quicker</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Header $04 $00 then code: the same routes (<a href="39577.html#39587">9AA3</a>) with 20 minutes taken off - 94 out to Old Mill Road and 92 back. The local police man's action list (after its 00 entry) sends verb <a href="39577.html">29</a>, GO TO, to shared action 1 and verb <a href="39627.html">30</a>, GO FURIOUSLY TO, here. Lestrade's orders use verb <a href="39627.html">30</a> both ways in the chase, and SAY TO POLICE MAN "GO FURIOUSLY TO KINGS CROSS ROAD" took 75 minutes against 95 for plain GO TO.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">The action record</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Z when the route is refused; otherwise continues at $9B04</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="39627"></span>9ACB</td>
+<td class="instruction">DEFB $04,$00</td>
+<td class="comment-1" rowspan="1">Action record header: flags $04; byte 1 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39629"></span>9ACD</td>
+<td class="instruction">CALL <a href="39577.html#39587">$9AA3</a></td>
+<td class="comment-1" rowspan="1">Call <a href="39577.html#39587">9AA3</a> (inside "Shared action 1: the police cab, GO TO...") - Work out the route's time as GO TO does (<a href="39577.html#39587">9AA3</a>); no route: refuse</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39632"></span>9AD0</td>
+<td class="instruction">JP Z,<a href="56341.html">$DC15</a></td>
+<td class="comment-1" rowspan="1">If the zero flag is set, jump on to the routine "Fail: A = 0, HL = 0, Z set" (<a href="56341.html">DC15</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39635"></span>9AD3</td>
+<td class="instruction">LD A,L</td>
+<td class="comment-1" rowspan="1">Copy L into A - Twenty minutes less: L - $14</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39636"></span>9AD4</td>
+<td class="instruction">SUB $14</td>
+<td class="comment-1" rowspan="1">Subtract $14 from A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39638"></span>9AD6</td>
+<td class="instruction">LD L,A</td>
+<td class="comment-1" rowspan="1">Copy A into L</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="39639"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="39577.html">9A99</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="39639"></span>9AD7</td>
+<td class="instruction">LD A,$6D</td>
+<td class="comment-1" rowspan="1">Load A with $6D - The thing named at <a href="58054.html">E2C6</a> is $6D (109)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39641"></span>9AD9</td>
+<td class="instruction">LD ($E2C6),A</td>
+<td class="comment-1" rowspan="1">Store A in "HAIL: the cab hailed, plus one" (<a href="58054.html">E2C6</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39644"></span>9ADC</td>
+<td class="instruction">LD A,$69</td>
+<td class="comment-1" rowspan="1">Load A with $69 - ...and the shared-action code is $69; carry on as <a href="39668.html#39684">9B04</a> does</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39646"></span>9ADE</td>
+<td class="instruction">JP <a href="39668.html#39684">$9B04</a></td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="39668.html#39684">9B04</a></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="39577.html">9A99</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#39627">Map</a></td>
+<td class="next">
+Next: <a href="39649.html">9AE1</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

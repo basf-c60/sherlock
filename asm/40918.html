@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Data at 9FD6 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-b">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Data</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="40916.html">9FD4</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#40918">Map</a></td>
+<td class="next">
+Next: <a href="41024.html">A040</a>
+</td>
+</tr>
+</table>
+<div class="description">9FD6: Game variables</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The plan-script registers, the clock and the heads of the engine's linked lists (each list's head word doubles as the link of a pseudo-node 2 bytes further on, which is the address the list walk <a href="41207.html">A0F7</a> starts from: <a href="40918.html#40935">9FE7</a> for countdowns, <a href="40918.html#40937">9FE9</a> for tokens, <a href="40918.html#40939">9FEB</a> for frames, <a href="40918.html#40944">9FF0</a> for orders).
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40918"></span>9FD6</td>
+<td class="instruction">DEFB $00</td>
+<td class="comment-1" rowspan="1"><a href="40918.html">9FD6</a>: the plan's verb (argument $FA)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40919"></span>9FD7</td>
+<td class="instruction">DEFB $00</td>
+<td class="comment-1" rowspan="1"><a href="40918.html#40919">9FD7</a>: the plan's direct object (argument $FD)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40920"></span>9FD8</td>
+<td class="instruction">DEFB $00</td>
+<td class="comment-1" rowspan="1"><a href="40918.html#40920">9FD8</a>: the plan's indirect object (argument $FC)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40921"></span>9FD9</td>
+<td class="instruction">DEFW $0000</td>
+<td class="comment-1" rowspan="1"><a href="40918.html#40921">9FD9</a>: the plan instruction being run</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40923"></span>9FDB</td>
+<td class="instruction">DEFW $0000</td>
+<td class="comment-1" rowspan="1"><a href="40918.html#40923">9FDB</a>: the current actor's record in the actor table</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40925"></span>9FDD</td>
+<td class="instruction">DEFW $0000</td>
+<td class="comment-1" rowspan="1"><a href="40918.html#40925">9FDD</a>: minutes since the start</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40927"></span>9FDF</td>
+<td class="instruction">DEFB $3B</td>
+<td class="comment-1" rowspan="1"><a href="40918.html#40927">9FDF</a>: the minute</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40928"></span>9FE0</td>
+<td class="instruction">DEFB $07</td>
+<td class="comment-1" rowspan="1"><a href="40918.html#40928">9FE0</a>: the hour, 1-12</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40929"></span>9FE1</td>
+<td class="instruction">DEFB $00</td>
+<td class="comment-1" rowspan="1"><a href="40918.html#40929">9FE1</a>: the day (0 = Monday)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40930"></span>9FE2</td>
+<td class="instruction">DEFB $61</td>
+<td class="comment-1" rowspan="1"><a href="40918.html#40930">9FE2</a>: 'a' or 'p'</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40931"></span>9FE3</td>
+<td class="instruction">DEFW <a href="38256.html">$9570</a></td>
+<td class="comment-1" rowspan="1"><a href="40918.html#40931">9FE3</a>: the heap's free list</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40933"></span>9FE5</td>
+<td class="instruction">DEFW $0000</td>
+<td class="comment-1" rowspan="1"><a href="40918.html#40933">9FE5</a>: countdowns (2-byte nodes: actor, count)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40935"></span>9FE7</td>
+<td class="instruction">DEFW $0000</td>
+<td class="comment-1" rowspan="1"><a href="40918.html#40935">9FE7</a>: SIGNAL tokens (2-byte nodes: from, to)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40937"></span>9FE9</td>
+<td class="instruction">DEFW $0000</td>
+<td class="comment-1" rowspan="1"><a href="40918.html#40937">9FE9</a>: sub-script call frames (7-byte nodes)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40939"></span>9FEB</td>
+<td class="instruction">DEFB $00</td>
+<td class="comment-1" rowspan="1"><a href="40918.html#40939">9FEB</a>: not identified (<a href="55166.html#55169">D781</a> clears it)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40940"></span>9FEC</td>
+<td class="instruction">DEFW $0000</td>
+<td class="comment-1" rowspan="1"><a href="40918.html#40940">9FEC</a>: quoted speech waiting to be handed over (<a href="45084.html#45129">B049</a>, <a href="47210.html">B86A</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40942"></span>9FEE</td>
+<td class="instruction">DEFW $0000</td>
+<td class="comment-1" rowspan="1"><a href="40918.html#40942">9FEE</a>: orders and remarks waiting for actors (8-byte nodes)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40944"></span>9FF0</td>
+<td class="instruction">DEFW $0000</td>
+<td class="comment-1" rowspan="1"><a href="40918.html#40944">9FF0</a>: words the player has said, for the next remark</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40946"></span>9FF2</td>
+<td class="instruction">DEFB $00,$00,$00,$00,$00,$00,$00,$00</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40954"></span>9FFA</td>
+<td class="instruction">DEFB $00,$00,$00,$00,$00,$00,$00,$00</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40962"></span>A002</td>
+<td class="instruction">DEFB $71,$09,$00,$00,$00,$00,$00,$00</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40970"></span>A00A</td>
+<td class="instruction">DEFB $00,$00,$00,$00,$00,$00,$00,$00</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40978"></span>A012</td>
+<td class="instruction">DEFB $FF,$00,$00,$00,$00,$00,$00,$00</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40986"></span>A01A</td>
+<td class="instruction">DEFB $00,$00,$00,$00,$00,$00,$00,$00</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40994"></span>A022</td>
+<td class="instruction">DEFB $00,$00,$00,$00,$01,$00,$00,$00</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="41002"></span>A02A</td>
+<td class="instruction">DEFB $00,$00,$00,$00,$00,$00,$00,$00</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="41010"></span>A032</td>
+<td class="instruction">DEFB $00,$00,$00,$00,$00,$00,$00,$00</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="41018"></span>A03A</td>
+<td class="instruction">DEFB $00,$00,$00,$04,$40,$58</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="40916.html">9FD4</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#40918">Map</a></td>
+<td class="next">
+Next: <a href="41024.html">A040</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Index - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="sherlock.css" />
+</head>
+<body class="GameIndex">
+<header class="site"><div class="bar"><a class="brand" href="index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<div class="hero">
+<h1 class="page-title">Sherlock, taken apart</h1>
+<p class="lede">An annotated disassembly of <em>Sherlock</em> (Melbourne House, 1984) for the ZX Spectrum:
+every routine and data block titled and explained. The game can be won in two different ways.</p>
+<ul class="stats">
+<li><b>815</b><span>blocks titled and described</span></li>
+<li><b>9,233</b><span>line comments</span></li>
+<li><b>59</b><span>trivia entries</span></li>
+<li><b>14</b><span>bugs in the original</span></li>
+<li><b>7</b><span>different endings</span></li>
+</ul>
+</div>
+<div class="cards">
+<a class="card" href="the-walkthrough.html"><strong>Win the game</strong><span>The full route, Monday to the final scene at Victoria, with every time.</span></a>
+<a class="card" href="the-endings-played.html"><strong>Every ending</strong><span>The seven endings, one win and six ways to lose, and what you type to get each.</span></a>
+<a class="card" href="how-it-works.html"><strong>How the engine works</strong><span>Actors, scripts, the parser and the clock, in plain words.</span></a>
+<a class="card" href="reference/bugs.html"><strong>Bugs</strong><span>14 faults in the original.</span></a>
+<a class="card" href="trivia-by-theme.html"><strong>Trivia by theme</strong><span>59 entries, grouped: winning, the case, the world, the parser, the engine.</span></a>
+<a class="card" href="maps/routines.html"><strong>Browse the code</strong><span>Every routine, with its purpose, inputs and outputs, and a comment on each instruction.</span></a>
+</div>
+<div class="section-header">Reference</div>
+<ul class="index-list">
+<li><a href="reference/facts.html">Trivia</a></li>
+<li><a href="reference/bugs.html">Bugs</a></li>
+<li><a href="trivia-by-theme.html">Trivia by theme</a></li>
+</ul>
+<div class="section-header">Playing the game</div>
+<ul class="index-list">
+<li><a href="the-walkthrough.html">Walkthrough: Monday to the win</a></li>
+<li><a href="the-endings-played.html">Every ending, played</a></li>
+<li><a href="the-case.html">The case</a></li>
+<li><a href="map.html">Map and rooms</a></li>
+<li><a href="things.html">Characters and things</a></li>
+<li><a href="cast.html">The cast and their scripts</a></li>
+<li><a href="vocabulary.html">Vocabulary</a></li>
+<li><a href="pictures.html">Pictures</a></li>
+</ul>
+<div class="section-header">How it works</div>
+<ul class="index-list">
+<li><a href="how-it-works.html">How Sherlock works</a></li>
+<li><a href="state-bits.html">State bits: asleep, dead and the rest</a></li>
+<li><a href="trains-cabs.html">Trains and cabs</a></li>
+<li><a href="rom_symbols.html">ROM and system variables</a></li>
+</ul>
+<div class="section-header">Memory maps</div>
+<ul class="index-list">
+<li><a href="maps/all.html">Everything</a></li>
+<li><a href="maps/routines.html">Routines</a></li>
+<li><a href="maps/data.html">Data</a></li>
+<li><a href="maps/messages.html">Messages</a></li>
+<li><a href="maps/unused.html">Unused addresses</a></li>
+</ul>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

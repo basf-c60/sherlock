@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at D978 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="55656.html">D968</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#55672">Map</a></td>
+<td class="next">
+Next: <a href="55710.html">D99E</a>
+</td>
+</tr>
+</table>
+<div class="description">D978: A cursor key on an empty line is a compass move</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Key codes $08, $09, $0A and '[' become W, E, S and N - stored in the line, printed, and followed at once by ENTER. GET-KEY (<a href="50207.html">C41F</a>) turns cursor-up ($0B) into '[' and DELETE ($0C) into $08, so on a Spectrum CAPS SHIFT with 5, 6, 7 or 8 (or DELETE) walks west, south, north or east with one key. After OPEN PLAIN DOOR, the single key '[' gave 'N. You go north. You are in a small closet...', $0A gave 'S. You go south.', $08 gave 'W. YOU CANNOT GO WEST.'
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">The key</td>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">The line buffer</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">$0D (ENTER) with N, E, S or W typed for a cursor key; the key itself for any other</td>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">Moved on</td>
+</tr>
+<tr>
+<td class="register">B</td>
+<td class="register-desc">One fewer</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="55672"></span>D978</td>
+<td class="instruction">CP $09</td>
+<td class="comment-1" rowspan="1">Compare A with $09 - Cursor right: E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55674"></span>D97A</td>
+<td class="instruction">JR Z,$D996</td>
+<td class="comment-1" rowspan="1">If A equals $09, skip ahead to <a href="55672.html#55702">D996</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55676"></span>D97C</td>
+<td class="instruction">CP $08</td>
+<td class="comment-1" rowspan="1">Compare A with $08 - Cursor left (or DELETE, made $08 by GET-KEY): W</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55678"></span>D97E</td>
+<td class="instruction">JR Z,$D99A</td>
+<td class="comment-1" rowspan="1">If A equals $08, skip ahead to <a href="55672.html#55706">D99A</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55680"></span>D980</td>
+<td class="instruction">CP $0A</td>
+<td class="comment-1" rowspan="1">Compare A with $0A - Cursor down: S</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55682"></span>D982</td>
+<td class="instruction">JR Z,$D992</td>
+<td class="comment-1" rowspan="1">If A equals $0A, skip ahead to <a href="55672.html#55698">D992</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="55684"></span>D984</td>
+<td class="instruction">CP $5B</td>
+<td class="comment-1" rowspan="1">Compare A with $5B - Cursor up (made '[' by GET-KEY): N; any other key: back</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55686"></span>D986</td>
+<td class="instruction">RET NZ</td>
+<td class="comment-1" rowspan="1">If A differs from $5B, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55687"></span>D987</td>
+<td class="instruction">LD A,$4E</td>
+<td class="comment-1" rowspan="1">Load A with $4E</td>
+</tr>
+<tr>
+<td class="address-2"><span id="55689"></span>D989</td>
+<td class="instruction">LD (HL),A</td>
+<td class="comment-1" rowspan="1">Store A at the address HL points to - Put the letter in the line and print it</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55690"></span>D98A</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55691"></span>D98B</td>
+<td class="instruction">CALL <a href="43447.html">$A9B7</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print character A, a word at a time (word wrap)" (<a href="43447.html">A9B7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55694"></span>D98E</td>
+<td class="instruction">DEC B</td>
+<td class="comment-1" rowspan="1">One more character in the line</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55695"></span>D98F</td>
+<td class="instruction">LD A,$0D</td>
+<td class="comment-1" rowspan="1">Load A with $0D - and press ENTER</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55697"></span>D991</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="55698"></span>D992</td>
+<td class="instruction">LD A,$53</td>
+<td class="comment-1" rowspan="1">Load A with $53</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55700"></span>D994</td>
+<td class="instruction">JR $D989</td>
+<td class="comment-1" rowspan="1">Go back to <a href="55672.html#55689">D989</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="55702"></span>D996</td>
+<td class="instruction">LD A,$45</td>
+<td class="comment-1" rowspan="1">Load A with $45</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55704"></span>D998</td>
+<td class="instruction">JR $D989</td>
+<td class="comment-1" rowspan="1">Go back to <a href="55672.html#55689">D989</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="55706"></span>D99A</td>
+<td class="instruction">LD A,$57</td>
+<td class="comment-1" rowspan="1">Load A with $57</td>
+</tr>
+<tr>
+<td class="address-1"><span id="55708"></span>D99C</td>
+<td class="instruction">JR $D989</td>
+<td class="comment-1" rowspan="1">Go back to <a href="55672.html#55689">D989</a></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="55656.html">D968</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#55672">Map</a></td>
+<td class="next">
+Next: <a href="55710.html">D99E</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at B77F - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="46974.html">B77E</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#46975">Map</a></td>
+<td class="next">
+Next: <a href="47164.html">B83C</a>
+</td>
+</tr>
+</table>
+<div class="description">B77F: Fetch the next word for $B6FD's name match</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="46845.html">B6FD</a>.
+</div>
+<div class="paragraph">
+Fetch the next word of a message for <a href="46845.html">B6FD</a>'s name match. <a href="46974.html">B77E</a> is $FF once the last word of the message has been given out.
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. If <a href="46974.html">B77E</a> is $FF, the message is finished: take the most recent saved call position from the list headed at <a href="46806.html">B6D6</a> (none left: return Z), unhook it, free its node (<a href="41415.html">A1C7</a>) and carry on reading just after the call.
+</div>
+<div class="paragraph">
+2. Read the next byte. If bit 7 is set it starts a two-byte dictionary reference, which is put in DE. If its class ($70 bits) is $60, $30 or $20 it is the last word of the message, so <a href="46974.html">B77E</a> is set to $FF. Return NZ with the word in DE.
+</div>
+<div class="paragraph">
+3. Below $20 is a control code. Code 2 is a jump: add the 16-bit offset to the position and carry on. Code $0B is a call: make a 2-byte node holding the position after the call, put it on the front of the list at <a href="46806.html">B6D6</a> and go to the sub-message. Codes $1D to $1F end the text. Other codes are skipped.
+</div>
+<div class="paragraph">
+4. $20 to $5F is a run of packed letters, (byte AND $1F) + 1 of them at five bits each (<a href="43408.html">A990</a>); they are stepped over, not returned.
+</div>
+<div class="paragraph">
+5. $60 and above is one of the common words (<a href="43066.html#43072">A840</a>): return NZ with A = 0.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">The message position</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Z when no words are left; NZ when a word was found</td>
+</tr>
+<tr>
+<td class="register">DE</td>
+<td class="register-desc">The dictionary reference when A is not 0</td>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">The position after the word</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="46975"></span>B77F</td>
+<td class="instruction">LD A,($B77E)</td>
+<td class="comment-1" rowspan="1">Read "<a href="46845.html">B6FD</a>'s flag" (<a href="46974.html">B77E</a>) into A - Finished the sub-message last time (<a href="46974.html">B77E</a> = $FF)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46978"></span>B782</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1">Compare A with $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46980"></span>B784</td>
+<td class="instruction">JR NZ,$B7AA</td>
+<td class="comment-1" rowspan="1">If A differs from $FF, skip ahead to <a href="46975.html#47018">B7AA</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="46982"></span>B786</td>
+<td class="instruction">LD HL,($B6D6)</td>
+<td class="comment-1" rowspan="1">Read "<a href="46845.html">B6FD</a>'s working pointers" (<a href="46806.html">B6D6</a>) into HL - Then go back to where the last one was called from (none left: Z)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46985"></span>B789</td>
+<td class="instruction">LD A,L</td>
+<td class="comment-1" rowspan="1">Copy L into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46986"></span>B78A</td>
+<td class="instruction">OR H</td>
+<td class="comment-1" rowspan="1">Set in A the bits that are set in H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46987"></span>B78B</td>
+<td class="instruction">RET Z</td>
+<td class="comment-1" rowspan="1">If the result is zero, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46988"></span>B78C</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag) - Unhook the saved position from the list at <a href="46806.html">B6D6</a>...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46989"></span>B78D</td>
+<td class="instruction">LD ($B77E),A</td>
+<td class="comment-1" rowspan="1">Store A in "<a href="46845.html">B6FD</a>'s flag" (<a href="46974.html">B77E</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46992"></span>B790</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46993"></span>B791</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46995"></span>B793</td>
+<td class="instruction">LD L,(IX-$02)</td>
+<td class="comment-1" rowspan="1">Read byte -2 of the record at IX into L</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46998"></span>B796</td>
+<td class="instruction">LD H,(IX-$01)</td>
+<td class="comment-1" rowspan="1">Read byte -1 of the record at IX into H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47001"></span>B799</td>
+<td class="instruction">LD ($B6D6),HL</td>
+<td class="comment-1" rowspan="1">Store HL in "<a href="46845.html">B6FD</a>'s working pointers" (<a href="46806.html">B6D6</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47004"></span>B79C</td>
+<td class="instruction">LD L,(IX+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IX into L - ...and free its node (<a href="41415.html">A1C7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47007"></span>B79F</td>
+<td class="instruction">LD H,(IX+$01)</td>
+<td class="comment-1" rowspan="1">Read byte +1 of the record at IX into H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47010"></span>B7A2</td>
+<td class="instruction">CALL <a href="41415.html">$A1C7</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Free node IX back to the heap" (<a href="41415.html">A1C7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47013"></span>B7A5</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47014"></span>B7A6</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47015"></span>B7A7</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47016"></span>B7A8</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack</td>
+</tr>
+<tr>
+<td class="address-2"><span id="47018"></span>B7AA</td>
+<td class="instruction">LD A,(IX+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IX into A - The next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47021"></span>B7AD</td>
+<td class="instruction">INC IX</td>
+<td class="comment-1" rowspan="1">Step IX on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47023"></span>B7AF</td>
+<td class="instruction">BIT 7,A</td>
+<td class="comment-1" rowspan="1">Test bit 7 of A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47025"></span>B7B1</td>
+<td class="instruction">JR Z,$B7CD</td>
+<td class="comment-1" rowspan="1">If bit 7 of A is clear, skip ahead to <a href="46975.html#47053">B7CD</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47027"></span>B7B3</td>
+<td class="instruction">LD D,A</td>
+<td class="comment-1" rowspan="1">Copy A into D - A dictionary reference: DE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47028"></span>B7B4</td>
+<td class="instruction">LD E,(IX+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IX into E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47031"></span>B7B7</td>
+<td class="instruction">INC IX</td>
+<td class="comment-1" rowspan="1">Step IX on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47033"></span>B7B9</td>
+<td class="instruction">AND $70</td>
+<td class="comment-1" rowspan="1">Keep only bits 4, 5, 6 of A (mask $70) - A word of class $60, $30 or $20 is the last of its message (the printer, <a href="42559.html#42567">A647</a>, ends there): <a href="46974.html">B77E</a> = $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47035"></span>B7BB</td>
+<td class="instruction">CP $60</td>
+<td class="comment-1" rowspan="1">Compare A with $60</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47037"></span>B7BD</td>
+<td class="instruction">JR Z,$B7C6</td>
+<td class="comment-1" rowspan="1">If A equals $60, skip ahead to <a href="46975.html#47046">B7C6</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47039"></span>B7BF</td>
+<td class="instruction">CP $30</td>
+<td class="comment-1" rowspan="1">Compare A with $30</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47041"></span>B7C1</td>
+<td class="instruction">JR Z,$B7C6</td>
+<td class="comment-1" rowspan="1">If A equals $30, skip ahead to <a href="46975.html#47046">B7C6</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47043"></span>B7C3</td>
+<td class="instruction">CP $20</td>
+<td class="comment-1" rowspan="1">Compare A with $20 - Return NZ with the word in DE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47045"></span>B7C5</td>
+<td class="instruction">RET NZ</td>
+<td class="comment-1" rowspan="1">If A differs from $20, return</td>
+</tr>
+<tr>
+<td class="address-2"><span id="47046"></span>B7C6</td>
+<td class="instruction">LD A,$FF</td>
+<td class="comment-1" rowspan="1">Load A with $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47048"></span>B7C8</td>
+<td class="instruction">LD ($B77E),A</td>
+<td class="comment-1" rowspan="1">Store A in "<a href="46845.html">B6FD</a>'s flag" (<a href="46974.html">B77E</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47051"></span>B7CB</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Clear the carry flag for the caller (A is unchanged)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47052"></span>B7CC</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="47053"></span>B7CD</td>
+<td class="instruction">CP $20</td>
+<td class="comment-1" rowspan="1">Compare A with $20 - $00-$1F: a control code</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47055"></span>B7CF</td>
+<td class="instruction">JR C,$B7F7</td>
+<td class="comment-1" rowspan="1">If A is below $20, skip ahead to <a href="46975.html#47095">B7F7</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47057"></span>B7D1</td>
+<td class="instruction">CP $60</td>
+<td class="comment-1" rowspan="1">Compare A with $60 - $20-$5F: a run of packed letters to skip (the printer takes $20-$3F as single characters: see Bugs)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47059"></span>B7D3</td>
+<td class="instruction">JR C,$B7DD</td>
+<td class="comment-1" rowspan="1">If A is below $60, skip ahead to <a href="46975.html#47069">B7DD</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47061"></span>B7D5</td>
+<td class="instruction">CALL <a href="43066.html#43072">$A840</a></td>
+<td class="comment-1" rowspan="1">Call <a href="43066.html#43072">A840</a> (inside "Message bytes $60 and up: a common word") - $60 and up: one of the common words at <a href="26551.html">67B7</a> (<a href="43066.html#43072">A840</a>); NZ, A = 0</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47064"></span>B7D8</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Set bit 0 of A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47066"></span>B7DA</td>
+<td class="instruction">LD A,$00</td>
+<td class="comment-1" rowspan="1">Load A with $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47068"></span>B7DC</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="47069"></span>B7DD</td>
+<td class="instruction">AND $1F</td>
+<td class="comment-1" rowspan="1">Keep only bits 0, 1, 2, 3, 4 of A (mask $1F) - (A AND $1F) + 1 letters...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47071"></span>B7DF</td>
+<td class="instruction">INC A</td>
+<td class="comment-1" rowspan="1">Add one to A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47072"></span>B7E0</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">Copy A into B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47073"></span>B7E1</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47075"></span>B7E3</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47076"></span>B7E4</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47077"></span>B7E5</td>
+<td class="instruction">LD C,$00</td>
+<td class="comment-1" rowspan="1">Load C with $00</td>
+</tr>
+<tr>
+<td class="address-2"><span id="47079"></span>B7E7</td>
+<td class="instruction">CALL <a href="43408.html">$A990</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Unpack the next five-bit letter (C = bit position)" (<a href="43408.html">A990</a>) - ...five bits each (<a href="43408.html">A990</a>, C counts the half bytes)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47082"></span>B7EA</td>
+<td class="instruction">DJNZ $B7E7</td>
+<td class="comment-1" rowspan="1">Count B down and, while it is not zero, go back to <a href="46975.html#47079">B7E7</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47084"></span>B7EC</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47085"></span>B7ED</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47087"></span>B7EF</td>
+<td class="instruction">LD A,C</td>
+<td class="comment-1" rowspan="1">Copy C into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47088"></span>B7F0</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47089"></span>B7F1</td>
+<td class="instruction">JR NZ,$B7AA</td>
+<td class="comment-1" rowspan="1">If A is not zero, go back to <a href="46975.html#47018">B7AA</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47091"></span>B7F3</td>
+<td class="instruction">DEC IX</td>
+<td class="comment-1" rowspan="1">Step IX back one byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47093"></span>B7F5</td>
+<td class="instruction">JR $B7AA</td>
+<td class="comment-1" rowspan="1">Go back to <a href="46975.html#47018">B7AA</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="47095"></span>B7F7</td>
+<td class="instruction">CP $02</td>
+<td class="comment-1" rowspan="1">Compare A with $02 - Code 2: a jump - follow it</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47097"></span>B7F9</td>
+<td class="instruction">JR NZ,$B807</td>
+<td class="comment-1" rowspan="1">If A differs from $02, skip ahead to <a href="46975.html#47111">B807</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47099"></span>B7FB</td>
+<td class="instruction">LD E,(IX+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IX into E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47102"></span>B7FE</td>
+<td class="instruction">LD D,(IX+$01)</td>
+<td class="comment-1" rowspan="1">Read byte +1 of the record at IX into D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47105"></span>B801</td>
+<td class="instruction">ADD IX,DE</td>
+<td class="comment-1" rowspan="1">Add DE to IX</td>
+</tr>
+<tr>
+<td class="address-2"><span id="47107"></span>B803</td>
+<td class="instruction">DEC IX</td>
+<td class="comment-1" rowspan="1">Step IX back one byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47109"></span>B805</td>
+<td class="instruction">JR $B7AA</td>
+<td class="comment-1" rowspan="1">Go back to <a href="46975.html#47018">B7AA</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="47111"></span>B807</td>
+<td class="instruction">CP $0B</td>
+<td class="comment-1" rowspan="1">Compare A with $0B - Code $0B: a call - save the position after it on the list at <a href="46806.html">B6D6</a>...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47113"></span>B809</td>
+<td class="instruction">JR NZ,$B834</td>
+<td class="comment-1" rowspan="1">If A differs from $0B, jump on to <a href="46975.html#47156">B834</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47115"></span>B80B</td>
+<td class="instruction">LD E,(IX+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IX into E - DE = the word pair at IX (its link)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47118"></span>B80E</td>
+<td class="instruction">LD D,(IX+$01)</td>
+<td class="comment-1" rowspan="1">Read byte +1 of the record at IX into D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47121"></span>B811</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack - Get a 2-byte heap node (<a href="41244.html">A11C</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47123"></span>B813</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47124"></span>B814</td>
+<td class="instruction">LD A,$02</td>
+<td class="comment-1" rowspan="1">Load A with $02</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47126"></span>B816</td>
+<td class="instruction">CALL <a href="41244.html">$A11C</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Allocate A + 3 bytes from the free list, cleared" (<a href="41244.html">A11C</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47129"></span>B819</td>
+<td class="instruction">LD (IX+$00),L</td>
+<td class="comment-1" rowspan="1">Store L in the first byte of the record at IX - Put the old link in it</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47132"></span>B81C</td>
+<td class="instruction">LD (IX+$01),H</td>
+<td class="comment-1" rowspan="1">Store H in byte +1 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47135"></span>B81F</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47136"></span>B820</td>
+<td class="instruction">LD HL,($B6D6)</td>
+<td class="comment-1" rowspan="1">Read "<a href="46845.html">B6FD</a>'s working pointers" (<a href="46806.html">B6D6</a>) into HL - Push the node on the front of the list headed at <a href="46806.html">B6D6</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47139"></span>B823</td>
+<td class="instruction">LD ($B6D6),IX</td>
+<td class="comment-1" rowspan="1">Store IX in "<a href="46845.html">B6FD</a>'s working pointers" (<a href="46806.html">B6D6</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47143"></span>B827</td>
+<td class="instruction">LD (IX-$02),L</td>
+<td class="comment-1" rowspan="1">Store L in byte -2 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47146"></span>B82A</td>
+<td class="instruction">LD (IX-$01),H</td>
+<td class="comment-1" rowspan="1">Store H in byte -1 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47149"></span>B82D</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47150"></span>B82E</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1">Add DE to HL - ...and go to the sub-message</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47151"></span>B82F</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47152"></span>B830</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47154"></span>B832</td>
+<td class="instruction">JR $B803</td>
+<td class="comment-1" rowspan="1">Go back to <a href="46975.html#47107">B803</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="47156"></span>B834</td>
+<td class="instruction">CP $1D</td>
+<td class="comment-1" rowspan="1">Compare A with $1D - Other codes below $1D are passed over (their operands are not); $1D-$1F end the text</td>
+</tr>
+<tr>
+<td class="address-1"><span id="47158"></span>B836</td>
+<td class="instruction">JP C,$B7AA</td>
+<td class="comment-1" rowspan="1">If A is below $1D, go back to <a href="46975.html#47018">B7AA</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="47161"></span>B839</td>
+<td class="instruction">JP $B786</td>
+<td class="comment-1" rowspan="1">Go back to <a href="46975.html#46982">B786</a></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="46974.html">B77E</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#46975">Map</a></td>
+<td class="next">
+Next: <a href="47164.html">B83C</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

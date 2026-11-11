@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at CB43 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="52033.html">CB41</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#52035">Map</a></td>
+<td class="next">
+Next: <a href="52089.html">CB79</a>
+</td>
+</tr>
+</table>
+<div class="description">CB43: End of an actor's go: hand the turn back to the player</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Reached from <a href="51606.html#51617">$C9A2</a>. Unless <a href="56407.html#56428">DC6C</a> says otherwise, makes the first actor in the table (<a href="39008.html">9860</a>, the player) current again; when <a href="40918.html#40970">$A00B</a> is set, either clears <a href="40918.html#40970">$A00C</a> and narrates (<a href="51830.html">CA76</a>) or - with HL not zero - calls HL with <a href="40918.html#40994">$A027</a> set (<a href="52032.html">CB40</a>).
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. If the actor is the player, Watson or the police cab (actors 0, 1 or $64), do nothing.
+</div>
+<div class="paragraph">
+2. Otherwise note a failure (<a href="40918.html#40970">$A00B</a>): either call the failure routine given in HL or narrate that the action failed (<a href="51830.html">CA76</a>).
+</div>
+<div class="paragraph">
+3. Make the player the current actor again.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">The failure routine to call, or 0</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">0</td>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Z</td>
+</tr>
+<tr>
+<td class="register">$A036</td>
+<td class="register-desc">The player again</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="52035"></span>CB43</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack - Is the current actor 0, 1 or $64 (<a href="56407.html#56428">DC6C</a>: Z if so)? NZ (anyone else): nothing to do</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52036"></span>CB44</td>
+<td class="instruction">CALL <a href="56407.html#56428">$DC6C</a></td>
+<td class="comment-1" rowspan="1">Call <a href="56407.html#56428">DC6C</a> (inside "Action record: default for verb <a href="56407.html">28</a> (GO...")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52039"></span>CB47</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52040"></span>CB48</td>
+<td class="instruction">JR NZ,$CB65</td>
+<td class="comment-1" rowspan="1">If the zero flag is clear, skip ahead to <a href="52035.html#52069">CB65</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="52042"></span>CB4A</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag) - No current actor for a moment</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52043"></span>CB4B</td>
+<td class="instruction">LD ($A036),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41010">$A036</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52046"></span>CB4E</td>
+<td class="instruction">LD A,($A00B)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40970">$A00B</a> in "Game variables" into A - A failure (<a href="40918.html#40970">$A00B</a>) to report? If not, skip to the hand-back</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52049"></span>CB51</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52050"></span>CB52</td>
+<td class="instruction">JR Z,$CB5F</td>
+<td class="comment-1" rowspan="1">If A is zero, skip ahead to <a href="52035.html#52063">CB5F</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="52052"></span>CB54</td>
+<td class="instruction">LD A,L</td>
+<td class="comment-1" rowspan="1">Copy L into A - HL = a routine to call: none, so narrate the failure (<a href="40918.html#40970">$A00C</a> = 0, <a href="51830.html">CA76</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52053"></span>CB55</td>
+<td class="instruction">OR H</td>
+<td class="comment-1" rowspan="1">Set in A the bits that are set in H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52054"></span>CB56</td>
+<td class="instruction">JR NZ,$CB67</td>
+<td class="comment-1" rowspan="1">If the result is not zero, skip ahead to <a href="52035.html#52071">CB67</a></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="52056"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="52091.html">CB7B</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="52056"></span>CB58</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52057"></span>CB59</td>
+<td class="instruction">LD ($A00C),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#40970">$A00C</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52060"></span>CB5C</td>
+<td class="instruction">CALL <a href="51830.html">$CA76</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Narrate the action, unless the verb is script-only" (<a href="51830.html">CA76</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="52063"></span>CB5F</td>
+<td class="instruction">LD A,($9860)</td>
+<td class="comment-1" rowspan="1">Read "The actor table: who acts, and where each is in..." (<a href="39008.html">9860</a>) into A - Make the first actor in the table (<a href="39008.html">9860</a>, the player) current again</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52066"></span>CB62</td>
+<td class="instruction">LD ($A036),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41010">$A036</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-2"><span id="52069"></span>CB65</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Set A to zero, which sets the zero flag for the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52070"></span>CB66</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="52071"></span>CB67</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="1">Load A with $01 - A routine to call: with <a href="40918.html#40994">$A027</a> = 1, call it (<a href="52032.html">CB40</a>), then <a href="40918.html#40994">$A027</a> = 0</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52073"></span>CB69</td>
+<td class="instruction">LD ($A027),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#40994">$A027</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52076"></span>CB6C</td>
+<td class="instruction">PUSH IY</td>
+<td class="comment-1" rowspan="1">Save IY on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52078"></span>CB6E</td>
+<td class="instruction">CALL <a href="52032.html">$CB40</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Jump to HL" (<a href="52032.html">CB40</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52081"></span>CB71</td>
+<td class="instruction">POP IY</td>
+<td class="comment-1" rowspan="1">Restore IY from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52083"></span>CB73</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52084"></span>CB74</td>
+<td class="instruction">LD ($A027),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#40994">$A027</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52087"></span>CB77</td>
+<td class="instruction">JR $CB5F</td>
+<td class="comment-1" rowspan="1">Go back to <a href="52035.html#52063">CB5F</a></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="52033.html">CB41</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#52035">Map</a></td>
+<td class="next">
+Next: <a href="52089.html">CB79</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

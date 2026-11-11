@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at DC8D - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="56443.html">DC7B</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#56461">Map</a></td>
+<td class="next">
+Next: <a href="56507.html">DCBB</a>
+</td>
+</tr>
+</table>
+<div class="description">DC8D: Action record: default for verb 16 (DROP)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+TAKE LAMP sets the lamp's holder (+1) to 0, the player; DROP LAMP sets it to $FF, the holder of the actor, by copying it from the actor's record (<a href="40918.html#40978">$A017</a>). Dropping is just being held by what holds you.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$A013</td>
+<td class="register-desc">The direct object's record</td>
+</tr>
+<tr>
+<td class="register">$A017</td>
+<td class="register-desc">The actor's record</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ; the object's holder is now the actor's holder</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56461"></span>DC8D</td>
+<td class="instruction">DEFB $6A,$10,$B8,$DD</td>
+<td class="comment-1" rowspan="1">Action record header: flags $6A; bit 5: test <a href="53368.html">D078</a> first; bit 6: pre-check at <a href="56756.html#56760">DDB8</a>; byte 1 $10</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56465"></span>DC91</td>
+<td class="instruction">LD IX,($A013)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40978">$A013</a> in "Game variables" into IX - IX = the direct object's record, IY = the actor's (<a href="40918.html#40978">$A017</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56469"></span>DC95</td>
+<td class="instruction">LD IY,($A017)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40978">$A017</a> in "Game variables" into IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56473"></span>DC99</td>
+<td class="instruction">LD A,(IY+$01)</td>
+<td class="comment-1" rowspan="1">Read byte +1 of the record at IY into A - The object's holder (+1) becomes the actor's holder</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56476"></span>DC9C</td>
+<td class="instruction">LD (IX+$01),A</td>
+<td class="comment-1" rowspan="1">Store A in byte +1 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56479"></span>DC9F</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - Succeed</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56481"></span>DCA1</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56482"></span>DCA2</td>
+<td class="instruction">CALL <a href="53868.html">$D26C</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Is the direct object carried by the actor? (carry =..." (<a href="53868.html">D26C</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56485"></span>DCA5</td>
+<td class="instruction">JR C,$DCB6</td>
+<td class="comment-1" rowspan="1">If the carry flag is set, skip ahead to <a href="56461.html#56502">DCB6</a></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="56487"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="58357.html">E3F5</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56487"></span>DCA7</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A036</a> in "Game variables" into A - Is the actor inside the object (<a href="53877.html#53880">D278</a>)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56490"></span>DCAA</td>
+<td class="instruction">LD HL,$A034</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="40918.html#41010">$A034</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56493"></span>DCAD</td>
+<td class="instruction">CALL <a href="53877.html#53880">$D278</a></td>
+<td class="comment-1" rowspan="1">Call <a href="53877.html#53880">D278</a> (inside "Is thing A carried by the actor, perhaps...")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56496"></span>DCB0</td>
+<td class="instruction">JP C,<a href="56341.html">$DC15</a></td>
+<td class="comment-1" rowspan="1">If the carry flag is set, go back to the routine "Fail: A = 0, HL = 0, Z set" (<a href="56341.html">DC15</a>) - Yes: refuse (<a href="56341.html">DC15</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56499"></span>DCB3</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56501"></span>DCB5</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56502"></span>DCB6</td>
+<td class="instruction">LD HL,$DCBB</td>
+<td class="comment-1" rowspan="1">Point HL at "Refusal: "YOU ARE CARRYING THE ..."" (<a href="56507.html">DCBB</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56505"></span>DCB9</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Set A to zero, which sets the zero flag for the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56506"></span>DCBA</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="56443.html">DC7B</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#56461">Map</a></td>
+<td class="next">
+Next: <a href="56507.html">DCBB</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

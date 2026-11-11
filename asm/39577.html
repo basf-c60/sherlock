@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at 9A99 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="39552.html">9A80</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#39577">Map</a></td>
+<td class="next">
+Next: <a href="39627.html">9ACB</a>
+</td>
+</tr>
+</table>
+<div class="description">9A99: Shared action 1: the police cab, GO TO (Leatherhead routes, $9AA3)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="39577.html#39587">9AA3</a>.
+</div>
+<div class="paragraph">
+Header $04 $00 then code. <a href="39577.html#39587">9AA3</a> knows the police cab's only three routes, from the room it is in (<a href="40918.html#40970">A00A</a>) to the direct object: Old Mill Road to Main Street (L = 112), Main Street to Old Mill Road (114) and Main Street to Kings Cross Road (94); anything else refuses (<a href="56341.html">DC15</a>). L becomes the journey's length (<a href="40918.html#40986">$A01F</a>, at <a href="39668.html#39684">9B04</a>), the vehicle to move is the police cab (thing 109 = $6D, put in <a href="58054.html">E2C6</a>), and the ride ends at <a href="39668.html#39712">9B20</a> by handing back the vehicle sub-script <a href="62370.html#62381">F3AD</a>.
+</div>
+<div class="paragraph">
+Told SAY TO POLICE MAN "GO TO KINGS CROSS ROAD" in Leatherhead's Main Street at 5:07pm, the police cab - with Lestrade and Watson aboard - reached Kings Cross Road at 6:42, 95 minutes. Asked for Buckingham Palace Road it did nothing.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">The action record</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Z when the route is refused; otherwise continues at $9AD7</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="39577"></span>9A99</td>
+<td class="instruction">INC B</td>
+<td class="comment-1" rowspan="1">Add one to B - Header $04 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39578"></span>9A9A</td>
+<td class="instruction">NOP</td>
+<td class="comment-1" rowspan="1">Do nothing (padding)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39579"></span>9A9B</td>
+<td class="instruction">CALL $9AA3</td>
+<td class="comment-1" rowspan="1">Call <a href="39577.html#39587">9AA3</a> (inside "Shared action 1: the police cab, GO TO...") - Is this one of the police cab's routes? No: refuse</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39582"></span>9A9E</td>
+<td class="instruction">JP Z,<a href="56341.html">$DC15</a></td>
+<td class="comment-1" rowspan="1">If the zero flag is set, jump on to the routine "Fail: A = 0, HL = 0, Z set" (<a href="56341.html">DC15</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39585"></span>9AA1</td>
+<td class="instruction">JR <a href="39627.html#39639">$9AD7</a></td>
+<td class="comment-1" rowspan="1">Jump on to <a href="39627.html#39639">9AD7</a></td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="39587"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="39627.html">9ACB</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="39587"></span>9AA3</td>
+<td class="instruction">LD A,($A00A)</td>
+<td class="comment-1" rowspan="1">Read the current actor's room (<a href="40918.html#40970">A00A</a>) into A - From Old Mill Road (room 103)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39590"></span>9AA6</td>
+<td class="instruction">CP $67</td>
+<td class="comment-1" rowspan="1">Compare A with $67</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39592"></span>9AA8</td>
+<td class="instruction">JR NZ,$9AB5</td>
+<td class="comment-1" rowspan="1">If A differs from $67, skip ahead to <a href="39577.html#39605">9AB5</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="39594"></span>9AAA</td>
+<td class="instruction">LD A,($A034)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A034</a> in "Game variables" into A - ...to Main Street (50): 112 minutes</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39597"></span>9AAD</td>
+<td class="instruction">CP $32</td>
+<td class="comment-1" rowspan="1">Compare A with $32</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39599"></span>9AAF</td>
+<td class="instruction">LD L,$70</td>
+<td class="comment-1" rowspan="1">Load L with $70</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39601"></span>9AB1</td>
+<td class="instruction">JR Z,$9AC8</td>
+<td class="comment-1" rowspan="1">If A equals $32, skip ahead to <a href="39577.html#39624">9AC8</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="39603"></span>9AB3</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Set A to zero, which sets the zero flag for the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39604"></span>9AB4</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="39605"></span>9AB5</td>
+<td class="instruction">CP $32</td>
+<td class="comment-1" rowspan="1">Compare A with $32 - From Main Street (50)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39607"></span>9AB7</td>
+<td class="instruction">JR NZ,$9AB3</td>
+<td class="comment-1" rowspan="1">If A differs from $32, go back to <a href="39577.html#39603">9AB3</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="39609"></span>9AB9</td>
+<td class="instruction">LD A,($A034)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A034</a> in "Game variables" into A - ...to Old Mill Road (103): 114 minutes,</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39612"></span>9ABC</td>
+<td class="instruction">CP $67</td>
+<td class="comment-1" rowspan="1">Compare A with $67</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39614"></span>9ABE</td>
+<td class="instruction">LD L,$72</td>
+<td class="comment-1" rowspan="1">Load L with $72</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39616"></span>9AC0</td>
+<td class="instruction">JR Z,$9AC8</td>
+<td class="comment-1" rowspan="1">If A equals $67, skip ahead to <a href="39577.html#39624">9AC8</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="39618"></span>9AC2</td>
+<td class="instruction">CP $12</td>
+<td class="comment-1" rowspan="1">Compare A with $12 - or to Kings Cross Road (18): 94 minutes</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39620"></span>9AC4</td>
+<td class="instruction">JR NZ,$9AB3</td>
+<td class="comment-1" rowspan="1">If A differs from $12, go back to <a href="39577.html#39603">9AB3</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="39622"></span>9AC6</td>
+<td class="instruction">LD L,$5E</td>
+<td class="comment-1" rowspan="1">Load L with $5E</td>
+</tr>
+<tr>
+<td class="address-2"><span id="39624"></span>9AC8</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - NZ: a route, L = its minutes</td>
+</tr>
+<tr>
+<td class="address-1"><span id="39626"></span>9ACA</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="39552.html">9A80</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#39577">Map</a></td>
+<td class="next">
+Next: <a href="39627.html">9ACB</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

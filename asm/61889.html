@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at F1C1 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="61864.html">F1A8</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#61889">Map</a></td>
+<td class="next">
+Next: <a href="61910.html">F1D6</a>
+</td>
+</tr>
+</table>
+<div class="description">F1C1: Set a thing's state word and state bits</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Thing A's +9/+10 = DE (a dictionary word shown with it, such as SLEEPING, or 0) and the high nibble of +8 = B.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">A thing number</td>
+</tr>
+<tr>
+<td class="register">DE</td>
+<td class="register-desc">The state word (0 for none)</td>
+</tr>
+<tr>
+<td class="register">B</td>
+<td class="register-desc">The high nibble for +8</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">The thing's record</td>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="61889"></span>F1C1</td>
+<td class="instruction">CALL <a href="53815.html">$D237</a></td>
+<td class="comment-1" rowspan="1">IX = thing A's record</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61892"></span>F1C4</td>
+<td class="instruction">LD (IX+$09),E</td>
+<td class="comment-1" rowspan="1">Store E in byte +9 of the record at IX - Its state word (+9/+10) = DE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61895"></span>F1C7</td>
+<td class="instruction">LD (IX+$0A),D</td>
+<td class="comment-1" rowspan="1">Store D in byte +10 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61898"></span>F1CA</td>
+<td class="instruction">LD A,(IX+$08)</td>
+<td class="comment-1" rowspan="1">Read byte +8 of the record at IX into A - +8: keep the low nibble, replace the high nibble with B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61901"></span>F1CD</td>
+<td class="instruction">AND $0F</td>
+<td class="comment-1" rowspan="1">Keep only bits 0, 1, 2, 3 of A (mask $0F)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61903"></span>F1CF</td>
+<td class="instruction">OR B</td>
+<td class="comment-1" rowspan="1">Set in A the bits that are set in B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61904"></span>F1D0</td>
+<td class="instruction">LD (IX+$08),A</td>
+<td class="comment-1" rowspan="1">Store A in byte +8 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61907"></span>F1D3</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - Succeed</td>
+</tr>
+<tr>
+<td class="address-1"><span id="61909"></span>F1D5</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="61864.html">F1A8</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#61889">Map</a></td>
+<td class="next">
+Next: <a href="61910.html">F1D6</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

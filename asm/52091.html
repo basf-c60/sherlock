@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at CB7B - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="52089.html">CB79</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#52091">Map</a></td>
+<td class="next">
+Next: <a href="52135.html">CBA7</a>
+</td>
+</tr>
+</table>
+<div class="description">CB7B: Refuse by naming the flag that failed: "THE ... IS &lt;word&gt;"</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Takes the lowest bit in <a href="52089.html">CB79</a> and prints <a href="26647.html">6817</a> ('THE &lt;object&gt; IS') followed by that bit's word: from <a href="50289.html">C471</a> when a needed bit was missing, from <a href="50305.html">C481</a> (bit 7 of <a href="52089.html">CB79</a> set) when a forbidden bit was present. The object is <a href="52089.html">$CB7A</a>, saved by <a href="50728.html#50821">C685</a>.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$CB79</td>
+<td class="register-desc">The flag bits that failed</td>
+</tr>
+<tr>
+<td class="register">$CB7A</td>
+<td class="register-desc">The object</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">message like "THE ... IS &lt;word&gt;" printed</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="52091"></span>CB7B</td>
+<td class="instruction">LD A,($CB79)</td>
+<td class="comment-1" rowspan="1">Read "The flags <a href="52091.html">CB7B</a> is to name" (<a href="52089.html">CB79</a>) into A - <a href="52089.html">CB79</a> = the missing or forbidden flag bits; bit 7 says which</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52094"></span>CB7E</td>
+<td class="instruction">BIT 7,A</td>
+<td class="comment-1" rowspan="1">Test bit 7 of A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52096"></span>CB80</td>
+<td class="instruction">LD HL,$C471</td>
+<td class="comment-1" rowspan="1">Point HL at "Words for a +5 flag that should be set but is not" (<a href="50289.html">C471</a>) - Needed bit missing: table at <a href="50289.html">C471</a>...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52099"></span>CB83</td>
+<td class="instruction">JR Z,$CB88</td>
+<td class="comment-1" rowspan="1">If bit 7 of A is clear, skip ahead to <a href="52091.html#52104">CB88</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="52101"></span>CB85</td>
+<td class="instruction">LD HL,$C481</td>
+<td class="comment-1" rowspan="1">...forbidden bit present: table at <a href="50305.html">C481</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="52104"></span>CB88</td>
+<td class="instruction">OR $80</td>
+<td class="comment-1" rowspan="1">Mark the end of the bits with bit 7</td>
+</tr>
+<tr>
+<td class="address-2"><span id="52106"></span>CB8A</td>
+<td class="instruction">LD E,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into E - Walk the table: DE = the next word, shifting the flag byte right until the lowest set bit falls out</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52107"></span>CB8B</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52108"></span>CB8C</td>
+<td class="instruction">LD D,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52109"></span>CB8D</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52110"></span>CB8E</td>
+<td class="instruction">RRCA</td>
+<td class="comment-1" rowspan="1">Rotate A right one place (bit 0 goes to carry and bit 7)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52111"></span>CB8F</td>
+<td class="instruction">JR NC,$CB8A</td>
+<td class="comment-1" rowspan="1">If the carry flag is clear, go back to <a href="52091.html#52106">CB8A</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="52113"></span>CB91</td>
+<td class="instruction">LD A,D</td>
+<td class="comment-1" rowspan="1">Copy D into A - Word zero: nothing to say (<a href="52035.html#52056">CB58</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52114"></span>CB92</td>
+<td class="instruction">OR E</td>
+<td class="comment-1" rowspan="1">Set in A the bits that are set in E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52115"></span>CB93</td>
+<td class="instruction">JR Z,<a href="52035.html#52056">$CB58</a></td>
+<td class="comment-1" rowspan="1">If the result is zero, go back to <a href="52035.html#52056">CB58</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="52117"></span>CB95</td>
+<td class="instruction">LD A,($CB7A)</td>
+<td class="comment-1" rowspan="1">Read <a href="52089.html">$CB7A</a> in "The flags <a href="52091.html">CB7B</a> is to name" into A - The object saved at <a href="52089.html">$CB7A</a> becomes the direct object</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52120"></span>CB98</td>
+<td class="instruction">LD ($A034),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41010">$A034</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52123"></span>CB9B</td>
+<td class="instruction">LD HL,$6817</td>
+<td class="comment-1" rowspan="1">Point HL at the message "THE OIL LAMP IS" (<a href="26647.html">6817</a>) - Print <a href="26647.html">6817</a> 'THE &lt;object&gt; IS' (the word follows)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52126"></span>CB9E</td>
+<td class="instruction">CALL <a href="42399.html">$A59F</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print the message at HL" (<a href="42399.html">A59F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52129"></span>CBA1</td>
+<td class="instruction">CALL <a href="43136.html#43143">$A887</a></td>
+<td class="comment-1" rowspan="1">Call <a href="43136.html#43143">A887</a> (inside "Print the dictionary word that HL refers to")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52132"></span>CBA4</td>
+<td class="instruction">JP <a href="41634.html">$A2A2</a></td>
+<td class="comment-1" rowspan="1">Go back to the routine "Print a newline (A kept)" (<a href="41634.html">A2A2</a>)</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="52089.html">CB79</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#52091">Map</a></td>
+<td class="next">
+Next: <a href="52135.html">CBA7</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at AAB2 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="43633.html">AA71</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#43698">Map</a></td>
+<td class="next">
+Next: <a href="43921.html">AB91</a>
+</td>
+</tr>
+</table>
+<div class="description">AAB2: Parse the next sentence from the word list</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Called for the player's typed line (<a href="55166.html#55182">$D78F</a>, part of the player's script step <a href="55166.html">D77E</a>) and for the words of a remark (<a href="47210.html#47294">$B8BF</a>). Sorts tokens into the parse record (IY) - the verb and its particles (<a href="43921.html">AB91</a>), objects (<a href="44068.html">AC24</a>) - and dispatches on punctuation: a full stop finishes the sentence (<a href="44375.html">AD57</a>), a comma starts another object or sentence (<a href="44236.html">ACCC</a>), a special word (class $90) goes to <a href="44979.html">AFB3</a>. NZ if it does not make sense (<a href="44903.html">AF67</a>).
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. Clear the sentence count and start with every kind of word allowed (E = $FF).
+</div>
+<div class="paragraph">
+2. Decide the sentence's mode (<a href="40918.html#40994">$A024</a>). If a line of sentences is still being worked through it is an ordinary command (mode 1). Otherwise try to read a noun phrase first (<a href="44068.html">AC24</a>): a sentence that opens with one and has no preposition is a statement such as MRS JONES KILLED TRICIA FENDER (mode 2, subject kept in the parse node); anything else is a command (mode 1) and reading starts again from the beginning.
+</div>
+<div class="paragraph">
+3. Read the verb and its particles (<a href="43921.html">AB91</a>). Carry means the words make no sense.
+</div>
+<div class="paragraph">
+4. A special word (token class $90) goes to <a href="44979.html">AFB3</a>. A comma ($A0) starts another sentence (<a href="44236.html">ACCC</a>).
+</div>
+<div class="paragraph">
+5. Read the objects: each noun phrase (<a href="44068.html">AC24</a>) is filed in the parse node (<a href="44198.html">ACA6</a>), and this repeats as long as noun phrases follow.
+</div>
+<div class="paragraph">
+6. A full stop ($B0) completes the sentence (<a href="44375.html">AD57</a>). In a statement, any other word must be a relation word (<a href="43921.html#44019">ABF3</a>), which ends the subject and carries on with the object.
+</div>
+<div class="paragraph">
+7. Anything else makes no sense: return NZ (<a href="44903.html">AF67</a>).
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IY</td>
+<td class="register-desc">The parse node for the sentence</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ if the sentence makes no sense (A = 2 for a stray full stop)</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="43698"></span>AAB2</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag) - <a href="40918.html#40986">A01A</a> and the sentence count <a href="40918.html#40978">A012</a> start at 0</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43699"></span>AAB3</td>
+<td class="instruction">LD ($A01A),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#40986">A01A</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43702"></span>AAB6</td>
+<td class="instruction">LD ($A012),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#40978">A012</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43705"></span>AAB9</td>
+<td class="instruction">LD E,$FF</td>
+<td class="comment-1" rowspan="1">Load E with $FF - E: flags for what may come next; D: the token class last read</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43707"></span>AABB</td>
+<td class="instruction">LD D,$C0</td>
+<td class="comment-1" rowspan="1">Load D with $C0</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="43709"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="44375.html">AD57</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="43709"></span>AABD</td>
+<td class="instruction">LD A,E</td>
+<td class="comment-1" rowspan="1">Copy E into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43710"></span>AABE</td>
+<td class="instruction">OR $C7</td>
+<td class="comment-1" rowspan="1">Set bits 0, 1, 2, 6, 7 of A (mask $C7)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43712"></span>AAC0</td>
+<td class="instruction">LD E,A</td>
+<td class="comment-1" rowspan="1">Copy A into E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43713"></span>AAC1</td>
+<td class="instruction">CALL <a href="44650.html">$AE6A</a></td>
+<td class="comment-1" rowspan="1">A new parse node for this sentence (<a href="44650.html">AE6A</a>)</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="43716"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="45050.html">AFFA</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="43716"></span>AAC4</td>
+<td class="instruction">LD A,($A01B)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40986">$A01B</a> in "Game variables" into A - Sentences still waiting from the same line: an ordinary command (mode 1)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43719"></span>AAC7</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43720"></span>AAC8</td>
+<td class="instruction">JR Z,$AAD1</td>
+<td class="comment-1" rowspan="1">If A is zero, skip ahead to <a href="43698.html#43729">AAD1</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43722"></span>AACA</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="1">Load A with $01</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43724"></span>AACC</td>
+<td class="instruction">LD ($A024),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#40994">$A024</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43727"></span>AACF</td>
+<td class="instruction">RES 3,E</td>
+<td class="comment-1" rowspan="1">Clear bit 3 of E</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="43729"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="45309.html">B0FD</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="43729"></span>AAD1</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43730"></span>AAD2</td>
+<td class="instruction">LD A,($A024)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40994">$A024</a> in "Game variables" into A - Mode (<a href="40918.html#40994">$A024</a>) not settled: does the sentence open with a noun phrase (<a href="44068.html">AC24</a>)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43733"></span>AAD5</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43734"></span>AAD6</td>
+<td class="instruction">JR NZ,$AB11</td>
+<td class="comment-1" rowspan="1">If A is not zero, jump on to <a href="43698.html#43793">AB11</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43736"></span>AAD8</td>
+<td class="instruction">LD ($AAA7),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="43633.html#43683">$AAA7</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43739"></span>AADB</td>
+<td class="instruction">LD HL,($A02B)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41002">$A02B</a> in "Game variables" into HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43742"></span>AADE</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43743"></span>AADF</td>
+<td class="instruction">CALL <a href="44068.html">$AC24</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Read a noun phrase into the pattern at <a href="43633.html#43683">$AAA8</a>" (<a href="44068.html">AC24</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43746"></span>AAE2</td>
+<td class="instruction">JR NZ,$AB08</td>
+<td class="comment-1" rowspan="1">If the zero flag is clear, skip ahead to <a href="43698.html#43784">AB08</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43748"></span>AAE4</td>
+<td class="instruction">LD A,($AAA7)</td>
+<td class="comment-1" rowspan="1">Read <a href="43633.html#43683">$AAA7</a> into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43751"></span>AAE7</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43752"></span>AAE8</td>
+<td class="instruction">JR NZ,$AB08</td>
+<td class="comment-1" rowspan="1">If A is not zero, skip ahead to <a href="43698.html#43784">AB08</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43754"></span>AAEA</td>
+<td class="instruction">LD A,$02</td>
+<td class="comment-1" rowspan="1">Load A with $02 - Yes, with no preposition: a statement such as 'MRS JONES KILLED TRICIA FENDER' (mode 2); its subject goes to the node at +$18</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43756"></span>AAEC</td>
+<td class="instruction">LD ($A024),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#40994">$A024</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43759"></span>AAEF</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43760"></span>AAF0</td>
+<td class="instruction">PUSH IY</td>
+<td class="comment-1" rowspan="1">Save IY on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43762"></span>AAF2</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43763"></span>AAF3</td>
+<td class="instruction">LD DE,$0018</td>
+<td class="comment-1" rowspan="1">Load DE with $0018, the amount that is added next</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43766"></span>AAF6</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1">Add DE to HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43767"></span>AAF7</td>
+<td class="instruction">LD DE,$AAAC</td>
+<td class="comment-1" rowspan="1">Point DE at <a href="43633.html#43691">$AAAC</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43770"></span>AAFA</td>
+<td class="instruction">EX DE,HL</td>
+<td class="comment-1" rowspan="1">Swap DE and HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43771"></span>AAFB</td>
+<td class="instruction">LD BC,$0006</td>
+<td class="comment-1" rowspan="1">Load BC with $0006</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43774"></span>AAFE</td>
+<td class="instruction">LDIR</td>
+<td class="comment-1" rowspan="1">Copy BC bytes from where HL points to where DE points, counting up</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43776"></span>AB00</td>
+<td class="instruction">LD HL,($A029)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40994">$A029</a> in "Game variables" into HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43779"></span>AB03</td>
+<td class="instruction">LD ($A02B),HL</td>
+<td class="comment-1" rowspan="1">Store HL in <a href="40918.html#41002">$A02B</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43782"></span>AB06</td>
+<td class="instruction">JR $AB11</td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="43698.html#43793">AB11</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="43784"></span>AB08</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="1">Load A with $01 - No: an ordinary command (mode 1) - go back to the start of the sentence</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43786"></span>AB0A</td>
+<td class="instruction">LD ($A024),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#40994">$A024</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43789"></span>AB0D</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43790"></span>AB0E</td>
+<td class="instruction">LD ($A02B),HL</td>
+<td class="comment-1" rowspan="1">Store HL in <a href="40918.html#41002">$A02B</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-2"><span id="43793"></span>AB11</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43794"></span>AB12</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43795"></span>AB13</td>
+<td class="instruction">LD ($AAA7),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="43633.html#43683">$AAA7</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43798"></span>AB16</td>
+<td class="instruction">CALL <a href="43921.html">$AB91</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Read a sentence's verb words into the node at IY" (<a href="43921.html">AB91</a>) - The verb and its particles (<a href="43921.html">AB91</a>); carry: nonsense</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43801"></span>AB19</td>
+<td class="instruction">JR C,$AB8E</td>
+<td class="comment-1" rowspan="1">If the carry flag is set, jump on to <a href="43698.html#43918">AB8E</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43803"></span>AB1B</td>
+<td class="instruction">JR Z,$AB47</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, jump on to <a href="43698.html#43847">AB47</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43805"></span>AB1D</td>
+<td class="instruction">CP $90</td>
+<td class="comment-1" rowspan="1">Compare A with $90 - A special word ($90): handled at <a href="44979.html">AFB3</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43807"></span>AB1F</td>
+<td class="instruction">JP Z,<a href="44979.html">$AFB3</a></td>
+<td class="comment-1" rowspan="1">If A equals $90, jump on to the routine "Is word BC a special word? Then run its handler" (<a href="44979.html">AFB3</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43810"></span>AB22</td>
+<td class="instruction">CP $A0</td>
+<td class="comment-1" rowspan="1">Compare A with $A0 - A comma ($A0): another sentence (<a href="44236.html">ACCC</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43812"></span>AB24</td>
+<td class="instruction">JP Z,<a href="44236.html">$ACCC</a></td>
+<td class="comment-1" rowspan="1">If A equals $A0, jump on to the routine "Note where this sentence started, so it can be..." (<a href="44236.html">ACCC</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43815"></span>AB27</td>
+<td class="instruction">BIT 3,E</td>
+<td class="comment-1" rowspan="1">Test bit 3 of E</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43817"></span>AB29</td>
+<td class="instruction">JR Z,$AB4C</td>
+<td class="comment-1" rowspan="1">If bit 3 of E is clear, skip ahead to <a href="43698.html#43852">AB4C</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43819"></span>AB2B</td>
+<td class="instruction">LD A,($A012)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40978">A012</a> in "Game variables" into A - No verb at the very start of a line, just a full stop: return NZ with A = 2</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43822"></span>AB2E</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43823"></span>AB2F</td>
+<td class="instruction">JR NZ,$AB8E</td>
+<td class="comment-1" rowspan="1">If A is not zero, jump on to <a href="43698.html#43918">AB8E</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43825"></span>AB31</td>
+<td class="instruction">LD A,($A01B)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40986">$A01B</a> in "Game variables" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43828"></span>AB34</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43829"></span>AB35</td>
+<td class="instruction">JR NZ,$AB4C</td>
+<td class="comment-1" rowspan="1">If A is not zero, skip ahead to <a href="43698.html#43852">AB4C</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43831"></span>AB37</td>
+<td class="instruction">LD A,($A02D)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41002">$A02D</a> in "Game variables" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43834"></span>AB3A</td>
+<td class="instruction">CP $C0</td>
+<td class="comment-1" rowspan="1">Compare A with $C0</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43836"></span>AB3C</td>
+<td class="instruction">JR NZ,$AB8E</td>
+<td class="comment-1" rowspan="1">If A differs from $C0, jump on to <a href="43698.html#43918">AB8E</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43838"></span>AB3E</td>
+<td class="instruction">LD A,$B0</td>
+<td class="comment-1" rowspan="1">Load A with $B0</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43840"></span>AB40</td>
+<td class="instruction">CP D</td>
+<td class="comment-1" rowspan="1">Compare A with D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43841"></span>AB41</td>
+<td class="instruction">JR NZ,$AB8E</td>
+<td class="comment-1" rowspan="1">If A differs from D, jump on to <a href="43698.html#43918">AB8E</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43843"></span>AB43</td>
+<td class="instruction">LD A,$02</td>
+<td class="comment-1" rowspan="1">Load A with $02</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43845"></span>AB45</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Clear the carry flag for the caller (A is unchanged)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43846"></span>AB46</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="43847"></span>AB47</td>
+<td class="instruction">BIT 3,E</td>
+<td class="comment-1" rowspan="1">Test bit 3 of E - No verb and no more allowed: on to <a href="44283.html">ACFB</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43849"></span>AB49</td>
+<td class="instruction">JP Z,<a href="44283.html">$ACFB</a></td>
+<td class="comment-1" rowspan="1">If bit 3 of E is clear, jump on to the routine "After a sentence: copy the objects on, or rewind..." (<a href="44283.html">ACFB</a>)</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="43852"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="44283.html">ACFB</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="43852"></span>AB4C</td>
+<td class="instruction">LD HL,($A029)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40994">$A029</a> in "Game variables" into HL - Objects: read a noun phrase (<a href="44068.html">AC24</a>) and file it in the node (<a href="44198.html">ACA6</a>), as long as they come</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43855"></span>AB4F</td>
+<td class="instruction">LD ($A02B),HL</td>
+<td class="comment-1" rowspan="1">Store HL in <a href="40918.html#41002">$A02B</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="43858"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routine at <a href="45084.html">B01C</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="43858"></span>AB52</td>
+<td class="instruction">CALL <a href="44068.html">$AC24</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Read a noun phrase into the pattern at <a href="43633.html#43683">$AAA8</a>" (<a href="44068.html">AC24</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43861"></span>AB55</td>
+<td class="instruction">JR C,$AB8E</td>
+<td class="comment-1" rowspan="1">If the carry flag is set, jump on to <a href="43698.html#43918">AB8E</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43863"></span>AB57</td>
+<td class="instruction">JR NZ,$AB60</td>
+<td class="comment-1" rowspan="1">If the zero flag is clear, skip ahead to <a href="43698.html#43872">AB60</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43865"></span>AB59</td>
+<td class="instruction">CALL <a href="44198.html">$ACA6</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Copy the noun-phrase pattern into the node: first or..." (<a href="44198.html">ACA6</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43868"></span>AB5C</td>
+<td class="instruction">JR Z,$AB8E</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, jump on to <a href="43698.html#43918">AB8E</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43870"></span>AB5E</td>
+<td class="instruction">JR $AB4C</td>
+<td class="comment-1" rowspan="1">Go back to <a href="43698.html#43852">AB4C</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="43872"></span>AB60</td>
+<td class="instruction">CP $B0</td>
+<td class="comment-1" rowspan="1">Compare A with $B0 - A full stop ($B0): the sentence is complete (<a href="44375.html">AD57</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43874"></span>AB62</td>
+<td class="instruction">JP Z,<a href="44375.html">$AD57</a></td>
+<td class="comment-1" rowspan="1">If A equals $B0, jump on to the routine "Count the sentence, then on to the next or finish" (<a href="44375.html">AD57</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43877"></span>AB65</td>
+<td class="instruction">CP $A0</td>
+<td class="comment-1" rowspan="1">Compare A with $A0</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43879"></span>AB67</td>
+<td class="instruction">JP Z,<a href="44236.html">$ACCC</a></td>
+<td class="comment-1" rowspan="1">If A equals $A0, jump on to the routine "Note where this sentence started, so it can be..." (<a href="44236.html">ACCC</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43882"></span>AB6A</td>
+<td class="instruction">CP $90</td>
+<td class="comment-1" rowspan="1">Compare A with $90</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43884"></span>AB6C</td>
+<td class="instruction">JP Z,<a href="44979.html">$AFB3</a></td>
+<td class="comment-1" rowspan="1">If A equals $90, jump on to the routine "Is word BC a special word? Then run its handler" (<a href="44979.html">AFB3</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43887"></span>AB6F</td>
+<td class="instruction">LD HL,($A029)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40994">$A029</a> in "Game variables" into HL - Anything else is only allowed in a statement: a relation word (<a href="43921.html#44019">ABF3</a>) starts the next part</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43890"></span>AB72</td>
+<td class="instruction">LD ($A02B),HL</td>
+<td class="comment-1" rowspan="1">Store HL in <a href="40918.html#41002">$A02B</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43893"></span>AB75</td>
+<td class="instruction">LD A,($A024)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40994">$A024</a> in "Game variables" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43896"></span>AB78</td>
+<td class="instruction">CP $02</td>
+<td class="comment-1" rowspan="1">Compare A with $02</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43898"></span>AB7A</td>
+<td class="instruction">JR NZ,$AB8E</td>
+<td class="comment-1" rowspan="1">If A differs from $02, skip ahead to <a href="43698.html#43918">AB8E</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43900"></span>AB7C</td>
+<td class="instruction">CALL <a href="43921.html#44019">$ABF3</a></td>
+<td class="comment-1" rowspan="1">Call <a href="43921.html#44019">ABF3</a> (inside "Read a sentence's verb words into the node...")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43903"></span>AB7F</td>
+<td class="instruction">JR C,$AB8E</td>
+<td class="comment-1" rowspan="1">If the carry flag is set, skip ahead to <a href="43698.html#43918">AB8E</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43905"></span>AB81</td>
+<td class="instruction">JR NZ,$AB8E</td>
+<td class="comment-1" rowspan="1">If the zero flag is clear, skip ahead to <a href="43698.html#43918">AB8E</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43907"></span>AB83</td>
+<td class="instruction">LD HL,($A029)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40994">$A029</a> in "Game variables" into HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43910"></span>AB86</td>
+<td class="instruction">LD ($A02B),HL</td>
+<td class="comment-1" rowspan="1">Store HL in <a href="40918.html#41002">$A02B</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43913"></span>AB89</td>
+<td class="instruction">LD D,$A0</td>
+<td class="comment-1" rowspan="1">Load D with $A0</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43915"></span>AB8B</td>
+<td class="instruction">JP <a href="44236.html">$ACCC</a></td>
+<td class="comment-1" rowspan="1">Jump on to the routine "Note where this sentence started, so it can be..." (<a href="44236.html">ACCC</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="43918"></span>AB8E</td>
+<td class="instruction">JP <a href="44903.html">$AF67</a></td>
+<td class="comment-1" rowspan="1">It makes no sense (<a href="44903.html">AF67</a>)</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="43633.html">AA71</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#43698">Map</a></td>
+<td class="next">
+Next: <a href="43921.html">AB91</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

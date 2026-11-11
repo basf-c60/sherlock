@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at A37D - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="41824.html">A360</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#41853">Map</a></td>
+<td class="next">
+Next: <a href="42009.html">A419</a>
+</td>
+</tr>
+</table>
+<div class="description">A37D: Print the rest of a narrated command: verb words, objects, numbers</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Part of <a href="41700.html">A2E4</a>. From the verb pattern (<a href="41649.html">A2B1</a>/<a href="41661.html">A2BD</a>) and the parse flags (<a href="40918.html#40986">$A01D</a>/<a href="40918.html#40986">$A01E</a>) prints the verb's words (<a href="43136.html">A880</a>), then the direct object - as a number or money (<a href="42009.html">A419</a>) when it is one ($FE), as ME when it is the actor, or by name (<a href="42821.html">A745</a>) - then any preposition and the indirect object the same way, and a full stop.
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. Look up the remembered command's verb record and flags (<a href="41649.html">A2B1</a>, <a href="41661.html">A2BD</a>, <a href="50323.html">C493</a>, <a href="50354.html">C4B2</a>).
+</div>
+<div class="paragraph">
+2. Print the verb's words: the pair at +6 of the record, then the pair at +0 (<a href="43136.html">A880</a>).
+</div>
+<div class="paragraph">
+3. If the verb takes a direct object (flags bit 3): print any word that goes before it, then the object itself - a number or sum of money (<a href="42009.html">A419</a>) if it is one, ME if it is the actor, or its name (<a href="42821.html">A745</a>).
+</div>
+<div class="paragraph">
+4. If there is an indirect object and the flags allow one: print its preposition, then the object the same three ways.
+</div>
+<div class="paragraph">
+5. End with a full stop. The result is a sentence such as 'You pay 2/6 to Watson.'
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$A35D</td>
+<td class="register-desc">The remembered command: verb, direct object, indirect object</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="41853"></span>A37D</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag) - No article flag; the remembered command's verb...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41854"></span>A37E</td>
+<td class="instruction">LD ($A028),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#40994">$A028</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41857"></span>A381</td>
+<td class="instruction">LD A,($A35D)</td>
+<td class="comment-1" rowspan="1">Read "A remembered command: verb, direct object,..." (<a href="41821.html">A35D</a>) into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41860"></span>A384</td>
+<td class="instruction">CALL <a href="41649.html">$A2B1</a></td>
+<td class="comment-1" rowspan="1">Call the routine "HL = verb A's record in the verb table" (<a href="41649.html">A2B1</a>) - ...gives its record in the verb table (<a href="41649.html">A2B1</a>) and its flags (<a href="41661.html">A2BD</a>, <a href="40918.html#40986">$A01D</a>/<a href="40918.html#40986">$A01E</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41863"></span>A387</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41864"></span>A388</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41866"></span>A38A</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41867"></span>A38B</td>
+<td class="instruction">CALL <a href="41661.html">$A2BD</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Gather a verb record's flag nibbles into <a href="40918.html#40986">$A01D</a> and..." (<a href="41661.html">A2BD</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41870"></span>A38E</td>
+<td class="instruction">CALL <a href="50323.html">$C493</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Set the direct object's requirement from the parsed..." (<a href="50323.html">C493</a>) - (<a href="50323.html">C493</a>, <a href="50354.html">C4B2</a>: also from the record)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41873"></span>A391</td>
+<td class="instruction">CALL <a href="50354.html">$C4B2</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Set the indirect object's requirement from the parsed..." (<a href="50354.html">C4B2</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41876"></span>A394</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41877"></span>A395</td>
+<td class="instruction">LD A,($A01D)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40986">$A01D</a> in "Game variables" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41880"></span>A398</td>
+<td class="instruction">LD C,A</td>
+<td class="comment-1" rowspan="1">Copy A into C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41881"></span>A399</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack - Print the verb's words: the pair at +6, then the pair at +0 (<a href="43136.html">A880</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41882"></span>A39A</td>
+<td class="instruction">LD DE,$0006</td>
+<td class="comment-1" rowspan="1">Load DE with $0006, the amount that is added next</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41885"></span>A39D</td>
+<td class="instruction">ADD HL,DE</td>
+<td class="comment-1" rowspan="1">Add DE to HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41886"></span>A39E</td>
+<td class="instruction">CALL <a href="43136.html">$A880</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print the dictionary word that HL refers to" (<a href="43136.html">A880</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41889"></span>A3A1</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41890"></span>A3A2</td>
+<td class="instruction">CALL <a href="43136.html">$A880</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print the dictionary word that HL refers to" (<a href="43136.html">A880</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41893"></span>A3A5</td>
+<td class="instruction">BIT 3,C</td>
+<td class="comment-1" rowspan="1">Test bit 3 of C - Flags bit 3: the verb takes a direct object</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41895"></span>A3A7</td>
+<td class="instruction">JR Z,$A3E2</td>
+<td class="comment-1" rowspan="1">If bit 3 of C is clear, jump on to <a href="41853.html#41954">A3E2</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="41897"></span>A3A9</td>
+<td class="instruction">BIT 5,C</td>
+<td class="comment-1" rowspan="1">Test bit 5 of C - A word before it (bit 5), and one more if <a href="40918.html#40986">$A01E</a> bit 7 is set</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41899"></span>A3AB</td>
+<td class="instruction">CALL NZ,<a href="43136.html">$A880</a></td>
+<td class="comment-1" rowspan="1">If bit 5 of C is set, call the routine "Print the dictionary word that HL refers to" (<a href="43136.html">A880</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41902"></span>A3AE</td>
+<td class="instruction">LD A,($A01E)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40986">$A01E</a> in "Game variables" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41905"></span>A3B1</td>
+<td class="instruction">BIT 7,A</td>
+<td class="comment-1" rowspan="1">Test bit 7 of A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41907"></span>A3B3</td>
+<td class="instruction">CALL NZ,<a href="43136.html">$A880</a></td>
+<td class="comment-1" rowspan="1">If bit 7 of A is set, call the routine "Print the dictionary word that HL refers to" (<a href="43136.html">A880</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41910"></span>A3B6</td>
+<td class="instruction">LD A,($A35E)</td>
+<td class="comment-1" rowspan="1">Read <a href="41821.html#41822">A35E</a> in "A remembered command: verb, direct object,..." into A - A number or a sum of money ($FE): print it (<a href="42009.html">A419</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41913"></span>A3B9</td>
+<td class="instruction">CP $FE</td>
+<td class="comment-1" rowspan="1">Compare A with $FE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41915"></span>A3BB</td>
+<td class="instruction">JR NZ,$A3C7</td>
+<td class="comment-1" rowspan="1">If A differs from $FE, skip ahead to <a href="41853.html#41927">A3C7</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="41917"></span>A3BD</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41918"></span>A3BE</td>
+<td class="instruction">LD HL,($A02F)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41002">$A02F</a> in "Game variables" into HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41921"></span>A3C1</td>
+<td class="instruction">CALL <a href="42009.html">$A419</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print an amount of money" (<a href="42009.html">A419</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41924"></span>A3C4</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41925"></span>A3C5</td>
+<td class="instruction">JR $A3E2</td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="41853.html#41954">A3E2</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="41927"></span>A3C7</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack - The actor itself: ME ($055B)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41928"></span>A3C8</td>
+<td class="instruction">LD HL,$A036</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="40918.html#41010">$A036</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41931"></span>A3CB</td>
+<td class="instruction">CP (HL)</td>
+<td class="comment-1" rowspan="1">Compare A with the byte at <a href="40918.html#41010">$A036</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41932"></span>A3CC</td>
+<td class="instruction">JR NZ,$A3D6</td>
+<td class="comment-1" rowspan="1">If A differs from the byte at <a href="40918.html#41010">$A036</a> in "Game variables", skip ahead to <a href="41853.html#41942">A3D6</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="41934"></span>A3CE</td>
+<td class="instruction">LD DE,$055B</td>
+<td class="comment-1" rowspan="1">Load DE with $055B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41937"></span>A3D1</td>
+<td class="instruction">CALL <a href="43136.html#43143">$A887</a></td>
+<td class="comment-1" rowspan="1">Call <a href="43136.html#43143">A887</a> (inside "Print the dictionary word that HL refers to")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41940"></span>A3D4</td>
+<td class="instruction">JR $A3E1</td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="41853.html#41953">A3E1</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="41942"></span>A3D6</td>
+<td class="instruction">LD A,($A00F)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40970">$A00F</a> in "Game variables" into A - Otherwise its name: a room for requirement codes below 5, else a thing (<a href="42821.html">A745</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41945"></span>A3D9</td>
+<td class="instruction">CP $05</td>
+<td class="comment-1" rowspan="1">Compare A with $05</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41947"></span>A3DB</td>
+<td class="instruction">LD A,($A35E)</td>
+<td class="comment-1" rowspan="1">Read <a href="41821.html#41822">A35E</a> in "A remembered command: verb, direct object,..." into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41950"></span>A3DE</td>
+<td class="instruction">CALL <a href="42821.html">$A745</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Name room or thing A" (<a href="42821.html">A745</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="41953"></span>A3E1</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-2"><span id="41954"></span>A3E2</td>
+<td class="instruction">LD A,($A35F)</td>
+<td class="comment-1" rowspan="1">Read <a href="41821.html#41823">A35F</a> in "A remembered command: verb, direct object,..." into A - An indirect object, if there is one and the flags (bit 2) allow it</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41957"></span>A3E5</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1">Compare A with $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41959"></span>A3E7</td>
+<td class="instruction">JR Z,$A414</td>
+<td class="comment-1" rowspan="1">If A equals $FF, jump on to <a href="41853.html#42004">A414</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="41961"></span>A3E9</td>
+<td class="instruction">BIT 2,C</td>
+<td class="comment-1" rowspan="1">Test bit 2 of C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41963"></span>A3EB</td>
+<td class="instruction">JR Z,$A414</td>
+<td class="comment-1" rowspan="1">If bit 2 of C is clear, jump on to <a href="41853.html#42004">A414</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="41965"></span>A3ED</td>
+<td class="instruction">BIT 5,C</td>
+<td class="comment-1" rowspan="1">Test bit 5 of C - Its preposition: the words not printed before</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41967"></span>A3EF</td>
+<td class="instruction">CALL Z,<a href="43136.html">$A880</a></td>
+<td class="comment-1" rowspan="1">If bit 5 of C is clear, call the routine "Print the dictionary word that HL refers to" (<a href="43136.html">A880</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41970"></span>A3F2</td>
+<td class="instruction">LD A,($A01E)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40986">$A01E</a> in "Game variables" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41973"></span>A3F5</td>
+<td class="instruction">BIT 7,A</td>
+<td class="comment-1" rowspan="1">Test bit 7 of A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41975"></span>A3F7</td>
+<td class="instruction">CALL Z,<a href="43136.html">$A880</a></td>
+<td class="comment-1" rowspan="1">If bit 7 of A is clear, call the routine "Print the dictionary word that HL refers to" (<a href="43136.html">A880</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41978"></span>A3FA</td>
+<td class="instruction">LD A,($A35F)</td>
+<td class="comment-1" rowspan="1">Read <a href="41821.html#41823">A35F</a> in "A remembered command: verb, direct object,..." into A - A number or money (<a href="42009.html">A419</a>), or a name (<a href="42821.html">A745</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41981"></span>A3FD</td>
+<td class="instruction">CP $FE</td>
+<td class="comment-1" rowspan="1">Compare A with $FE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41983"></span>A3FF</td>
+<td class="instruction">JR NZ,$A409</td>
+<td class="comment-1" rowspan="1">If A differs from $FE, skip ahead to <a href="41853.html#41993">A409</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="41985"></span>A401</td>
+<td class="instruction">LD HL,($A031)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41002">$A031</a> in "Game variables" into HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41988"></span>A404</td>
+<td class="instruction">CALL <a href="42009.html">$A419</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print an amount of money" (<a href="42009.html">A419</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41991"></span>A407</td>
+<td class="instruction">JR $A414</td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="41853.html#42004">A414</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="41993"></span>A409</td>
+<td class="instruction">LD A,($A010)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40970">$A010</a> in "Game variables" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41996"></span>A40C</td>
+<td class="instruction">CP $05</td>
+<td class="comment-1" rowspan="1">Compare A with $05</td>
+</tr>
+<tr>
+<td class="address-1"><span id="41998"></span>A40E</td>
+<td class="instruction">LD A,($A35F)</td>
+<td class="comment-1" rowspan="1">Read <a href="41821.html#41823">A35F</a> in "A remembered command: verb, direct object,..." into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42001"></span>A411</td>
+<td class="instruction">CALL <a href="42821.html">$A745</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Name room or thing A" (<a href="42821.html">A745</a>)</td>
+</tr>
+<tr>
+<td class="routine-comment" colspan="5">
+<span id="42004"></span>
+<div class="comments">
+<div class="paragraph">
+This entry point is used by the routines at <a href="47975.html">BB67</a>, <a href="53523.html">D113</a>, <a href="54566.html">D526</a>, <a href="54795.html">D60B</a> and <a href="54924.html">D68C</a>.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="42004"></span>A414</td>
+<td class="instruction">LD A,$2E</td>
+<td class="comment-1" rowspan="1">Load A with $2E - And a full stop</td>
+</tr>
+<tr>
+<td class="address-1"><span id="42006"></span>A416</td>
+<td class="instruction">JP <a href="43447.html">$A9B7</a></td>
+<td class="comment-1" rowspan="1">Jump on to the routine "Print character A, a word at a time (word wrap)" (<a href="43447.html">A9B7</a>)</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="41824.html">A360</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#41853">Map</a></td>
+<td class="next">
+Next: <a href="42009.html">A419</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at CC29 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="52238.html">CC0E</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#52265">Map</a></td>
+<td class="next">
+Next: <a href="52279.html">CC37</a>
+</td>
+</tr>
+</table>
+<div class="description">CC29: Set up the current actor: its record and room</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+<a href="40918.html#40978">$A017</a> = the record of the actor in <a href="40918.html#41010">$A036</a> and <a href="40918.html#40970">A00A</a> = its room (<a href="54421.html">D495</a>).
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$A036</td>
+<td class="register-desc">The actor</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">$A017</td>
+<td class="register-desc">The actor's record</td>
+</tr>
+<tr>
+<td class="register">$A00A</td>
+<td class="register-desc">The actor's room</td>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">The record</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="52265"></span>CC29</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A036</a> in "Game variables" into A - The current actor (<a href="40918.html#41010">$A036</a>): its thing record (<a href="54421.html">D495</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52268"></span>CC2C</td>
+<td class="instruction">CALL <a href="54421.html">$D495</a></td>
+<td class="comment-1" rowspan="1">Call the routine "GET-ACTOR-ROOM: what room is actor A currently in?" (<a href="54421.html">D495</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52271"></span>CC2F</td>
+<td class="instruction">LD ($A017),IX</td>
+<td class="comment-1" rowspan="1">Store IX in <a href="40918.html#40978">$A017</a> in "Game variables" - Keep the record at <a href="40918.html#40978">$A017</a> and the room (A) at <a href="40918.html#40970">A00A</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="52275"></span>CC33</td>
+<td class="instruction">LD ($A00A),A</td>
+<td class="comment-1" rowspan="1">Store A in the current actor's room (<a href="40918.html#40970">A00A</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52278"></span>CC36</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="52238.html">CC0E</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#52265">Map</a></td>
+<td class="next">
+Next: <a href="52279.html">CC37</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

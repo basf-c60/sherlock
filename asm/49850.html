@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at C2BA - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="49820.html">C29C</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#49850">Map</a></td>
+<td class="next">
+Next: <a href="49926.html">C306</a>
+</td>
+</tr>
+</table>
+<div class="description">C2BA: Print one character (or handle a newline) at the cursor</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The routine PLOT-CHAR's caller: restores the persisted cursor position/column-shift from <a href="49652.html#49656">C1F8</a>/<a href="49652.html#49656">$C1FA</a>, and either plots the passed-in character directly (calling PLOT-CHAR via <a href="49850.html#49902">C2EE</a>), or, if the character is a carriage return ($0D), counts the line in <a href="40918.html#40978">$A019</a>, waits for a key after fifteen (<a href="49926.html">C306</a>), and scrolls the window up (<a href="49942.html">C316</a>) to print the next line at the start of row 17. A character that fills the line (36 to a line, 18 beside a picture: <a href="49652.html#49653">C1F5</a>) is followed by a newline of its own.
+</div>
+<div class="paragraph">
+This, plus PLOT-CHAR and the page-wait wrapper at <a href="49926.html">C306</a>, forms the game's whole low-level text-output path: every piece of printed text - room descriptions, parser responses, dialogue - goes through here one character at a time.
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. Pick up the text print position (<a href="49652.html#49656">C1F8</a>) and pixel shift (<a href="49652.html#49656">$C1FA</a>).
+</div>
+<div class="paragraph">
+2. A character other than ENTER is printed (<a href="50056.html">C388</a>); if the line is then full a new line is started.
+</div>
+<div class="paragraph">
+3. A new line after fifteen lines of text (<a href="40918.html#40978">$A019</a>) waits for a key (<a href="49926.html">C306</a>) first. Scroll the text up a row (<a href="49942.html">C316</a>), and start the new line with 36 characters (18 beside a picture).
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">The character (or $0D for a new line)</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">The</td>
+<td class="register-desc">character printed at the text cursor; registers kept</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="49850"></span>C2BA</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack - Pick up the print position and pixel shift</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49851"></span>C2BB</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Save BC on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49852"></span>C2BC</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49853"></span>C2BD</td>
+<td class="instruction">LD HL,($C1F8)</td>
+<td class="comment-1" rowspan="1">Read <a href="49652.html#49656">C1F8</a> in "Command-window state" into HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49856"></span>C2C0</td>
+<td class="instruction">LD A,($C1FA)</td>
+<td class="comment-1" rowspan="1">Read <a href="49652.html#49656">$C1FA</a> in "Command-window state" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49859"></span>C2C3</td>
+<td class="instruction">LD C,A</td>
+<td class="comment-1" rowspan="1">Copy A into C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49860"></span>C2C4</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49861"></span>C2C5</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49862"></span>C2C6</td>
+<td class="instruction">CP $0D</td>
+<td class="comment-1" rowspan="1">Compare A with $0D - Not a newline: print it</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49864"></span>C2C8</td>
+<td class="instruction">JR NZ,$C2EE</td>
+<td class="comment-1" rowspan="1">If A differs from $0D, skip ahead to <a href="49850.html#49902">C2EE</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="49866"></span>C2CA</td>
+<td class="instruction">LD A,($A019)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40978">$A019</a> in "Game variables" into A - Newline: fifteen lines since the last pause?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49869"></span>C2CD</td>
+<td class="instruction">CP $0F</td>
+<td class="comment-1" rowspan="1">Compare A with $0F</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49871"></span>C2CF</td>
+<td class="instruction">JR NZ,$C2D6</td>
+<td class="comment-1" rowspan="1">If A differs from $0F, skip ahead to <a href="49850.html#49878">C2D6</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="49873"></span>C2D1</td>
+<td class="instruction">CALL <a href="49926.html">$C306</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Page-wait: flash the cursor, wait for a key, clear" (<a href="49926.html">C306</a>) - Yes: wait for a key (<a href="49926.html">C306</a>) and start the count again</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49876"></span>C2D4</td>
+<td class="instruction">LD A,$FF</td>
+<td class="comment-1" rowspan="1">Load A with $FF</td>
+</tr>
+<tr>
+<td class="address-2"><span id="49878"></span>C2D6</td>
+<td class="instruction">INC A</td>
+<td class="comment-1" rowspan="1">Add one to A - Count the line</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49879"></span>C2D7</td>
+<td class="instruction">LD ($A019),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#40978">$A019</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49882"></span>C2DA</td>
+<td class="instruction">LD HL,$5020</td>
+<td class="comment-1" rowspan="1">Back to the start of row 17...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49885"></span>C2DD</td>
+<td class="instruction">LD C,$02</td>
+<td class="comment-1" rowspan="1">Load C with $02 - ...and scroll everything above up a row (<a href="49942.html">C316</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49887"></span>C2DF</td>
+<td class="instruction">CALL <a href="49942.html">$C316</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Scroll the text up a line, printing the line that..." (<a href="49942.html">C316</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49890"></span>C2E2</td>
+<td class="instruction">LD A,($C128)</td>
+<td class="comment-1" rowspan="1">Read "Flag: text lines are narrow (a picture is showing)" (<a href="49448.html">C128</a>) into A - A fresh line: 36 characters, or 18 beside a picture</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49893"></span>C2E5</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49894"></span>C2E6</td>
+<td class="instruction">LD A,$24</td>
+<td class="comment-1" rowspan="1">Load A with $24</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49896"></span>C2E8</td>
+<td class="instruction">JR Z,$C2F8</td>
+<td class="comment-1" rowspan="1">If A is zero, skip ahead to <a href="49850.html#49912">C2F8</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="49898"></span>C2EA</td>
+<td class="instruction">LD A,$12</td>
+<td class="comment-1" rowspan="1">Load A with $12</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49900"></span>C2EC</td>
+<td class="instruction">JR $C2F8</td>
+<td class="comment-1" rowspan="1">Skip ahead to <a href="49850.html#49912">C2F8</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="49902"></span>C2EE</td>
+<td class="instruction">CALL <a href="50056.html">$C388</a></td>
+<td class="comment-1" rowspan="1">Print the character</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49905"></span>C2F1</td>
+<td class="instruction">LD A,($C1F5)</td>
+<td class="comment-1" rowspan="1">Read the characters left on the line (<a href="49652.html#49653">C1F5</a>) into A - Line full? Then take a newline</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49908"></span>C2F4</td>
+<td class="instruction">DEC A</td>
+<td class="comment-1" rowspan="1">Subtract one from A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49909"></span>C2F5</td>
+<td class="instruction">JP Z,$C2CA</td>
+<td class="comment-1" rowspan="1">If A has become zero, go back to <a href="49850.html#49866">C2CA</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="49912"></span>C2F8</td>
+<td class="instruction">LD ($C1F5),A</td>
+<td class="comment-1" rowspan="1">Store A in the characters left on the line (<a href="49652.html#49653">C1F5</a>) - Save the characters left, print position and pixel shift</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49915"></span>C2FB</td>
+<td class="instruction">LD ($C1F8),HL</td>
+<td class="comment-1" rowspan="1">Store HL in <a href="49652.html#49656">C1F8</a> in "Command-window state"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49918"></span>C2FE</td>
+<td class="instruction">LD A,C</td>
+<td class="comment-1" rowspan="1">Copy C into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49919"></span>C2FF</td>
+<td class="instruction">LD ($C1FA),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="49652.html#49656">$C1FA</a> in "Command-window state"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49922"></span>C302</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49923"></span>C303</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore BC from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49924"></span>C304</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49925"></span>C305</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="49820.html">C29C</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#49850">Map</a></td>
+<td class="next">
+Next: <a href="49926.html">C306</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

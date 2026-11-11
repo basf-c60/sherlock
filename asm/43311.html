@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at A92F - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="43136.html">A880</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#43311">Map</a></td>
+<td class="next">
+Next: <a href="43341.html">A94D</a>
+</td>
+</tr>
+</table>
+<div class="description">A92F: Add a dictionary word's suffix to the spelling at IX</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The low nibble of (HL) picks one of the four-letter suffixes at <a href="43100.html">A85C</a> (15 = none), copied to IX and ended with 0.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">HL</td>
+<td class="register-desc">A dictionary record</td>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">The end of the spelling</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">At the end of the suffix, ended with 0</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="43311"></span>A92F</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into A - Low nibble of the record's byte picks a suffix</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43312"></span>A930</td>
+<td class="instruction">AND $0F</td>
+<td class="comment-1" rowspan="1">Keep only bits 0, 1, 2, 3 of A (mask $0F)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43314"></span>A932</td>
+<td class="instruction">CP $0F</td>
+<td class="comment-1" rowspan="1">Compare A with $0F - 15: none</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43316"></span>A934</td>
+<td class="instruction">RET Z</td>
+<td class="comment-1" rowspan="1">If A equals $0F, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43317"></span>A935</td>
+<td class="instruction">RLCA</td>
+<td class="comment-1" rowspan="1">Rotate A left one place (bit 7 goes to carry and bit 0) - Times 4: an index into the table at <a href="43100.html">A85C</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43318"></span>A936</td>
+<td class="instruction">RLCA</td>
+<td class="comment-1" rowspan="1">Rotate A left one place (bit 7 goes to carry and bit 0)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43319"></span>A937</td>
+<td class="instruction">LD L,A</td>
+<td class="comment-1" rowspan="1">Copy A into L</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43320"></span>A938</td>
+<td class="instruction">LD H,$00</td>
+<td class="comment-1" rowspan="1">Load H with $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43322"></span>A93A</td>
+<td class="instruction">LD BC,$A85C</td>
+<td class="comment-1" rowspan="1">Load BC with <a href="43100.html">A85C</a> (-22436 as a signed offset), the amount that is added next</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43325"></span>A93D</td>
+<td class="instruction">ADD HL,BC</td>
+<td class="comment-1" rowspan="1">Add BC to HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43326"></span>A93E</td>
+<td class="instruction">LD B,$04</td>
+<td class="comment-1" rowspan="1">Load B with $04 - Copy four letters to IX...</td>
+</tr>
+<tr>
+<td class="address-2"><span id="43328"></span>A940</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43329"></span>A941</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43330"></span>A942</td>
+<td class="instruction">LD (IX+$00),A</td>
+<td class="comment-1" rowspan="1">Store A in the first byte of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43333"></span>A945</td>
+<td class="instruction">INC IX</td>
+<td class="comment-1" rowspan="1">Step IX on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43335"></span>A947</td>
+<td class="instruction">DJNZ $A940</td>
+<td class="comment-1" rowspan="1">Count B down and, while it is not zero, go back to <a href="43311.html#43328">A940</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="43337"></span>A949</td>
+<td class="instruction">LD (IX+$00),B</td>
+<td class="comment-1" rowspan="1">Store B in the first byte of the record at IX - ...and end with 0</td>
+</tr>
+<tr>
+<td class="address-1"><span id="43340"></span>A94C</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="43136.html">A880</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#43311">Map</a></td>
+<td class="next">
+Next: <a href="43341.html">A94D</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at BDC2 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="48465.html">BD51</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#48578">Map</a></td>
+<td class="next">
+Next: <a href="48730.html">BE5A</a>
+</td>
+</tr>
+</table>
+<div class="description">BDC2: Turn the player's remark into a statement</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The relation is the position of the remark's verb in the list at <a href="39245.html">994D</a>; the subject and object are the first two things named (<a href="48578.html#48700">BE3C</a>, <a href="48578.html#48715">BE4B</a>), each copied as a 6-byte entry into <a href="40918.html#40946">$9FF6</a> (people) or <a href="40918.html#40954">$9FFC</a> (things) by <a href="48578.html#48674">BE22</a>. Carry set if the remark names more than that.
+</div>
+<div class="paragraph">
+<a href="48578.html#48674">BE22</a> copies thing A's 6-byte entry to <a href="40918.html#40946">$9FF6</a> (a person, +5 bit 6) or <a href="40918.html#40954">$9FFC</a>; <a href="48578.html#48700">BE3C</a> and <a href="48578.html#48715">BE4B</a> step through the parser's object slots at <a href="45421.html">$B172</a> and <a href="45421.html#45429">$B178</a>.
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. Start both searches at the top of the thing index (<a href="53327.html">D04F</a>).
+</div>
+<div class="paragraph">
+2. Look the remark's verb word up in the list of relation words at <a href="39245.html">994D</a>. Its position in that list (counting from 1) is the statement's relation. If it is not there the remark is not a statement: return Z.
+</div>
+<div class="paragraph">
+3. Allow things that are not in the room to be named (<a href="40918.html#41010">$A038</a> = 2).
+</div>
+<div class="paragraph">
+4. Find the thing that matches the subject words (<a href="48578.html#48700">BE3C</a>). None means it is not a statement. A second match means the subject is ambiguous: return carry. Otherwise remember it and copy its six-byte entry to <a href="40918.html#40946">$9FF6</a> if it is a person or <a href="40918.html#40954">$9FFC</a> if not (<a href="48578.html#48674">BE22</a>), so that HE, IT and THEY can refer to it later.
+</div>
+<div class="paragraph">
+5. Do the same for the object words (<a href="48578.html#48715">BE4B</a>).
+</div>
+<div class="paragraph">
+6. Return NZ: the statement's subject, relation and object are in <a href="47635.html">$BA19</a>, <a href="47635.html">$BA1A</a> and <a href="47635.html#47643">BA1B</a>.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$BA17</td>
+<td class="register-desc">The remark's verb word</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ if it made a statement, Z if it is not one</td>
+</tr>
+<tr>
+<td class="register">Carry</td>
+<td class="register-desc">set if a name was ambiguous</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="48578"></span>BDC2</td>
+<td class="instruction">CALL <a href="53327.html">$D04F</a></td>
+<td class="comment-1" rowspan="1">Call the routine "IX = just before the start of the thing index (<a href="35695.html">8B6F</a>)" (<a href="53327.html">D04F</a>) - Both searches start at the top of the thing index</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48581"></span>BDC5</td>
+<td class="instruction">LD ($BA13),IX</td>
+<td class="comment-1" rowspan="1">Store IX in "Variables used by the code at <a href="47648.html">BA20</a>-<a href="48965.html#48984">BF58</a>" (<a href="47635.html">BA13</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48585"></span>BDC9</td>
+<td class="instruction">LD ($BA15),IX</td>
+<td class="comment-1" rowspan="1">Store IX in <a href="47635.html">$BA15</a> in "Variables used by the code at <a href="47648.html">BA20</a>-<a href="48965.html#48984">BF58</a>"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48589"></span>BDCD</td>
+<td class="instruction">LD DE,($BA17)</td>
+<td class="comment-1" rowspan="1">DE = the remark's verb word</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48593"></span>BDD1</td>
+<td class="instruction">LD HL,$994D</td>
+<td class="comment-1" rowspan="1">Point HL at "The case's relation words" (<a href="39245.html">994D</a>) - Find it in the list of relation words at <a href="39245.html">994D</a> (B counts from 1)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48596"></span>BDD4</td>
+<td class="instruction">LD B,$01</td>
+<td class="comment-1" rowspan="1">Load B with $01</td>
+</tr>
+<tr>
+<td class="address-2"><span id="48598"></span>BDD6</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48599"></span>BDD7</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48600"></span>BDD8</td>
+<td class="instruction">OR (HL)</td>
+<td class="comment-1" rowspan="1">Set in A the bits that are set in the byte HL points at</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48601"></span>BDD9</td>
+<td class="instruction">DEC HL</td>
+<td class="comment-1" rowspan="1">Step HL back one byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48602"></span>BDDA</td>
+<td class="instruction">RET Z</td>
+<td class="comment-1" rowspan="1">If the result is zero, return - Not there (the list ends with 0): not a statement (Z)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48603"></span>BDDB</td>
+<td class="instruction">LD A,E</td>
+<td class="comment-1" rowspan="1">Copy E into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48604"></span>BDDC</td>
+<td class="instruction">CP (HL)</td>
+<td class="comment-1" rowspan="1">Compare A with the byte HL points at</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48605"></span>BDDD</td>
+<td class="instruction">JR NZ,$BDE5</td>
+<td class="comment-1" rowspan="1">If A differs from the byte HL points at, skip ahead to <a href="48578.html#48613">BDE5</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="48607"></span>BDDF</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48608"></span>BDE0</td>
+<td class="instruction">LD A,D</td>
+<td class="comment-1" rowspan="1">Copy D into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48609"></span>BDE1</td>
+<td class="instruction">CP (HL)</td>
+<td class="comment-1" rowspan="1">Compare A with the byte HL points at</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48610"></span>BDE2</td>
+<td class="instruction">DEC HL</td>
+<td class="comment-1" rowspan="1">Step HL back one byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48611"></span>BDE3</td>
+<td class="instruction">JR Z,$BDEA</td>
+<td class="comment-1" rowspan="1">If A equals the byte HL points at, skip ahead to <a href="48578.html#48618">BDEA</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="48613"></span>BDE5</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48614"></span>BDE6</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48615"></span>BDE7</td>
+<td class="instruction">INC B</td>
+<td class="comment-1" rowspan="1">Add one to B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48616"></span>BDE8</td>
+<td class="instruction">JR $BDD6</td>
+<td class="comment-1" rowspan="1">Go back to <a href="48578.html#48598">BDD6</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="48618"></span>BDEA</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">Copy B into A - Its position is the relation</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48619"></span>BDEB</td>
+<td class="instruction">LD ($BA1A),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="47635.html">$BA1A</a> in "Variables used by the code at <a href="47648.html">BA20</a>-<a href="48965.html#48984">BF58</a>"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48622"></span>BDEE</td>
+<td class="instruction">LD A,$02</td>
+<td class="comment-1" rowspan="1">Load A with $02 - The things named need not be here (<a href="40918.html#41010">$A038</a> = 2)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48624"></span>BDF0</td>
+<td class="instruction">LD ($A038),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41010">$A038</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48627"></span>BDF3</td>
+<td class="instruction">CALL $BE3C</td>
+<td class="comment-1" rowspan="1">Call <a href="48578.html#48700">BE3C</a> (inside "Turn the player's remark into a statement") - The first thing matching the subject words</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48630"></span>BDF6</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1">Compare A with $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48632"></span>BDF8</td>
+<td class="instruction">RET Z</td>
+<td class="comment-1" rowspan="1">If A equals $FF, return - None: not a statement</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48633"></span>BDF9</td>
+<td class="instruction">LD ($BA19),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="47635.html">$BA19</a> in "Variables used by the code at <a href="47648.html">BA20</a>-<a href="48965.html#48984">BF58</a>"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48636"></span>BDFC</td>
+<td class="instruction">CALL $BE3C</td>
+<td class="comment-1" rowspan="1">Call <a href="48578.html#48700">BE3C</a> (inside "Turn the player's remark into a statement") - More than one: carry (which one is meant?)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48639"></span>BDFF</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1">Compare A with $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48641"></span>BE01</td>
+<td class="instruction">JR NZ,$BE3A</td>
+<td class="comment-1" rowspan="1">If A differs from $FF, jump on to <a href="48578.html#48698">BE3A</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="48643"></span>BE03</td>
+<td class="instruction">LD A,($BA19)</td>
+<td class="comment-1" rowspan="1">Read <a href="47635.html">$BA19</a> in "Variables used by the code at <a href="47648.html">BA20</a>-<a href="48965.html#48984">BF58</a>" into A - Copy the subject's entry</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48646"></span>BE06</td>
+<td class="instruction">CALL $BE22</td>
+<td class="comment-1" rowspan="1">Call <a href="48578.html#48674">BE22</a> (inside "Turn the player's remark into a statement")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48649"></span>BE09</td>
+<td class="instruction">CALL $BE4B</td>
+<td class="comment-1" rowspan="1">Call <a href="48578.html#48715">BE4B</a> (inside "Turn the player's remark into a statement") - The same for the object words</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48652"></span>BE0C</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1">Compare A with $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48654"></span>BE0E</td>
+<td class="instruction">RET Z</td>
+<td class="comment-1" rowspan="1">If A equals $FF, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48655"></span>BE0F</td>
+<td class="instruction">LD ($BA1B),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="47635.html#47643">BA1B</a> in "Variables used by the code at <a href="47648.html">BA20</a>-<a href="48965.html#48984">BF58</a>"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48658"></span>BE12</td>
+<td class="instruction">CALL $BE4B</td>
+<td class="comment-1" rowspan="1">Call <a href="48578.html#48715">BE4B</a> (inside "Turn the player's remark into a statement")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48661"></span>BE15</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1">Compare A with $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48663"></span>BE17</td>
+<td class="instruction">JR NZ,$BE3A</td>
+<td class="comment-1" rowspan="1">If A differs from $FF, skip ahead to <a href="48578.html#48698">BE3A</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="48665"></span>BE19</td>
+<td class="instruction">LD A,($BA1B)</td>
+<td class="comment-1" rowspan="1">Read <a href="47635.html#47643">BA1B</a> in "Variables used by the code at <a href="47648.html">BA20</a>-<a href="48965.html#48984">BF58</a>" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48668"></span>BE1C</td>
+<td class="instruction">CALL $BE22</td>
+<td class="comment-1" rowspan="1">Call <a href="48578.html#48674">BE22</a> (inside "Turn the player's remark into a statement")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48671"></span>BE1F</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - Succeed (NZ)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48673"></span>BE21</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="48674"></span>BE22</td>
+<td class="instruction">CALL <a href="53815.html">$D237</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Resolve an id (in A) to its full entity record" (<a href="53815.html">D237</a>) - HL = the thing's record</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48677"></span>BE25</td>
+<td class="instruction">PUSH IX</td>
+<td class="comment-1" rowspan="1">Save IX on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48679"></span>BE27</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48680"></span>BE28</td>
+<td class="instruction">BIT 6,(IX+$05)</td>
+<td class="comment-1" rowspan="1">Test bit 6 of byte +5 of the record at IX - A person (+5 bit 6) goes to <a href="40918.html#40946">$9FF6</a>, anything else to <a href="40918.html#40954">$9FFC</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="48684"></span>BE2C</td>
+<td class="instruction">LD DE,$9FF6</td>
+<td class="comment-1" rowspan="1">Point DE at <a href="40918.html#40946">$9FF6</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48687"></span>BE2F</td>
+<td class="instruction">JR NZ,$BE34</td>
+<td class="comment-1" rowspan="1">If bit 6 of byte +5 of the record at IX is set, skip ahead to <a href="48578.html#48692">BE34</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="48689"></span>BE31</td>
+<td class="instruction">LD DE,$9FFC</td>
+<td class="comment-1" rowspan="1">Point DE at <a href="40918.html#40954">$9FFC</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-2"><span id="48692"></span>BE34</td>
+<td class="instruction">LD BC,$0006</td>
+<td class="comment-1" rowspan="1">Load BC with $0006 - Copy six bytes</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48695"></span>BE37</td>
+<td class="instruction">LDIR</td>
+<td class="comment-1" rowspan="1">Copy BC bytes from where HL points to where DE points, counting up</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48697"></span>BE39</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="48698"></span>BE3A</td>
+<td class="instruction">SCF</td>
+<td class="comment-1" rowspan="1">Set the carry flag for the caller - Carry: ambiguous</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48699"></span>BE3B</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="48700"></span>BE3C</td>
+<td class="instruction">LD IX,($BA13)</td>
+<td class="comment-1" rowspan="1">Read "Variables used by the code at <a href="47648.html">BA20</a>-<a href="48965.html#48984">BF58</a>" (<a href="47635.html">BA13</a>) into IX - Next thing matching the subject slot (<a href="45421.html">$B172</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48704"></span>BE40</td>
+<td class="instruction">LD HL,$B172</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="45421.html">$B172</a> in "Parser variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48707"></span>BE43</td>
+<td class="instruction">CALL <a href="54122.html">$D36A</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Find the next thing that matches a word slot of the..." (<a href="54122.html">D36A</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48710"></span>BE46</td>
+<td class="instruction">LD ($BA13),IX</td>
+<td class="comment-1" rowspan="1">Store IX in "Variables used by the code at <a href="47648.html">BA20</a>-<a href="48965.html#48984">BF58</a>" (<a href="47635.html">BA13</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48714"></span>BE4A</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="48715"></span>BE4B</td>
+<td class="instruction">LD IX,($BA15)</td>
+<td class="comment-1" rowspan="1">Read <a href="47635.html">$BA15</a> in "Variables used by the code at <a href="47648.html">BA20</a>-<a href="48965.html#48984">BF58</a>" into IX - Next thing matching the object slot (<a href="45421.html#45429">$B178</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48719"></span>BE4F</td>
+<td class="instruction">LD HL,$B178</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="45421.html#45429">$B178</a> in "Parser variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48722"></span>BE52</td>
+<td class="instruction">CALL <a href="54122.html">$D36A</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Find the next thing that matches a word slot of the..." (<a href="54122.html">D36A</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48725"></span>BE55</td>
+<td class="instruction">LD ($BA15),IX</td>
+<td class="comment-1" rowspan="1">Store IX in <a href="47635.html">$BA15</a> in "Variables used by the code at <a href="47648.html">BA20</a>-<a href="48965.html#48984">BF58</a>"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="48729"></span>BE59</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="48465.html">BD51</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#48578">Map</a></td>
+<td class="next">
+Next: <a href="48730.html">BE5A</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

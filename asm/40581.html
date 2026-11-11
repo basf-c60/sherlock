@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at 9E85 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="40564.html">9E74</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#40581">Map</a></td>
+<td class="next">
+Next: <a href="40610.html">9EA2</a>
+</td>
+</tr>
+</table>
+<div class="description">9E85: Game-over record: the Major is arrested</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Does nothing once <a href="40581.html#40583">$9E88</a> - the operand of its own LD A,$00 (self-modifying) - is non-zero, which the routine of the case statement MAJOR PERCIVAL FFOULKES IS INNOCENT sets when it is proven (<a href="39420.html#39485">9A3D</a>, which also prints <a href="28912.html">70F0</a>: 'VERY GOOD HOLMES, I SHALL RETURN TO LEATHER HEAD TOMORROW TO HAVE ANOTHER LOOK AROUND.'). Otherwise prints <a href="26997.html">6975</a> ('AS THE MAJOR ENTERS LESTRADE ATTEMPTS TO ARREST HIM...') and ends the game with <a href="27071.html">69BF</a> ('...WELL HOLMES THAT WRAPS UP THIS CASE, SORRY YOU WERE NOT OF MORE HELP...') if Lestrade is where the player is (<a href="40918.html#40962">$A009</a> = <a href="40918.html#40970">A00A</a>), or <a href="27174.html">6A26</a> ('INSPECTOR LESTRADE ENTERS AND SAYS...') if not. Run by Lestrade's script (<a href="59367.html#59755">E96B</a>).
+</div>
+<div class="paragraph">
+Lestrade's script reaches this record at about 1am on Tuesday with <a href="40581.html#40583">$9E88</a> still 0, and the game ends with 'Inspector Lestrade enters and says to you " Well Holmes that wraps up this case, sorry you were not of more help but you cannot solve them all you know. ". Despite his assurances you cannot help feeling there should be more to this case. Perhaps you should try again.' (the player was elsewhere, so <a href="26997.html">6975</a> was not shown).
+</div>
+<div class="paragraph">
+<a href="40564.html">9E74</a> is the shared ending: prints the message in HL, waits for a key (<a href="49926.html">C306</a>), and restarts (<a href="45228.html">B0AC</a>).
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ and nothing printed once $9E88 is non-zero; otherwise the game ends through $9E74</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="40581"></span>9E85</td>
+<td class="instruction">DEFB $00,$00</td>
+<td class="comment-1" rowspan="1">Action record header: flags $00; byte 1 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40583"></span>9E87</td>
+<td class="instruction">LD A,$00</td>
+<td class="comment-1" rowspan="1">Load A with $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40585"></span>9E89</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Clear the carry flag for the caller (A is unchanged)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40586"></span>9E8A</td>
+<td class="instruction">RET NZ</td>
+<td class="comment-1" rowspan="1">If A is not zero, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40587"></span>9E8B</td>
+<td class="instruction">LD HL,$6975</td>
+<td class="comment-1" rowspan="1">Point HL at the message "AS THE MAJOR ENTERS LESTRADE ATTEMPTS TO ARREST... (<a href="26997.html">6975</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40590"></span>9E8E</td>
+<td class="instruction">CALL <a href="42399.html">$A59F</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print the message at HL" (<a href="42399.html">A59F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40593"></span>9E91</td>
+<td class="instruction">LD A,($A009)</td>
+<td class="comment-1" rowspan="1">Read the room the player is in, which decides what is shown (<a href="40918.html#40962">$A009</a>) into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40596"></span>9E94</td>
+<td class="instruction">LD HL,$A00A</td>
+<td class="comment-1" rowspan="1">Point HL at the current actor's room (<a href="40918.html#40970">A00A</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40599"></span>9E97</td>
+<td class="instruction">CP (HL)</td>
+<td class="comment-1" rowspan="1">Compare A with the byte at the current actor's room (<a href="40918.html#40970">A00A</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40600"></span>9E98</td>
+<td class="instruction">LD HL,$69BF</td>
+<td class="comment-1" rowspan="1">Point HL at the message "INSPECTOR LESTRADE SAYS TO YOU" WELL HOLMES THAT... (<a href="27071.html">69BF</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40603"></span>9E9B</td>
+<td class="instruction">JR Z,<a href="40564.html">$9E74</a></td>
+<td class="comment-1" rowspan="1">If A equals the byte at the message "INSPECTOR LESTRADE SAYS TO YOU" WELL HOLMES THAT... (<a href="27071.html">69BF</a>), go back to the routine "End the game with the message in HL" (<a href="40564.html">9E74</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40605"></span>9E9D</td>
+<td class="instruction">LD HL,$6A26</td>
+<td class="comment-1" rowspan="1">Point HL at the message "INSPECTOR LESTRADE ENTERS AND SAYS TO YOU" WELL... (<a href="27174.html">6A26</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40608"></span>9EA0</td>
+<td class="instruction">JR <a href="40564.html">$9E74</a></td>
+<td class="comment-1" rowspan="1">Go back to the routine "End the game with the message in HL" (<a href="40564.html">9E74</a>)</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="40564.html">9E74</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#40581">Map</a></td>
+<td class="next">
+Next: <a href="40610.html">9EA2</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

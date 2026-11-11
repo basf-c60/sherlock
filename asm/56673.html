@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at DD61 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="56658.html">DD52</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#56673">Map</a></td>
+<td class="next">
+Next: <a href="56708.html">DD84</a>
+</td>
+</tr>
+</table>
+<div class="description">DD61: Action record: find the exit to a room next door (RUN at $DD54)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="56658.html#56660">DD54</a>.
+</div>
+<div class="paragraph">
+The pre-check takes the direct object as a room number, finds the exit from the actor's room to it (<a href="54380.html#54385">D471</a>) and refuses if there is none or if the exit is not a plain movement direction (a value below 11); the body stores that direction in plan register <a href="40918.html#40919">9FD7</a>. Used by the walk-to-a-room sub-script at <a href="56658.html">DD52</a>, which then DOes the direction.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">The exit found by the pre-check</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">$9FD7</td>
+<td class="register-desc">The exit's direction</td>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">NZ</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="56673"></span>DD61</td>
+<td class="instruction">DEFB $64,$00,$6E,$DD</td>
+<td class="comment-1" rowspan="1">Action record header: flags $64; bit 5: test <a href="53368.html">D078</a> first; bit 6: pre-check at <a href="56673.html#56686">DD6E</a>; byte 1 $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56677"></span>DD65</td>
+<td class="instruction">LD A,(IX+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IX into A - IX = the exit found by the pre-check; its direction (+0) becomes the plan's direction</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56680"></span>DD68</td>
+<td class="instruction">LD ($9FD7),A</td>
+<td class="comment-1" rowspan="1">Store A in the plan's direct object (<a href="40918.html#40919">9FD7</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56683"></span>DD6B</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller - Succeed</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56685"></span>DD6D</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56686"></span>DD6E</td>
+<td class="instruction">LD A,($A034)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A034</a> in "Game variables" into A - Pre-check: the direct object is a room; find the exit to it next to the actor (<a href="54380.html#54385">D471</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56689"></span>DD71</td>
+<td class="instruction">CALL <a href="54380.html#54385">$D471</a></td>
+<td class="comment-1" rowspan="1">Call <a href="54380.html#54385">D471</a> (inside "Find the exit from the actor's room through...")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56692"></span>DD74</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1">Compare A with $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56694"></span>DD76</td>
+<td class="instruction">JP Z,<a href="56341.html">$DC15</a></td>
+<td class="comment-1" rowspan="1">No such exit: refuse (<a href="56341.html">DC15</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56697"></span>DD79</td>
+<td class="instruction">LD A,(IX+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IX into A - Its direction must be below 11, a compass direction (not UP or DOWN...)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56700"></span>DD7C</td>
+<td class="instruction">CP $0B</td>
+<td class="comment-1" rowspan="1">Compare A with $0B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56702"></span>DD7E</td>
+<td class="instruction">JP NC,<a href="56341.html">$DC15</a></td>
+<td class="comment-1" rowspan="1">If A is $0B or more, go back to the routine "Fail: A = 0, HL = 0, Z set" (<a href="56341.html">DC15</a>) - Otherwise refuse</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56705"></span>DD81</td>
+<td class="instruction">OR $01</td>
+<td class="comment-1" rowspan="1">Make A non-zero, which clears the zero flag, and hand that back to the caller</td>
+</tr>
+<tr>
+<td class="address-1"><span id="56707"></span>DD83</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="56658.html">DD52</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#56673">Map</a></td>
+<td class="next">
+Next: <a href="56708.html">DD84</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

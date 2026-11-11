@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at AE7F - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="44650.html">AE6A</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#44671">Map</a></td>
+<td class="next">
+Next: <a href="44713.html">AEA9</a>
+</td>
+</tr>
+</table>
+<div class="description">AE7F: Read the next token of the typed line</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The word list built by <a href="55061.html">D715</a> (<a href="../rom_symbols.html#a5B81">$5B81</a> on) is a run of tokens: a class byte, then - for classes below $80 and for $90, $E0 and $F0 - a 2-byte word reference (high byte first) or value. Returns the class in A and D and the reference in BC, keeps the previous class at <a href="40918.html#41002">$A02D</a> and the token's address at <a href="40918.html#40994">$A029</a>.
+</div>
+<div class="paragraph">
+'TAKE THE LAMP, EXAMINE IT. PAY 2/6 TO WATSON' becomes $30 TAKE, $80 (THE, no reference), $50 LAMP, $A0 (comma), $30 EXAMINE, $90 IT, $B0 (full stop), $30 PAY, $F0 <a href="32890.html#32922">$809E</a> (2/6, 30 pence), $70 TO, $50 WATSON, $B0, $C0 (end). So $30 is a verb, $50 a noun, $70 a preposition, $80 a word with no meaning to the parser, $90 a special word (the table at <a href="44907.html">AF6B</a>: IT, HE, QUIT, a quote mark...), $F0 a number or money, $A0 a comma, $B0 a full stop, $C0 the end.
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. Remember where the token starts (<a href="40918.html#40994">$A029</a>) and the class of the one before (<a href="40918.html#41002">$A02D</a>).
+</div>
+<div class="paragraph">
+2. The class is the first byte. Classes $E0, $F0, $90 and those below $80 have a two-byte word after them, which is returned in BC.
+</div>
+<div class="paragraph">
+3. Save the position after the token and return the class in A.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">D</td>
+<td class="register-desc">The previous class</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">A,</td>
+<td class="register-desc">D The class of the token</td>
+</tr>
+<tr>
+<td class="register">BC</td>
+<td class="register-desc">The word reference (for classes with one)</td>
+</tr>
+<tr>
+<td class="register">$A029</td>
+<td class="register-desc">Where this token started</td>
+</tr>
+<tr>
+<td class="register">$A02B</td>
+<td class="register-desc">The position after it</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="44671"></span>AE7F</td>
+<td class="instruction">LD HL,($A02B)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41002">$A02B</a> in "Game variables" into HL - Where this token starts</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44674"></span>AE82</td>
+<td class="instruction">LD ($A029),HL</td>
+<td class="comment-1" rowspan="1">Store HL in <a href="40918.html#40994">$A029</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44677"></span>AE85</td>
+<td class="instruction">LD A,D</td>
+<td class="comment-1" rowspan="1">Copy D into A - Remember the previous class</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44678"></span>AE86</td>
+<td class="instruction">LD ($A02D),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41002">$A02D</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44681"></span>AE89</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into A - The class</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44682"></span>AE8A</td>
+<td class="instruction">LD D,A</td>
+<td class="comment-1" rowspan="1">Copy A into D</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44683"></span>AE8B</td>
+<td class="instruction">LD BC,$0000</td>
+<td class="comment-1" rowspan="1">Load BC with $0000</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44686"></span>AE8E</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44687"></span>AE8F</td>
+<td class="instruction">CP $E0</td>
+<td class="comment-1" rowspan="1">Compare A with $E0 - Classes with a word after them...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44689"></span>AE91</td>
+<td class="instruction">JR Z,$AE9F</td>
+<td class="comment-1" rowspan="1">If A equals $E0, skip ahead to <a href="44671.html#44703">AE9F</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44691"></span>AE93</td>
+<td class="instruction">CP $F0</td>
+<td class="comment-1" rowspan="1">Compare A with $F0</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44693"></span>AE95</td>
+<td class="instruction">JR Z,$AE9F</td>
+<td class="comment-1" rowspan="1">If A equals $F0, skip ahead to <a href="44671.html#44703">AE9F</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44695"></span>AE97</td>
+<td class="instruction">CP $90</td>
+<td class="comment-1" rowspan="1">Compare A with $90</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44697"></span>AE99</td>
+<td class="instruction">JR Z,$AE9F</td>
+<td class="comment-1" rowspan="1">If A equals $90, skip ahead to <a href="44671.html#44703">AE9F</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="44699"></span>AE9B</td>
+<td class="instruction">CP $80</td>
+<td class="comment-1" rowspan="1">Compare A with $80</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44701"></span>AE9D</td>
+<td class="instruction">JR NC,$AEA4</td>
+<td class="comment-1" rowspan="1">If A is $80 or more, skip ahead to <a href="44671.html#44708">AEA4</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="44703"></span>AE9F</td>
+<td class="instruction">LD A,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into A - ...BC = the word</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44704"></span>AEA0</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">Copy A into B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44705"></span>AEA1</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44706"></span>AEA2</td>
+<td class="instruction">LD C,(HL)</td>
+<td class="comment-1" rowspan="1">Read the byte HL points at into C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44707"></span>AEA3</td>
+<td class="instruction">INC HL</td>
+<td class="comment-1" rowspan="1">Step HL on to the next byte</td>
+</tr>
+<tr>
+<td class="address-2"><span id="44708"></span>AEA4</td>
+<td class="instruction">LD ($A02B),HL</td>
+<td class="comment-1" rowspan="1">Store HL in <a href="40918.html#41002">$A02B</a> in "Game variables" - Step past the token</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44711"></span>AEA7</td>
+<td class="instruction">LD A,D</td>
+<td class="comment-1" rowspan="1">Copy D into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44712"></span>AEA8</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="44650.html">AE6A</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#44671">Map</a></td>
+<td class="next">
+Next: <a href="44713.html">AEA9</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at C4D1 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="50354.html">C4B2</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#50385">Map</a></td>
+<td class="next">
+Next: <a href="50498.html">C542</a>
+</td>
+</tr>
+</table>
+<div class="description">C4D1: Carry out the command in $A033-$A035 for the current actor</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Addresses named in the title: <a href="40918.html#41010">$A033</a>, <a href="40918.html#41010">$A035</a>.
+</div>
+<div class="paragraph">
+Verbs <a href="58519.html">128</a> and up go to <a href="50563.html">C583</a> (the script-only verbs). Then <a href="51497.html">C929</a> finds and runs the action record.
+</div>
+<div class="paragraph">
+How it works:
+</div>
+<div class="paragraph">
+1. A verb number with bit 7 set is a script-only verb: use the numbered record (<a href="50563.html">C583</a>).
+</div>
+<div class="paragraph">
+2. Otherwise find the verb's pattern record (<a href="41649.html">A2B1</a>), gather its flags (<a href="41661.html">A2BD</a>), and set the two objects' requirement codes (<a href="50323.html">C493</a>, <a href="50354.html">C4B2</a>).
+</div>
+<div class="paragraph">
+3. If a number is required, the object must be $FE. If a required direct object is still $FF, ask for it.
+</div>
+<div class="paragraph">
+4.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$A033</td>
+<td class="register-desc">The verb</td>
+</tr>
+<tr>
+<td class="register">A034 The direct object, </td>
+<td class="register-desc">A035 the indirect object</td>
+</tr>
+<tr>
+<td class="register">$A036</td>
+<td class="register-desc">The actor</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Z if refused; NZ if the action was done</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="50385"></span>C4D1</td>
+<td class="instruction">LD A,($A033)</td>
+<td class="comment-1" rowspan="1">The verb number (<a href="40918.html#41010">$A033</a>): bit 7 set means a script-only verb (<a href="50563.html">C583</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50388"></span>C4D4</td>
+<td class="instruction">BIT 7,A</td>
+<td class="comment-1" rowspan="1">A script-only verb (128 and up)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50390"></span>C4D6</td>
+<td class="instruction">JP NZ,<a href="50563.html">$C583</a></td>
+<td class="comment-1" rowspan="1">Yes: <a href="50563.html">C583</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="50393"></span>C4D9</td>
+<td class="instruction">CALL <a href="41649.html">$A2B1</a></td>
+<td class="comment-1" rowspan="1">Call the routine "HL = verb A's record in the verb table" (<a href="41649.html">A2B1</a>) - Its pattern record (<a href="41649.html">A2B1</a>) into IX; set the verb flags (<a href="41661.html">A2BD</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50396"></span>C4DC</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50397"></span>C4DD</td>
+<td class="instruction">POP IX</td>
+<td class="comment-1" rowspan="1">Restore IX from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50399"></span>C4DF</td>
+<td class="instruction">CALL <a href="41661.html">$A2BD</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Gather a verb record's flag nibbles into <a href="40918.html#40986">$A01D</a> and..." (<a href="41661.html">A2BD</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50402"></span>C4E2</td>
+<td class="instruction">CALL <a href="50323.html">$C493</a></td>
+<td class="comment-1" rowspan="1">Requirement codes of the two objects (<a href="50323.html">C493</a>, <a href="50354.html">C4B2</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50405"></span>C4E5</td>
+<td class="instruction">CALL <a href="50354.html">$C4B2</a></td>
+<td class="comment-1" rowspan="1">...and the indirect object</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50408"></span>C4E8</td>
+<td class="instruction">XOR A</td>
+<td class="comment-1" rowspan="1">Clear A to zero (and the carry flag) - <a href="40918.html#40970">$A00B</a> = 0</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50409"></span>C4E9</td>
+<td class="instruction">LD ($A00B),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#40970">$A00B</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50412"></span>C4EC</td>
+<td class="instruction">LD A,($A01D)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40986">$A01D</a> in "Game variables" into A - Verb takes no objects (<a href="40918.html#40986">$A01D</a> bits 2-3 clear)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50415"></span>C4EF</td>
+<td class="instruction">AND $0C</td>
+<td class="comment-1" rowspan="1">Keep only bits 2, 3 of A (mask $0C)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50417"></span>C4F1</td>
+<td class="instruction">JR Z,$C53A</td>
+<td class="comment-1" rowspan="1">Yes: run it as it is (<a href="50385.html#50490">C53A</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50419"></span>C4F3</td>
+<td class="instruction">LD A,($A00F)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40970">$A00F</a> in "Game variables" into A - Direct object a number (code 5)? Then <a href="40918.html#41010">$A034</a> must be $FE...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50422"></span>C4F6</td>
+<td class="instruction">CP $05</td>
+<td class="comment-1" rowspan="1">Compare A with $05</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50424"></span>C4F8</td>
+<td class="instruction">JR NZ,$C502</td>
+<td class="comment-1" rowspan="1">If A differs from $05, skip ahead to <a href="50385.html#50434">C502</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="50426"></span>C4FA</td>
+<td class="instruction">LD A,($A034)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A034</a> in "Game variables" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50429"></span>C4FD</td>
+<td class="instruction">CP $FE</td>
+<td class="comment-1" rowspan="1">Compare A with $FE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50431"></span>C4FF</td>
+<td class="instruction">JP NZ,<a href="52033.html">$CB41</a></td>
+<td class="comment-1" rowspan="1">...else refuse (Z)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="50434"></span>C502</td>
+<td class="instruction">LD A,($A010)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40970">$A010</a> in "Game variables" into A - Same for the indirect object and <a href="40918.html#41010">$A035</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="50437"></span>C505</td>
+<td class="instruction">CP $05</td>
+<td class="comment-1" rowspan="1">Compare A with $05</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50439"></span>C507</td>
+<td class="instruction">JR NZ,$C511</td>
+<td class="comment-1" rowspan="1">If A differs from $05, skip ahead to <a href="50385.html#50449">C511</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="50441"></span>C509</td>
+<td class="instruction">LD A,($A035)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A035</a> in "Game variables" into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50444"></span>C50C</td>
+<td class="instruction">CP $FE</td>
+<td class="comment-1" rowspan="1">Compare A with $FE</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50446"></span>C50E</td>
+<td class="instruction">JP NZ,<a href="52033.html">$CB41</a></td>
+<td class="comment-1" rowspan="1">If A differs from $FE, jump on to the routine "Return Z (does nothing)" (<a href="52033.html">CB41</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="50449"></span>C511</td>
+<td class="instruction">LD A,($A00F)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40970">$A00F</a> in "Game variables" into A - Does the verb want a direct object, and is <a href="40918.html#41010">$A034</a> still $FF?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50452"></span>C514</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50453"></span>C515</td>
+<td class="instruction">JR Z,$C531</td>
+<td class="comment-1" rowspan="1">If A is zero, skip ahead to <a href="50385.html#50481">C531</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="50455"></span>C517</td>
+<td class="instruction">LD A,($A034)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A034</a> in "Game variables" into A - Needs an object but none given?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50458"></span>C51A</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1">Compare A with $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50460"></span>C51C</td>
+<td class="instruction">JR NZ,$C531</td>
+<td class="comment-1" rowspan="1">If A differs from $FF, skip ahead to <a href="50385.html#50481">C531</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="50462"></span>C51E</td>
+<td class="instruction">LD B,$FF</td>
+<td class="comment-1" rowspan="1">(<a href="50270.html#50275">C463</a> ends the loop)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="50464"></span>C520</td>
+<td class="instruction">INC B</td>
+<td class="comment-1" rowspan="1">Add one to B - Try the next candidate</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50465"></span>C521</td>
+<td class="instruction">CALL <a href="50270.html#50275">$C463</a></td>
+<td class="comment-1" rowspan="1">Call <a href="50270.html#50275">C463</a> (inside "Is B below the last number for this object...")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50468"></span>C524</td>
+<td class="instruction">RET Z</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50469"></span>C525</td>
+<td class="instruction">LD ($A034),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41010">$A034</a> in "Game variables" - Try the candidate as the direct object</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50472"></span>C528</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Save BC on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50473"></span>C529</td>
+<td class="instruction">CALL <a href="50522.html">$C55A</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="50476"></span>C52C</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore BC from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50477"></span>C52D</td>
+<td class="instruction">JR NZ,$C53A</td>
+<td class="comment-1" rowspan="1">Worked: run it (<a href="50385.html#50490">C53A</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50479"></span>C52F</td>
+<td class="instruction">JR $C520</td>
+<td class="comment-1" rowspan="1">Else the next candidate</td>
+</tr>
+<tr>
+<td class="address-2"><span id="50481"></span>C531</td>
+<td class="instruction">CALL <a href="50498.html">$C542</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="50484"></span>C534</td>
+<td class="instruction">JR Z,$C53A</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, skip ahead to <a href="50385.html#50490">C53A</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="50486"></span>C536</td>
+<td class="instruction">CALL <a href="50522.html#50528">$C560</a></td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="50489"></span>C539</td>
+<td class="instruction">RET Z</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, return</td>
+</tr>
+<tr>
+<td class="address-2"><span id="50490"></span>C53A</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="1">Load A with $01 - <a href="40918.html#40970">$A00B</a> = 1, then find and run the action record (<a href="51497.html">C929</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50492"></span>C53C</td>
+<td class="instruction">LD ($A00B),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#40970">$A00B</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="50495"></span>C53F</td>
+<td class="instruction">JP <a href="51497.html">$C929</a></td>
+<td class="comment-1" rowspan="1">Jump on to the routine "Check the action record against the command's..." (<a href="51497.html">C929</a>)</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="50354.html">C4B2</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#50385">Map</a></td>
+<td class="next">
+Next: <a href="50498.html">C542</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

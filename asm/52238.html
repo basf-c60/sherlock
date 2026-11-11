@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at CC0E - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="52235.html">CC0B</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#52238">Map</a></td>
+<td class="next">
+Next: <a href="52265.html">CC29</a>
+</td>
+</tr>
+</table>
+<div class="description">CC0E: Find the actor record whose id matches C</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+A plain linear search over the sentinel-terminated array of 8-byte actor/character records at <a href="39008.html">9860</a>: given an id in C, walks the table 8 bytes at a time until either field +0 matches (found - IY left pointing at that record) or field +0 is $FF (not found).
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">An actor number</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">IY</td>
+<td class="register-desc">The actor's record, or the $FF end marker if there is none</td>
+</tr>
+<tr>
+<td class="register">BC,</td>
+<td class="register-desc">DE Kept</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="52238"></span>CC0E</td>
+<td class="instruction">PUSH DE</td>
+<td class="comment-1" rowspan="1">Save DE on the stack - Record size is 8 bytes</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52239"></span>CC0F</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Save BC on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52240"></span>CC10</td>
+<td class="instruction">LD C,A</td>
+<td class="comment-1" rowspan="1">Copy A into C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52241"></span>CC11</td>
+<td class="instruction">LD DE,$0008</td>
+<td class="comment-1" rowspan="1">Load DE with $0008</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52244"></span>CC14</td>
+<td class="instruction">LD IY,$9860</td>
+<td class="comment-1" rowspan="1">IY -&gt; first actor record</td>
+</tr>
+<tr>
+<td class="address-2"><span id="52248"></span>CC18</td>
+<td class="instruction">LD A,(IY+$00)</td>
+<td class="comment-1" rowspan="1">This record's id byte...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52251"></span>CC1B</td>
+<td class="instruction">CP C</td>
+<td class="comment-1" rowspan="1">...is it the one we want?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52252"></span>CC1C</td>
+<td class="instruction">JR Z,$CC26</td>
+<td class="comment-1" rowspan="1">If A equals C, skip ahead to <a href="52238.html#52262">CC26</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="52254"></span>CC1E</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="52256"></span>CC20</td>
+<td class="instruction">JR Z,$CC26</td>
+<td class="comment-1" rowspan="1">If A equals $FF, skip ahead to <a href="52238.html#52262">CC26</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="52258"></span>CC22</td>
+<td class="instruction">ADD IY,DE</td>
+<td class="comment-1" rowspan="1">Neither: move to the next record</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52260"></span>CC24</td>
+<td class="instruction">JR $CC18</td>
+<td class="comment-1" rowspan="1">Go back to <a href="52238.html#52248">CC18</a></td>
+</tr>
+<tr>
+<td class="address-2"><span id="52262"></span>CC26</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore BC, DE and return</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52263"></span>CC27</td>
+<td class="instruction">POP DE</td>
+<td class="comment-1" rowspan="1">Restore DE from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52264"></span>CC28</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="52235.html">CC0B</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#52238">Map</a></td>
+<td class="next">
+Next: <a href="52265.html">CC29</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

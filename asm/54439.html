@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at D4A7 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="54421.html">D495</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#54439">Map</a></td>
+<td class="next">
+Next: <a href="54476.html">D4CC</a>
+</td>
+</tr>
+</table>
+<div class="description">D4A7: List the people here: 'YOU CAN SEE ...'</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+<a href="54476.html">D4CC</a> counts them, <a href="26852.html">68E4</a> starts the sentence, <a href="54554.html">D51A</a> lists them.
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">"YOU</td>
+<td class="register-desc">CAN SEE" and the people here listed; registers kept</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="54439"></span>D4A7</td>
+<td class="instruction">PUSH IY</td>
+<td class="comment-1" rowspan="1">Save IY on the stack - Save the registers</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54441"></span>D4A9</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54442"></span>D4AA</td>
+<td class="instruction">PUSH BC</td>
+<td class="comment-1" rowspan="1">Save BC on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54443"></span>D4AB</td>
+<td class="instruction">LD A,$FF</td>
+<td class="comment-1" rowspan="1">Load A with $FF - Count the people here: place $FF (<a href="54476.html">D4CC</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54445"></span>D4AD</td>
+<td class="instruction">CALL <a href="54476.html">$D4CC</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Count the things in place B that should be listed (B)" (<a href="54476.html">D4CC</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54448"></span>D4B0</td>
+<td class="instruction">JR Z,$D4C7</td>
+<td class="comment-1" rowspan="1">If the zero flag is set, skip ahead to <a href="54439.html#54471">D4C7</a> - None: finish</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54450"></span>D4B2</td>
+<td class="instruction">PUSH AF</td>
+<td class="comment-1" rowspan="1">Save AF on the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54451"></span>D4B3</td>
+<td class="instruction">LD HL,$68E4</td>
+<td class="comment-1" rowspan="1">Point HL at the message "YOU CAN SEE" (<a href="26852.html">68E4</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54454"></span>D4B6</td>
+<td class="instruction">CALL <a href="42399.html">$A59F</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print the message at HL" (<a href="42399.html">A59F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54457"></span>D4B9</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore BC from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54458"></span>D4BA</td>
+<td class="instruction">LD C,B</td>
+<td class="comment-1" rowspan="1">Copy B into C</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54459"></span>D4BB</td>
+<td class="instruction">LD A,$FF</td>
+<td class="comment-1" rowspan="1">Load A with $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54461"></span>D4BD</td>
+<td class="instruction">LD IY,($A017)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40978">$A017</a> in "Game variables" into IY</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54465"></span>D4C1</td>
+<td class="instruction">LD B,(IY+$0F)</td>
+<td class="comment-1" rowspan="1">Read byte +15 of the record at IY into B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54468"></span>D4C4</td>
+<td class="instruction">CALL <a href="54554.html">$D51A</a></td>
+<td class="comment-1" rowspan="1">Call the routine "List the things in a place, with commas and AND" (<a href="54554.html">D51A</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="54471"></span>D4C7</td>
+<td class="instruction">POP BC</td>
+<td class="comment-1" rowspan="1">Restore BC from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54472"></span>D4C8</td>
+<td class="instruction">POP AF</td>
+<td class="comment-1" rowspan="1">Restore AF from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54473"></span>D4C9</td>
+<td class="instruction">POP IY</td>
+<td class="comment-1" rowspan="1">Restore IY from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="54475"></span>D4CB</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="54421.html">D495</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#54439">Map</a></td>
+<td class="next">
+Next: <a href="54476.html">D4CC</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

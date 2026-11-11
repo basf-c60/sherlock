@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Data at C190 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-b">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Data</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="49482.html">C14A</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#49552">Map</a></td>
+<td class="next">
+Next: <a href="49576.html">C1A8</a>
+</td>
+</tr>
+</table>
+<div class="description">C190: The chain strip that holds the clock: a 32-pixel pattern, six lines deep</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Drawn once at start-up (<a href="41024.html#41032">$A049</a> calls <a href="49482.html">C14A</a>): each of the six four-byte rows is repeated eight times across the screen from $5140, one pixel line apart, and the attribute row at $5A40 is set to $78. It is the chain-like strip between the room text and the command window, which the clock is printed into (<a href="49576.html">C1A8</a>) - see the screenshot on the Pictures page.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49552"></span>C190</td>
+<td class="instruction">DEFB $00,$3F,$C1,$C0</td>
+<td class="comment-1" rowspan="1">Pixel line 1: ........ ..###### ##.....# ##......</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49556"></span>C194</td>
+<td class="instruction">DEFB $20,$FE,$01,$C4</td>
+<td class="comment-1" rowspan="1">Pixel line 2: ..#..... #######. .......# ##...#..</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49560"></span>C198</td>
+<td class="instruction">DEFB $81,$E8,$0D,$81</td>
+<td class="comment-1" rowspan="1">Pixel line 3: #......# ###.#... ....##.# #......#</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49564"></span>C19C</td>
+<td class="instruction">DEFB $41,$B0,$17,$82</td>
+<td class="comment-1" rowspan="1">Pixel line 4: .#.....# #.##.... ...#.### #.....#.</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49568"></span>C1A0</td>
+<td class="instruction">DEFB $83,$80,$7F,$01</td>
+<td class="comment-1" rowspan="1">Pixel line 5: #.....## #....... .####### .......#</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49572"></span>C1A4</td>
+<td class="instruction">DEFB $23,$83,$FC,$04</td>
+<td class="comment-1" rowspan="1">Pixel line 6: ..#...## #.....## ######.. .....#..</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="49482.html">C14A</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#49552">Map</a></td>
+<td class="next">
+Next: <a href="49576.html">C1A8</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

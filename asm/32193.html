@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Text at 7DC1 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-t">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Messages</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="32098.html">7D62</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#32193">Map</a></td>
+<td class="next">
+Next: <a href="32225.html">7DE1</a>
+</td>
+</tr>
+</table>
+<div class="description">7DC1: Message: "FLICKERING GAS LAMPS PROVIDE ENOUGH LIGHT TO CAST SHADOWS."</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Text: "FLICKERING GAS LAMPS PROVIDE ENOUGH LIGHT TO CAST SHADOWS."
+</div>
+<div class="paragraph">
+No instruction loads it. It is jumped into by control code $02 at <a href="32225.html#32241">$7DF2</a>. It is the night-time half of the hansom cab description (<a href="32225.html">7DE1</a>): after "...IN A HANSOM CAB," control code $17 (<a href="42636.html#42668">A6AC</a>) asks <a href="49164.html">C00C</a> whether it is night; if so the next element, the $02 jump, runs and lands here, otherwise the jump is skipped and the daytime sentence about the sun follows.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="32193"></span>7DC1</td>
+<td class="instruction">DEFB $C3,$27,$83,$74,$D4,$B9,$40,$98</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="32201"></span>7DC9</td>
+<td class="instruction">DEFB $D6,$DF,$42,$49,$0A,$82,$93,$84</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="32209"></span>7DD1</td>
+<td class="instruction">DEFB $F0,$61,$20,$43,$18,$67,$40,$20</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="32217"></span>7DD9</td>
+<td class="instruction">DEFB $46,$9A,$02,$47,$DE,$60,$2E,$1F</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="32098.html">7D62</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#32193">Map</a></td>
+<td class="next">
+Next: <a href="32225.html">7DE1</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

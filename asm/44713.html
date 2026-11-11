@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at AEA9 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="44671.html">AE7F</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#44713">Map</a></td>
+<td class="next">
+Next: <a href="44726.html">AEB6</a>
+</td>
+</tr>
+</table>
+<div class="description">AEA9: IY = the next node in the list (Z at the end)</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The link is the two bytes before the node (IY-2, IY-1), as in every heap block (<a href="41244.html">A11C</a>).
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IY</td>
+<td class="register-desc">A node</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">IY</td>
+<td class="register-desc">The next node</td>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Z at the end of the list</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="44713"></span>AEA9</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL on the stack - As <a href="41207.html">A0F7</a> but for IY: IY = the next node, Z at the end</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44714"></span>AEAA</td>
+<td class="instruction">LD L,(IY-$02)</td>
+<td class="comment-1" rowspan="1">Read byte -2 of the record at IY into L</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44717"></span>AEAD</td>
+<td class="instruction">LD H,(IY-$01)</td>
+<td class="comment-1" rowspan="1">Read byte -1 of the record at IY into H</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44720"></span>AEB0</td>
+<td class="instruction">LD A,H</td>
+<td class="comment-1" rowspan="1">Copy H into A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44721"></span>AEB1</td>
+<td class="instruction">OR L</td>
+<td class="comment-1" rowspan="1">Set in A the bits that are set in L</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44722"></span>AEB2</td>
+<td class="instruction">EX (SP),HL</td>
+<td class="comment-1" rowspan="1">Swap HL with the word on top of the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44723"></span>AEB3</td>
+<td class="instruction">POP IY</td>
+<td class="comment-1" rowspan="1">Restore IY from the stack</td>
+</tr>
+<tr>
+<td class="address-1"><span id="44725"></span>AEB5</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="44671.html">AE7F</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#44713">Map</a></td>
+<td class="next">
+Next: <a href="44726.html">AEB6</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

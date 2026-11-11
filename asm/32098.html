@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Text at 7D62 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-t">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Messages</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="32078.html">7D4E</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#32098">Map</a></td>
+<td class="next">
+Next: <a href="32193.html">7DC1</a>
+</td>
+</tr>
+</table>
+<div class="description">7D62: Message: "THE SUN STREAMS IN THE TWO BROAD WINDOWS IN YOUR SITTING ROOM. THER..."</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Text: "THE SUN STREAMS IN THE TWO BROAD WINDOWS IN YOUR SITTING ROOM. THERE IS A PIPE RACK TO THE RIGHT OF THE SOFA. BULLET POCK MARKS ARE THE FEATURE OF ONE WALL, AND CHARTS AND DIAGRAMS FILL ANOTHER. AN ACID STAINED TABLE SITS IN THE CORNER."
+</div>
+<div class="paragraph">
+No instruction loads it; it is the description of room 8 (your room), whose record <a href="34017.html#34112">8540</a> points to it at byte +7.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="32098"></span>7D62</td>
+<td class="instruction">DEFB $0F,$0B,$A2,$FF,$14,$0B,$B8,$FF</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="32106"></span>7D6A</td>
+<td class="instruction">DEFB $15,$0B,$C0,$FF,$16,$0B,$CC,$FF</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="32114"></span>7D72</td>
+<td class="instruction">DEFB $17,$0B,$DB,$FF,$89,$F2,$87,$E0</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="32122"></span>7D7A</td>
+<td class="instruction">DEFB $D7,$47,$2E,$88,$AA,$67,$62,$86</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="32130"></span>7D82</td>
+<td class="instruction">DEFB $95,$86,$F9,$61,$60,$87,$32,$65</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="32138"></span>7D8A</td>
+<td class="instruction">DEFB $60,$87,$FC,$2E,$81,$52,$86,$B1</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="32146"></span>7D92</td>
+<td class="instruction">DEFB $C5,$4F,$78,$60,$20,$46,$31,$43</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="32154"></span>7D9A</td>
+<td class="instruction">DEFB $4A,$C8,$A0,$65,$86,$04,$89,$62</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="32162"></span>7DA2</td>
+<td class="instruction">DEFB $2C,$63,$81,$9A,$63,$82,$49,$20</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="32170"></span>7DAA</td>
+<td class="instruction">DEFB $43,$32,$58,$C0,$80,$60,$2E,$80</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="32178"></span>7DB2</td>
+<td class="instruction">DEFB $5A,$80,$14,$88,$31,$88,$82,$C7</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+<tr>
+<td class="address-1"><span id="32186"></span>7DBA</td>
+<td class="instruction">DEFB $DD,$68,$60,$81,$E3,$2E,$1F</td>
+<td class="comment-0" rowspan="1"></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="32078.html">7D4E</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#32098">Map</a></td>
+<td class="next">
+Next: <a href="32193.html">7DC1</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

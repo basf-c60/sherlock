@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at C0DF - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="49340.html">C0BC</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#49375">Map</a></td>
+<td class="next">
+Next: <a href="49406.html">C0FE</a>
+</td>
+</tr>
+</table>
+<div class="description">C0DF: Load the saved-game block from tape</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+DE = length, IX = start (kept at <a href="49406.html#49417">C109</a>/<a href="49406.html#49419">C10B</a>). Prints 'PLAY SAVED GAME TAPE TO BE LOADED' (<a href="49340.html">C0BC</a>), reads the 17-byte header into <a href="49406.html">C0FE</a> with LD-BYTES until one arrives, then the block (<a href="49216.html#49289">C089</a>).
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">IX</td>
+<td class="register-desc">The start of the block</td>
+</tr>
+<tr>
+<td class="register">DE</td>
+<td class="register-desc">Its length</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">Carry set when the block loaded correctly</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="49375"></span>C0DF</td>
+<td class="instruction">LD ($C109),DE</td>
+<td class="comment-1" rowspan="1">Store DE in <a href="49406.html#49417">C109</a> in "The saved game's tape header: a CODE file..." - Keep the block's length (DE) and start (IX) at <a href="49406.html#49417">C109</a>/<a href="49406.html#49419">C10B</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="49379"></span>C0E3</td>
+<td class="instruction">LD ($C10B),IX</td>
+<td class="comment-1" rowspan="1">Store IX in <a href="49406.html#49419">C10B</a> in "The saved game's tape header: a CODE file..."</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49383"></span>C0E7</td>
+<td class="instruction">LD HL,$C0BC</td>
+<td class="comment-1" rowspan="1">Point HL at "Tape message: 'PLAY SAVED GAME TAPE TO BE..." (<a href="49340.html">C0BC</a>) - Print 'PLAY SAVED GAME TAPE TO BE LOADED' (<a href="49611.html">C1CB</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49386"></span>C0EA</td>
+<td class="instruction">CALL <a href="49611.html">$C1CB</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print a message: plain ASCII, last byte has bit 7 set" (<a href="49611.html">C1CB</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="49389"></span>C0ED</td>
+<td class="instruction">LD IX,$C0FE</td>
+<td class="comment-1" rowspan="1">Point IX at "The saved game's tape header: a CODE file 'SHD..." (<a href="49406.html">C0FE</a>) - Read a 17-byte header into <a href="49406.html">C0FE</a> with the ROM's LD-BYTES (<a href="../rom_symbols.html#a0556">$0556</a>, A = 0: a header)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49393"></span>C0F1</td>
+<td class="instruction">LD DE,$0011</td>
+<td class="comment-1" rowspan="1">Load DE with $0011</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49396"></span>C0F4</td>
+<td class="instruction">LD A,$00</td>
+<td class="comment-1" rowspan="1">Load A with $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49398"></span>C0F6</td>
+<td class="instruction">AND A</td>
+<td class="comment-1" rowspan="1">Test A for zero (this leaves A as it was and clears carry)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49399"></span>C0F7</td>
+<td class="instruction">CALL $0556</td>
+<td class="comment-1" rowspan="1">Call the ROM tape-load routine (<a href="../rom_symbols.html#a0556">$0556</a>) - (carry clear: no header read - try again)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49402"></span>C0FA</td>
+<td class="instruction">JR NC,$C0ED</td>
+<td class="comment-1" rowspan="1">If the carry flag is clear, go back to <a href="49375.html#49389">C0ED</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="49404"></span>C0FC</td>
+<td class="instruction">JR <a href="49216.html#49289">$C089</a></td>
+<td class="comment-1" rowspan="1">Then read the block itself (<a href="49216.html#49289">C089</a>, A = $FF)</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="49340.html">C0BC</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#49375">Map</a></td>
+<td class="next">
+Next: <a href="49406.html">C0FE</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

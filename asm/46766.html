@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at B6AE - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="46547.html">B5D3</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#46766">Map</a></td>
+<td class="next">
+Next: <a href="46806.html">B6D6</a>
+</td>
+</tr>
+</table>
+<div class="description">B6AE: No indirect object: DON'T BE SILLY, or YOU CANNOT ... THE ...</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+The second-slot counterpart of <a href="46547.html#46687">B65F</a>, handed out by <a href="45827.html">B303</a>. If the slot wants a number (requirement codes 5 and 6) or holds one, prints 'DON'T BE SILLY.' (<a href="46547.html#46705">B671</a>, <a href="26709.html">6855</a>). Otherwise, if the slot has words, checks them against the room's scenery (<a href="46810.html#46832">B6F0</a>) and then asks the question at <a href="46547.html#46732">B68C</a>.
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$A010</td>
+<td class="register-desc">The indirect object's requirement code</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">message printed ($A59F)</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="46766"></span>B6AE</td>
+<td class="instruction">LD A,($A010)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40970">$A010</a> in "Game variables" into A - Indirect object requirement 5 or 6 (a number): YOU CANNOT ... (<a href="46547.html#46705">B671</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46769"></span>B6B1</td>
+<td class="instruction">CP $05</td>
+<td class="comment-1" rowspan="1">Compare A with $05</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46771"></span>B6B3</td>
+<td class="instruction">JR Z,<a href="46547.html#46705">$B671</a></td>
+<td class="comment-1" rowspan="1">If A equals $05, go back to <a href="46547.html#46705">B671</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46773"></span>B6B5</td>
+<td class="instruction">CP $06</td>
+<td class="comment-1" rowspan="1">Compare A with $06</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46775"></span>B6B7</td>
+<td class="instruction">JR Z,<a href="46547.html#46705">$B671</a></td>
+<td class="comment-1" rowspan="1">If A equals $06, go back to <a href="46547.html#46705">B671</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46777"></span>B6B9</td>
+<td class="instruction">LD A,($B179)</td>
+<td class="comment-1" rowspan="1">Read <a href="45421.html#45429">$B179</a> in "Parser variables" into A - The indirect object slot's first word (<a href="45421.html#45429">$B179</a>): bit 7 set (a number): the same</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46780"></span>B6BC</td>
+<td class="instruction">BIT 7,A</td>
+<td class="comment-1" rowspan="1">Test bit 7 of A</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46782"></span>B6BE</td>
+<td class="instruction">JR NZ,<a href="46547.html#46705">$B671</a></td>
+<td class="comment-1" rowspan="1">If bit 7 of A is set, go back to <a href="46547.html#46705">B671</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="46784"></span>B6C0</td>
+<td class="instruction">LD HL,$B16E</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="45421.html">$B16E</a> in "Parser variables" - Count in <a href="45421.html">$B16E</a>: bit 0 set means a noun was typed</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46787"></span>B6C3</td>
+<td class="instruction">BIT 0,(HL)</td>
+<td class="comment-1" rowspan="1">Test bit 0 of the byte at <a href="45421.html">$B16E</a> in "Parser variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46789"></span>B6C5</td>
+<td class="instruction">LD HL,$B178</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="45421.html#45429">$B178</a> in "Parser variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46792"></span>B6C8</td>
+<td class="instruction">CALL NZ,<a href="46810.html#46832">$B6F0</a></td>
+<td class="comment-1" rowspan="1">Then copy the name words at <a href="45421.html#45429">$B178</a> for the message (<a href="46810.html#46832">B6F0</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46795"></span>B6CB</td>
+<td class="instruction">CALL <a href="46547.html#46639">$B62F</a></td>
+<td class="comment-1" rowspan="1">Print the start of the message (<a href="46547.html#46639">B62F</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46798"></span>B6CE</td>
+<td class="instruction">LD A,($B16E)</td>
+<td class="comment-1" rowspan="1">Read <a href="45421.html">$B16E</a> in "Parser variables" into A - Finish it using the indirect slot</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46801"></span>B6D1</td>
+<td class="instruction">LD HL,$B178</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="45421.html#45429">$B178</a> in "Parser variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="46804"></span>B6D4</td>
+<td class="instruction">JR <a href="46547.html#46732">$B68C</a></td>
+<td class="comment-1" rowspan="1">Go back to <a href="46547.html#46732">B68C</a></td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="46547.html">B5D3</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#46766">Map</a></td>
+<td class="next">
+Next: <a href="46806.html">B6D6</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

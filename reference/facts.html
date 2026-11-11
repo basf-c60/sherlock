@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Trivia - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Facts">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Trivia</h1>
+<ul class="contents">
+<li><a href="#the_last_scene">How the game is won</a></li>
+<li><a href="#the_win_typed">The winning line from Wednesday 10.53am, typed</a></li>
+<li><a href="#second_winning_route">A second winning route - shadow Lestrade from Scotland Yard</a></li>
+<li><a href="#tuesday_ordering">Tuesday's order of work that fits the clock</a></li>
+<li><a href="#burning_note_typed">The burning note - TAKE NOTE FROM FIREPLACE, then drop and plain TAKE it</a></li>
+<li><a href="#followers_lag_one_turn">Lestrade and Watson follow one turn behind you, so a train can leave without them</a></li>
+<li><a href="#train_goes_on_to_platform_two">Riding the Leatherhead train past your stop costs the police cab</a></li>
+<li><a href="#police_cab_seats">The police cab fits four - you, Watson, Lestrade and the constable - not Chief Constable Straker</a></li>
+<li><a href="#ordering_the_cab_strands_lestrade">Giving the police cab your own orders leaves Lestrade behind</a></li>
+<li><a href="#phipps_shoots_the_bedroom">Basil's bedroom is deadly at 9.50am on Wednesday, even in disguise</a></li>
+<li><a href="#window_exit_bedroom">The bedroom window works both ways - SOUTHWEST to the front yard, WEST to Camden Street</a></li>
+<li><a href="#messenger_note_watched">The messenger who delivers a note to Basil is shown only if you are watching</a></li>
+<li><a href="#train_circle_timings">The underground train - Kings Cross platform one at 6.29, Victoria platform one at 6.41, Paddington at 6.43</a></li>
+<li><a href="#lestrade_orders_tried">Which orders Lestrade takes on platform two (and when)</a></li>
+<li><a href="#lestrade_cab_clash">Lestrade rides the same cab - keep out of cabs at 12.20-12.45am and 7.05-7.20am</a></li>
+<li><a href="#cab_change_and_fares">Fares - 2d from Camden Street to Parliament Street, 6d from Parliament Street to Kings Cross Road</a></li>
+<li><a href="#cab_fares">Cab fares</a></li>
+<li><a href="#stale_quotes_cabbie">Quoted speech is queued - a cabbie can ignore a destination until old quotes are flushed</a></li>
+<li><a href="#pay_not_give_money">Pay a cabbie with PAY 10D TO CABBIE, not GIVE MONEY TO CABBIE</a></li>
+<li><a href="#three_endings">How the case can end</a></li>
+<li><a href="#meet_lestrade_by_3pm">Be introduced to Lestrade by 3pm on Monday, or the game ends</a></li>
+<li><a href="#the_case_table">The solution is a table of statements and evidence</a></li>
+<li><a href="#watson_remembers">Watson remembers what you tell him about the case</a></li>
+<li><a href="#watson_connections">Watson's connections</a></li>
+<li><a href="#catch_the_major">To clear the Major, catch him at the opium den</a></li>
+<li><a href="#tricia_is_mrs_jones">Tricia Fender is Mrs Jones in disguise - and that is how the last marker is earned</a></li>
+<li><a href="#blackmail_statement">TRICIA FENDER BLACKMAILED MRS BROWN does nothing but get a shrug</a></li>
+<li><a href="#early_sale_statement_unneeded">Saying THE SALE LOCATION IS OLD MILL ROAD on Tuesday afternoon is not needed</a></li>
+<li><a href="#wall_safe_trap">Opening Basil's wall safe on Monday gets you shot</a></li>
+<li><a href="#large_rock_tuesday">The large rock - EXAMINE CLOSELY DEEP STREAM, on Tuesday, east of the bridge</a></li>
+<li><a href="#large_rock_needs_lestrade">The rock needs Lestrade in the room - Tuesday morning, east side of the bridge</a></li>
+<li><a href="#disguise_needs_a_trick">The disguise cannot be picked up with the lamp - but WEAR then TAKE OFF carries it</a></li>
+<li><a href="#basils_london_house">Basil's Camden Street house - what was observed, and the wall in the way</a></li>
+<li><a href="#the_game_goes_on">The game does not wait for you</a></li>
+<li><a href="#bedtime">The household goes to bed at 9pm</a></li>
+<li><a href="#bring_a_lamp">It gets dark at 8pm</a></li>
+<li><a href="#cast_list">The cast and objects</a></li>
+<li><a href="#map_decoded_and_walked">The map - 106 rooms, 206 exits, every one tried</a></li>
+<li><a href="#police_men_are_doors">The police men are doors</a></li>
+<li><a href="#plan_scripts">Every character, the player included, runs a script</a></li>
+<li><a href="#waiting_for_the_hour">Characters keep appointments by failing until the time is right</a></li>
+<li><a href="#busy_characters">Characters can be too busy to do what you ask</a></li>
+<li><a href="#thirteen_pictures">Only fourteen rooms have a picture</a></li>
+<li><a href="#scenery_words">Scenery</a></li>
+<li><a href="#examine_closely">EXAMINE CLOSELY finds hidden things that EXAMINE does not</a></li>
+<li><a href="#follow_climbs_in">FOLLOW WATSON puts you in Watson's armchair</a></li>
+<li><a href="#go_furiously">GO FURIOUSLY TO</a></li>
+<li><a href="#verb_system_decoded">The whole verb system, decoded from the game's own tables</a></li>
+<li><a href="#dictionary_front_coded">The dictionary stores each word as an edit of the previous one</a></li>
+<li><a href="#synonyms">Synonyms in the dictionary</a></li>
+<li><a href="#abbreviations">Short words</a></li>
+<li><a href="#object_flag_words">The game's own error words name the object flags</a></li>
+<li><a href="#quit_means_load">QUIT does not quit</a></li>
+<li><a href="#pounds_shillings_pence">The parser understands pounds, shillings and pence</a></li>
+<li><a href="#cursor_keys">One-key moves</a></li>
+<li><a href="#repeat_key">'@' repeats the last command</a></li>
+<li><a href="#messages_rendered">Every fixed message, rendered by the game itself</a></li>
+<li><a href="#unused_hang_opcode">Plan opcode 12 would hang the game</a></li>
+<li><a href="#saved_game_on_the_tape">A saved game on the original tape</a></li>
+</ul>
+<div><span id="the_last_scene"></span></div>
+<div class="box box-1">
+<div class="box-title">How the game is won</div>
+<div class="paragraph">
+The only winning text in the game is at <a href="../asm/27379.html">6AF3</a>, and it is printed in one place: Phipps's script, when he walks onto platform one at Victoria and finds you waiting with Watson and Lestrade (<a href="../asm/40520.html">9E48</a>). With suprising agility Watson pushes you out of the way of Basils first shot allowing Lestrade time to pull his gun and capture the culprits. As incredible as it may seem you have solved this case. You truly deserve the title of worlds greatest detective.' Leave either companion behind and Basil's first shot disposes of you instead.
+</div>
+<div class="paragraph">
+Getting there (<a href="../asm/59367.html">E7E7</a>, <a href="../asm/60971.html">EE2B</a>): prove that Phipps has plans and that the sale is at Old Mill Road, ride with Lestrade in the police cab to Old Mill Road on Wednesday after 3pm (Phipps waits there from 12:10 and gives up at about 3:20), let Phipps bolt, and on the platform at Leatherhead, where Lestrade waits for a train home, tell him to follow you; his script then follows you until you reach platform one at Victoria, which is exactly where Phipps is going. Be there, with Watson, before Phipps walks in.
+</div>
+<div class="paragraph">
+The 4:55 train is gone before Lestrade will take the order, but the police cab can be told SAY TO POLICE MAN "GO FURIOUSLY TO KINGS CROSS ROAD" (74 minutes instead of 94), and from Kings Cross platform one the underground train reaches Victoria at 6:40 - two minutes before Basil. The game was won that way. Board the police cab in the same minute as Lestrade at the start, or he or you is left behind. Full steps under <a href="../asm/59367.html">E7E7</a>. The spelling 'SUPRISING' is the game's.
+</div>
+<div class="paragraph">
+The fix to the 'minute short' problem was GO FURIOUSLY TO KINGS CROSS ROAD to the police man (74 minutes instead of 95) after ordering Lestrade to FOLLOW ME on platform two, and boarding the 6:29 underground train from Kings Cross platform one in the minute before it leaves so that Lestrade (who follows a turn behind) gets in. See 'The winning line from Wednesday 10:53am, typed'.
+</div>
+</div>
+<div><span id="the_win_typed"></span></div>
+<div class="box box-2">
+<div class="box-title">The winning line from Wednesday 10.53am, typed</div>
+<div class="paragraph">
+SAY TO LESTRADE "THE SALE LOCATION IS OLD MILL ROAD" in Scotland Yard at 10:53am (the singed note examined, PHIPPS HAS PLANS already proven) and Lestrade sets off at once. Follow him and keep behind: hansom cab (not Lestrade's) to Kings Cross Road, the 12:00 train from platform four, and get OUT at Leather Head platform one at 1:30pm (riding on to platform two loses 15 minutes and the police cab). SOUTH twice to the main street and, without a LOOK in between, CLIMB INTO POLICE CAB at 1:37pm, the minute Lestrade does: you, Watson and Lestrade fit and Straker stays out. The cab reaches Old Mill Road at 3:13pm, Phipps bolts at 3:14, back in the main street at 4:47. CLIMB OUT, NORTH three times to platform two (4:54), SAY TO LESTRADE "FOLLOW ME" once he takes orders at 4:56, SOUTH three times, CLIMB INTO POLICE CAB and SAY TO POLICE MAN "GO FURIOUSLY TO KINGS CROSS ROAD" at 5:06 (no TALK TO, no extra LOOK: every minute counts), arriving 6:21. CLIMB OUT, NORTHEAST twice to platform one, CLIMB INTO TRAIN the moment it is in (6:28, before it pulls out at 6:29, so that Lestrade, who follows a turn behind, gets on), ride to Victoria platform one (6:41), CLIMB OUT and WAIT: Basil walks in at 6:42 and the game ends with 'YOU TRULY DESERVE THE TITLE OF WORLDS GREATEST DETECTIVE'. Do it a minute or two later and Lestrade misses the train or Phipps leaves Victoria first.
+</div>
+</div>
+<div><span id="second_winning_route"></span></div>
+<div class="box box-1">
+<div class="box-title">A second winning route - shadow Lestrade from Scotland Yard</div>
+<div class="paragraph">
+It matches the cleaned route up to the sale-location statement to Lestrade (Wednesday 10:53am), then, instead of taking a hansom cab of your own and the noon train from platform four, you go WEST to Parliament Street, CLIMB INTO HANSOM CAB while Lestrade is in it (he has hailed it at 10:54 and climbed in at 10:56; you climb in at 10:57 and Watson follows), reach Kings Cross Road at 11:11, walk NORTHEAST to platform three, and board the steam train that enters at 12:15pm when Lestrade does. It reaches Leatherhead platform one at 1:30pm, the same minute as the other route, and everything after that is the same. The first route is therefore not the only one; what is common to both is the chain of statements and evidence, the 1:37pm police cab with Lestrade, the FOLLOW ME on platform two at 4:55-4:56, the 6:29 underground train with both Lestrade and Watson, and Victoria at 6:41.
+</div>
+</div>
+<div><span id="tuesday_ordering"></span></div>
+<div class="box box-2">
+<div class="box-title">Tuesday's order of work that fits the clock</div>
+<div class="paragraph">
+12:55am cab to Kings Cross Road; 7:30am train; 9:00 Leatherhead; 9:20 rock with Lestrade; letters from Basil's library safe by 10:05 (OPEN WALL SAFE takes 15 minutes; TAKE LETTERS then EXAMINE CLOSELY); the 10:55 train from platform two reaches Kings Cross at noon; Tricia is in her lounge until 2pm, so ask about the clothes (second SAY, the first is swallowed by the leftover quote), then Mrs Jones about her alibi, open her safe (15 minutes) and examine the unfinished note and the folder; then Scotland Yard for the statements, TALK TO LESTRADE first to flush quotes; Camden Street's window opens at 10:03pm.
+</div>
+</div>
+<div><span id="burning_note_typed"></span></div>
+<div class="box box-1">
+<div class="box-title">The burning note - TAKE NOTE FROM FIREPLACE, then drop and plain TAKE it</div>
+<div class="paragraph">
+The note appears in the bedroom fireplace (room 35) at about 10:05am and burns away over the next 15 turns. Phipps shoots anyone in the bedroom at 9:50am, even in disguise, so go in only after he has left the house (hall 10:06, street 10:09, gone by 10:13); the window stays open and Basil's own chase does not start until the sale statement is proven. 'TAKE NOTE FROM FIREPLACE' works but takes the note through the plain action, so the countdown keeps running. DROP BURN NOTE then TAKE BURN NOTE runs shared action 20 (<a href="../asm/57214.html">DF7E</a>/<a href="../asm/57227.html">DF8B</a>), which sets the countdown <a href="../asm/40069.html#40097">9CA1</a> to $FF (stopped) and renames the note 'singed' ($07D5); EXAMINE CLOSELY SINGE NOTE then counts as examining the evidence and the case record <a href="../asm/39269.html#39351">99B7</a> keeps its proof bit. The parser quirk that cost most of an hour: the dictionary stores BURNING and BURNT with the same first four letters, and a typed BURNING resolves to the word BURNT, so 'EXAMINE BURNING NOTE' says 'I SEE NO BURNT NOTE'. 'EXAMINE BURN NOTE' (four letters) resolves to the right word, and 'SINGE NOTE' works once it is singed.
+</div>
+</div>
+<div><span id="followers_lag_one_turn"></span></div>
+<div class="box box-2">
+<div class="box-title">Lestrade and Watson follow one turn behind you, so a train can leave without them</div>
+<div class="paragraph">
+The underground train entered at 6:26 and pulled out at 6:29. Arriving in the room at 6:28 and climbing in at once, the first time (one minute later than the winning run), Watson came aboard but Lestrade, who was still walking in, did not: the train left with Watson only, and the game could not be won from there. In the winning run you arrive a minute earlier, CLIMB INTO TRAIN at 6:27-6:28, and both come in before it leaves. Anyone you have told to FOLLOW ME repeats your move on the next turn, so any departure with a fixed minute (trains, the police cab) needs a spare minute.
+</div>
+</div>
+<div><span id="train_goes_on_to_platform_two"></span></div>
+<div class="box box-1">
+<div class="box-title">Riding the Leatherhead train past your stop costs the police cab</div>
+<div class="paragraph">
+The steam train from Kings Cross platform four reaches Leather Head platform one at 1:30pm (if it left at noon), and then is 'shunted between platforms' to platform two, arriving there at about 1:45pm. Staying aboard to see where it goes (waiting for the text 'platform two') put me at the wrong platform fifteen minutes late; Lestrade had already left the station in the police cab and the winning window was gone. Get out at platform one and go SOUTH twice.
+</div>
+</div>
+<div><span id="police_cab_seats"></span></div>
+<div class="box box-2">
+<div class="box-title">The police cab fits four - you, Watson, Lestrade and the constable - not Chief Constable Straker</div>
+<div class="paragraph">
+In the main street at Leather Head on Wednesday: if you climb in the minute before Lestrade, the cab holds you, Watson and the local police man and drives off without him; if you wait until he and Chief Constable Straker have climbed in, 'I SEE NO POLICE CAB THAT YOU CAN CLIMB INTO'. Climbing in in the same minute as Lestrade (at 1:37pm after arriving on the 1:30pm train and walking SOUTH twice) gives you, Watson, Lestrade and the constable, and Straker is left standing on the pavement.
+</div>
+</div>
+<div><span id="ordering_the_cab_strands_lestrade"></span></div>
+<div class="box box-1">
+<div class="box-title">Giving the police cab your own orders leaves Lestrade behind</div>
+<div class="paragraph">
+At 4:47pm, back in the main street with Lestrade, Watson and the constable aboard, SAY TO POLICE MAN "GO FURIOUSLY TO KINGS CROSS ROAD" made the cab leave without Lestrade: he climbed out and walked north to the station, and 'Lestrade, Watson and you' became just Watson and you. Lestrade only takes an order from about 4:56pm, on platform two ('Sorry, I cannot do that now' before then and after the first successful FOLLOW ME), so the order to the cab has to be given only after he is following you again.
+</div>
+</div>
+<div><span id="phipps_shoots_the_bedroom"></span></div>
+<div class="box box-2">
+<div class="box-title">Basil's bedroom is deadly at 9.50am on Wednesday, even in disguise</div>
+<div class="paragraph">
+Waiting in the bedroom (room 35) in the china man's disguise through 9:50am on Wednesday gets you shot: the game ends. The disguise protects you from the check on your own identity, not from the shot that is fired at whoever is in the room. Phipps is in the hall at 10:06, in the street at 10:09 and in his cab by 10:13; the burning note is revealed in the fireplace at about 10:05 and, unless it is taken with a plain TAKE, is ashes by about 10:23.
+</div>
+<div class="paragraph">
+Measured with the player waiting in the front yard from Tuesday 11pm: Phipps is in the bedroom (room 35) through the night, the burning note is revealed at 10:05am and its countdown runs 15 to 0 once a minute, so it is ashes at 10:24am; Phipps is in the hall (33) at 10:06, in Camden Street (32) at 10:09 and in his cab by 10:15. The earlier no-interference log shows him back out at 9:55am. Both are right; they are different conditions.
+</div>
+</div>
+<div><span id="window_exit_bedroom"></span></div>
+<div class="box box-1">
+<div class="box-title">The bedroom window works both ways - SOUTHWEST to the front yard, WEST to Camden Street</div>
+<div class="paragraph">
+The same window you enter by on Tuesday evening (NORTHEAST from the front yard, room 102) lets you leave on Wednesday morning without passing through the house: SOUTHWEST from the bedroom puts you in Basil's front yard and WEST there in Camden Street, where a hansom cab can be hailed at once.
+</div>
+</div>
+<div><span id="messenger_note_watched"></span></div>
+<div class="box box-2">
+<div class="box-title">The messenger who delivers a note to Basil is shown only if you are watching</div>
+<div class="paragraph">
+On Wednesday morning, at about 9:50, Phipps's script (<a href="../asm/60971.html#61161">EEE9</a>) checks whether you are in Camden Street or Basil's front yard (or the china man is). If so it prints 'A messenger arrives at the door, gives a note to Basil and dissapears down the street.' (the typo is the game's) at 9:51-9:55, and Phipps then waits 15 minutes before leaving the bedroom (hall at about 10:06, street 10:10, cab 10:15). With you elsewhere he skips the scene and is in Camden Street at 9:55.
+</div>
+</div>
+<div><span id="train_circle_timings"></span></div>
+<div class="box box-1">
+<div class="box-title">The underground train - Kings Cross platform one at 6.29, Victoria platform one at 6.41, Paddington at 6.43</div>
+<div class="paragraph">
+The steam trains on the underground circle run on a fixed timetable. From Kings Cross platform one the 6:29 train reaches Victoria platform one at 6:41, so you have a minute to CLIMB OUT before Basil walks onto the platform at 6:42. Missing the 6:29 and taking the next train at 6:36-6:38 reaches Paddington at 6:43 and Victoria much too late: Basil is already at Buckingham Palace Road (room 29) at 6:40 and leaves the game when he finds nobody on the platform.
+</div>
+</div>
+<div><span id="lestrade_orders_tried"></span></div>
+<div class="box box-2">
+<div class="box-title">Which orders Lestrade takes on platform two (and when)</div>
+<div class="paragraph">
+55pm on Leatherhead platform two, after the chase. SAY TO LESTRADE "WAIT" gets 'Inspector Lestrade waits.'; "FOLLOW ME" makes him follow (he and Watson trail one turn behind). "GO TO VICTORIA", "GO TO PLATFORM ONE" and "GO SOUTH" are accepted as speech ('You talk to Inspector Lestrade.') and then nothing happens. FOLLOW ME at 4:54pm, a minute too early, gets 'Inspector Lestrade says "Sorry, I cannot do that now."' because his script is still busy getting to the platform; from 4:56 he takes orders. So there is no way to send him to Victoria ahead of you: he has to be walked there with FOLLOW ME, and no second structurally different winning route was found in the time spent looking; that is a statement about the search, not a proof that none exists.
+</div>
+</div>
+<div><span id="lestrade_cab_clash"></span></div>
+<div class="box box-1">
+<div class="box-title">Lestrade rides the same cab - keep out of cabs at 12.20-12.45am and 7.05-7.20am</div>
+<div class="paragraph">
+Lestrade hails a cab twice in the night: Scotland Yard side at about 12:20am (Slater Street to Parliament Street) and from Parliament Street at 7:05am (to Kings Cross Road, then the 7:30 train to Leatherhead, where he is at the stream, rooms 88-89, from about 9:15 to 10:05am). If the player is riding a cab then, Lestrade is left sitting in the other cab (33) at its off-stage room for the rest of the game, and everything that needs him (the rock) cannot happen.
+</div>
+</div>
+<div><span id="cab_change_and_fares"></span></div>
+<div class="box box-2">
+<div class="box-title">Fares - 2d from Camden Street to Parliament Street, 6d from Parliament Street to Kings Cross Road</div>
+<div class="paragraph">
+Paying with PAY 10D TO CABBIE, the cabbie gave change each time ('You pay 10d. To the cabbie. The cabbie pays 8d. To you.' after the 2d ride; 4d after a 6d ride). Two hansom cabs were standing in Parliament Street at once on Wednesday, one with Lestrade in it; HAIL CAB brought the free one and CLIMB INTO HANSOM CAB boarded it.
+</div>
+</div>
+<div><span id="cab_fares"></span></div>
+<div class="box box-1">
+<div class="box-title">Cab fares</div>
+<div class="paragraph">
+A hansom cab ride costs 2d for every five minutes of the journey, plus 2d: the journey times are in the table at <a href="../asm/39807.html">9B7F</a> and the fare is worked out at <a href="../asm/39717.html">9B25</a>. Baker Street to Parliament Street took 20 minutes and the cabbie asked 'Right guv'nor that will be 10d.' Only the ten cab stands in the table can be reached; anywhere else gets 'Sorry guv'nor I cannot get there from'ere'.
+</div>
+</div>
+<div><span id="stale_quotes_cabbie"></span></div>
+<div class="box box-2">
+<div class="box-title">Quoted speech is queued - a cabbie can ignore a destination until old quotes are flushed</div>
+<div class="paragraph">
+Every quotation typed in a SAY TO is added to a list at <a href="../asm/40918.html#40940">9FEC</a> (<a href="../asm/45084.html#45129">B049</a>); the SAY that runs takes the FIRST node off it (<a href="../asm/47210.html">B86A</a>). A SAY that fails before it gets that far (I SEE NO TRICIA FENDER THAT YOU CAN TALK TO, or a person who simply does not answer) leaves its quote behind, so every later SAY delivers the quote that was typed N commands earlier, N being the number of leftovers. With 3-4 leftovers SAY TO CABBIE "GO TO KINGS CROSS ROAD" got 'You talk to the cabbie.' and nothing else, and the cabbie asked 'Well are we goin' anywhere guv'nor?' until the SAY had been typed once more than there were leftovers, when the cab set off at once. The cure that works is TALK TO <anyone present> with no quotation, which empties the list.
+</div>
+</div>
+<div><span id="pay_not_give_money"></span></div>
+<div class="box box-1">
+<div class="box-title">Pay a cabbie with PAY 10D TO CABBIE, not GIVE MONEY TO CABBIE</div>
+<div class="paragraph">
+GIVE MONEY hands over the whole purse (thing 27) to the cabbie, who keeps it; after that INVENTORY shows no money, PAY says DON'T BE SILLY, and the cabbie nags 'What about me money guv'nor?'. PAY 10D TO CABBIE (<a href="../asm/58224.html">E370</a>) takes the sum off the purse and the cabbie gives change ('You pay 10d. To the cabbie. The cabbie pays 4d. To you.'), and the purse stays with Holmes. A cab that has been paid goes away at once; an unpaid one waits for you.
+</div>
+</div>
+<div><span id="three_endings"></span></div>
+<div class="box box-2">
+<div class="box-title">How the case can end</div>
+<div class="paragraph">
+The game ends through records the characters' scripts run, all finishing at <a href="../asm/40564.html">9E74</a>. Lestrade ends it at 3pm on Monday if you have not met him with Chief Constable Straker; later he can end it with the morning papers' report of Mr Brown's lost plans - 'NOT ONLY HAVE YOU FAILED...' or 'YOU HAVE DONE EXTREMELY WELL...', depending on whether both murders have been proven (<a href="../asm/40610.html">9EA2</a>); and with the Major's wrongful arrest (<a href="../asm/40581.html">9E85</a>), which proving MAJOR PERCIVAL FFOULKES IS INNOCENT prevents. Phipps's script has Basil come in with a gun (<a href="../asm/40520.html">9E48</a>): Watson saves you only if he and Lestrade are both there. <a href="../asm/57290.html">DFCA</a> has Basil shoot you too.
+</div>
+<div class="paragraph">
+At 10am on Thursday Lestrade's script ends the game with the morning papers - 'Not only have you failed to solve the crimes at hand...' or, with both murders marked proven, 'You have done extremely well to solve the case at hand but...'. Both lose. The win is Basil's entrance on platform one at Victoria with Watson and Lestrade there (<a href="../asm/40520.html">9E48</a>, <a href="../asm/27379.html">6AF3</a>: '...YOU TRULY DESERVE THE TITLE OF WORLDS GREATEST DETECTIVE.'), which needs the sale location proven first, and that in turn the two murders (see The case for how to earn the last marker).
+</div>
+</div>
+<div><span id="meet_lestrade_by_3pm"></span></div>
+<div class="box box-1">
+<div class="box-title">Be introduced to Lestrade by 3pm on Monday, or the game ends</div>
+<div class="paragraph">
+Perhaps you should try again.' and the game restarts.
+</div>
+</div>
+<div><span id="the_case_table"></span></div>
+<div class="box box-2">
+<div class="box-title">The solution is a table of statements and evidence</div>
+<div class="paragraph">
+The evidence is pairs of things the player must have seen or examined. Lestrade's 'WELL CAN YOU PROVE THAT ... YET, HOLMES ?' is driven by it.
+</div>
+</div>
+<div><span id="watson_remembers"></span></div>
+<div class="box box-1">
+<div class="box-title">Watson remembers what you tell him about the case</div>
+<div class="paragraph">
+Telling Watson a statement about the case (SAY TO WATSON "MRS BROWN KILLED HERSELF") adds it to a list of three-byte statements at <a href="../asm/40918.html#40946">$9FF4</a>, and he answers 'That is brilliant Holmes...'; something that is not about the case gets 'What'. The statement is matched against the same table Lestrade uses (<a href="../asm/39269.html">9965</a>); the verb must be one of eleven: BLACKMAILED, HAD, HAS, IS, KILLED, VISITED, HATED, EXAMINED, HID, OWNS, MADE.
+</div>
+</div>
+<div><span id="watson_connections"></span></div>
+<div class="box box-2">
+<div class="box-title">Watson's connections</div>
+<div class="paragraph">
+Tell Watson something about the case and he either praises you or, by chance, wonders aloud about 'some connection between' two things, picked from the statements you have told him (<a href="../asm/47719.html">BA67</a>, <a href="../asm/48329.html#48390">BD06</a>). The pairing can come out oddly.
+</div>
+</div>
+<div><span id="catch_the_major"></span></div>
+<div class="box box-1">
+<div class="box-title">To clear the Major, catch him at the opium den</div>
+<div class="paragraph">
+MAJOR PERCIVAL FFOULKES IS INNOCENT can only be proven through a second statement, MAJOR PERCIVAL FFOULKES VISITED OPIUM DEN, whose only evidence is an empty record that nothing but the Major's own script marks: after 11pm he may slip off to the opium den, and if the player is there with him he confesses ('WELL HOLMES YOU HAVE FOUND OUT MY SHAMEFUL SECRET...', <a href="../asm/61538.html#61666">F0E2</a>) and the evidence is set (<a href="../asm/61699.html">F103</a>). Proving his innocence then stops the ending in which Lestrade arrests him (<a href="../asm/40581.html">9E85</a>). The hidden door is narrower than Holmes (size 85 against 96, see <a href="../asm/56629.html">DD35</a>), so the player has to wear the china man's disguise (size 80) to follow; standing in the den as the china man the Major says nothing, but the moment the disguise is TAKEN OFF inside he says 'WELL HOLMES YOU HAVE FOUND OUT MY SHAMEFUL SECRET...' (<a href="../asm/39269.html#39279">996F</a> becomes $0A). Out on Slater Street, SAY TO LESTRADE "MAJOR PERCIVAL FFOULKES VISITED OPIUM DEN" (Lestrade turns up there by himself; the statement may be said while still in disguise) gives 'Very good Holmes, I shall return to Leather head tomorrow...' and <a href="../asm/40581.html#40583">$9E88</a> = 1 at 12:14am on Tuesday - 46 minutes before the 1am ending at <a href="../asm/40581.html">9E85</a>. Saying MAJOR PERCIVAL FFOULKES IS INNOCENT to Lestrade earlier (he was in Jones's library with the Major at 1:44pm) makes it wait, as the page The case says.
+</div>
+</div>
+<div><span id="tricia_is_mrs_jones"></span></div>
+<div class="box box-2">
+<div class="box-title">Tricia Fender is Mrs Jones in disguise - and that is how the last marker is earned</div>
+<div class="paragraph">
+Shared action 3 (<a href="../asm/57763.html">E1A3</a>, in Tricia Fender's own action list) is not just a question. If you ask her about the bloodstained clothes while they are in the room (SAY TO TRICIA FENDER "TELL ME ABOUT BLOODSTAINED CLOTHES"), <a href="../asm/57778.html#57780">E1B4</a> calls <a href="../asm/57402.html">E03A</a> with A = $5F, which rewrites her actor-table entry from thing 13 to thing 95, Mrs Jones, moves her holder and room across, and sets the case marker <a href="../asm/39269.html#39311">998F</a>: 'Oh my god, you found out, I am really Mrs Jones. Tricia was blackmailing Mrs Brown...'. Mrs Jones is then an actor, so her own action list is used: SAY TO MRS JONES "TELL ME ABOUT YOUR ALIBI" (or WHAT HAPPENED, or the clothes) runs shared action 22 (<a href="../asm/57723.html">E17B</a>, <a href="../asm/57736.html">E188</a>) and sets <a href="../asm/39269.html#39315">9993</a>, the other marker MRS JONES KILLED TRICIA FENDER needs. <a href="../asm/39269.html#39311">998F</a> went 00 -> 02, the actor table lost 13 and gained 95, and <a href="../asm/39269.html#39315">9993</a> went 08 -> 0A.
+</div>
+</div>
+<div><span id="blackmail_statement"></span></div>
+<div class="box box-1">
+<div class="box-title">TRICIA FENDER BLACKMAILED MRS BROWN does nothing but get a shrug</div>
+<div class="paragraph">
+It is not needed to win. Putting it in as an extra line instead costs a minute, which shifts Lestrade's Wednesday cab so that the player and he board the same hansom cab (the fare is paid in garbage, 'Lestrade pays `4 19/8') and the run no longer wins: every minute counts in this route.
+</div>
+</div>
+<div><span id="early_sale_statement_unneeded"></span></div>
+<div class="box box-2">
+<div class="box-title">Saying THE SALE LOCATION IS OLD MILL ROAD on Tuesday afternoon is not needed</div>
+<div class="paragraph">
+Replacing it with another statement, or removing it, still wins; the one that counts is said again on Wednesday at 10:53am after the singed note is examined.
+</div>
+</div>
+<div><span id="wall_safe_trap"></span></div>
+<div class="box box-1">
+<div class="box-title">Opening Basil's wall safe on Monday gets you shot</div>
+<div class="paragraph">
+The wall safe in Basil's library at Cobden Lane in Leatherhead (thing 89, room 58) holds the letters. Typing OPEN WALL SAFE there on Monday ends the game: 'Basil enters and says " Holmes, your interference is becoming annoying. " . Pulling a gun he shoots you.'. The check is the first record of shared action 21 (<a href="../asm/57270.html">DFB6</a>): thing $59 and day 0 (Monday) lead on to the shooting message at <a href="../asm/57290.html#57292">DFCC</a>; any other day falls through to the ordinary OPEN. EXAMINE CLOSELY WALL SAFE is harmless. So the letters can only be taken from Tuesday on.
+</div>
+</div>
+<div><span id="large_rock_tuesday"></span></div>
+<div class="box box-2">
+<div class="box-title">The large rock - EXAMINE CLOSELY DEEP STREAM, on Tuesday, east of the bridge</div>
+<div class="paragraph">
+Then it marks the large rock seen and visible, moves it into the player's room and prints 'AS YOU SEARCH THE RIVER LESTRADE COMES OVER TO HELP. HE STUMBLES AND SLIDES DOWN THE BANK AND NOTICES A GLEAM IN THE WATER. REACHING IN HE PULLS OUT A GUN TIED TO A LARGE ROCK'. The rock is seen, which is all MRS BROWN KILLED HERSELF needs of it, so that statement cannot be proven on Monday. (The Monday visit to room 88, 12:40-12:58pm, left the rock hidden, as expected.)
+</div>
+</div>
+<div><span id="large_rock_needs_lestrade"></span></div>
+<div class="box box-1">
+<div class="box-title">The rock needs Lestrade in the room - Tuesday morning, east side of the bridge</div>
+<div class="paragraph">
+Shared action 16's script runs <a href="../asm/57517.html">E0AD</a> with Lestrade (actor 2) as direct object, and nothing happens unless he is in the room with the player. Arrive at the east side (room 88) by about 9:20am on Tuesday, wait for 'Inspector Lestrade enters', then EXAMINE CLOSELY DEEP STREAM; he finds the gun tied to a large rock. (The first examine, before he came in, printed only 'You see a deep stream.') He leaves at about 10:05am, and his return train is at 12:20pm. The train out to Leatherhead that reaches the station at about 9:00am is the one leaving Kings Cross platform four at 7:30am.
+</div>
+</div>
+<div><span id="disguise_needs_a_trick"></span></div>
+<div class="box box-2">
+<div class="box-title">The disguise cannot be picked up with the lamp - but WEAR then TAKE OFF carries it</div>
+<div class="paragraph">
+In Holmes's closet at the start, TAKE CHINA MANS DISGUISE answers 'I SEE NO CHINA MANS DISGUISE THAT YOU CAN TAKE' while the player carries the oil lamp and his money: the disguise (size 128) does not fit under the player's carrying limit. Dropping the lamp first lets it be taken. This is how the playthrough carried it to Slater Street (the lamp is needed in the dark). Watson follows as far as he fits; he stayed outside the hidden door.
+</div>
+</div>
+<div><span id="basils_london_house"></span></div>
+<div class="box box-1">
+<div class="box-title">Basil's Camden Street house - what was observed, and the wall in the way</div>
+<div class="paragraph">
+Observed with nobody interfering and in the playthrough: the front door (thing 91) and the bedroom window (thing 79) start locked. Phipps arrives by cab at 9:35am on Tuesday, opens the front door at 9:37 and goes in; the door is shut again at 9:40 and relocked. At 10:03pm 'Someone opens the window' - he is in the bedroom (room 35) from then on, hidden (his +5 bit 6 cleared), and the ripped coded note (room 38), the torn coded note (39) and the burning note (35) were all still in place at midnight (the script deletes the first two when it runs <a href="../asm/60971.html#61126">EEC6</a> later that night, if both are still there; the burning note goes at 9am on Wednesday, <a href="../asm/60971.html#61196">EF0C</a>). Entering the bedroom through the open window while he is in it: 'Basil says " Holmes, your interference is becoming annoying. " . Pulling a gun he shoots you.'. The front door's size is 32: with the door open (9:38am, straight after Phipps went through) NORTHEAST from Camden Street still says YOU CANNOT GO NORTHEAST - Holmes (96) and the china man (80) are both too big, only Lestrade (32) and the smaller characters fit. Neither door nor window can be unlocked by the player (UNLOCK FRONT DOOR: 'I SEE NO FRONT DOOR THAT YOU CAN UNLOCK'; UNLOCK ... WITH is not a verb). That is how it looked by walking in as Holmes.
+</div>
+<div class="paragraph">
+While Phipps counts down after opening the window (from 10:03pm on Tuesday for 55-75 minutes, <a href="../asm/60971.html#61103">EEAF</a>) he shoots only if the player's own actor, id 0, is in his room; the other trigger, <a href="../asm/61383.html">EFC7</a>, shoots whoever is anywhere in rooms 33-39 but is only run after the countdown, an hour or more later. So: WEAR CHINA MANS DISGUISE in Basil's front yard right after 'Someone opens the window' (10:03pm), go NORTHEAST into the bedroom - Phipps is there and does nothing - through the large oak door to the hall, NORTHEAST to the passage, and the library (thick heavy door, southeast) and the yard (plain door northeast to the kitchen, back door northeast) are open. In the dark the lamp is carried. EXAMINE CLOSELY done as the china man only marks a thing SEEN (+6 bit 7, 'The china man closely examines...'); to get the EXAMINED bit (+6 bit 6) TAKE OFF the disguise first - in the library, away from Phipps, that is safe during the countdown. Done this way by 10:55pm: ripped coded note $C0 and torn coded note $40 (both examined), then WEAR again before re-entering the bedroom, SOUTHWEST out of the window at 11:07pm, still alive. The burning note is not in the fireplace at that time (TAKE BURNING NOTE: 'I SEE NO BURNT NOTE'); it is put there on Wednesday morning (<a href="../asm/60971.html#61196">EF0C</a>).
+</div>
+</div>
+<div><span id="the_game_goes_on"></span></div>
+<div class="box box-2">
+<div class="box-title">The game does not wait for you</div>
+<div class="paragraph">
+The player's script reads each line with a time limit (<a href="../asm/55448.html">D898</a>, <a href="../asm/42294.html">A536</a>: 3,000 keyboard polls). If nothing is typed in time the line is rubbed out and the player WAITs, so the clock and every other character carry on. At a prompt with no key pressed the game prints 'You wait.' and the clock moves on by several minutes at a time. During WAIT UNTIL the main loop also looks at the keyboard every minute (<a href="../asm/41060.html#41087">A07F</a>) so that ENTER can cut the wait short.
+</div>
+</div>
+<div><span id="bedtime"></span></div>
+<div class="box box-1">
+<div class="box-title">The household goes to bed at 9pm</div>
+<div class="paragraph">
+At 9pm Daphne Strachan goes to her room and the cook and the gardener leave the game for the night, each marked SLEEPING and no longer counted as a person (so they cannot be talked to); they come back about eight and a half hours later. Their after-turn routines do it (<a href="../asm/40641.html">9EC1</a>).
+</div>
+</div>
+<div><span id="bring_a_lamp"></span></div>
+<div class="box box-2">
+<div class="box-title">It gets dark at 8pm</div>
+<div class="paragraph">
+Outdoors between 8pm and 6am the player cannot see without a light: LOOK on Baker Street at 9pm says 'SORRY IT IS TOO DARK.' unless the oil lamp from Holmes's room is being carried. The lamp is lit from the start (there is no verb to light it). Only the player and a few others need light at all (<a href="../asm/53368.html">D078</a>).
+</div>
+</div>
+<div><span id="cast_list"></span></div>
+<div class="box box-1">
+<div class="box-title">The cast and objects</div>
+<div class="paragraph">
+110 entities, named from their own word slots: you, Watson, Inspector Lestrade, Chief Constable Straker, Strachan, Phipps, Major Percival Ffoulkes, Tricia Fender, a gardener, cook and maid, two local policemen, a China man and an old man (each with a wearable disguise), a German agent, Mrs Brown and Mrs Jones, two hansom cabs and a police cab with their cabbies, eight steam train carriages, a female corpse with a crumpled note, a body on a bloodstained sofa, two wall safes, a torn coded note in a trash pile, a gun under a large rock, and a burnt note in a fireplace. Some entries are conversation topics rather than things (THE CASE, WHAT HAPPENED, YOUR ALIBI, YOUR ADDRESS).
+</div>
+</div>
+<div><span id="map_decoded_and_walked"></span></div>
+<div class="box box-2">
+<div class="box-title">The map - 106 rooms, 206 exits, every one tried</div>
+<div class="paragraph">
+The other 12 are the ones the code says must refuse - 7 'scenery' exits to room 0 (a deep stream, a window) that the room description mentions but the exit finder skips, and 5 through something narrower than the player. See the Map page.
+</div>
+</div>
+<div><span id="police_men_are_doors"></span></div>
+<div class="box box-1">
+<div class="box-title">The police men are doors</div>
+<div class="paragraph">
+The two local police men at Browns and Jones front gates are listed in the room table as the 'door' of the exit they guard. The move check <a href="../asm/56629.html">DD35</a> treats them like any other passage: they count as open, and their size, 69, is smaller than the player's 96, so the player can't get past ('YOU CANNOT GO SOUTH'), though a smaller character could.
+</div>
+</div>
+<div><span id="plan_scripts"></span></div>
+<div class="box box-2">
+<div class="box-title">Every character, the player included, runs a script</div>
+<div class="paragraph">
+Sherlock's characters are not driven by code but by scripts in a small language of fifteen opcodes (one unused): do a command, run an action record, order someone else to do something, say or print a message, signal or wait for another character, return from a sub-script, pass, and go to. The player's own script (<a href="../asm/39201.html">9921</a>) is the one that reads the keyboard: typing a command is just the player's plan step 'DO plan verb / plan dobj / plan iobj'.
+</div>
+<div class="paragraph">
+Characters do exactly what the player does: a script's DO goes through the same command code (<a href="../asm/50385.html">C4D1</a>): requirement checks, default records, object action lists and pre-checks as a typed command. That is why characters can fail to do things for the same reasons the player can.
+</div>
+<div class="paragraph">
+Characters really do co-ordinate through SIGNAL and AWAIT.
+</div>
+</div>
+<div><span id="waiting_for_the_hour"></span></div>
+<div class="box box-1">
+<div class="box-title">Characters keep appointments by failing until the time is right</div>
+<div class="paragraph">
+Verb <a href="../asm/61910.html">136</a> succeeds only when the clock's hour equals its argument, counted 1-24: <a href="../asm/61910.html">F1D6</a> turns 13-24 into 1-12 with 'p', and 1-12 into 1-12 with 'a', and compares with the hour at <a href="../asm/40918.html#40928">9FE0</a> and the letter at <a href="../asm/40918.html#40930">9FE2</a>. A script instruction 'DO 136 23' whose failure address is itself therefore means 'wait here until 11pm'. 23 instructions use it, in the scripts of Inspector Lestrade, Phipps, the Major and Tricia Fender.
+</div>
+<div class="paragraph">
+Tricia Fender (actor 13) asked verb <a href="../asm/61910.html">136</a> for hour 1 every minute and was refused all Monday afternoon - at 1pm <a href="../asm/40918.html#40928">9FE0</a> was 1 but <a href="../asm/40918.html#40930">9FE2</a> was 'p', and she is waiting for 1am - and from 2:25pm the Major (actor 7) began asking for hour 23.
+</div>
+</div>
+<div><span id="busy_characters"></span></div>
+<div class="box box-2">
+<div class="box-title">Characters can be too busy to do what you ask</div>
+<div class="paragraph">
+Bit 6 of a plan-script instruction marks it as busy: a character on such an instruction answers a request with 'Sorry, I cannot do that now.' (<a href="../asm/52135.html">CBA7</a>). 181 of Inspector Lestrade's 223 instructions and 70 of Chief Constable Straker's 76 are busy; none of Watson's 32 is, so SAY TO WATSON "GET OUT" works at the start. He then refuses and stays in his armchair.
+</div>
+</div>
+<div><span id="thirteen_pictures"></span></div>
+<div class="box box-1">
+<div class="box-title">Only fourteen rooms have a picture</div>
+<div class="paragraph">
+The picture table at <a href="../asm/62988.html">F60C</a> lists 14 of the game's rooms, and two of them (platforms one and two) share a picture, so there are 13 pictures in all, stored as drawing commands from <a href="../asm/63032.html">F638</a> to the very top of memory.
+</div>
+</div>
+<div><span id="scenery_words"></span></div>
+<div class="box box-2">
+<div class="box-title">Scenery</div>
+<div class="paragraph">
+Rooms can mention things that are not objects - the 'two broad windows' of Holmes's sitting room, say.
+</div>
+</div>
+<div><span id="examine_closely"></span></div>
+<div class="box box-1">
+<div class="box-title">EXAMINE CLOSELY finds hidden things that EXAMINE does not</div>
+<div class="paragraph">
+Verb <a href="../asm/57653.html">20</a> is EXAMINE CLOSELY (in that word order: EXAMINE CLOSELY TRASH PILE; 'EXAMINE TRASH PILE CLOSELY' gets 'WHAT ?'). The trash pile's own EXAMINE (shared action 19, <a href="../asm/57568.html">E0E0</a>) is a sub-script: run EXAMINE CLOSELY, then <a href="../asm/57579.html">E0EB</a>, which sets the 'revealed' bit (+5 bit 7, <a href="../asm/40022.html">9C56</a>) of the torn coded note. In Basils Yard it answers 'You closely examine the trash pile.', takes 4 minutes, the note's +5 goes from $00 to $80, LOOK shows the note in the pile and TAKE NOTE works; plain EXAMINE takes 1 minute and reveals nothing.
+</div>
+</div>
+<div><span id="follow_climbs_in"></span></div>
+<div class="box box-2">
+<div class="box-title">FOLLOW WATSON puts you in Watson's armchair</div>
+<div class="paragraph">
+FOLLOW WATSON at the start answers 'You climb into watsons armchair.', the player's container changes from 255 (none) to 24, and LOOK then says 'You are in watsons armchair with Watson.' FOLLOW's default record (<a href="../asm/58450.html">E452</a>) is a sub-script: it runs <a href="../asm/58504.html">E488</a> on the person followed, which leaves its choice in the plan's verb register (<a href="../asm/40918.html">9FD6</a>, written at <a href="../asm/58504.html#58513">$E492</a>), then ENTERs or CLIMBs INTO that, giving up when a countdown of 10 runs out.
+</div>
+</div>
+<div><span id="go_furiously"></span></div>
+<div class="box box-1">
+<div class="box-title">GO FURIOUSLY TO</div>
+<div class="paragraph">
+The verb table has two GO TOs: verb <a href="../asm/39577.html">29</a>, GO TO, and verb <a href="../asm/39627.html">30</a>, GO FURIOUSLY TO (MADLY and QUICKLY are synonyms of FURIOUSLY). People who drive have both in their own action lists: the local police man sends GO TO to shared action 1 and GO FURIOUSLY TO to shared action 2, 20 minutes quicker; a cabbie sends them to shared actions 14 and 15, the furious ride 2 minutes quicker at three times the fare (6d a step instead of 2d). Lestrade himself says 'Furiously go to the old mill road'. It is what wins the game: see <a href="../asm/59367.html">E7E7</a>.
+</div>
+</div>
+<div><span id="verb_system_decoded"></span></div>
+<div class="box box-2">
+<div class="box-title">The whole verb system, decoded from the game's own tables</div>
+<div class="paragraph">
+Each verb has an optional default action record (table at <a href="../asm/40760.html">9F38</a>), and any object can override a verb through its own action list, pointing into a library of 24 shared actions (<a href="../asm/43633.html">AA71</a>). Action records are a small data format: a flags byte, an optional pre-check routine, optional extra bytes, then executable code.
+</div>
+</div>
+<div><span id="dictionary_front_coded"></span></div>
+<div class="box box-1">
+<div class="box-title">The dictionary stores each word as an edit of the previous one</div>
+<div class="paragraph">
+Each of the 592 words keeps some letters from the word before it and adds a few new 5-bit letters, with common endings (S, ES, ING, ED, LY...) taken from a 15-entry suffix table. 29 words are synonyms of others, including D/E/N/S/W and NE/NW/SE/SW for the directions, I for INVENTORY, L for LOOK, READ for EXAMINE and PICK for CARRY - and one profane synonym for KILL.
+</div>
+</div>
+<div><span id="synonyms"></span></div>
+<div class="box box-2">
+<div class="box-title">Synonyms in the dictionary</div>
+<div class="paragraph">
+Twenty-nine dictionary records stand for another word: their count byte has bit 7 set and two more bytes give the record to use instead, which the tokenizer follows (<a href="../asm/55933.html#55981">DAAD</a>). They are: BREAK = KILL, CALL = HAIL, CAREFULLY = CLOSELY, EVERYTHING = ALL, EXCEPT = BUT, MADLY and QUICKLY = FURIOUSLY, ME = YOU, MINE and MY = YOUR, PICK = CARRY, READ = EXAMINE, SAY = TALK, ST = STREET, the one- and two-letter compass points N, S, E, W, NE, NW, SE, SW, U, D, I = INVENTORY, L and LO = LOOK - and one rude word, which also means KILL.
+</div>
+</div>
+<div><span id="abbreviations"></span></div>
+<div class="box box-1">
+<div class="box-title">Short words</div>
+<div class="paragraph">
+Commands can be abbreviated: the tokenizer (<a href="../asm/55749.html">D9C5</a>, <a href="../asm/55933.html">DA7D</a>) matches what you type against the start of each dictionary word. EX LAMP, EXA LAMP and EXAMINE LAM all examine the oil lamp and INVE lists what you carry; EXAMINE LA, though, finds the label first, and a word with letters added - EXAMINATION - is not understood.
+</div>
+</div>
+<div><span id="object_flag_words"></span></div>
+<div class="box box-2">
+<div class="box-title">The game's own error words name the object flags</div>
+<div class="paragraph">
+When an action needs an object's flag to be set or clear and it is not, <a href="../asm/52091.html">CB7B</a> prints 'THE <object> IS' and a word from one of two tables, one per flag bit: UNLOCKED/LOCKED (bit 0), EMPTY/FULL (bit 2), OFF/ON (bit 4), CLOSED/OPEN (bit 5) and DEAD (bit 6, the bit that makes a thing a person). So the tables are a key to the +5 flags. 'YOUR DOOR IS OPEN' and 'YOUR DOOR IS CLOSED'.
+</div>
+</div>
+<div><span id="quit_means_load"></span></div>
+<div class="box box-1">
+<div class="box-title">QUIT does not quit</div>
+<div class="paragraph">
+QUIT and LOAD share one handler in the parser's table of special words (<a href="../asm/44907.html">AF6B</a>): both end the game the way a game-over message does and ask for a saved-game tape ('PLAY SAVED GAME TAPE TO BE LOADED'). The same table holds SAVE, PAUSE, PRINT and NOPRINT (a copy to the ZX printer), ALL and ALL BUT, the quote mark that starts speech, and the pronouns.
+</div>
+</div>
+<div><span id="pounds_shillings_pence"></span></div>
+<div class="box box-2">
+<div class="box-title">The parser understands pounds, shillings and pence</div>
+<div class="paragraph">
+Typed sums of money are pre-decimal: £1, 3S, 6D, 2/6 or 1/- all work, and are converted to pence ((pounds x 20 + shillings) x 12 + pence, <a href="../asm/56167.html">DB67</a>). PAY 2/6 TO WATSON reads as 30 pence and the game answers 'You pay 2/6 to Watson.'; PAY 3S comes back as '3/-'. Times are read by the same code ('9:30AM').
+</div>
+</div>
+<div><span id="cursor_keys"></span></div>
+<div class="box box-1">
+<div class="box-title">One-key moves</div>
+<div class="paragraph">
+On an empty command line the cursor keys are compass moves: the line editor (<a href="../asm/55672.html">D978</a>) turns the codes for left, right, down and up into W, E, S and N and presses ENTER for you, and GET-KEY (<a href="../asm/50207.html">C41F</a>) makes DELETE count as left. 'N. You go north. You are in a small closet...'
+</div>
+</div>
+<div><span id="repeat_key"></span></div>
+<div class="box box-2">
+<div class="box-title">'@' repeats the last command</div>
+<div class="paragraph">
+Typing '@' (SYMBOL SHIFT and 2) on an empty command line does the last command again: the line editor (<a href="../asm/55710.html">D99E</a>) sets a flag that makes the word-list builder reuse the previous command's tokens instead of reading the line. After NORTH into the closet, '@' gave 'YOU CANNOT GO NORTH.' With the one-key cursor moves (<a href="../asm/55672.html">D978</a>), the game has two keyboard shortcuts that are easy to miss.
+</div>
+</div>
+<div><span id="messages_rendered"></span></div>
+<div class="box box-1">
+<div class="box-title">Every fixed message, rendered by the game itself</div>
+<div class="paragraph">
+The message printer at <a href="../asm/42399.html">A59F</a> is a bytecode interpreter: dictionary word references, packed 5-bit letters, literal punctuation and 29 control codes. They include the parser's complaints, Watson's and Lestrade's lines ("SO MRS BROWN KILLED HERSELF, EXCELLENT HOLMES, ANOTHER BRILLIANT CONCLUSION."), and story events ("AS YOU RUN YOUR HANDS OVER THE BOOKS YOU TOUCH A HIDDEN SPRING..."). One of the game's own spelling slips survives in the data: a messenger "DISSAPEARS DOWN THE STREET".
+</div>
+</div>
+<div><span id="unused_hang_opcode"></span></div>
+<div class="box box-2">
+<div class="box-title">Plan opcode 12 would hang the game</div>
+<div class="paragraph">
+The interpreter's test for opcode 12 is CP $0C / JR Z,<a href="../asm/52344.html#52488">CD08</a> - and <a href="../asm/52344.html#52488">CD08</a> is that JR Z itself, so with Z set it jumps to itself for ever. No script found uses opcode 12 (<a href="../asm/52990.html#52995">CF03</a> still gives it a length of five bytes).
+</div>
+</div>
+<div><span id="saved_game_on_the_tape"></span></div>
+<div class="box box-1">
+<div class="box-title">A saved game on the original tape</div>
+<div class="paragraph">
+Besides the loading screen and the game, the tape carries a third block, a CODE file called 'SHD V2.0' for <a href="../asm/33803.html">840B</a>-<a href="../asm/40918.html#40986">$A01F</a>. That is exactly the header the game's own SAVE writes (<a href="../asm/49406.html">C0FE</a>) and exactly the range a saved game holds (<a href="../asm/45294.html">B0EE</a>: the rooms, things, case table, actors and variables).
+</div>
+</div>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

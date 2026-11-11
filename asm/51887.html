@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at CAAF - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="51886.html">CAAE</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#51887">Map</a></td>
+<td class="next">
+Next: <a href="52008.html">CB28</a>
+</td>
+</tr>
+</table>
+<div class="description">CAAF: Announce a character coming into the player's room</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+For any actor but you (0), 1 and 100 (<a href="56407.html#56428">DC6C</a>): if it was not in the player's room before the action (<a href="50321.html">C491</a>) and is now, prints <a href="26861.html">68ED</a>, '&lt;actor&gt; ENTERS.' (<a href="52162.html">CBC2</a>).
+</div>
+</div>
+<table class="input">
+<tr class="asm-input-header">
+<th colspan="2">Input</th>
+</tr>
+<tr>
+<td class="register">$A036</td>
+<td class="register-desc">The actor</td>
+</tr>
+</table>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">An</td>
+<td class="register-desc">entrance announced, or the direct object's arrival noted</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="51887"></span>CAAF</td>
+<td class="instruction">CALL <a href="56407.html#56428">$DC6C</a></td>
+<td class="comment-1" rowspan="1">Actor 0, 1 or 100 (<a href="56407.html#56428">DC6C</a>)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51890"></span>CAB2</td>
+<td class="instruction">RET Z</td>
+<td class="comment-1" rowspan="1">Yes: nothing to announce</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51891"></span>CAB3</td>
+<td class="instruction">LD A,($C491)</td>
+<td class="comment-1" rowspan="1">Read "Rooms saved before an action" (<a href="50321.html">C491</a>) into A - The actor's room before the action (<a href="50321.html">C491</a>)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51894"></span>CAB6</td>
+<td class="instruction">LD HL,$A009</td>
+<td class="comment-1" rowspan="1">Point HL at the room the player is in, which decides what is shown (<a href="40918.html#40962">$A009</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51897"></span>CAB9</td>
+<td class="instruction">CP (HL)</td>
+<td class="comment-1" rowspan="1">...equal to the player's room (<a href="40918.html#40962">$A009</a>)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51898"></span>CABA</td>
+<td class="instruction">RET Z</td>
+<td class="comment-1" rowspan="1">Yes: was already here, no entrance</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51899"></span>CABB</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A036</a> in "Game variables" into A - Where is the actor now (<a href="54421.html">D495</a>)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51902"></span>CABE</td>
+<td class="instruction">CALL <a href="54421.html">$D495</a></td>
+<td class="comment-1" rowspan="1">Call the routine "GET-ACTOR-ROOM: what room is actor A currently in?" (<a href="54421.html">D495</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51905"></span>CAC1</td>
+<td class="instruction">LD HL,$A009</td>
+<td class="comment-1" rowspan="1">Point HL at the room the player is in, which decides what is shown (<a href="40918.html#40962">$A009</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51908"></span>CAC4</td>
+<td class="instruction">CP (HL)</td>
+<td class="comment-1" rowspan="1">...the player's room?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51909"></span>CAC5</td>
+<td class="instruction">JR NZ,$CAD0</td>
+<td class="comment-1" rowspan="1">No: skip the announcement</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51911"></span>CAC7</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">Print '&lt;actor&gt; ENTERS.' (<a href="26861.html">68ED</a>) via <a href="52162.html">CBC2</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="51914"></span>CACA</td>
+<td class="instruction">LD DE,$68ED</td>
+<td class="comment-1" rowspan="1">Point DE at the message "THE ENTERS." (<a href="26861.html">68ED</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51917"></span>CACD</td>
+<td class="instruction">CALL <a href="52162.html">$CBC2</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Print message DE about thing A, if it is in the..." (<a href="52162.html">CBC2</a>)</td>
+</tr>
+<tr>
+<td class="address-2"><span id="51920"></span>CAD0</td>
+<td class="instruction">LD A,($A00F)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#40970">$A00F</a> in "Game variables" into A - Direct object has to be here (requirement code 7 or more)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51923"></span>CAD3</td>
+<td class="instruction">CP $07</td>
+<td class="comment-1" rowspan="1">Compare A with $07</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51925"></span>CAD5</td>
+<td class="instruction">RET C</td>
+<td class="comment-1" rowspan="1">No: finished</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51926"></span>CAD6</td>
+<td class="instruction">LD A,($A034)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A034</a> in "Game variables" into A - Where is the direct object now (<a href="54421.html">D495</a>)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51929"></span>CAD9</td>
+<td class="instruction">CALL <a href="54421.html">$D495</a></td>
+<td class="comment-1" rowspan="1">Call the routine "GET-ACTOR-ROOM: what room is actor A currently in?" (<a href="54421.html">D495</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51932"></span>CADC</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1">Compare A with $FF - $FF: it has no room of its own (<a href="51887.html#51936">CAE0</a> onwards tries a different test)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51934"></span>CADE</td>
+<td class="instruction">JR NZ,$CB12</td>
+<td class="comment-1" rowspan="1">If A differs from $FF, jump on to <a href="51887.html#51986">CB12</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="51936"></span>CAE0</td>
+<td class="instruction">LD B,(IX+$00)</td>
+<td class="comment-1" rowspan="1">Read the first byte of the record at IX into B - Scan the bytes at IX+$0F onwards, up to the record's size, for the player's room</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51939"></span>CAE3</td>
+<td class="instruction">LD A,($A009)</td>
+<td class="comment-1" rowspan="1">Read the room the player is in, which decides what is shown (<a href="40918.html#40962">$A009</a>) into A</td>
+</tr>
+<tr>
+<td class="address-2"><span id="51942"></span>CAE6</td>
+<td class="instruction">CP (IX+$0F)</td>
+<td class="comment-1" rowspan="1">Compare A with byte +15 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51945"></span>CAE9</td>
+<td class="instruction">JR Z,$CAF0</td>
+<td class="comment-1" rowspan="1">If A equals byte +15 of the record at IX, skip ahead to <a href="51887.html#51952">CAF0</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="51947"></span>CAEB</td>
+<td class="instruction">INC IX</td>
+<td class="comment-1" rowspan="1">Step IX on to the next byte</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51949"></span>CAED</td>
+<td class="instruction">DJNZ $CAE6</td>
+<td class="comment-1" rowspan="1">Count B down and, while it is not zero, go back to <a href="51887.html#51942">CAE6</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="51951"></span>CAEF</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Not found: return</td>
+</tr>
+<tr>
+<td class="address-2"><span id="51952"></span>CAF0</td>
+<td class="instruction">LD A,($A036)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A036</a> in "Game variables" into A - Found: save the actor in B and blank <a href="40918.html#41010">$A036</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="51955"></span>CAF3</td>
+<td class="instruction">LD B,A</td>
+<td class="comment-1" rowspan="1">Copy A into B</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51956"></span>CAF4</td>
+<td class="instruction">LD A,$FF</td>
+<td class="comment-1" rowspan="1">Load A with $FF</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51958"></span>CAF6</td>
+<td class="instruction">LD ($A036),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41010">$A036</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51961"></span>CAF9</td>
+<td class="instruction">LD A,$01</td>
+<td class="comment-1" rowspan="1">Load A with $01 - Switch output on (<a href="../rom_symbols.html#a5C3C">$5C3C</a> = 1)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51963"></span>CAFB</td>
+<td class="instruction">LD ($5C3C),A</td>
+<td class="comment-1" rowspan="1">Store A in the output-switch byte (TV_FLAG) (<a href="../rom_symbols.html#a5C3C">$5C3C</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51966"></span>CAFE</td>
+<td class="instruction">LD A,($A009)</td>
+<td class="comment-1" rowspan="1">Read the room the player is in, which decides what is shown (<a href="40918.html#40962">$A009</a>) into A - Look for an exit of the player's room (<a href="54380.html#54385">D471</a>)...</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51969"></span>CB01</td>
+<td class="instruction">CALL <a href="54380.html#54385">$D471</a></td>
+<td class="comment-1" rowspan="1">Call <a href="54380.html#54385">D471</a> (inside "Find the exit from the actor's room through...")</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51972"></span>CB04</td>
+<td class="instruction">CP $FF</td>
+<td class="comment-1" rowspan="1">Compare A with $FF - ...and if there is one, narrate it (<a href="51830.html">CA76</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51974"></span>CB06</td>
+<td class="instruction">CALL NZ,<a href="51830.html">$CA76</a></td>
+<td class="comment-1" rowspan="1">If A differs from $FF, call the routine "Narrate the action, unless the verb is script-only" (<a href="51830.html">CA76</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51977"></span>CB09</td>
+<td class="instruction">SUB A</td>
+<td class="comment-1" rowspan="1">Clear A to zero - Switch output off again</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51978"></span>CB0A</td>
+<td class="instruction">LD ($5C3C),A</td>
+<td class="comment-1" rowspan="1">Store A in the output-switch byte (TV_FLAG) (<a href="../rom_symbols.html#a5C3C">$5C3C</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51981"></span>CB0D</td>
+<td class="instruction">LD A,B</td>
+<td class="comment-1" rowspan="1">Copy B into A - Restore the actor</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51982"></span>CB0E</td>
+<td class="instruction">LD ($A036),A</td>
+<td class="comment-1" rowspan="1">Store A in <a href="40918.html#41010">$A036</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51985"></span>CB11</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+<tr>
+<td class="address-2"><span id="51986"></span>CB12</td>
+<td class="instruction">LD A,($C492)</td>
+<td class="comment-1" rowspan="1">Read <a href="50321.html#50322">C492</a> in "Rooms saved before an action" into A - Direct object has a room: was it in the player's room before the action (<a href="50321.html#50322">C492</a>)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51989"></span>CB15</td>
+<td class="instruction">LD HL,$A009</td>
+<td class="comment-1" rowspan="1">Point HL at the room the player is in, which decides what is shown (<a href="40918.html#40962">$A009</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51992"></span>CB18</td>
+<td class="instruction">CP (HL)</td>
+<td class="comment-1" rowspan="1">Compare A with the byte at the room the player is in, which decides what is shown (<a href="40918.html#40962">$A009</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51993"></span>CB19</td>
+<td class="instruction">RET Z</td>
+<td class="comment-1" rowspan="1">Yes: no entrance</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51994"></span>CB1A</td>
+<td class="instruction">LD A,($A034)</td>
+<td class="comment-1" rowspan="1">Read <a href="40918.html#41010">$A034</a> in "Game variables" into A - Is the object the actor itself (<a href="40918.html#41010">$A036</a>)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="51997"></span>CB1D</td>
+<td class="instruction">LD HL,$A036</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="40918.html#41010">$A036</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52000"></span>CB20</td>
+<td class="instruction">CP (HL)</td>
+<td class="comment-1" rowspan="1">Compare A with the byte at <a href="40918.html#41010">$A036</a> in "Game variables"</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52001"></span>CB21</td>
+<td class="instruction">RET Z</td>
+<td class="comment-1" rowspan="1">Yes: already announced above</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52002"></span>CB22</td>
+<td class="instruction">LD DE,$68ED</td>
+<td class="comment-1" rowspan="1">Point DE at the message "THE ENTERS." (<a href="26861.html">68ED</a>) - Else print '&lt;thing&gt; ENTERS.' (<a href="26861.html">68ED</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="52005"></span>CB25</td>
+<td class="instruction">JP <a href="52162.html">$CBC2</a></td>
+<td class="comment-1" rowspan="1">Jump on to the routine "Print message DE about thing A, if it is in the..." (<a href="52162.html">CBC2</a>)</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="51886.html">CAAE</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#51887">Map</a></td>
+<td class="next">
+Next: <a href="52008.html">CB28</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

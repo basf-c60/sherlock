@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at 9D95 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="40336.html">9D90</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#40341">Map</a></td>
+<td class="next">
+Next: <a href="40390.html">9DC6</a>
+</td>
+</tr>
+</table>
+<div class="description">9D95: Lestrade's after-turn routine, after the introduction</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Greets the player in his own way (<a href="40390.html">9DC6</a>: 'WELL, HOLMES FANCY SEEING YOU HERE.' the first time), asks whether the player can prove the case yet (<a href="40408.html">9DD8</a>: 'WELL CAN YOU PROVE THAT ...
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">F</td>
+<td class="register-desc">None used</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="40341"></span>9D95</td>
+<td class="instruction">LD HL,$9D91</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="40336.html#40337">9D91</a> in "Lestrade's flags" - Greeting for Holmes (HL = <a href="40336.html#40337">9D91</a>, C = 0) via <a href="40390.html">9DC6</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40344"></span>9D98</td>
+<td class="instruction">LD C,$00</td>
+<td class="comment-1" rowspan="1">Load C with $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40346"></span>9D9A</td>
+<td class="instruction">CALL <a href="40390.html">$9DC6</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Lestrade greets you: 'WELL, HOLMES FANCY SEEING YOU..." (<a href="40390.html">9DC6</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40349"></span>9D9D</td>
+<td class="instruction">LD HL,$9D94</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="40336.html#40337">$9D94</a> in "Lestrade's flags" - 'Well can you prove that ... yet, Holmes ?' via <a href="40408.html">9DD8</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40352"></span>9DA0</td>
+<td class="instruction">LD C,$00</td>
+<td class="comment-1" rowspan="1">Load C with $00</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40354"></span>9DA2</td>
+<td class="instruction">CALL <a href="40408.html">$9DD8</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Lestrade asks whether you can prove a waiting..." (<a href="40408.html">9DD8</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40357"></span>9DA5</td>
+<td class="instruction">LD HL,$9D93</td>
+<td class="comment-1" rowspan="1">Point HL at <a href="40336.html#40337">$9D93</a> in "Lestrade's flags" - A word for Watson (C = 3) via <a href="40169.html">9CE9</a></td>
+</tr>
+<tr>
+<td class="address-1"><span id="40360"></span>9DA8</td>
+<td class="instruction">LD C,$03</td>
+<td class="comment-1" rowspan="1">Load C with $03</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40362"></span>9DAA</td>
+<td class="instruction">CALL <a href="40169.html">$9CE9</a></td>
+<td class="comment-1" rowspan="1">Call the routine "Say good morning to C, if just met" (<a href="40169.html">9CE9</a>)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40365"></span>9DAD</td>
+<td class="instruction">LD IX,$99E3</td>
+<td class="comment-1" rowspan="1">Point IX at <a href="39269.html#39395">99E3</a> in "The case: statements about the crime, and..." - Clear bit 0 of +3 in the three case records at <a href="39269.html#39395">99E3</a>, <a href="39269.html#39409">99F1</a>, <a href="39269.html#39337">99A9</a> (those statements are not yet told)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40369"></span>9DB1</td>
+<td class="instruction">RES 0,(IX+$03)</td>
+<td class="comment-1" rowspan="1">Clear bit 0 of byte +3 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40373"></span>9DB5</td>
+<td class="instruction">LD IX,$99F1</td>
+<td class="comment-1" rowspan="1">Point IX at <a href="39269.html#39409">99F1</a> in "The case: statements about the crime, and..."</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40377"></span>9DB9</td>
+<td class="instruction">RES 0,(IX+$03)</td>
+<td class="comment-1" rowspan="1">Clear bit 0 of byte +3 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40381"></span>9DBD</td>
+<td class="instruction">LD IX,$99A9</td>
+<td class="comment-1" rowspan="1">Point IX at <a href="39269.html#39337">99A9</a> in "The case: statements about the crime, and..."</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40385"></span>9DC1</td>
+<td class="instruction">RES 0,(IX+$03)</td>
+<td class="comment-1" rowspan="1">Clear bit 0 of byte +3 of the record at IX</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40389"></span>9DC5</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="40336.html">9D90</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#40341">Map</a></td>
+<td class="next">
+Next: <a href="40390.html">9DC6</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

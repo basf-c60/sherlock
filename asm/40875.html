@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Data at 9FAB - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-w">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Data</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="40760.html">9F38</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#40875">Map</a></td>
+<td class="next">
+Next: <a href="40901.html">9FC5</a>
+</td>
+</tr>
+</table>
+<div class="description">9FAB: Verbs 128-140: the verbs only plan scripts use</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+A DO instruction in a plan script with a verb number of 128 or more comes here instead of to the parser's verb table: <a href="50385.html">C4D1</a> sends verbs with bit 7 set to <a href="50563.html">C583</a>, which takes the record for verb 128+n from entry n. The player can never type these. Records with flags bit 7 set are sub-scripts.
+</div>
+<div class="paragraph">
+Found the hard way: once the verb default table at <a href="40760.html">9F38</a> was marked as data, the automatic split's code block starting at <a href="40875.html#40899">9FC3</a> - in the middle of this table - collided with the action record at <a href="40901.html">9FC5</a>, and the round trip failed until this table was marked as data too.
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40875"></span>9FAB</td>
+<td class="instruction">DEFW <a href="58519.html">$E497</a></td>
+<td class="comment-1" rowspan="1">Verb <a href="58519.html">128</a>: <a href="58519.html">E497</a> - PUT: move the direct object into room (indirect object); room 0 is off stage</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40877"></span>9FAD</td>
+<td class="instruction">DEFW <a href="58840.html">$E5D8</a></td>
+<td class="comment-1" rowspan="1">Verb <a href="58840.html">129</a>: <a href="58840.html">E5D8</a> - IS WITH: are the direct and indirect objects in the same room?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40879"></span>9FAF</td>
+<td class="instruction">DEFW <a href="58877.html">$E5FD</a></td>
+<td class="comment-1" rowspan="1">Verb <a href="58877.html">130</a>: <a href="58877.html">E5FD</a> - IS HERE: is the direct object with the actor (<a href="51299.html">C863</a>)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40881"></span>9FB1</td>
+<td class="instruction">DEFW <a href="58797.html">$E5AD</a></td>
+<td class="comment-1" rowspan="1">Verb <a href="58797.html">131</a>: <a href="58797.html">E5AD</a> - IS IN: is the direct object in room (indirect object)?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40883"></span>9FB3</td>
+<td class="instruction">DEFW <a href="61968.html">$F210</a></td>
+<td class="comment-1" rowspan="1">Verb <a href="61968.html">132</a>: <a href="61968.html">F210</a> - LOCK: set bit 0 (locked) of the direct object's +5 flags</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40885"></span>9FB5</td>
+<td class="instruction">DEFW <a href="61955.html">$F203</a></td>
+<td class="comment-1" rowspan="1">Verb <a href="61955.html">133</a>: <a href="61955.html">F203</a> - UNLOCK: clear bit 0 (locked) of the direct object's +5 flags</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40887"></span>9FB7</td>
+<td class="instruction">DEFW <a href="60299.html">$EB8B</a></td>
+<td class="comment-1" rowspan="1">Verb <a href="60299.html">134</a>: <a href="60299.html">EB8B</a> - sub-script: FOLLOW the direct object until in room (indirect object)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40889"></span>9FB9</td>
+<td class="instruction">DEFW <a href="60712.html">$ED28</a></td>
+<td class="comment-1" rowspan="1">Verb <a href="60712.html">135</a>: <a href="60712.html">ED28</a> - sub-script: OPEN, GO THROUGH and CLOSE a door</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40891"></span>9FBB</td>
+<td class="instruction">DEFW <a href="61910.html">$F1D6</a></td>
+<td class="comment-1" rowspan="1">Verb <a href="61910.html">136</a>: <a href="61910.html">F1D6</a> - IS HOUR: is the clock's hour (1-24) the direct object?</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40893"></span>9FBD</td>
+<td class="instruction">DEFW <a href="60315.html">$EB9B</a></td>
+<td class="comment-1" rowspan="1">Verb <a href="60315.html">137</a>: <a href="60315.html">EB9B</a> - sub-script: do verb (direct object), then EXAMINE the indirect object</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40895"></span>9FBF</td>
+<td class="instruction">DEFW <a href="60905.html">$EDE9</a></td>
+<td class="comment-1" rowspan="1">Verb <a href="60905.html">138</a>: <a href="60905.html">EDE9</a> - sub-script: go through a door (135), then CHANCE (indirect object)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40897"></span>9FC1</td>
+<td class="instruction">DEFW <a href="60893.html">$EDDD</a></td>
+<td class="comment-1" rowspan="1">Verb <a href="60893.html">139</a>: <a href="60893.html">EDDD</a> - sub-script: do verb (direct object), then CHANCE (indirect object)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="40899"></span>9FC3</td>
+<td class="instruction">DEFW <a href="62117.html">$F2A5</a></td>
+<td class="comment-1" rowspan="1">Verb <a href="62117.html">140</a>: <a href="62117.html">F2A5</a> - sub-script: <a href="58569.html">E4C9</a> on the direct object, then WAIT (indirect object) minutes</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="40760.html">9F38</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#40875">Map</a></td>
+<td class="next">
+Next: <a href="40901.html">9FC5</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>

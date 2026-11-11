@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Routine at C306 - Sherlock (1984): annotated disassembly</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" type="text/css" href="../skoolkit.css" />
+<link rel="stylesheet" type="text/css" href="../sherlock.css" />
+</head>
+<body class="Asm-c">
+<header class="site"><div class="bar"><a class="brand" href="../index.html">Sherlock: annotated disassembly</a><nav aria-label="Site"></nav></div></header>
+<main>
+<h1 class="page-title">Routines</h1>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="49850.html">C2BA</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#49926">Map</a></td>
+<td class="next">
+Next: <a href="49942.html">C316</a>
+</td>
+</tr>
+</table>
+<div class="description">C306: Page-wait: flash the cursor, wait for a key, clear</div>
+<table class="disassembly">
+<tr>
+<td class="routine-comment" colspan="5">
+<div class="details">
+<div class="paragraph">
+Called by the character printer (<a href="49850.html#49873">C2D1</a>) when a newline comes after fifteen lines of text (<a href="40918.html#40978">$A019</a> = 15) since the player last typed a command or pressed a key. Sets FLASH on the attribute at $5A5F - the right-hand end of the chain strip on row 18 - waits for a key via the GET-KEY wrapper at <a href="50197.html">C415</a>, turns FLASH off again and makes the text lines full width (<a href="49474.html">C142</a>). Nothing is cleared: the text simply carries on scrolling.
+</div>
+<div class="paragraph">
+Typing LOOK. LOOK in the sitting room stops here with <a href="40918.html#40978">$A019</a> = 15 part way through the second description, waiting for a key.
+</div>
+</div>
+<table class="output">
+<tr class="asm-output-header">
+<th colspan="2">Output</th>
+</tr>
+<tr>
+<td class="register">A</td>
+<td class="register-desc">key waited for, the window cleared; HL kept</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td class="address-2"><span id="49926"></span>C306</td>
+<td class="instruction">PUSH HL</td>
+<td class="comment-1" rowspan="1">Save HL (the print position)</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49927"></span>C307</td>
+<td class="instruction">LD HL,$5A5F</td>
+<td class="comment-1" rowspan="1">HL -&gt; the attribute byte for the prompt line</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49930"></span>C30A</td>
+<td class="instruction">SET 7,(HL)</td>
+<td class="comment-1" rowspan="1">Turn on FLASH there, as a "press a key" cue</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49932"></span>C30C</td>
+<td class="instruction">CALL <a href="50197.html">$C415</a></td>
+<td class="comment-1" rowspan="1">Block here until the player presses something</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49935"></span>C30F</td>
+<td class="instruction">RES 7,(HL)</td>
+<td class="comment-1" rowspan="1">Turn FLASH back off</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49937"></span>C311</td>
+<td class="instruction">CALL <a href="49474.html">$C142</a></td>
+<td class="comment-1" rowspan="1">Clear the screen and reset the text window</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49940"></span>C314</td>
+<td class="instruction">POP HL</td>
+<td class="comment-1" rowspan="1">Restore HL</td>
+</tr>
+<tr>
+<td class="address-1"><span id="49941"></span>C315</td>
+<td class="instruction">RET</td>
+<td class="comment-1" rowspan="1">Return to the caller</td>
+</tr>
+</table>
+<table class="asm-navigation">
+<tr>
+<td class="prev">
+Prev: <a href="49850.html">C2BA</a>
+</td>
+<td class="up">Up: <a href="../maps/all.html#49926">Map</a></td>
+<td class="next">
+Next: <a href="49942.html">C316</a>
+</td>
+</tr>
+</table>
+</main>
+<footer>
+<div class="release"></div>
+<div class="copyright"></div>
+<div class="created">Created using <a href="https://skoolkit.ca">SkoolKit</a> 10.1.</div>
+</footer>
+<script>
+(function(){var b=document.querySelector('header.site a.brand');if(!b)return;
+var base=b.getAttribute('href').replace(/index\.html$/,'');
+var L=[['Start','index.html'],['Walkthrough','the-walkthrough.html'],['Endings','the-endings-played.html'],
+['Bugs','reference/bugs.html'],['Trivia','trivia-by-theme.html'],['Map','map.html'],['Routines','maps/routines.html'],['Messages','maps/messages.html']];
+var n=document.querySelector('header.site nav');var here=location.pathname.split('/').pop();
+L.forEach(function(x){var a=document.createElement('a');a.href=base+x[1];a.textContent=x[0];
+if(x[1].split('/').pop()===here)a.setAttribute('aria-current','page');n.appendChild(a);});})();
+</script>
+</body>
+</html>
